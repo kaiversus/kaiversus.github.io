@@ -422,9 +422,31 @@ nav a.btn-cta {
 .hero-text p span {
     display: inline-block;
 }
+/* --- FIX CỨNG: THU GỌN VÙNG TRÊN CÙNG (HEADER + HERO) --- */
 
-.container:has(header) {
+/* 1. Xử lý khung bao ngoài cùng (Container chứa menu) */
+body > .container {
+    padding-top: 10px !important;    /* Giảm sát lề trên cùng màn hình */
     padding-bottom: 0 !important;
-}.container:has(header) {
-    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* 2. Ép thanh Menu (Header) mỏng dính lại */
+header {
+    padding: 5px 0 !important;       /* Rất ít đệm trên dưới (5px) */
+    height: auto !important;         /* Chiều cao tự co lại theo chữ */
+    min-height: 0 !important;        /* Xóa bỏ chiều cao tối thiểu */
+    margin-bottom: 0 !important;     /* Không đẩy phần dưới ra xa */
+}
+
+/* 3. QUAN TRỌNG: Kéo phần nội dung (IDENTITY CONFIRMED) lên sát Menu */
+.hero-section {
+    padding-top: 20px !important;    /* Code cũ là 100px -> Giảm mạnh xuống 20px */
+    margin-top: 0 !important;
+}
+
+/* 4. (Tùy chọn) Nếu chữ Logo to quá làm vỡ khung thì giảm nhẹ */
+.logo {
+    line-height: 1 !important;       /* Giảm chiều cao dòng của Logo */
+    margin: 0 !important;
 }
