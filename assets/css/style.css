@@ -100,26 +100,18 @@ h1, h2, h3 {
     padding-right: 20px;
 }
 
-/* --- FIX MÀU GRADIENT SÁNG RÕ --- */
+/* --- FIX MÀU CHỮ TÊN (DINH THIEN BAO) --- */
 .hero-text h1 {
-    /* Tạo gradient từ Trắng tinh xuống Xanh Neon (Primary) */
+    /* Tạo màu chuyển từ Trắng sang Xanh Neon */
     background: linear-gradient(180deg, #FFFFFF 20%, #00FF41 100%) !important;
     
-    /* Cắt nền theo khuôn chữ */
+    /* Cắt nền theo hình dáng chữ */
     -webkit-background-clip: text !important;
     background-clip: text !important;
     
-    /* Làm trong suốt chữ để lộ nền gradient */
+    /* Làm trong suốt chữ để lộ nền gradient bên dưới */
     -webkit-text-fill-color: transparent !important;
     color: transparent !important; 
-    
-    /* Giữ nguyên định dạng vị trí cũ */
-    margin-top: 0 !important;
-    margin-bottom: 10px !important;
-    line-height: 1 !important;
-    
-    /* Thêm dòng này để render gradient tốt hơn trên một số trình duyệt */
-    display: inline-block;
 }
 
 @keyframes float {
