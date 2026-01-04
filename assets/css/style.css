@@ -642,7 +642,7 @@ html {
     color: #c9d1d9; 
     
     /* Dùng font Rajdhani (vẫn hơi hướng tech nhưng dễ đọc hơn) hoặc sans-serif */
-    font-family: 'Rajdhani', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Rajdhani, 'Segoe UI', Tahoma, Geneva, Verdana, 'sans-serif';
     
     /* Tăng cỡ chữ và độ giãn dòng cho thoáng mắt */
     font-size: 1.15rem;
@@ -653,7 +653,7 @@ html {
 .writeup-content h1, 
 .writeup-content h2, 
 .writeup-content h3 {
-    color: #58a6ff; /* Màu xanh Github (nhẹ hơn màu neon cũ) */
+    color: #29ff7b; /* Màu xanh Github (nhẹ hơn màu neon cũ) */
     border-bottom-color: #30363d; /* Màu viền tối hơn */
     text-shadow: none; /* Bỏ hiệu ứng phát sáng lòe loẹt trong bài viết */
 }
