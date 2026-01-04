@@ -180,35 +180,30 @@ header {
     z-index: 100;
 }
 
-/* --- LOGO STYLE --- */
 .logo {
-    /* Đổi sang font mới */
-    font-family: 'Chakra Petch', sans-serif !important; 
+    /* Font này bản thân nó đã là hiệu ứng Glitch */
+    font-family: 'Rubik Glitch', system-ui !important;
     
-    font-size: 2.5rem !important; /* Tăng kích thước lên một chút cho ngầu */
-    font-weight: 700;
-    
-    /* MẸO: Nghiêng chữ -10 độ để tạo cảm giác tốc độ và sắc cạnh hơn */
-    transform: skewX(-10deg); 
-    
-    padding: 10px 0; 
+    font-size: 3rem !important; /* Font này cần to mới đẹp */
     color: #fff;
-    text-transform: uppercase;
-    letter-spacing: 2px; /* Giãn chữ ra một chút */
+    padding: 10px 0;
+    letter-spacing: 4px; /* Giãn chữ ra cho thoáng */
     
-    /* Giữ nguyên hiệu ứng bóng neon cũ */
+    /* Bóng đổ kiểu tách màu (Chromatic Aberration) */
     text-shadow: 
-        0 0 5px rgba(0, 255, 65, 0.8),
-        0 0 10px rgb(57, 122, 73);
-    
-    cursor: pointer;
+        2px 2px 0px var(--accent),  /* Bóng đỏ lệch phải */
+        -2px -2px 0px var(--primary); /* Bóng xanh lệch trái */
+        
     transition: 0.3s;
-    display: inline-block; /* Bắt buộc có để dùng được transform */
+    cursor: pointer;
 }
 
 .logo:hover {
-    color: var(--primary); /* Hover vào thì chuyển hẳn sang xanh */
-    text-shadow: 0 0 20px var(--primary);
+    /* Khi di chuột vào thì đổi chiều bóng đổ */
+    text-shadow: 
+        -3px -3px 0px var(--accent),
+        3px 3px 0px var(--primary);
+    transform: scale(1.05);
 }
 
 /* --- NAVIGATION LINKS --- */

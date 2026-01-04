@@ -30,12 +30,12 @@ title: Home Base | Kaiversus
             <a href="#writeups" class="btn-cyber secondary">REPOSITORY</a>
         </div>
     </div>
-    <a href="#writeups" class="scroll-down-btn">
-        <span>>></span>
-    </a>
 </section>
 
 <section id="writeups" class="container" style="padding-top: 50px;">
+    <a href="#writeups" class="scroll-down-btn">
+        <span>>></span>
+    </a>
     
     <div style="display: flex; justify-content: space-between; align-items: end; margin-bottom: 40px; border-bottom: 1px solid #333; padding-bottom: 20px;">
         <h2><span style="color: var(--primary);">SYSTEM</span> LOGS</h2>
