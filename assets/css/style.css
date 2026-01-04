@@ -101,7 +101,7 @@ h1, h2, h3 {
     justify-content: space-between;
     
     /* SỬA Ở ĐÂY: Giảm từ 90vh xuống 65vh (khoảng 2/3 màn hình) */
-    min-height: 72vh; 
+    min-height: 74vh; 
     
     padding: 80px 0 50px 0; /* Tăng padding-top để nội dung không bị menu che */
     position: relative;
