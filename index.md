@@ -35,7 +35,7 @@ title: Home Base | Kaiversus
     </div>
 </section>
 
-<section id="writeups" class="container" style="padding-top: 50px;">
+<section id="writeups" class="container" style="padding-top: 10px;">
     <a href="#writeups" class="scroll-down-btn">
         <span>>></span>
     </a>
