@@ -89,7 +89,7 @@ h1, h2, h3 {
     /* SỬA Ở ĐÂY: Giảm từ 90vh xuống 65vh (khoảng 2/3 màn hình) */
     min-height: 70vh; 
     
-    padding: 100px 0 50px 0; /* Tăng padding-top để nội dung không bị menu che */
+    padding: 80px 0 50px 0; /* Tăng padding-top để nội dung không bị menu che */
     position: relative;
     overflow: hidden;
 }
@@ -168,6 +168,8 @@ h1, h2, h3 {
 
 header {
     display: flex;
+    margin-bottom: 0 !important;
+    padding-bottom: 10px !important;
     justify-content: space-between; /* Tách sang 2 bên trái phải */
     align-items: center;            /* Canh giữa theo chiều dọc */
     padding: 0 !important;                /* Khoảng cách trên dưới, bỏ padding 2 bên để thẳng hàng với nội dung */
