@@ -87,7 +87,7 @@ h1, h2, h3 {
     justify-content: space-between;
     
     /* SỬA Ở ĐÂY: Giảm từ 90vh xuống 65vh (khoảng 2/3 màn hình) */
-    min-height: 65vh; 
+    min-height: 68vh; 
     
     padding: 80px 0 50px 0; /* Tăng padding-top để nội dung không bị menu che */
     position: relative;
@@ -103,7 +103,7 @@ h1, h2, h3 {
 /* --- FIX MÀU CHỮ TÊN (DINH THIEN BAO) --- */
 .hero-text h1 {
     /* Tạo màu chuyển từ Trắng sang Xanh Neon */
-    background: linear-gradient(180deg, #FFFFFF 20%, #00FF41 100%) !important;
+    background: rgba(115, 253, 115, 0.818) !important;
     
     /* Cắt nền theo hình dáng chữ */
     -webkit-background-clip: text !important;
