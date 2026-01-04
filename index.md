@@ -11,7 +11,7 @@ title: Home Base | Kaiversus
         
         <h1>DINH THIEN BAO <br> 
             <span class="text-gold" style="-webkit-text-fill-color: var(--accent);">
-                (KAI.VERSUS_52HZ)
+                (KAIVERSUS_52HZ)
             </span>
         </h1>
         
