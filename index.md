@@ -29,7 +29,7 @@ title: Home Base | Kaiversus
         </p>
         
         <div class="cta-group" style="display: flex; gap: 30px;">
-            <a href="/about/" class="btn-cyber">ACCESS PROFILE</a>
+            <a href="/about/" class="btn-cyber">EXECUTE</a>
             <a href="#writeups" class="btn-cyber secondary">REPOSITORY</a>
         </div>
     </div>
