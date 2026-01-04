@@ -12,24 +12,8 @@
 /* Thêm font chữ dạng code cho ngầu */
 body {
     /* ... giữ nguyên các dòng background cũ ... */
-    background-image: url('../images/bg-cyber.jpg'); /* Đổi tên ảnh nền của bạn */
+    /* Đổi tên ảnh nền của bạn */
     font-family: 'Rajdhani', 'Courier New', monospace; /* Ưu tiên font monospace */
-}
-
-/* Hiệu ứng gõ phím cho tiêu đề (Optional) */
-h1 {
-    font-family: 'Orbitron', sans-serif;
-    border-right: 4px solid var(--primary); /* Con trỏ nhấp nháy */
-    animation: blinkCursor 1s step-end infinite;
-    /* ... giữ nguyên gradient cũ hoặc đổi sang màu xanh ... */
-    background: linear-gradient(to bottom, #fff, #00ff41);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-@keyframes blinkCursor {
-    from, to { border-color: transparent }
-    50% { border-color: var(--primary) }
 }
 
 /* Sửa lại nút bấm cho giống Terminal */
@@ -132,7 +116,7 @@ h1, h2, h3 {
 
 .space-card {
     background: var(--glass); /* Hiệu ứng kính */
-    backdrop-filter: blur(10px); /* Làm mờ nền sau kính */
+    backdrop-filter: blur(30px); /* Làm mờ nền sau kính */
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 20px;
     padding: 20px;
