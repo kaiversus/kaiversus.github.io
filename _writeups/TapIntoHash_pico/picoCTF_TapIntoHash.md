@@ -1,3 +1,10 @@
+---
+layout: default
+title: "Tap into Hash - picoCTF"
+date: 2026-01-04
+description: ""
+---
+
 # Tap into Hash - picoCTF
 
 ## Challenge Information
