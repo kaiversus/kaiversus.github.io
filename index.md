@@ -25,7 +25,7 @@ title: Home Base | Kaiversus
 
         <p style="color: #ccc; max-width: 600px; margin-bottom: 20px; font-size: 1.1rem;">
             Dissecting bits... Constructing bytes...<br>
-            REVERSE ENGINEERING | BINARY EXPLOITATION | MALWARE ANALYSIS
+            Reverse Engineering | Binary Explointation | Malware Analysis
         </p>
         
         <div class="cta-group" style="display: flex; gap: 30px;">
