@@ -100,6 +100,20 @@ h1, h2, h3 {
     padding-right: 20px;
 }
 
+/* --- FIX MÀU CHỮ TÊN (DINH THIEN BAO) --- */
+.hero-text h1 {
+    /* Tạo màu chuyển từ Trắng sang Xanh Neon */
+    background: linear-gradient(to bottom, #0f471c 40%, #00ff41 100%) !important;
+    
+    /* Cắt nền theo hình dáng chữ */
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+    
+    /* Làm trong suốt chữ để lộ nền gradient bên dưới */
+    -webkit-text-fill-color: transparent !important;
+    color: transparent !important; 
+}
+
 @keyframes float {
     0% { transform: translateY(0px); }
     50% { transform: translateY(-20px); }

@@ -11,7 +11,7 @@ title: Home Base | Kaiversus
         
         <h1>DINH THIEN BAO <br> 
             <span class="text-gold" style="-webkit-text-fill-color: var(--accent);">
-                (KAI.VERSUS)
+                (KAI.VERSUS_52HZ)
             </span>
         </h1>
         
@@ -21,13 +21,13 @@ title: Home Base | Kaiversus
         </p>
 
         <p style="color: #ccc; max-width: 600px; margin-bottom: 20px; font-size: 1.1rem;">
-            Chào mừng đến với căn cứ dữ liệu.<br>
+            Welcome to my profile.<br>
             Reverse Engineering | Pwnable | Malware Analysis
         </p>
         
         <div class="cta-group" style="display: flex; gap: 30px;">
             <a href="/about/" class="btn-cyber">ACCESS PROFILE</a>
-            <a href="#writeups" class="btn-cyber secondary">LATEST LOGS</a>
+            <a href="#writeups" class="btn-cyber secondary">REPOSITORY</a>
         </div>
     </div>
 </section>
