@@ -172,7 +172,7 @@ header {
     display: flex;
     justify-content: space-between; /* Tách sang 2 bên trái phải */
     align-items: center;            /* Canh giữa theo chiều dọc */
-    padding: 30px 0;                /* Khoảng cách trên dưới, bỏ padding 2 bên để thẳng hàng với nội dung */
+    padding: 10px 0;                /* Khoảng cách trên dưới, bỏ padding 2 bên để thẳng hàng với nội dung */
     background: transparent !important; /* Xóa nền khung */
     box-shadow: none !important;        /* Xóa bóng đổ khung */
     border: none !important;            /* Xóa viền khung */
@@ -186,6 +186,7 @@ header {
     font-family: 'Orbitron', sans-serif; /* Font robot góc cạnh */
     font-size: 2.2rem !important;        /* Chữ to nổi bật */
     font-weight: 900;
+    padding: 30px;
     color: #fff;                         /* Màu trắng chủ đạo */
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -217,7 +218,7 @@ nav a {
     color: #888; /* Màu xám nhạt mặc định cho đỡ chói */
     text-decoration: none;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     position: relative;
     transition: 0.3s;
 }
