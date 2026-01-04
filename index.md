@@ -24,8 +24,8 @@ title: Home Base | Kaiversus
         </p>
 
         <p style="color: #ccc; max-width: 600px; margin-bottom: 20px; font-size: 1.1rem;">
-            Welcome to my profile.<br>
-            Reverse Engineering | Pwnable | Malware Analysis
+            Dissecting bits... Constructing bytes...<br>
+            RevEng | Pwnable | Malware
         </p>
         
         <div class="cta-group" style="display: flex; gap: 30px;">
