@@ -172,7 +172,7 @@ header {
     display: flex;
     justify-content: space-between; /* Tách sang 2 bên trái phải */
     align-items: center;            /* Canh giữa theo chiều dọc */
-    padding: 10px 0;                /* Khoảng cách trên dưới, bỏ padding 2 bên để thẳng hàng với nội dung */
+    padding: 0 !important;                /* Khoảng cách trên dưới, bỏ padding 2 bên để thẳng hàng với nội dung */
     background: transparent !important; /* Xóa nền khung */
     box-shadow: none !important;        /* Xóa bóng đổ khung */
     border: none !important;            /* Xóa viền khung */
