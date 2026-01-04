@@ -194,7 +194,7 @@ header {
     /* Hiệu ứng phát sáng Neon xanh */
     text-shadow: 
         0 0 5px rgba(0, 255, 65, 0.8),
-        0 0 10px rgba(0, 255, 64, 0.482);
+        0 0 10px rgb(57, 122, 73);
     
     cursor: pointer;
     transition: 0.3s;
