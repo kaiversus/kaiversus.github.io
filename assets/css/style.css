@@ -470,27 +470,28 @@ html {
 
 /* --- ASCII ART LOGO --- */
 .ascii-logo {
-    font-family: 'Courier New', monospace; /* Bắt buộc dùng font monospace để thẳng hàng */
-    font-size: 6px;      /* Cực nhỏ để vừa khung hình */
-    line-height: 6px;    /* Ép dòng lại cho khít */
-    font-weight: 900;    /* Đậm lên cho rõ nét */
-    color: var(--accent); /* Màu hồng neon chủ đạo */
+    font-family: 'Courier New', monospace;
+    font-size: 6px;       /* Kích thước nhỏ gọn */
+    line-height: 6px;     /* Dòng khít nhau */
+    font-weight: 900;     /* Chữ đậm */
     
-    /* Hiệu ứng phát sáng */
-    text-shadow: 0 0 5px var(--primary);
+    /* 1. Đổi sang màu hồng Neon (Accent) */
+    color: var(--accent); /* Mã màu #ff0055 trong file style.css của bạn */
     
-    /* Xử lý layout */
+    /* 2. Hiệu ứng phát sáng (Glow) 2 lớp cho rực rỡ */
+    text-shadow: 
+        0 0 5px var(--accent),
+        0 0 15px var(--accent); 
+    
+    /* 3. Chống thụt đầu dòng tuyệt đối */
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    text-align: left !important;
+    display: inline-block; /* Giúp khối này không bị giãn full chiều ngang */
+    
     margin-bottom: 20px;
-    white-space: pre;    /* Giữ nguyên định dạng khoảng trắng */
-    overflow-x: hidden;  /* Ẩn thanh cuộn ngang nếu bị tràn */
-    margin-left: 0;   /* Đảm bảo không có lề trái */
-    padding-left: 0;  /* Đảm bảo không có đệm trái */
-    text-align: left; /* Căn trái tuyệt đối */
-    /* Gradient màu (Tùy chọn: Nếu muốn màu chạy từ Xanh sang Đỏ) */
-    /* background: linear-gradient(90deg, var(--primary), var(--accent));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; 
-    */
+    white-space: pre;     
+    overflow-x: hidden;
 }
 
 /* Ẩn ASCII art trên điện thoại vì màn hình nhỏ sẽ bị vỡ */
