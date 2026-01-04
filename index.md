@@ -25,12 +25,12 @@ title: Home Base | Kaiversus
 
         <p style="color: #ccc; max-width: 600px; margin-bottom: 20px; font-size: 1.1rem;">
             Dissecting bits... Constructing bytes...<br>
-            RevEng | Pwnable | Malware
+            REVERSE ENGINEERING | BINARY EXPLOITATION | MALWARE ANALYSIS
         </p>
         
         <div class="cta-group" style="display: flex; gap: 30px;">
             <a href="/about/" class="btn-cyber">EXECUTE</a>
-            <a href="#writeups" class="btn-cyber secondary">REPOSITORY</a>
+            <a href="#writeups" class="btn-cyber secondary">DATABASE</a>
         </div>
     </div>
 </section>
