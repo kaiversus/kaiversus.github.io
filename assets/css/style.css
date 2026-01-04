@@ -33,18 +33,48 @@ h1 {
 }
 
 /* Sửa lại nút bấm cho giống Terminal */
-.btn-space {
-    background: transparent;
+.btn-cyber {
+    position: relative;
+    padding: 15px 40px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
     color: var(--primary);
-    border: 2px solid var(--primary);
-    box-shadow: 0 0 10px var(--primary);
-    /* ... giữ nguyên padding/font ... */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    
+    /* Cắt góc kiểu Cyberpunk */
+    clip-path: polygon(
+        10px 0, 100% 0, 
+        100% calc(100% - 10px), calc(100% - 10px) 100%, 
+        0 100%, 0 10px
+    );
+    transition: 0.3s;
+    background: rgba(0, 255, 65, 0.1); /* Nền mờ nhẹ */
+    border-right: 2px solid var(--primary); /* Chỉ viền 1 bên cho ngầu */
+    border-left: 2px solid var(--primary);
 }
 
-.btn-space:hover {
+.btn-cyber:hover {
     background: var(--primary);
     color: #000;
-    box-shadow: 0 0 30px var(--primary);
+    box-shadow: 0 0 20px var(--primary);
+    letter-spacing: 2px; /* Chữ giãn ra khi hover */
+}
+
+.btn-cyber.secondary {
+    color: var(--accent);
+    background: rgba(255, 0, 85, 0.1);
+    border-color: var(--accent);
+}
+
+.btn-cyber.secondary:hover {
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 0 20px var(--accent);
 }
 
 /* --- CÁC KHỐI CHUNG --- */
@@ -139,41 +169,24 @@ h1, h2, h3 {
 }
 
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    
-    /* QUAN TRỌNG: Dòng này giúp menu nằm đè lên background */
-    position: absolute; 
-    top: 0;
-    left: 0;
-    width: 100%; /* Trải dài hết màn hình */
-    z-index: 100; /* Nằm trên tất cả mọi thứ */
-    background: transparent; /* Nền trong suốt hoàn toàn */
-    
-    /* Bỏ box-shadow cũ nếu có để nhìn sạch hơn */
-    box-shadow: none; 
-    border: none;
-    box-sizing: border-box; /* Để padding không làm vỡ khung */
+    /* Tăng kích thước và độ nổi khối */
+    padding: 25px 50px !important; /* To hơn */
+    background: rgba(5, 10, 20, 0.95) !important; /* Đậm màu hơn để nổi bật */
+    border-bottom: 2px solid var(--primary); /* Đường viền neon dưới chân */
+    box-shadow: 0 10px 30px rgba(0, 255, 65, 0.15); /* Glow nhẹ */
 }
 
 .logo {
-    font-weight: 700;
-    font-size: 1.2rem;
-    color: #fff;
-    letter-spacing: 1px;
+    font-size: 1.8rem !important; /* Chữ to hơn */
+    text-shadow: 0 0 10px var(--primary); /* Phát sáng */
     font-family: 'Orbitron', sans-serif;
 }
 
 nav a {
-    color: #ccc;
-    text-decoration: none;
-    margin-left: 25px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: 0.3s;
-    position: relative;
+    font-size: 1.1rem !important; /* Menu to hơn */
+    font-weight: 700 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 /* Hiệu ứng gạch chân khi hover giống trang mẫu */
@@ -277,4 +290,48 @@ nav a:hover {
 .cta-group {
     position: relative; /* Bắt buộc phải có dòng này z-index mới chạy */
     z-index: 10 !important; /* Số lớn hơn 0 sẽ nổi lên trên */
+}
+
+.log-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+    transition: 0.5s;
+}
+
+.log-card:hover::before {
+    left: 100%;
+}
+
+.log-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+    box-shadow: 0 5px 20px rgba(0, 255, 65, 0.2);
+}
+
+.log-header {
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    color: #555;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #333;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.log-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.4rem;
+    color: #fff;
+    margin: 0 0 10px 0;
+}
+
+.log-desc {
+    color: #aaa;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    margin-bottom: 20px;
 }
