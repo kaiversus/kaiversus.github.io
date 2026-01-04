@@ -71,18 +71,19 @@ h1, h2, h3 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: 90vh; /* Chiều cao gần bằng màn hình */
-    padding: 50px 0;
+    
+    /* SỬA Ở ĐÂY: Giảm từ 90vh xuống 65vh (khoảng 2/3 màn hình) */
+    min-height: 65vh; 
+    
+    padding: 100px 0 50px 0; /* Tăng padding-top để nội dung không bị menu che */
+    position: relative;
+    overflow: hidden;
 }
 
 .hero-text {
     flex: 1;
-    padding-right: 50px;
-}
-
-.hero-visual {
-    flex: 1;
-    position: relative;
+    padding-left: 5%; /* Thêm khoảng cách lề trái */
+    padding-right: 20px;
 }
 
 @keyframes float {
@@ -137,23 +138,24 @@ h1, h2, h3 {
     50% { opacity: 0; }
 }
 
-/* Tìm và thay thế đoạn header cũ trong style.css */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
+    padding: 20px 40px;
     
-    /* Hiệu ứng kính dính chặt lên đầu trang */
-    position: sticky;
-    top: 20px; /* Cách mép trên một chút cho 'nghệ' */
-    z-index: 1000;
-    background: rgba(5, 10, 20, 0.8); /* Màu nền bán trong suốt */
-    backdrop-filter: blur(15px); /* Làm mờ hậu cảnh */
-    border: 1px solid rgba(0, 255, 65, 0.2); /* Viền xanh mờ */
-    border-radius: 50px; /* Bo tròn như viên thuốc */
-    margin-bottom: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    /* QUAN TRỌNG: Dòng này giúp menu nằm đè lên background */
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%; /* Trải dài hết màn hình */
+    z-index: 100; /* Nằm trên tất cả mọi thứ */
+    background: transparent; /* Nền trong suốt hoàn toàn */
+    
+    /* Bỏ box-shadow cũ nếu có để nhìn sạch hơn */
+    box-shadow: none; 
+    border: none;
+    box-sizing: border-box; /* Để padding không làm vỡ khung */
 }
 
 .logo {

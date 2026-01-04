@@ -19,7 +19,7 @@ const colorNeon = '#ff0055';
 const characters = '01010101ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
 const charArray = characters.split('');
 
-const fontSize = 14; // Kích thước chữ
+const fontSize = 20; // Kích thước chữ
 const columns = canvas.width / fontSize; // Số cột
 
 // Mảng chứa vị trí Y (dọc) của các giọt mưa
@@ -58,7 +58,7 @@ function draw() {
 }
 
 // Chạy hàm draw liên tục (khoảng 30fps)
-setInterval(draw, 33);
+setInterval(draw, 75);
 
 // Xử lý khi người dùng thay đổi kích thước cửa sổ trình duyệt
 window.addEventListener('resize', () => {
