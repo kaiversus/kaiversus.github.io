@@ -633,3 +633,100 @@ html {
         padding: 30px 10px !important;
     }
 }
+
+/* --- PHẦN STYLE CHO BÀI VIẾT (MARKDOWN) --- */
+
+/* 1. Giới hạn ảnh không bị tràn màn hình */
+.writeup-content img {
+    max-width: 100%;
+    border: 1px solid var(--primary); /* Viền xanh cho ảnh */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+    margin: 20px 0;
+}
+
+/* 2. Tiêu đề bài viết (H1, H2, H3...) */
+.writeup-content h1, 
+.writeup-content h2, 
+.writeup-content h3 {
+    color: var(--primary); /* Màu xanh lá Matrix */
+    margin-top: 40px;
+    margin-bottom: 20px;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.2); /* Gạch chân đứt đoạn */
+    padding-bottom: 10px;
+}
+
+.writeup-content h1 { font-size: 2.5rem; text-transform: uppercase; }
+.writeup-content h2 { font-size: 1.8rem; }
+
+/* 3. Style cho cái Bảng (Table) xấu xí trong ảnh */
+.writeup-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 30px 0;
+    font-family: 'Courier New', monospace;
+    background: rgba(0, 20, 0, 0.5); /* Nền tối mờ */
+    border: 1px solid var(--primary);
+}
+
+.writeup-content th, 
+.writeup-content td {
+    border: 1px solid rgba(0, 255, 65, 0.3);
+    padding: 12px;
+    text-align: left;
+    color: #ddd;
+}
+
+.writeup-content th {
+    background: rgba(0, 255, 65, 0.1);
+    color: var(--primary);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* 4. Style cho Code Block (Phần quan trọng nhất của Writeup) */
+.writeup-content pre {
+    background: #0d1117; /* Màu nền giống Github tối */
+    border: 1px solid #333;
+    padding: 15px;
+    border-radius: 6px;
+    overflow-x: auto; /* Cho phép cuộn ngang nếu code dài */
+    margin: 20px 0;
+}
+
+.writeup-content code {
+    font-family: 'Courier New', monospace; /* Font code */
+    color: #e6edf3;
+    background: transparent;
+}
+
+/* Code inline (ví dụ `như này`) */
+.writeup-content p code, 
+.writeup-content li code {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--accent); /* Màu hồng đỏ nổi bật */
+}
+
+/* 5. Link trong bài viết */
+.writeup-content a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+}
+.writeup-content a:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+/* 6. Blockquote (Trích dẫn) */
+.writeup-content blockquote {
+    border-left: 4px solid var(--primary);
+    margin: 20px 0;
+    padding-left: 20px;
+    color: #888;
+    font-style: italic;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 15px;
+}
