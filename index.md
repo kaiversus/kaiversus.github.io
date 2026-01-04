@@ -74,8 +74,8 @@ title: Home Base | Kaiversus
             > Certifications & Notes<br>
             > Knowledge Base
         </p>
-        <div style="text-align: right;color: #ffaa00;">
-            <span class="cmd-btn">[ CD_INTO_DIR ]</span>
+        <div style="text-align: right;">
+            <span class="cmd-btn" style="color: #ffaa00;">[ CD_INTO_DIR ]</span>
         </div>
     </article>
 
@@ -90,8 +90,8 @@ title: Home Base | Kaiversus
             > Coding Tools<br>
             > Personal Malware Samples
         </p>
-        <div style="text-align: right; color: var(--accent);">
-            <span class="cmd-btn">[ CD_INTO_DIR ]</span>
+        <div style="text-align: right;">
+            <span class="cmd-btn" style="color: var(--accent>[ CD_INTO_DIR ]</span>
         </div>
     </article>
 
