@@ -7,7 +7,11 @@ title: Security Lab
     <div class="hero-text">
         <h3 class="text-gold" style="color: var(--primary);">System Status: <span style="color: var(--accent);">COMPROMISED</span></h3>
         
-        <h1>Security Blog <br> <span class="text-gold" style="-webkit-text-fill-color: var(--primary);">RESEARCHER</span></h1>
+        <h1>Security Blog <br> 
+            <span class="text-gold" style="-webkit-text-fill-color: var(--primary);">
+                <span id="typing-text"></span><span class="cursor">_</span>
+            </span>
+        </h1>
         
         <p style="font-size: 1.2rem; color: #ccc; margin-bottom: 40px; font-family: 'Courier New', monospace;">
             > Initiating connection...<br>
@@ -23,6 +27,18 @@ title: Security Lab
 
     <div class="hero-visual">
         <img src="/assets/images/hacker-icon.png" alt="Cyber Security" class="ufo-img">
+    </div>
+</section>
+
+<section class="container" style="margin-bottom: 80px; text-align: center;">
+    <p style="color: var(--text-sub); margin-bottom: 20px; letter-spacing: 2px;">// ARSENAL & TOOLS</p>
+    <div class="skills-grid" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Burp Suite</span>
+        <span class="skill-tag">Metasploit</span>
+        <span class="skill-tag">Wireshark</span>
+        <span class="skill-tag">Linux</span>
+        <span class="skill-tag">Reverse Eng</span>
     </div>
 </section>
 

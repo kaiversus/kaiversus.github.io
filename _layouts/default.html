@@ -10,6 +10,7 @@
     
     <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
 </head>
+
 <body>
 
     <div class="container">
@@ -27,6 +28,29 @@
     <footer style="text-align: center; padding: 50px; color: var(--text-sub);">
         <p>&copy; kaiversus_52Hz</p>
     </footer>
+<script>
+    const textElement = document.getElementById('typing-text');
+    const texts = ["PENTESTER", "SECURITY RESEARCHER", "CTF PLAYER", "BUG HUNTER"];
+    let count = 0;
+    let index = 0;
+    let currentText = "";
+    let letter = "";
 
+    (function type() {
+        if (count === texts.length) { count = 0; }
+        currentText = texts[count];
+        letter = currentText.slice(0, ++index);
+        
+        textElement.textContent = letter;
+        
+        if (letter.length === currentText.length) {
+            count++;
+            index = 0;
+            setTimeout(type, 2000); // Đợi 2s rồi gõ từ tiếp theo
+        } else {
+            setTimeout(type, 100); // Tốc độ gõ
+        }
+    }());
+</script>
 </body>
 </html>
