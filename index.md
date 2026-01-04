@@ -47,36 +47,53 @@ title: Home Base | Kaiversus
 
 <div class="card-grid">
     
-    {% for post in site.writeups reversed %}
-    <article class="log-card {{ post.card_style }}">
+    <article class="log-card" onclick="window.location.href='/writeups/'" style="cursor: pointer;">
         <div class="log-header">
-            <span>{{ post.log_path }}</span>
-            {% if post.card_style == 'danger' %}
-                <span style="color: var(--accent);">{{ post.status_tag }}</span>
-            {% else %}
-                <span style="color: var(--primary);">{{ post.status_tag }}</span>
-            {% endif %}
+            <span>/var/www/html/writeups</span>
+            <span style="color: var(--primary);">[DIR]</span>
         </div>
-        
-        <h3 class="log-title">{{ post.title }}</h3>
-        
+        <h3 class="log-title" style="color: var(--primary);">📂 WRITEUPS</h3>
         <p class="log-desc">
-            > Target: {{ post.target }}<br>
-            > Vuln: {{ post.vuln }}<br>
-            > Status: {{ post.status }}
+            > CTF Solutions<br>
+            > Malware Analysis Logs<br>
+            > Access Denied to unauthorized users
         </p>
-        
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-size: 0.8rem; color: #666;">DATE: {{ post.date | date: "%Y-%m-%d" }}</span>
-            <a href="{{ post.url }}" class="cmd-btn">
-                {% if post.card_style == 'danger' %}
-                    [ DEBUG_NOW ]
-                {% else %}
-                    [ EXECUTE_READ ]
-                {% endif %}
-            </a>
+        <div style="text-align: right;">
+            <span class="cmd-btn">[ CD_INTO_DIR ]</span>
         </div>
     </article>
-    {% endfor %}
-    </div>
+
+    <article class="log-card" onclick="window.location.href='/courses/'" style="cursor: pointer;">
+        <div class="log-header">
+            <span>/usr/local/share/courses</span>
+            <span style="color: #ffaa00;">[DIR]</span>
+        </div>
+        <h3 class="log-title" style="color: #ffaa00;">📚 COURSES</h3>
+        <p class="log-desc">
+            > Learning Path<br>
+            > Certifications & Notes<br>
+            > Knowledge Base
+        </p>
+        <div style="text-align: right;">
+            <span class="cmd-btn">[ CD_INTO_DIR ]</span>
+        </div>
+    </article>
+
+    <article class="log-card" onclick="window.location.href='/projects/'" style="cursor: pointer;">
+        <div class="log-header">
+            <span>/home/kai/projects</span>
+            <span style="color: var(--accent);">[DIR]</span>
+        </div>
+        <h3 class="log-title" style="color: var(--accent);">🛠️ PROJECTS</h3>
+        <p class="log-desc">
+            > Github Repositories<br>
+            > Coding Tools<br>
+            > Personal Malware Samples
+        </p>
+        <div style="text-align: right;">
+            <span class="cmd-btn">[ CD_INTO_DIR ]</span>
+        </div>
+    </article>
+
+</div>
 </section>
