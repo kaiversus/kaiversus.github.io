@@ -351,23 +351,56 @@ nav a.btn-cta {
     z-index: 10 !important; /* Số lớn hơn 0 sẽ nổi lên trên */
 }
 
+/* --- SỬA LẠI PHẦN LOG CARD CHO MƯỢT --- */
+
+.log-card {
+    background: rgba(0, 20, 0, 0.7); /* Màu nền cũ */
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 5px; /* Giữ bo góc nhẹ */
+    padding: 15px;
+    position: relative;
+    overflow: hidden; /* Để cắt vệt sáng thừa */
+    cursor: pointer;
+    
+    /* TỐI ƯU: Chỉ định rõ các thuộc tính cần thay đổi */
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, border-color 0.3s;
+    
+    /* Giúp trình duyệt chuẩn bị trước render */
+    will-change: transform, box-shadow;
+}
+
+/* Hiệu ứng vệt sáng (Scanline) */
 .log-card::before {
     content: '';
     position: absolute;
-    top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
-    transition: 0.5s;
+    top: 0;
+    left: 0; /* Cố định vị trí gốc */
+    width: 100%; 
+    height: 100%;
+    
+    /* Vệt sáng mờ */
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    
+    /* Dùng TRANSFORM thay vì LEFT để mượt hơn */
+    transform: translateX(-100%); 
+    transition: transform 0.6s; /* Tăng thời gian lên xíu cho vệt chạy đầm hơn */
 }
 
-.log-card:hover::before {
-    left: 100%;
-}
-
+/* Khi Hover vào */
 .log-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px); /* Nổi lên nhẹ nhàng */
     border-color: var(--primary);
-    box-shadow: 0 5px 20px rgba(0, 255, 65, 0.2);
+    box-shadow: 0 10px 30px -10px rgba(0, 255, 65, 0.3); /* Bóng đổ mềm hơn */
+}
+
+/* Kích hoạt vệt sáng chạy qua */
+.log-card:hover::before {
+    transform: translateX(100%); /* Chạy sang phải bằng GPU */
+}
+/* Fix riêng cho thẻ Danger (WannaCry) */
+.log-card.danger:hover {
+    border-color: var(--accent);
+    box-shadow: 0 10px 30px -10px rgba(255, 0, 85, 0.3);
 }
 
 .log-header {
@@ -503,13 +536,6 @@ html {
     
     white-space: pre;     
     overflow-x: hidden;
-}
-
-/* Ẩn ASCII art trên điện thoại vì màn hình nhỏ sẽ bị vỡ */
-@media (max-width: 768px) {
-    .ascii-logo {
-        display: none; /* Hoặc giảm font-size xuống 3px nếu mắt bạn đủ tinh :D */
-    }
 }
 
 /* =========================================
