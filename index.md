@@ -7,7 +7,7 @@ title: Home Base | Kaiversus
     <canvas id="cyber-matrix"></canvas>
 
     <div class="hero-text">
-        <h3 class="text-gold" style="color: var(--primary); font-size: 1rem; letter-spacing: 3px; margin-bottom: 5px;">// [ STATUS: COMPROMISED ]</h3>
+        <h3 class="text-gold" style="color: var(--primary); font-size: 1rem; letter-spacing: 3px; margin-bottom: 5px;">[ STATUS: COMPROMISED ]</h3>
         
         <h1>DINH THIEN BAO</h1>
 
