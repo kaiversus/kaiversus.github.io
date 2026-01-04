@@ -256,3 +256,23 @@ nav a:hover {
     position: relative;
     z-index: 2; 
 }
+
+/* --- SỬA LỖI MẤT CHỮ --- */
+
+/* Đảm bảo canvas nằm chìm dưới cùng */
+#cyber-matrix {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Số nhỏ nhất thì nằm dưới cùng */
+}
+
+/* Lôi chữ và hình ảnh lên trên */
+.hero-text, 
+.hero-visual, 
+.cta-group {
+    position: relative; /* Bắt buộc phải có dòng này z-index mới chạy */
+    z-index: 10 !important; /* Số lớn hơn 0 sẽ nổi lên trên */
+}

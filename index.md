@@ -9,16 +9,11 @@ title: Security Lab
 ---
 
 <section class="hero-section" style="position: relative; overflow: hidden;">
-    
     <canvas id="cyber-matrix"></canvas>
     <div class="hero-text" style="position: relative; z-index: 2;">
         <h3 class="text-gold" style="color: var(--primary);">System Status: <span style="color: var(--accent);">COMPROMISED</span></h3>
         <h1>NHẬT KÝ <br> <span class="text-gold" style="-webkit-text-fill-color: var(--primary);">PENTESTER</span></h1>
         </div>
-
-    <div class="hero-visual" style="position: relative; z-index: 2;">
-        <img src="/assets/images/hacker-icon.png" alt="Cyber Security" class="ufo-img">
-    </div>
 </section>
 
 <section class="container" style="margin-bottom: 80px; text-align: center;">
