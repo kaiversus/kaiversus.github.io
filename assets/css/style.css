@@ -169,44 +169,87 @@ h1, h2, h3 {
 }
 
 header {
-    /* Tăng kích thước và độ nổi khối */
-    padding: 25px 50px !important; /* To hơn */
-    background: rgba(5, 10, 20, 0.95) !important; /* Đậm màu hơn để nổi bật */
-    border-bottom: 2px solid var(--primary); /* Đường viền neon dưới chân */
-    box-shadow: 0 10px 30px rgba(0, 255, 65, 0.15); /* Glow nhẹ */
+    display: flex;
+    justify-content: space-between; /* Tách sang 2 bên trái phải */
+    align-items: center;            /* Canh giữa theo chiều dọc */
+    padding: 30px 0;                /* Khoảng cách trên dưới, bỏ padding 2 bên để thẳng hàng với nội dung */
+    background: transparent !important; /* Xóa nền khung */
+    box-shadow: none !important;        /* Xóa bóng đổ khung */
+    border: none !important;            /* Xóa viền khung */
+    width: 100%;
+    position: relative;
+    z-index: 100;
 }
 
+/* --- LOGO STYLE --- */
 .logo {
-    font-size: 1.8rem !important; /* Chữ to hơn */
-    text-shadow: 0 0 10px var(--primary); /* Phát sáng */
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Orbitron', sans-serif; /* Font robot góc cạnh */
+    font-size: 2.2rem !important;        /* Chữ to nổi bật */
+    font-weight: 900;
+    color: #fff;                         /* Màu trắng chủ đạo */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    
+    /* Hiệu ứng phát sáng Neon xanh */
+    text-shadow: 
+        0 0 5px rgba(0, 255, 65, 0.8),
+        0 0 10px rgba(0, 255, 65, 0.4);
+    
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.logo:hover {
+    color: var(--primary); /* Hover vào thì chuyển hẳn sang xanh */
+    text-shadow: 0 0 20px var(--primary);
+}
+
+/* --- NAVIGATION LINKS --- */
+nav {
+    display: flex;
+    gap: 40px; /* Khoảng cách giữa các menu item */
 }
 
 nav a {
-    font-size: 1.1rem !important; /* Menu to hơn */
+    font-family: 'Orbitron', sans-serif; /* Dùng chung font góc cạnh */
+    font-size: 1.1rem !important;
     font-weight: 700 !important;
+    color: #888; /* Màu xám nhạt mặc định cho đỡ chói */
+    text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 1px;
+    position: relative;
+    transition: 0.3s;
 }
 
-/* Hiệu ứng gạch chân khi hover giống trang mẫu */
-nav a::after {
+/* Hiệu ứng Hover cho menu */
+nav a:hover {
+    color: var(--primary); /* Sáng xanh khi hover */
+    text-shadow: 0 0 8px var(--primary);
+}
+
+/* Gạch chân ngắn kiểu Cyberpunk khi hover */
+nav a::before {
     content: '';
     position: absolute;
-    width: 0;
+    width: 0%;
     height: 2px;
     bottom: -5px;
     left: 0;
-    background-color: var(--primary);
-    transition: width 0.3s;
+    background: var(--primary);
+    transition: 0.3s;
+    box-shadow: 0 0 10px var(--primary);
 }
 
-nav a:hover::after {
+nav a:hover::before {
     width: 100%;
 }
 
-nav a:hover {
-    color: var(--primary);
+/* Xóa style cũ của nút cta nếu còn dính */
+nav a.btn-cta {
+    background: none !important;
+    padding: 0 !important;
+    border: none !important;
 }
 
 /* Tùy chỉnh thanh cuộn toàn trang */
