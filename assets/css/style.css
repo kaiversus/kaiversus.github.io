@@ -9,6 +9,20 @@
     --text-glow: 0 0 10px rgba(0, 255, 65, 0.5); /* Chữ phát sáng xanh */
 }
 
+/* Trong file style.css */
+
+html, body {
+    /* Ép buộc nền màu tối thẫm (#050a14) */
+    background-color: var(--bg-dark) !important;
+    
+    /* Đảm bảo chiều cao luôn phủ kín màn hình, không bị hở chân trắng */
+    min-height: 100vh;
+    margin: 0;
+    
+    /* Màu chữ mặc định là trắng */
+    color: #ffffff; 
+}
+
 /* Thêm font chữ dạng code cho ngầu */
 body {
     /* ... giữ nguyên các dòng background cũ ... */
