@@ -743,12 +743,12 @@ html {
 
 /* 5. Link trong bài viết */
 .writeup-content a {
-    color: var(--accent);
+    color: rgba(255, 56, 122, 0.663);
     text-decoration: none;
-    border-bottom: 1px solid var(--accent);
+    border-bottom: 1px solid rgba(255, 56, 122, 0.663);
 }
 .writeup-content a:hover {
-    background: var(--accent);
+    background: rgba(255, 56, 122, 0.663);
     color: #fff;
 }
 
