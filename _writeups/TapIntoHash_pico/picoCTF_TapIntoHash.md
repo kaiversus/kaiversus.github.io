@@ -27,10 +27,19 @@ Find the encrypted file here. It might be good to analyze source file to get the
 - Do you know what blockchains are? If so, you know that hashing is used in blockchains.
 - Download the encrypted flag file and the source file and reverse engineer the source file.
 
-
 **Files provided:**
-- [block_chain.py](/_writeups/TapIntoHash_pico/block_chain.py)
-- [enc_flag](/_writeups/TapIntoHash_pico/enc_flag)
+<ul>
+    <li>
+        <a href="/_writeups/TapIntoHash_pico/block_chain.py" download>
+            [Download] block_chain.py
+        </a>
+    </li>
+    <li>
+        <a href="/_writeups/TapIntoHash_pico/enc_flag" download>
+            [Download] enc_flag
+        </a>
+    </li>
+</ul>
 
 **Connection info:**  
 
