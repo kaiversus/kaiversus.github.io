@@ -43,7 +43,9 @@ title: Home Base | Kaiversus
     <div style="display: flex; justify-content: space-between; align-items: end; margin-bottom: 40px; border-bottom: 1px solid #333; padding-bottom: 20px;">
         <h2><span style="color: var(--primary);">SYSTEM</span> LOGS</h2>
         <a href="#" style="color: var(--accent); text-decoration: none; font-family: monospace;">[ARCHIVE_VIEW]</a>
-        <div style="font-family: 'Courier New', monospace; color: #888; margin-top: 15px; margin-bottom: 30px; font-size: 0.9rem;">
+    </div>
+
+            <div style="font-family: 'Courier New', monospace; color: #888; margin-top: 15px; margin-bottom: 30px; font-size: 0.9rem;">
     <span style="color: var(--primary); margin-right: 10px;">root@repo:~$</span>
     <span id="re-quotes" style="color: #ccc;"></span><span class="cursor">_</span>
     </div>
@@ -82,7 +84,6 @@ title: Home Base | Kaiversus
             }
         }());
     </script>
-    </div>
 
 <div class="card-grid">
     
