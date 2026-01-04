@@ -10,6 +10,7 @@ title: Home Base | Kaiversus
         <h3 class="text-gold" style="color: var(--primary); font-size: 1rem; letter-spacing: 3px; margin-bottom: 5px;">// IDENTITY CONFIRMED</h3>
         
         <h1>DINH THIEN BAO <br> 
+        </h1>
         <pre class="ascii-logo">
 ██╗  ██╗ █████╗ ██╗██╗   ██╗███████╗██████╗ ███████╗██╗   ██╗███████╗
 ██║ ██╔╝██╔══██╗██║██║   ██║██╔════╝██╔══██╗██╔════╝██║   ██║██╔════╝
@@ -18,7 +19,6 @@ title: Home Base | Kaiversus
 ██║  ██╗██║  ██║██║ ╚████╔╝ ███████╗██║  ██║███████║╚██████╔╝███████║
 ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚══════╝
         </pre>
-        </h1>
         
         <p style="font-size: 1.2rem; color: #fff; margin-bottom: 20px; font-family: 'Courier New', monospace; background: rgba(0,0,0,0.6); display: inline-block; padding: 10px;">
             <span style="color: var(--primary);">root@kaiversus:~$</span> 
