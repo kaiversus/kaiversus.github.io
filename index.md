@@ -47,7 +47,7 @@ title: Home Base | Kaiversus
 
 <div class="card-grid">
     
-    <article class="log-card" onclick="window.location.href='/writeups/'" style="cursor: pointer;">
+    <article class="log-card" onclick="window.location.href='/writeups/'" style="border-color: #00ff41; box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);">
         <div class="log-header">
             <span>home/kai/writeups</span>
             <span style="color: var(--primary);">[DIR]</span>
@@ -63,7 +63,7 @@ title: Home Base | Kaiversus
         </div>
     </article>
 
-    <article class="log-card" onclick="window.location.href='/courses/'" style="cursor: pointer;">
+    <article class="log-card" onclick="window.location.href='/courses/'" style="border-color: #ffaa00; box-shadow: 0 0 10px rgba(255, 170, 0, 0.2);">
         <div class="log-header">
             <span>home/kai/courses</span>
             <span style="color: #ffaa00;">[DIR]</span>
@@ -79,7 +79,7 @@ title: Home Base | Kaiversus
         </div>
     </article>
 
-    <article class="log-card" onclick="window.location.href='/projects/'" style="cursor: pointer;">
+    <article class="log-card" onclick="window.location.href='/projects/'" style="border-color: #ff0055; box-shadow: 0 0 10px rgba(255, 0, 85, 0.2);">
         <div class="log-header">
             <span>/home/kai/projects</span>
             <span style="color: var(--accent);">[DIR]</span>
