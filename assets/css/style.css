@@ -422,3 +422,9 @@ nav a.btn-cta {
 .hero-text p span {
     display: inline-block;
 }
+
+.container:has(header) {
+    padding-bottom: 0 !important;
+}.container:has(header) {
+    padding-bottom: 0 !important;
+}
