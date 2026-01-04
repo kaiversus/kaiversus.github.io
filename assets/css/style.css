@@ -63,9 +63,9 @@ body {
 
 /* --- CÁC KHỐI CHUNG --- */
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+    padding-top:10px !important;    /* Xóa đệm trên */
+    padding-bottom: 10px !important; /* Xóa đệm dưới */
+    max-width: 100% !important;   /* Cho rộng full màn hình nếu muốn */
 }
 
 /* --- TYPOGRAPHY (CHỮ) --- */
@@ -87,7 +87,7 @@ h1, h2, h3 {
     justify-content: space-between;
     
     /* SỬA Ở ĐÂY: Giảm từ 90vh xuống 65vh (khoảng 2/3 màn hình) */
-    min-height: 65vh; 
+    min-height: 70vh; 
     
     padding: 100px 0 50px 0; /* Tăng padding-top để nội dung không bị menu che */
     position: relative;
@@ -182,7 +182,7 @@ header {
 /* --- LOGO STYLE --- */
 .logo {
     font-family: 'Orbitron', sans-serif; /* Font robot góc cạnh */
-    font-size: 2.2rem !important;        /* Chữ to nổi bật */
+    font-size: 1.7rem !important;        /* Chữ to nổi bật */
     font-weight: 900;
     padding: 30px;
     color: #fff;                         /* Màu trắng chủ đạo */
@@ -211,7 +211,7 @@ nav {
 
 nav a {
     font-family: 'Orbitron', sans-serif; /* Dùng chung font góc cạnh */
-    font-size: 1.1rem !important;
+    font-size: 1rem !important;
     font-weight: 700 !important;
     color: #888; /* Màu xám nhạt mặc định cho đỡ chói */
     text-decoration: none;
