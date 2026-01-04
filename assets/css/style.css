@@ -1,23 +1,50 @@
 /* --- BIẾN MÀU SẮC (THEME) --- */
+/* --- SỬA LẠI PHẦN NÀY TRONG STYLE.CSS --- */
+
 :root {
-    --bg-dark: #0f0b1e;       /* Nền đen tím thẫm */
-    --primary: #ffd04f;       /* Vàng Neon (Nút bấm) */
-    --accent: #7b2cbf;        /* Tím Neon (Glow) */
-    --glass: rgba(255, 255, 255, 0.05); /* Hiệu ứng kính trong suốt */
-    --text-glow: 0 0 10px rgba(255, 208, 79, 0.5); /* Hiệu ứng chữ phát sáng */
+    --bg-dark: #050a14;       /* Đen xanh thẫm (Deep Void) */
+    --primary: #00ff41;       /* Xanh lá Matrix (Thay cho màu vàng cũ) */
+    --accent: #ff0055;        /* Đỏ cảnh báo (Red Team) */
+    --glass: rgba(0, 20, 0, 0.7); /* Kính tối màu hơn */
+    --text-glow: 0 0 10px rgba(0, 255, 65, 0.5); /* Chữ phát sáng xanh */
 }
 
+/* Thêm font chữ dạng code cho ngầu */
 body {
-    background-color: var(--bg-dark);
-    /* Bạn cần tìm 1 ảnh vũ trụ đẹp đặt tên là bg-main.jpg bỏ vào assets/images */
-    background-image: url('../images/bg-main.jpg'); 
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
-    color: #fff;
-    font-family: 'Rajdhani', sans-serif;
-    margin: 0;
-    overflow-x: hidden; /* Chặn thanh cuộn ngang */
+    /* ... giữ nguyên các dòng background cũ ... */
+    background-image: url('../images/bg-cyber.jpg'); /* Đổi tên ảnh nền của bạn */
+    font-family: 'Rajdhani', 'Courier New', monospace; /* Ưu tiên font monospace */
+}
+
+/* Hiệu ứng gõ phím cho tiêu đề (Optional) */
+h1 {
+    font-family: 'Orbitron', sans-serif;
+    border-right: 4px solid var(--primary); /* Con trỏ nhấp nháy */
+    animation: blinkCursor 1s step-end infinite;
+    /* ... giữ nguyên gradient cũ hoặc đổi sang màu xanh ... */
+    background: linear-gradient(to bottom, #fff, #00ff41);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+@keyframes blinkCursor {
+    from, to { border-color: transparent }
+    50% { border-color: var(--primary) }
+}
+
+/* Sửa lại nút bấm cho giống Terminal */
+.btn-space {
+    background: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 10px var(--primary);
+    /* ... giữ nguyên padding/font ... */
+}
+
+.btn-space:hover {
+    background: var(--primary);
+    color: #000;
+    box-shadow: 0 0 30px var(--primary);
 }
 
 /* --- CÁC KHỐI CHUNG --- */
@@ -34,37 +61,9 @@ h1, h2, h3 {
     letter-spacing: 2px;
 }
 
-h1 {
-    font-size: 5rem;
-    line-height: 1;
-    margin-bottom: 20px;
-    background: linear-gradient(to bottom, #fff, #a0a0a0);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
 .text-gold {
     color: var(--primary);
     text-shadow: var(--text-glow);
-}
-
-/* --- BUTTONS (NÚT BẤM) --- */
-.btn-space {
-    background: var(--primary);
-    color: #000;
-    padding: 15px 40px;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 900;
-    border-radius: 50px; /* Bo tròn như con nhộng */
-    text-decoration: none;
-    display: inline-block;
-    transition: 0.3s;
-    box-shadow: 0 0 20px rgba(255, 208, 79, 0.4);
-}
-
-.btn-space:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 40px rgba(255, 208, 79, 0.8); /* Phát sáng mạnh khi di chuột */
 }
 
 /* --- HERO SECTION --- */

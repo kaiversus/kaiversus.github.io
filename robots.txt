@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /admin-secret-login/
+# Good luck finding the flag here :)
