@@ -29,12 +29,12 @@ Find the encrypted file here. It might be good to analyze source file to get the
 
 
 **Files provided:**
-- `block_chain.py` 
-- `enc_flag`
+- [block_chain.py](/assets/ctf_files/TapIntoHash/block_chain.py)
+- [enc_flag](/assets/ctf_files/TapIntoHash/enc_flag)
 
 **Connection info:**  
 
-https://play.picoctf.org/practice/challenge/466?category=3&page=1
+<https://play.picoctf.org/practice/challenge/466?category=3&page=1>
 
 ---
 
