@@ -54,11 +54,11 @@ title: Home Base | Kaiversus
         const reTextElement = document.getElementById('re-quotes');
         // DANH SÁCH CÁC CÂU QUOTE NGẦU VỀ RE (Bạn có thể sửa lại ở đây)
         const reTexts = [
-            "EVERYTHING IS OPEN SOURCE IF YOU CAN READ ASSEMBLY", // Mọi thứ đều là mã nguồn mở nếu bạn đọc được Assembly
-            "THERE IS NO PATCH FOR HUMAN STUPIDITY",             // Không có bản vá nào cho sự ngu dốt của con người
-            "ANALYZING MALWARE ONE BYTE AT A TIME",              // Phân tích mã độc từng byte một
-            "MOV EAX, 0xDEADBEEF",                               // Mã hex kinh điển
-            "IF IT CAN BE RUN, IT CAN BE REVERSED"               // Nếu nó chạy được, nó dịch ngược được
+            "I don’t need persistence. I am persistence...", 
+            "Detection is optional. Execution is inevitable...",            
+            "Malware is just misunderstood software...",            
+            "MOV EAX, 0xDEADBEEF",                           
+            "If it runs, it can be reversed."            
         ]; 
         
         let reCount = 0;
