@@ -3,29 +3,20 @@ layout: default
 title: Security Lab
 ---
 
-<section class="hero-section">
-    <div class="hero-text">
-        <h3 class="text-gold" style="color: var(--primary);">System Status: <span style="color: var(--accent);">COMPROMISED</span></h3>
-        
-        <h1>Security Blog <br> 
-            <span class="text-gold" style="-webkit-text-fill-color: var(--primary);">
-                <span id="typing-text"></span><span class="cursor">_</span>
-            </span>
-        </h1>
-        
-        <p style="font-size: 1.2rem; color: #ccc; margin-bottom: 40px; font-family: 'Courier New', monospace;">
-            > Initiating connection...<br>
-            > Access granted.<br>
-            ...
-        </p>
-        
-        <div class="cta-group">
-            <a href="#writeups" class="btn-space">./READ_LOGS</a>
-            <a href="https://github.com/kaiversus" target="_blank" class="btn-space" style="border-color: #fff; color: #fff; margin-left: 10px;">GITHUB PROFILE</a>
-        </div>
-    </div>
+---
+layout: default
+title: Security Lab
+---
 
-    <div class="hero-visual">
+<section class="hero-section" style="position: relative; overflow: hidden;">
+    
+    <canvas id="cyber-matrix"></canvas>
+    <div class="hero-text" style="position: relative; z-index: 2;">
+        <h3 class="text-gold" style="color: var(--primary);">System Status: <span style="color: var(--accent);">COMPROMISED</span></h3>
+        <h1>NHẬT KÝ <br> <span class="text-gold" style="-webkit-text-fill-color: var(--primary);">PENTESTER</span></h1>
+        </div>
+
+    <div class="hero-visual" style="position: relative; z-index: 2;">
         <img src="/assets/images/hacker-icon.png" alt="Cyber Security" class="ufo-img">
     </div>
 </section>

@@ -231,3 +231,28 @@ nav a:hover {
     transform: translateY(-3px);
     background: rgba(0, 255, 65, 0.05);
 }
+
+/* --- HIỆU ỨNG NỀN CYBER --- */
+
+/* Định vị thẻ canvas */
+#cyber-matrix {
+    position: absolute; /* Để nó nằm đè lên cha */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Nằm trên background ảnh, nhưng dưới chữ */
+    opacity: 0.8; /* Độ trong suốt để không quá rối mắt */
+    pointer-events: none; /* Để chuột vẫn click xuyên qua được vào nút bấm */
+    
+    /* MẸO: Nếu bạn muốn có cái bản đồ thế giới mờ mờ ở dưới */
+    /* Hãy kiếm ảnh bản đồ tối màu, đặt làm background cho .hero-section */
+    /* background: url('../images/world-map-dark.jpg') center/cover no-repeat; */
+}
+
+/* Đảm bảo nội dung chữ luôn nổi lên trên hiệu ứng */
+.hero-text, .hero-visual {
+    /* Đã thêm inline style trong HTML, nhưng thêm ở đây cho chắc */
+    position: relative;
+    z-index: 2; 
+}
