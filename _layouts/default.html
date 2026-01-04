@@ -26,12 +26,15 @@
 
     </div>
 
-    <main class="container {% if page.collection %}writeup-content{% endif %}" style="padding-top: 40px; min-height: 60vh;">
+</div>
+
+    {% if page.collection %}
+        <main class="container writeup-content" style="padding-top: 40px; min-height: 60vh;">
+            {{ content }}
+        </main>
+    {% else %}
         {{ content }}
-    </main>
-
-    <footer style="text-align: center; padding: 50px; color: var(--text-sub);">
-
+    {% endif %}
     <footer style="text-align: center; padding: 50px; color: var(--text-sub);">
         <p>kaiversus_52Hz</p>
     </footer>
