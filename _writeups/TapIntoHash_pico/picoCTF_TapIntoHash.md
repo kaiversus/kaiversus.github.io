@@ -12,8 +12,8 @@ description: ""
 | Attribute | Value |
 |-----------|-------|
 | **Challenge Name** | Tap into Hash |
-| **Category** | Crypto/Reverse/ |
-| **Difficulty** | /Medium |
+| **Category** | Crypto/Reverse |
+| **Difficulty** | Medium |
 
 ---
 
