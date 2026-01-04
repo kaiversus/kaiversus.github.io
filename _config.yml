@@ -1,0 +1,5 @@
+# _config.yml
+collections:
+  writeups:
+    output: true
+    permalink: /writeups/:path/
