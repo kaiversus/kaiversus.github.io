@@ -87,7 +87,7 @@ h1, h2, h3 {
     justify-content: space-between;
     
     /* SỬA Ở ĐÂY: Giảm từ 90vh xuống 65vh (khoảng 2/3 màn hình) */
-    min-height: 70vh; 
+    min-height: 65vh; 
     
     padding: 80px 0 50px 0; /* Tăng padding-top để nội dung không bị menu che */
     position: relative;
@@ -182,21 +182,28 @@ header {
 
 /* --- LOGO STYLE --- */
 .logo {
-    font-family: 'Orbitron', sans-serif; /* Font robot góc cạnh */
-    font-size: 2.2rem !important;        /* Chữ to nổi bật */
-    font-weight: 900;
-    padding: 10px 0;
-    color: #fff;                         /* Màu trắng chủ đạo */
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    /* Đổi sang font mới */
+    font-family: 'Chakra Petch', sans-serif !important; 
     
-    /* Hiệu ứng phát sáng Neon xanh */
+    font-size: 2.5rem !important; /* Tăng kích thước lên một chút cho ngầu */
+    font-weight: 700;
+    
+    /* MẸO: Nghiêng chữ -10 độ để tạo cảm giác tốc độ và sắc cạnh hơn */
+    transform: skewX(-10deg); 
+    
+    padding: 10px 0; 
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px; /* Giãn chữ ra một chút */
+    
+    /* Giữ nguyên hiệu ứng bóng neon cũ */
     text-shadow: 
         0 0 5px rgba(0, 255, 65, 0.8),
         0 0 10px rgb(57, 122, 73);
     
     cursor: pointer;
     transition: 0.3s;
+    display: inline-block; /* Bắt buộc có để dùng được transform */
 }
 
 .logo:hover {
@@ -420,4 +427,48 @@ nav a.btn-cta {
 /* Chỉnh riêng cho cái hộp đen lệnh console để nó gọn hơn */
 .hero-text p span {
     display: inline-block;
+}
+
+/* --- SCROLL DOWN BUTTON --- */
+
+/* Đảm bảo cuộn mượt mà khi bấm */
+html {
+    scroll-behavior: smooth;
+}
+
+.scroll-down-btn {
+    position: absolute;
+    bottom: 30px;          /* Cách đáy 30px */
+    left: 50%;             /* Căn giữa màn hình */
+    transform: translateX(-50%) rotate(90deg); /* Xoay 90 độ để >> hướng xuống */
+    
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary); /* Màu xanh lá Matrix */
+    text-decoration: none;
+    z-index: 20;           /* Nổi lên trên hiệu ứng mưa */
+    
+    opacity: 0.7;
+    transition: 0.3s;
+    animation: bounce 2s infinite; /* Hiệu ứng nảy */
+}
+
+.scroll-down-btn:hover {
+    opacity: 1;
+    color: var(--accent); /* Hover vào đổi màu đỏ/hồng */
+    text-shadow: 0 0 15px var(--accent);
+}
+
+/* Hiệu ứng nảy lên xuống */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        bottom: 30px;
+    }
+    40% {
+        bottom: 45px; /* Nảy lên cao */
+    }
+    60% {
+        bottom: 35px; /* Nảy nhẹ lại */
+    }
 }
