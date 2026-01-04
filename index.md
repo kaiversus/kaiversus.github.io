@@ -45,58 +45,38 @@ title: Home Base | Kaiversus
         <a href="#" style="color: var(--accent); text-decoration: none; font-family: monospace;">[ARCHIVE_VIEW]</a>
     </div>
 
-    <div class="card-grid">
+<div class="card-grid">
+    
+    {% for post in site.writeups reversed %}
+    <article class="log-card {{ post.card_style }}">
+        <div class="log-header">
+            <span>{{ post.log_path }}</span>
+            {% if post.card_style == 'danger' %}
+                <span style="color: var(--accent);">{{ post.status_tag }}</span>
+            {% else %}
+                <span style="color: var(--primary);">{{ post.status_tag }}</span>
+            {% endif %}
+        </div>
         
-        <article class="log-card">
-            <div class="log-header">
-                <span>/var/log/ctf/htb.log</span>
-                <span style="color: var(--primary);">[ENCRYPTED]</span>
-            </div>
-            <h3 class="log-title">HackTheBox: Forest</h3>
-            <p class="log-desc">
-                > Target: Active Directory<br>
-                > Vuln: AS-REP Roasting<br>
-                > Status: Pwned
-            </p>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 0.8rem; color: #666;">DATE: 2026-01-04</span>
-                <a href="#" class="cmd-btn">[ EXECUTE_READ ]</a>
-            </div>
-        </article>
-
-        <article class="log-card danger">
-            <div class="log-header">
-                <span>/bin/malware/wannacry.exe</span>
-                <span style="color: var(--accent);">[DANGER]</span>
-            </div>
-            <h3 class="log-title">WannaCry Analysis</h3>
-            <p class="log-desc">
-                > Type: Ransomware<br>
-                > Tech: Reverse Engineering<br>
-                > Tool: IDA Pro, x64dbg
-            </p>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 0.8rem; color: #666;">DATE: 2025-12-20</span>
-                <a href="#" class="cmd-btn">[ DEBUG_NOW ]</a>
-            </div>
-        </article>
+        <h3 class="log-title">{{ post.title }}</h3>
         
-        <article class="log-card">
-            <div class="log-header">
-                <span>/srv/www/vuln_report.txt</span>
-                <span style="color: #fff;">[PUBLIC]</span>
-            </div>
-            <h3 class="log-title">Stored XSS Attack</h3>
-            <p class="log-desc">
-                > Target: E-commerce Site<br>
-                > Bounty: $500<br>
-                > Impact: Critical
-            </p>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 0.8rem; color: #666;">DATE: 2025-11-15</span>
-                <a href="#" class="cmd-btn">[ VIEW_POC ]</a>
-            </div>
-        </article>
-
+        <p class="log-desc">
+            > Target: {{ post.target }}<br>
+            > Vuln: {{ post.vuln }}<br>
+            > Status: {{ post.status }}
+        </p>
+        
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="font-size: 0.8rem; color: #666;">DATE: {{ post.date | date: "%Y-%m-%d" }}</span>
+            <a href="{{ post.url }}" class="cmd-btn">
+                {% if post.card_style == 'danger' %}
+                    [ DEBUG_NOW ]
+                {% else %}
+                    [ EXECUTE_READ ]
+                {% endif %}
+            </a>
+        </div>
+    </article>
+    {% endfor %}
     </div>
 </section>
