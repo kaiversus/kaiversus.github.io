@@ -7,7 +7,7 @@ title: Home Base | Kaiversus
     <canvas id="cyber-matrix"></canvas>
 
     <div class="hero-text">
-        <h3 class="text-gold" style="color: var(--primary); font-size: 1rem; letter-spacing: 3px;">// IDENTITY CONFIRMED</h3>
+        <h3 class="text-gold" style="color: var(--primary); font-size: 1rem; letter-spacing: 3px; margin-bottom: 5px;">// IDENTITY CONFIRMED</h3>
         
         <h1>DINH THIEN BAO <br> 
             <span class="text-gold" style="-webkit-text-fill-color: var(--accent);">
@@ -15,24 +15,20 @@ title: Home Base | Kaiversus
             </span>
         </h1>
         
-        <p style="font-size: 1.2rem; color: #fff; margin-bottom: 30px; font-family: 'Courier New', monospace; background: rgba(0,0,0,0.6); display: inline-block; padding: 10px;">
+        <p style="font-size: 1.2rem; color: #fff; margin-bottom: 20px; font-family: 'Courier New', monospace; background: rgba(0,0,0,0.6); display: inline-block; padding: 10px;">
             <span style="color: var(--primary);">root@kaiversus:~$</span> 
             <span id="typing-text"></span><span class="cursor">_</span>
         </p>
 
-        <p style="color: #ccc; max-width: 600px; margin-bottom: 50px; font-size: 1.1rem;">
+        <p style="color: #ccc; max-width: 600px; margin-bottom: 20px; font-size: 1.1rem;">
             Chào mừng đến với căn cứ dữ liệu.<br>
             Reverse Engineering | Pwnable | Malware Analysis
         </p>
         
-        <div class="cta-group" style="display: flex; gap: 20px;">
+        <div class="cta-group" style="display: flex; gap: 30px;">
             <a href="/about/" class="btn-cyber">ACCESS PROFILE</a>
             <a href="#writeups" class="btn-cyber secondary">LATEST LOGS</a>
         </div>
-    </div>
-
-    <div class="hero-visual">
-        <img src="/assets/images/hacker-icon.png" alt="Kaiversus" class="ufo-img">
     </div>
 </section>
 
