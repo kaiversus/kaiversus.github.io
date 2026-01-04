@@ -33,10 +33,6 @@ title: Home Base | Kaiversus
             <a href="#writeups" class="btn-cyber secondary">REPOSITORY</a>
         </div>
     </div>
-    
-    <a href="#writeups" class="scroll-down-btn">
-        <span>>></span>
-    </a>
 </section>
 
 <section id="writeups" class="container" style="padding-top: 50px;">

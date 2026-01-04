@@ -469,22 +469,24 @@ html {
 }
 
 /* --- ASCII ART LOGO --- */
+
 .ascii-logo {
     font-family: 'Courier New', monospace;
-    font-size: 6px;       /* Kích thước nhỏ gọn */
-    line-height: 6px;     /* Dòng khít nhau */
-    font-weight: 900;     /* Chữ đậm */
+    font-size: 6px;       
+    line-height: 6px;     
+    font-weight: 900;     
+    color: var(--accent); 
+
+    /* --- SỬA PHẦN NÀY ĐỂ HẾT BỊ NHẢY DÒNG --- */
+    display: block !important;  /* Bắt buộc xuống dòng mới */
+    width: fit-content;         /* Chỉ rộng bằng đúng nội dung chữ, không chiếm hết chiều ngang */
     
-    /* 1. Đổi sang màu hồng Neon (Accent) */
-    color: var(--accent); /* Mã màu #ff0055 trong file style.css của bạn */
-    
-    /* 3. Chống thụt đầu dòng tuyệt đối */
+    /* Canh lề và khoảng cách */
     margin-left: 0 !important;
     padding-left: 0 !important;
     text-align: left !important;
-    display: inline-block; /* Giúp khối này không bị giãn full chiều ngang */
+    margin-bottom: 20px; /* Đẩy dòng root@... xuống xa một chút cho thoáng */
     
-    margin-bottom: 20px;
     white-space: pre;     
     overflow-x: hidden;
 }
