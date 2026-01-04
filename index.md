@@ -49,10 +49,10 @@ title: Home Base | Kaiversus
     
     <article class="log-card" onclick="window.location.href='/writeups/'" style="cursor: pointer;">
         <div class="log-header">
-            <span>/var/www/html/writeups</span>
+            <span>home/kai/writeups</span>
             <span style="color: var(--primary);">[DIR]</span>
         </div>
-        <h3 class="log-title" style="color: var(--primary);">📂 WRITEUPS</h3>
+        <h3 class="log-title" style="color: var(--primary);">WRITEUPS</h3>
         <p class="log-desc">
             > CTF Solutions<br>
             > Malware Analysis Logs<br>
@@ -65,10 +65,10 @@ title: Home Base | Kaiversus
 
     <article class="log-card" onclick="window.location.href='/courses/'" style="cursor: pointer;">
         <div class="log-header">
-            <span>/usr/local/share/courses</span>
+            <span>home/kai/courses</span>
             <span style="color: #ffaa00;">[DIR]</span>
         </div>
-        <h3 class="log-title" style="color: #ffaa00;">📚 COURSES</h3>
+        <h3 class="log-title" style="color: #ffaa00;">COURSES</h3>
         <p class="log-desc">
             > Learning Path<br>
             > Certifications & Notes<br>
@@ -84,7 +84,7 @@ title: Home Base | Kaiversus
             <span>/home/kai/projects</span>
             <span style="color: var(--accent);">[DIR]</span>
         </div>
-        <h3 class="log-title" style="color: var(--accent);">🛠️ PROJECTS</h3>
+        <h3 class="log-title" style="color: var(--accent);">PROJECTS</h3>
         <p class="log-desc">
             > Github Repositories<br>
             > Coding Tools<br>
