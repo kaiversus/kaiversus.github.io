@@ -1,0 +1,8 @@
+title: Blog Của Tôi
+description: Nơi tôi chia sẻ kiến thức và suy nghĩ
+theme: jekyll-theme-cayman
+url: "https://kaiversus.github.io" 
+# Hãy thay USERNAME_CUA_BAN bằng username thật của bạn
+
+plugins:
+  - jekyll-seo-tag
