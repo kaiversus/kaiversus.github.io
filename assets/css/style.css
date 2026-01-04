@@ -478,11 +478,6 @@ html {
     /* 1. Đổi sang màu hồng Neon (Accent) */
     color: var(--accent); /* Mã màu #ff0055 trong file style.css của bạn */
     
-    /* 2. Hiệu ứng phát sáng (Glow) 2 lớp cho rực rỡ */
-    text-shadow: 
-        0 0 5px var(--accent),
-        0 0 15px var(--accent); 
-    
     /* 3. Chống thụt đầu dòng tuyệt đối */
     margin-left: 0 !important;
     padding-left: 0 !important;
