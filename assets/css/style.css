@@ -1,0 +1,136 @@
+/* --- BIẾN MÀU SẮC (THEME) --- */
+:root {
+    --bg-dark: #0f0b1e;       /* Nền đen tím thẫm */
+    --primary: #ffd04f;       /* Vàng Neon (Nút bấm) */
+    --accent: #7b2cbf;        /* Tím Neon (Glow) */
+    --glass: rgba(255, 255, 255, 0.05); /* Hiệu ứng kính trong suốt */
+    --text-glow: 0 0 10px rgba(255, 208, 79, 0.5); /* Hiệu ứng chữ phát sáng */
+}
+
+body {
+    background-color: var(--bg-dark);
+    /* Bạn cần tìm 1 ảnh vũ trụ đẹp đặt tên là bg-main.jpg bỏ vào assets/images */
+    background-image: url('../images/bg-main.jpg'); 
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    color: #fff;
+    font-family: 'Rajdhani', sans-serif;
+    margin: 0;
+    overflow-x: hidden; /* Chặn thanh cuộn ngang */
+}
+
+/* --- CÁC KHỐI CHUNG --- */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* --- TYPOGRAPHY (CHỮ) --- */
+h1, h2, h3 {
+    font-family: 'Orbitron', sans-serif; /* Font tiêu đề robot */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+h1 {
+    font-size: 5rem;
+    line-height: 1;
+    margin-bottom: 20px;
+    background: linear-gradient(to bottom, #fff, #a0a0a0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.text-gold {
+    color: var(--primary);
+    text-shadow: var(--text-glow);
+}
+
+/* --- BUTTONS (NÚT BẤM) --- */
+.btn-space {
+    background: var(--primary);
+    color: #000;
+    padding: 15px 40px;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 900;
+    border-radius: 50px; /* Bo tròn như con nhộng */
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.3s;
+    box-shadow: 0 0 20px rgba(255, 208, 79, 0.4);
+}
+
+.btn-space:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(255, 208, 79, 0.8); /* Phát sáng mạnh khi di chuột */
+}
+
+/* --- HERO SECTION --- */
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 90vh; /* Chiều cao gần bằng màn hình */
+    padding: 50px 0;
+}
+
+.hero-text {
+    flex: 1;
+    padding-right: 50px;
+}
+
+.hero-visual {
+    flex: 1;
+    position: relative;
+}
+
+/* --- UFO IMAGE --- */
+.ufo-img {
+    width: 100%;
+    animation: float 6s ease-in-out infinite; /* Hiệu ứng bay lơ lửng */
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+/* --- GRID CARDS (CÁC THẺ BÀI VIẾT) --- */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Chia 3 cột */
+    gap: 30px;
+    margin-top: 100px;
+}
+
+.space-card {
+    background: var(--glass); /* Hiệu ứng kính */
+    backdrop-filter: blur(10px); /* Làm mờ nền sau kính */
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 20px;
+    transition: 0.4s;
+    position: relative;
+    overflow: hidden;
+}
+
+.space-card:hover {
+    border-color: var(--primary);
+    transform: translateY(-10px);
+}
+
+.space-card img {
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .hero-section { flex-direction: column; }
+    .card-grid { grid-template-columns: 1fr; } /* Mobile thì về 1 cột */
+    h1 { font-size: 3rem; }
+}
