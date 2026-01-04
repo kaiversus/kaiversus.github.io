@@ -636,15 +636,15 @@ html {
 
 /* --- PHẦN STYLE CHO BÀI VIẾT (MARKDOWN) --- */
 
-/* 1. Giới hạn ảnh không bị tràn màn hình */
 .writeup-content {
-    /* Đổi sang màu xám trắng nhẹ (Github Dark Text) thay vì trắng tinh */
-    color: #c9d1d9; 
+    color: #c9d1d9; /* Giữ màu xám dịu */
     
-    /* Dùng font Rajdhani (vẫn hơi hướng tech nhưng dễ đọc hơn) hoặc sans-serif */
-    font-family: Rajdhani, 'Segoe UI', Tahoma, Geneva, Verdana, 'sans-serif';
+    /* Đổi thành dòng này: Ưu tiên font hệ thống tròn trịa, mềm mại */
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
     
-    /* Tăng cỡ chữ và độ giãn dòng cho thoáng mắt */
+    /* Tăng độ dày chữ lên một chút nếu font mới trông hơi mỏng */
+    font-weight: 400; 
+    
     font-size: 1.15rem;
     line-height: 1.8;
 }
