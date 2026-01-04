@@ -91,7 +91,7 @@ title: Home Base | Kaiversus
             > Personal Malware Samples
         </p>
         <div style="text-align: right;">
-            <span class="cmd-btn" style="color: var(--accent);>[ CD_INTO_DIR ]</span>
+            <span class="cmd-btn" style="color: var(--accent);">[ CD_INTO_DIR ]</span>
         </div>
     </article>
 
