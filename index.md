@@ -43,6 +43,45 @@ title: Home Base | Kaiversus
     <div style="display: flex; justify-content: space-between; align-items: end; margin-bottom: 40px; border-bottom: 1px solid #333; padding-bottom: 20px;">
         <h2><span style="color: var(--primary);">SYSTEM</span> LOGS</h2>
         <a href="#" style="color: var(--accent); text-decoration: none; font-family: monospace;">[ARCHIVE_VIEW]</a>
+        <div style="font-family: 'Courier New', monospace; color: #888; margin-top: 15px; margin-bottom: 30px; font-size: 0.9rem;">
+    <span style="color: var(--primary); margin-right: 10px;">root@repo:~$</span>
+    <span id="re-quotes" style="color: #ccc;"></span><span class="cursor">_</span>
+    </div>
+    
+    <script>
+        const reTextElement = document.getElementById('re-quotes');
+        // DANH SÁCH CÁC CÂU QUOTE NGẦU VỀ RE (Bạn có thể sửa lại ở đây)
+        const reTexts = [
+            "EVERYTHING IS OPEN SOURCE IF YOU CAN READ ASSEMBLY", // Mọi thứ đều là mã nguồn mở nếu bạn đọc được Assembly
+            "THERE IS NO PATCH FOR HUMAN STUPIDITY",             // Không có bản vá nào cho sự ngu dốt của con người
+            "ANALYZING MALWARE ONE BYTE AT A TIME",              // Phân tích mã độc từng byte một
+            "MOV EAX, 0xDEADBEEF",                               // Mã hex kinh điển
+            "IF IT CAN BE RUN, IT CAN BE REVERSED"               // Nếu nó chạy được, nó dịch ngược được
+        ]; 
+        
+        let reCount = 0;
+        let reIndex = 0;
+        let reCurrentText = "";
+        let reLetter = "";
+    
+        (function reType() {
+            if (reCount === reTexts.length) { reCount = 0; }
+            reCurrentText = reTexts[reCount];
+            reLetter = reCurrentText.slice(0, ++reIndex);
+            
+            reTextElement.textContent = reLetter;
+            
+            if (reLetter.length === reCurrentText.length) {
+                reCount++;
+                reIndex = 0;
+                // Thời gian chờ khi gõ xong 1 câu (3000ms = 3 giây)
+                setTimeout(reType, 3000); 
+            } else {
+                // Tốc độ gõ chữ (50ms = nhanh)
+                setTimeout(reType, 50); 
+            }
+        }());
+    </script>
     </div>
 
 <div class="card-grid">
