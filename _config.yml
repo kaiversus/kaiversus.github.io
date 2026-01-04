@@ -1,5 +1,16 @@
 # _config.yml
+title: Kaiversus
+url: "https://kaiversus.github.io"
+baseurl: ""
+
+# Định nghĩa 3 kho dữ liệu riêng biệt
 collections:
   writeups:
     output: true
     permalink: /writeups/:path/
+  courses:
+    output: true
+    permalink: /courses/:path/
+  projects:
+    output: true
+    permalink: /projects/:path/
