@@ -21,7 +21,7 @@ title: Home Base | Kaiversus
         </p>
 
         <p style="color: #ccc; max-width: 600px; margin-bottom: 50px; font-size: 1.1rem;">
-            Chào mừng đến với căn cứ dữ liệu.<br>
+            Chào mừng đến với Security Lab.<br>
             Reverse Engineering | Pwnable | Malware Analysis
         </p>
         
@@ -44,57 +44,34 @@ title: Home Base | Kaiversus
     </div>
 
     <div class="card-grid">
-        
-        <article class="log-card">
-            <div class="log-header">
-                <span>/var/log/ctf/htb.log</span>
-                <span style="color: var(--primary);">[ENCRYPTED]</span>
-            </div>
-            <h3 class="log-title">HackTheBox: Forest</h3>
-            <p class="log-desc">
-                > Target: Active Directory<br>
-                > Vuln: AS-REP Roasting<br>
-                > Status: Pwned
-            </p>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 0.8rem; color: #666;">DATE: 2026-01-04</span>
-                <a href="#" class="cmd-btn">[ EXECUTE_READ ]</a>
-            </div>
+        <article class="space-card">
+            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5" alt="Matrix Code">
+            <div class="card-tag">CTF</div>
+            
+            <h3 class="text-gold" style="color: #fff; margin-top: 10px;">HackTheBox: Forest</h3>
+            <p style="color: #aaa; font-size: 0.9rem;">Active Directory Exploitation & Privilege Escalation.</p>
+            
+            <a href="#" style="color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: bold;">READ WRITE-UP -></a>
         </article>
 
-        <article class="log-card danger">
-            <div class="log-header">
-                <span>/bin/malware/wannacry.exe</span>
-                <span style="color: var(--accent);">[DANGER]</span>
-            </div>
-            <h3 class="log-title">WannaCry Analysis</h3>
-            <p class="log-desc">
-                > Type: Ransomware<br>
-                > Tech: Reverse Engineering<br>
-                > Tool: IDA Pro, x64dbg
-            </p>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 0.8rem; color: #666;">DATE: 2025-12-20</span>
-                <a href="#" class="cmd-btn">[ DEBUG_NOW ]</a>
-            </div>
+        <article class="space-card">
+            <img src="https://images.unsplash.com/photo-1563206767-5b1d972d9fb7" alt="Malware">
+            <div class="card-tag" style="border-color: var(--accent); color: var(--accent);">MALWARE</div>
+            
+            <h3 class="text-gold" style="color: #fff; margin-top: 10px;">WannaCry Analysis</h3>
+            <p style="color: #aaa; font-size: 0.9rem;">Reverse Engineering Report: Killswitch mechanism.</p>
+            
+            <a href="#" style="color: var(--accent); text-decoration: none; font-size: 0.8rem; font-weight: bold;">DEBUG NOW -></a>
         </article>
         
-        <article class="log-card">
-            <div class="log-header">
-                <span>/srv/www/vuln_report.txt</span>
-                <span style="color: #fff;">[PUBLIC]</span>
-            </div>
-            <h3 class="log-title">Stored XSS Attack</h3>
-            <p class="log-desc">
-                > Target: E-commerce Site<br>
-                > Bounty: $500<br>
-                > Impact: Critical
-            </p>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 0.8rem; color: #666;">DATE: 2025-11-15</span>
-                <a href="#" class="cmd-btn">[ VIEW_POC ]</a>
-            </div>
+        <article class="space-card">
+            <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb" alt="Web">
+            <div class="card-tag" style="background: #fff; color: #000; border-color: #fff;">WEB</div>
+            
+            <h3 class="text-gold" style="color: #fff; margin-top: 10px;">Stored XSS Attack</h3>
+            <p style="color: #aaa; font-size: 0.9rem;">Finding $500 Bug Bounty on E-commerce site.</p>
+            
+            <a href="#" style="color: #fff; text-decoration: none; font-size: 0.8rem; font-weight: bold;">VIEW POC -></a>
         </article>
-
     </div>
 </section>

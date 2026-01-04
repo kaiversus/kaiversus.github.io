@@ -32,49 +32,52 @@ h1 {
     50% { border-color: var(--primary) }
 }
 
-/* Sửa lại nút bấm cho giống Terminal */
+/* --- 1. SỬA LẠI NÚT BẤM (SOLID BACKGROUND) --- */
 .btn-cyber {
     position: relative;
     padding: 15px 40px;
     font-family: 'Orbitron', sans-serif;
-    font-weight: bold;
+    font-weight: 900; /* Chữ đậm hơn */
     text-transform: uppercase;
-    color: var(--primary);
-    background: transparent;
-    border: none;
-    cursor: pointer;
     text-decoration: none;
     display: inline-block;
+    cursor: pointer;
     
-    /* Cắt góc kiểu Cyberpunk */
+    /* STYLE MỚI: Nền đặc màu xanh Neon, Chữ đen -> Tương phản cực cao */
+    background-color: var(--primary); 
+    color: #000; 
+    border: none;
+    
+    /* Vát góc */
     clip-path: polygon(
-        10px 0, 100% 0, 
-        100% calc(100% - 10px), calc(100% - 10px) 100%, 
-        0 100%, 0 10px
+        15px 0, 100% 0, 
+        100% calc(100% - 15px), calc(100% - 15px) 100%, 
+        0 100%, 0 15px
     );
-    transition: 0.3s;
-    background: rgba(0, 255, 65, 0.1); /* Nền mờ nhẹ */
-    border-right: 2px solid var(--primary); /* Chỉ viền 1 bên cho ngầu */
-    border-left: 2px solid var(--primary);
+    
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.4); /* Phát sáng nhẹ */
 }
 
+/* Hiệu ứng khi di chuột vào nút chính */
 .btn-cyber:hover {
-    background: var(--primary);
-    color: #000;
-    box-shadow: 0 0 20px var(--primary);
-    letter-spacing: 2px; /* Chữ giãn ra khi hover */
+    transform: translateY(-3px);
+    box-shadow: 0 0 30px var(--primary); /* Sáng rực lên */
+    letter-spacing: 1px;
 }
 
+/* Nút phụ (Latest Logs) - Nền đen đặc, viền trắng */
 .btn-cyber.secondary {
-    color: var(--accent);
-    background: rgba(255, 0, 85, 0.1);
-    border-color: var(--accent);
+    background-color: #000; /* Nền đen đặc để che background web */
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.2); /* Viền mờ */
+    box-shadow: none;
 }
 
 .btn-cyber.secondary:hover {
-    background: var(--accent);
-    color: #fff;
-    box-shadow: 0 0 20px var(--accent);
+    border-color: #fff;
+    box-shadow: 0 0 15px rgba(255,255,255,0.5);
+    background-color: #1a1a1a;
 }
 
 /* --- CÁC KHỐI CHUNG --- */
@@ -131,25 +134,50 @@ h1, h2, h3 {
 }
 
 .space-card {
-    background: var(--glass); /* Hiệu ứng kính */
-    backdrop-filter: blur(10px); /* Làm mờ nền sau kính */
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 20px;
-    padding: 20px;
+    /* Nền tối thẫm (gần như đen đặc) để chữ và ảnh nổi lên */
+    background: #0a0f1c; 
+    
+    /* Viền sáng hơn */
+    border: 1px solid rgba(0, 255, 65, 0.3); 
+    border-radius: 15px;
+    padding: 15px; /* Padding nhỏ lại chút cho gọn */
     transition: 0.4s;
     position: relative;
     overflow: hidden;
-}
-
-.space-card:hover {
-    border-color: var(--primary);
-    transform: translateY(-10px);
+    
+    /* Đổ bóng nhẹ lúc bình thường */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
 
 .space-card img {
     width: 100%;
-    border-radius: 15px;
+    height: 180px; /* Cố định chiều cao ảnh cho đều */
+    object-fit: cover; /* Cắt ảnh vừa khung đẹp */
+    border-radius: 10px;
     margin-bottom: 15px;
+    border-bottom: 2px solid var(--primary); /* Viền dưới ảnh */
+}
+
+/* Hiệu ứng Hover cực mạnh */
+.space-card:hover {
+    transform: translateY(-10px); /* Bay lên cao hơn */
+    border-color: var(--primary); /* Viền chuyển màu xanh neon */
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.15); /* Glow xung quanh */
+}
+
+/* Tag nhãn dán trên ảnh */
+.card-tag {
+    position: absolute; 
+    top: 25px; 
+    right: 25px; 
+    background: #000; 
+    color: var(--primary); 
+    padding: 5px 12px; 
+    font-size: 0.75rem; 
+    font-weight: bold;
+    border-radius: 4px;
+    border: 1px solid var(--primary);
+    box-shadow: 0 0 10px rgba(0,0,0,0.8);
 }
 
 /* Mobile Responsive */
@@ -335,3 +363,24 @@ nav a:hover {
     font-size: 1rem;
     margin-bottom: 20px;
 }
+
+/* Nút Execute giả */
+.cmd-btn {
+    font-family: monospace;
+    font-size: 0.8rem;
+    color: var(--primary);
+    text-decoration: none;
+}
+.cmd-btn:hover {
+    text-decoration: underline;
+}
+
+/* Biến thể màu đỏ (Accent) */
+.log-card.danger {
+    border-left-color: var(--accent);
+}
+.log-card.danger:hover {
+    border-color: var(--accent);
+    box-shadow: 0 5px 20px rgba(255, 0, 85, 0.2);
+}
+.log-card.danger .cmd-btn { color: var(--accent); }
