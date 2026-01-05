@@ -28,21 +28,22 @@ permalink: /writeups/
     <div class="card-grid" style="margin-top: 30px;">
         {% for post in site.writeups reversed %}
         <article class="log-card filter-item" data-diff="{{ post.difficulty | default: 'Unrated' }}" data-cat="{{ post.category | default: 'Misc' }}">
+            
             <div class="log-header">
                 <span>{{ post.date | date: "%Y-%m-%d" }}</span>
-                {% if post.difficulty %}
-                <span class="tag-diff {{ post.difficulty }}">{{ post.difficulty | upcase }}</span>
-                {% endif %}
+                <div style="display: flex; gap: 5px;">
+                    {% assign cat_list = post.category | split: ', ' %}
+                    {% for cat in cat_list %}
+                        <span class="tag-cat" style="border: 1px solid var(--accent); color: var(--accent);">{{ cat | upcase }}</span>
+                    {% endfor %}
+                    
+                    {% if post.difficulty %}
+                    <span class="tag-diff {{ post.difficulty }}">{{ post.difficulty | upcase }}</span>
+                    {% endif %}
+                </div>
             </div>
             
             <h3 class="log-title">{{ post.title }}</h3>
-            
-            <div style="margin-bottom: 10px;">
-                {% if post.category %}
-                <span class="tag-cat">{{ post.category }}</span>
-                {% endif %}
-            </div>
-
             <p class="log-desc">{{ post.description }}</p>
             <a href="{{ post.url }}" class="cmd-btn">[ READ_LOG ]</a>
         </article>
@@ -51,27 +52,26 @@ permalink: /writeups/
 </section>
 
 <script>
-    // State lưu trạng thái lọc hiện tại
     let currentDiff = 'all';
     let currentCat = 'all';
 
     function filterSelection(value, type) {
-        // 1. Cập nhật state
         if (type === 'diff') currentDiff = value;
         if (type === 'cat') currentCat = value;
 
-        // 2. Cập nhật giao diện nút bấm (Active class)
         updateActiveButton(value, type);
 
-        // 3. Lọc các thẻ bài viết
         let items = document.getElementsByClassName("filter-item");
         for (let i = 0; i < items.length; i++) {
             let itemDiff = items[i].getAttribute('data-diff');
-            let itemCat = items[i].getAttribute('data-cat');
+            let itemCat = items[i].getAttribute('data-cat'); // Lấy chuỗi "Reverse, Crypto"
 
-            // Logic: Phải thỏa mãn CẢ HAI điều kiện (AND)
+            // Logic Difficulty: So sánh chính xác
             let matchDiff = (currentDiff === 'all' || itemDiff === currentDiff);
-            let matchCat = (currentCat === 'all' || itemCat === currentCat);
+            
+            // Logic Category: Dùng indexOf để tìm chuỗi con (Logic chứa)
+            // Ví dụ: Tìm "Reverse" trong "Reverse, Crypto" -> Có
+            let matchCat = (currentCat === 'all' || itemCat.indexOf(currentCat) > -1);
 
             if (matchDiff && matchCat) {
                 items[i].style.display = "block";
@@ -82,16 +82,13 @@ permalink: /writeups/
     }
 
     function updateActiveButton(value, type) {
-        // Tìm nhóm nút tương ứng (Dựa vào cha của nút được bấm, nhưng ở đây ta tìm thủ công cho chắc)
         let container;
         if (type === 'diff') container = document.querySelectorAll('.filter-group')[0];
         else container = document.querySelectorAll('.filter-group')[1];
 
         let btns = container.getElementsByClassName("filter-btn");
         for (let i = 0; i < btns.length; i++) {
-            // Xóa active cũ
             btns[i].className = btns[i].className.replace(" active", "");
-            // Nếu nút này chứa text khớp với value thì active (so sánh đơn giản)
             if (btns[i].getAttribute('onclick').includes("'" + value + "'")) {
                 btns[i].className += " active";
             }
