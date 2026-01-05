@@ -1,4 +1,3 @@
-google-site-verification: google8b3816f8c0077d38.html
 ---
 layout: default
 title: "Tap Into Hash - PicoCTF 2024 Solution"
