@@ -970,60 +970,52 @@ div.highlighter-rouge pre.highlight, figure.highlight pre {
     line-height: 1.5;
 }
 
-/* --- TÔ MÀU CÚ PHÁP (SYNTAX HIGHLIGHTING) --- */
+/* --- VS CODE DARK THEME (CUSTOMIZED v2) --- */
+/* Dán đè đoạn này vào cuối file assets/css/style.css */
 
-.highlight .c, .highlight .cm, .highlight .cp, .highlight .c1, .highlight .cs {
-    color: #6a9955; /* Comment (Xanh lá trầm) */
-    font-style: italic;
+/* 1. Tinh chỉnh khung chứa code: Tối hơn, bỏ viền thừa */
+div.highlighter-rouge, figure.highlight {
+    /* Màu nền mới: Xanh đen rất sâu, hòa vào nền web hơn */
+    background-color: #0b111a !important; 
+    
+    /* XÓA BỎ VIỀN VÀ BÓNG (Khung thừa) */
+    border: none !important; 
+    box-shadow: none !important;
+    
+    border-radius: 8px; /* Bo góc nhẹ cho mềm mại */
+    margin: 20px 0;
+    overflow-x: auto; /* Vẫn giữ cuộn ngang */
 }
 
-.highlight .k, .highlight .kc, .highlight .kd, .highlight .kp, .highlight .kr, .highlight .kt {
-    color: #569cd6; /* Keyword (Xanh dương - import, if, else...) */
-    font-weight: bold;
+/* 2. Đảm bảo nội dung bên trong sạch sẽ */
+div.highlighter-rouge pre.highlight, figure.highlight pre {
+    margin: 0;
+    padding: 15px;
+    background-color: transparent !important; /* Trong suốt để ăn theo màu nền trên */
+    border: none !important;
+    line-height: 1.6; /* Giãn dòng ra xíu cho dễ đọc */
+    color: #e0e0e0; /* Màu chữ sáng hơn chút cho dễ nhìn trên nền tối */
 }
 
-.highlight .n, .highlight .nb, .highlight .no {
-    color: #d4d4d4; /* Biến bình thường (Trắng xám) */
-}
+/* --- GIỮ NGUYÊN PHẦN TÔ MÀU (SYNTAX HIGHLIGHT) --- */
+/* (Copy lại phần dưới này y hệt, chỉ đổi màu nền ở trên thôi) */
 
-.highlight .nf, .highlight .fm {
-    color: #dcdcaa; /* Tên hàm/Function (Vàng nhạt - main, print...) */
-}
+.highlight .c, .highlight .cm, .highlight .cp, .highlight .c1, .highlight .cs { color: #6a9955; font-style: italic; }
+.highlight .k, .highlight .kc, .highlight .kd, .highlight .kp, .highlight .kr, .highlight .kt { color: #569cd6; font-weight: bold; }
+.highlight .n, .highlight .nb, .highlight .no { color: #d4d4d4; }
+.highlight .nf, .highlight .fm { color: #dcdcaa; }
+.highlight .s, .highlight .sa, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx, .highlight .sr, .highlight .s1, .highlight .ss { color: #ce9178; }
+.highlight .nt { color: #569cd6; }
+.highlight .na { color: #9cdcfe; }
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx { color: #b5cea8; }
+.highlight .o, .highlight .ow { color: #d4d4d4; }
 
-.highlight .s, .highlight .sa, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx, .highlight .sr, .highlight .s1, .highlight .ss {
-    color: #ce9178; /* Chuỗi/String (Cam đất) */
-}
-
-.highlight .nt {
-    color: #569cd6; /* Tên thẻ HTML (Xanh dương) */
-}
-
-.highlight .na {
-    color: #9cdcfe; /* Tên thuộc tính (Xanh nhạt) */
-}
-
-.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
-    color: #b5cea8; /* Số/Number (Xanh lá mạ) */
-}
-
-.highlight .o, .highlight .ow {
-    color: #d4d4d4; /* Toán tử ( =, +, - ) */
-}
-
-.highlight .gd {
-    color: #f44747; /* Git delete (Đỏ) */
-}
-
-.highlight .gi {
-    color: #6a9955; /* Git add (Xanh) */
-}
-
-/* Code inline (ví dụ `như thế này`) */
+/* Code inline (ví dụ `như thế này`) - Chỉnh cho tối đi */
 p code, li code {
-    background-color: #2d2d2d; /* Nền xám đen nhẹ */
-    color: #ce9178; /* Chữ màu cam đất cho nổi */
+    background-color: #0b111a; /* Đồng bộ màu với block code */
+    color: #ce9178; 
     padding: 2px 6px;
     border-radius: 4px;
     font-size: 0.9em;
-    border: 1px solid #444;
+    border: 1px solid rgba(255,255,255,0.05); /* Viền mờ tịt */
 }
