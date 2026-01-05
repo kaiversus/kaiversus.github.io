@@ -1,10 +1,8 @@
 ---
 layout: default
-title: "Tap Into Hash - PicoCTF Solution"
+title: "Tap Into Hash - PicoCTF"
 date: 2025-01-14
-description: ">Reverse  
->Blockchain  
->Crypto"
+description: "#Reverse#Blockchain #Crypto"
 categories: [crypto, reverse, picoctf]
 ---
 
