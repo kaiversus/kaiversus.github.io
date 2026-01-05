@@ -762,3 +762,59 @@ html {
     background: rgba(255, 255, 255, 0.02);
     padding: 15px;
 }
+/* --- FILTER SYSTEM STYLES --- */
+.filter-btn {
+    background: transparent;
+    border: 1px solid #444;
+    color: #888;
+    padding: 5px 10px;
+    margin-left: 5px;
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    transition: 0.3s;
+}
+
+.filter-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.filter-btn.active {
+    background: rgba(0, 255, 65, 0.1);
+    border-color: var(--primary);
+    color: var(--primary);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+}
+
+/* Style riêng cho nhóm Category (màu đỏ accent) */
+.filter-group:nth-child(2) .filter-btn:hover,
+.filter-group:nth-child(2) .filter-btn.active {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(255, 0, 85, 0.1);
+    box-shadow: 0 0 10px rgba(255, 0, 85, 0.2);
+}
+
+/* --- TAG STYLES TRÊN CARD --- */
+.tag-diff {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: bold;
+    border: 1px solid #555;
+}
+
+.tag-diff.Hard { border-color: #ff0055; color: #ff0055; text-shadow: 0 0 5px #ff0055; }
+.tag-diff.Medium { border-color: #ffaa00; color: #ffaa00; }
+.tag-diff.Easy { border-color: #00ff41; color: #00ff41; }
+
+.tag-cat {
+    font-size: 0.75rem;
+    background: #222;
+    color: #ccc;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-family: monospace;
+    border: 1px dashed #444;
+}
