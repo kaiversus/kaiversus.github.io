@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Dinh Thien Bao (Kaiversus) - Cyber Security Researcher
+description: "Portfolio of Dinh Thien Bao (Kaiversus) - A personal archive for CTF Writeups, Reverse Engineering research, and Malware Analysis logs."
 ---
 
 <section class="hero-section">
