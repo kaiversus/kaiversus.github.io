@@ -1,8 +1,10 @@
 ---
 layout: default
-title: "Tap Into Hash - PicoCTF 2024 Solution"
+title: "Tap Into Hash - PicoCTF Solution"
 date: 2025-01-14
-description: "Hướng dẫn giải challenge Tap Into Hash của PicoCTF chi tiết. Phân tích mã nguồn Python, Blockchain và Reverse Engineering."
+description: ">Reverse
+>Blockchain
+>Crypto"
 categories: [crypto, reverse, picoctf]
 ---
 
