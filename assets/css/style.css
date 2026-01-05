@@ -1019,39 +1019,43 @@ p code, li code {
     font-size: 0.9em;
     border: 1px solid rgba(255,255,255,0.05); /* Viền mờ tịt */
 }
-/* --- CUSTOM SCROLLBAR CHO KHUNG CODE --- */
+/* --- ULTIMATE CUSTOM SCROLLBAR (FIX FOR ALL BROWSERS) --- */
 /* Dán vào cuối file assets/css/style.css */
 
-/* 1. Định nghĩa kích thước thanh cuộn */
+/* 1. Hỗ trợ Firefox (Trình duyệt này dùng chuẩn khác) */
+div.highlighter-rouge, figure.highlight, pre.highlight {
+    scrollbar-width: thin; /* Thanh cuộn mảnh */
+    scrollbar-color: #30363d #0b111a; /* Màu thanh kéo - Màu nền */
+}
+
+/* 2. Hỗ trợ Chrome, Edge, Safari, Cốc Cốc (Webkit) */
+/* Target tất cả các lớp có thể sinh ra thanh cuộn */
 div.highlighter-rouge::-webkit-scrollbar, 
-figure.highlight::-webkit-scrollbar {
-    height: 8px;  /* Chiều cao thanh cuộn ngang (đủ nhỏ để tinh tế) */
-    width: 8px;   /* Chiều rộng thanh cuộn dọc */
-    background-color: #0b111a; /* NỀN: Trùng 100% với màu nền khung code */
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+figure.highlight::-webkit-scrollbar,
+pre.highlight::-webkit-scrollbar { 
+    height: 10px !important; /* Tăng độ dày lên 1 chút để chắc chắn nó hiện */
+    background-color: #0b111a !important; /* Màu nền trùng màu box */
 }
 
-/* 2. Phần tay nắm kéo (Thumb) - Làm màu xám tối */
+/* Phần tay nắm kéo (Thumb) */
 div.highlighter-rouge::-webkit-scrollbar-thumb, 
-figure.highlight::-webkit-scrollbar-thumb {
-    background-color: #21262d; /* Màu xám rất trầm (Dark Gray) */
-    border-radius: 4px;        /* Bo tròn viên thuốc */
-    
-    /* Mẹo: Tạo viền trùng màu nền để thanh cuộn nhìn "nổi" và mỏng hơn */
-    border: 2px solid #0b111a; 
+figure.highlight::-webkit-scrollbar-thumb,
+pre.highlight::-webkit-scrollbar-thumb {
+    background-color: #30363d !important; /* Màu xám nổi hơn nền một chút */
+    border-radius: 5px !important;
+    border: 2px solid #0b111a !important; /* Viền trùng nền tạo cảm giác thanh mảnh */
 }
 
-/* 3. Hiệu ứng khi di chuột vào thanh kéo */
+/* Hiệu ứng khi di chuột vào thanh kéo */
 div.highlighter-rouge::-webkit-scrollbar-thumb:hover, 
-figure.highlight::-webkit-scrollbar-thumb:hover {
-    background-color: #58a6ff; /* Màu xanh dương nhẹ (kiểu VS Code) cho dễ nhìn */
-    /* Hoặc nếu bạn thích màu Xanh lá của web thì dùng dòng dưới này: */
-    /* background-color: var(--primary); */
+figure.highlight::-webkit-scrollbar-thumb:hover,
+pre.highlight::-webkit-scrollbar-thumb:hover {
+    background-color: #58a6ff !important; /* Xanh dương sáng khi hover */
 }
 
-/* 4. Xử lý góc vuông nơi 2 thanh cuộn gặp nhau */
+/* Xử lý góc thừa */
 div.highlighter-rouge::-webkit-scrollbar-corner, 
-figure.highlight::-webkit-scrollbar-corner {
-    background-color: #0b111a; /* Ẩn luôn góc thừa */
+figure.highlight::-webkit-scrollbar-corner,
+pre.highlight::-webkit-scrollbar-corner {
+    background-color: #0b111a !important;
 }
