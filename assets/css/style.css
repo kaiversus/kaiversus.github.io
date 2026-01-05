@@ -796,18 +796,50 @@ html {
     box-shadow: 0 0 10px rgba(255, 0, 85, 0.2);
 }
 
-/* --- TAG STYLES TRÊN CARD --- */
+/* --- DIFFICULTY TAG (Đã đồng bộ size với Category) --- */
 .tag-diff {
-    font-size: 0.7rem;
-    padding: 2px 6px;
-    border-radius: 3px;
-    font-weight: bold;
+    /* 1. Kích thước & Font (Giống hệt .tag-cat) */
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;    /* Cỡ chữ bằng nhau */
+    padding: 4px 10px;    /* Độ dày bằng nhau (Cũ là 2px 6px) */
+    letter-spacing: 1px;  /* Giãn chữ cho thoáng */
+    text-transform: uppercase;
+    
+    /* 2. Style giao diện */
+    background: rgba(0, 0, 0, 0.5); /* Nền tối hơn chút để nổi bật */
     border: 1px solid #555;
+    
+    /* Hiệu ứng cắt góc Cyberpunk (Giống category luôn cho ngầu) */
+    clip-path: polygon(
+        5px 0, 100% 0, 
+        100% calc(100% - 5px), calc(100% - 5px) 100%, 
+        0 100%, 0 5px
+    );
+    
+    /* Căn chỉnh */
+    display: inline-block;
+    font-weight: bold; /* Giữ đậm cho Difficulty để phân cấp */
+    margin-left: auto; /* Đẩy sang phải nếu nằm trong flex */
 }
 
-.tag-diff.Hard { border-color: #ff0055; color: #ff0055; text-shadow: 0 0 5px #ff0055; }
-.tag-diff.Medium { border-color: #ffaa00; color: #ffaa00; }
-.tag-diff.Easy { border-color: #00ff41; color: #00ff41; }
+/* --- MÀU SẮC CHO CÁC MỨC ĐỘ --- */
+.tag-diff.Hard { 
+    color: #ff0055; 
+    border-color: #ff0055; 
+    box-shadow: 0 0 8px rgba(255, 0, 85, 0.3);
+}
+
+.tag-diff.Medium { 
+    color: #ffaa00; 
+    border-color: #ffaa00; 
+    box-shadow: 0 0 8px rgba(255, 170, 0, 0.3);
+}
+
+.tag-diff.Easy { 
+    color: #00ff41; 
+    border-color: #00ff41; 
+    box-shadow: 0 0 8px rgba(0, 255, 65, 0.3);
+}
 
 /* --- TAG CATEGORY STYLES (NEON SYSTEM) --- */
 .tag-container {
