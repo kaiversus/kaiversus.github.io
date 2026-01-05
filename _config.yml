@@ -14,3 +14,8 @@ collections:
   projects:
     output: true
     permalink: /projects/:path/
+# --- Dán đoạn này vào cuối file _config.yml ---
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
