@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Home Base | Kaiversus
+title: Dinh Thien Bao (Kaiversus) - Cyber Security Researcher
 ---
 
 <section class="hero-section">
