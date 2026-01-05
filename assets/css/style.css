@@ -809,12 +809,79 @@ html {
 .tag-diff.Medium { border-color: #ffaa00; color: #ffaa00; }
 .tag-diff.Easy { border-color: #00ff41; color: #00ff41; }
 
+/* --- TAG CATEGORY STYLES (NEON SYSTEM) --- */
+.tag-container {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px; /* Khoảng cách với đoạn mô tả bên dưới */
+    flex-wrap: wrap;
+}
+
 .tag-cat {
-    font-size: 0.75rem;
-    background: #222;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border: 1px solid #555; /* Viền mặc định nếu không khớp màu */
     color: #ccc;
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-family: monospace;
-    border: 1px dashed #444;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    transition: 0.3s;
+    background: rgba(0, 0, 0, 0.3); /* Nền tối nhẹ */
+    
+    /* Hiệu ứng cắt góc giống nút bấm */
+    clip-path: polygon(
+        5px 0, 100% 0, 
+        100% calc(100% - 5px), calc(100% - 5px) 100%, 
+        0 100%, 0 5px
+    );
+}
+
+.tag-cat:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.2);
+}
+
+/* --- BẢNG MÀU QUY ĐỊNH (Boss yêu cầu) --- */
+
+/* 1. CRYPTO - Vàng Neon (Electric Yellow) */
+.tag-cat.Crypto {
+    color: #fcee0a;
+    border-color: #fcee0a;
+    box-shadow: 0 0 8px rgba(252, 238, 10, 0.3);
+}
+
+/* 2. PWN - Xanh Lá Matrix (Matrix Green) */
+.tag-cat.Pwn {
+    color: #00ff41;
+    border-color: #00ff41;
+    box-shadow: 0 0 8px rgba(0, 255, 65, 0.3);
+}
+
+/* 3. REVERSE - Xanh Dương (Cyan/Ice Blue) */
+.tag-cat.Reverse {
+    color: #00d8ff;
+    border-color: #00d8ff;
+    box-shadow: 0 0 8px rgba(0, 216, 255, 0.3);
+}
+
+/* 4. FORENSIC - Đỏ (Neon Red/Pink) */
+.tag-cat.Forensic {
+    color: #ff0055;
+    border-color: #ff0055;
+    box-shadow: 0 0 8px rgba(255, 0, 85, 0.3);
+}
+
+/* 5. WEB - Tím (Cyber Purple) */
+.tag-cat.Web {
+    color: #bc13fe;
+    border-color: #bc13fe;
+    box-shadow: 0 0 8px rgba(188, 19, 254, 0.3);
+}
+
+/* 6. MISC/OTHER - Trắng xám (Default) */
+.tag-cat.Misc, .tag-cat.Blockchain {
+    color: #fff;
+    border-color: #fff;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
