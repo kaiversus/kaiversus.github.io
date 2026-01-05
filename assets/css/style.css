@@ -1019,3 +1019,39 @@ p code, li code {
     font-size: 0.9em;
     border: 1px solid rgba(255,255,255,0.05); /* Viền mờ tịt */
 }
+/* --- CUSTOM SCROLLBAR CHO KHUNG CODE --- */
+/* Dán vào cuối file assets/css/style.css */
+
+/* 1. Định nghĩa kích thước thanh cuộn */
+div.highlighter-rouge::-webkit-scrollbar, 
+figure.highlight::-webkit-scrollbar {
+    height: 8px;  /* Chiều cao thanh cuộn ngang (đủ nhỏ để tinh tế) */
+    width: 8px;   /* Chiều rộng thanh cuộn dọc */
+    background-color: #0b111a; /* NỀN: Trùng 100% với màu nền khung code */
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* 2. Phần tay nắm kéo (Thumb) - Làm màu xám tối */
+div.highlighter-rouge::-webkit-scrollbar-thumb, 
+figure.highlight::-webkit-scrollbar-thumb {
+    background-color: #21262d; /* Màu xám rất trầm (Dark Gray) */
+    border-radius: 4px;        /* Bo tròn viên thuốc */
+    
+    /* Mẹo: Tạo viền trùng màu nền để thanh cuộn nhìn "nổi" và mỏng hơn */
+    border: 2px solid #0b111a; 
+}
+
+/* 3. Hiệu ứng khi di chuột vào thanh kéo */
+div.highlighter-rouge::-webkit-scrollbar-thumb:hover, 
+figure.highlight::-webkit-scrollbar-thumb:hover {
+    background-color: #58a6ff; /* Màu xanh dương nhẹ (kiểu VS Code) cho dễ nhìn */
+    /* Hoặc nếu bạn thích màu Xanh lá của web thì dùng dòng dưới này: */
+    /* background-color: var(--primary); */
+}
+
+/* 4. Xử lý góc vuông nơi 2 thanh cuộn gặp nhau */
+div.highlighter-rouge::-webkit-scrollbar-corner, 
+figure.highlight::-webkit-scrollbar-corner {
+    background-color: #0b111a; /* Ẩn luôn góc thừa */
+}
