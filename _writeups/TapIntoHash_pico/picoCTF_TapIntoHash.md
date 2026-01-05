@@ -4,7 +4,7 @@ title: "Tap Into Hash - PicoCTF"
 date: 2025-01-14
 description: ""
 difficulty: Medium
-categories: Reverse, Crypto, Block Chain
+category: Reverse, Crypto, Blockchain
 ---
 
 # Tap into Hash - picoCTF
