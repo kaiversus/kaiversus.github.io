@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Profile Data | Kaiversus
+title: About Dinh Thien Bao
 permalink: /about/
 ---
 
