@@ -22,6 +22,7 @@ permalink: /writeups/
             <button class="filter-btn" onclick="filterSelection('Crypto', 'cat')">[ CRYPTO ]</button>
             <button class="filter-btn" onclick="filterSelection('Pwn', 'cat')">[ PWN ]</button>
             <button class="filter-btn" onclick="filterSelection('Web', 'cat')">[ WEB ]</button>
+            <button class="filter-btn" onclick="filterSelection('Forensic', 'cat')">[ FORENSIC ]</button>
         </div>
     </div>
     
@@ -31,19 +32,20 @@ permalink: /writeups/
             
             <div class="log-header">
                 <span>{{ post.date | date: "%Y-%m-%d" }}</span>
-                <div style="display: flex; gap: 5px;">
-                    {% assign cat_list = post.category | split: ', ' %}
-                    {% for cat in cat_list %}
-                        <span class="tag-cat" style="border: 1px solid var(--accent); color: var(--accent);">{{ cat | upcase }}</span>
-                    {% endfor %}
-                    
-                    {% if post.difficulty %}
-                    <span class="tag-diff {{ post.difficulty }}">{{ post.difficulty | upcase }}</span>
-                    {% endif %}
-                </div>
+                {% if post.difficulty %}
+                <span class="tag-diff {{ post.difficulty }}">{{ post.difficulty | upcase }}</span>
+                {% endif %}
             </div>
             
-            <h3 class="log-title">{{ post.title }}</h3>
+            <h3 class="log-title" style="margin-bottom: 5px;">{{ post.title }}</h3>
+            
+            <div class="tag-container">
+                {% assign cat_list = post.category | split: ', ' %}
+                {% for cat in cat_list %}
+                    <span class="tag-cat {{ cat | strip }}">{{ cat | strip | upcase }}</span>
+                {% endfor %}
+            </div>
+
             <p class="log-desc">{{ post.description }}</p>
             <a href="{{ post.url }}" class="cmd-btn">[ READ_LOG ]</a>
         </article>
@@ -64,13 +66,9 @@ permalink: /writeups/
         let items = document.getElementsByClassName("filter-item");
         for (let i = 0; i < items.length; i++) {
             let itemDiff = items[i].getAttribute('data-diff');
-            let itemCat = items[i].getAttribute('data-cat'); // Lấy chuỗi "Reverse, Crypto"
+            let itemCat = items[i].getAttribute('data-cat'); 
 
-            // Logic Difficulty: So sánh chính xác
             let matchDiff = (currentDiff === 'all' || itemDiff === currentDiff);
-            
-            // Logic Category: Dùng indexOf để tìm chuỗi con (Logic chứa)
-            // Ví dụ: Tìm "Reverse" trong "Reverse, Crypto" -> Có
             let matchCat = (currentCat === 'all' || itemCat.indexOf(currentCat) > -1);
 
             if (matchDiff && matchCat) {
