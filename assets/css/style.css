@@ -943,3 +943,87 @@ html {
     color: #555;
     font-style: italic;
 }
+/* --- VS CODE DARK THEME FOR JEKYLL --- */
+/* Thêm vào cuối file assets/css/style.css */
+
+/* Khung chứa code */
+pre, code {
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace; /* Font code chuẩn */
+}
+
+/* Khối code block (cái khung đen bao quanh) */
+div.highlighter-rouge, figure.highlight {
+    background-color: #1e1e1e !important; /* Màu nền đặc trưng của VS Code */
+    border-radius: 6px;
+    margin: 20px 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5); /* Bóng đổ cho nổi */
+    border: 1px solid #333; /* Viền mỏng */
+    overflow-x: auto; /* Cho phép cuộn ngang nếu code dài */
+}
+
+/* Padding cho nội dung bên trong */
+div.highlighter-rouge pre.highlight, figure.highlight pre {
+    margin: 0;
+    padding: 15px;
+    color: #d4d4d4; /* Màu chữ mặc định (Trắng xám) */
+    background-color: transparent;
+    line-height: 1.5;
+}
+
+/* --- TÔ MÀU CÚ PHÁP (SYNTAX HIGHLIGHTING) --- */
+
+.highlight .c, .highlight .cm, .highlight .cp, .highlight .c1, .highlight .cs {
+    color: #6a9955; /* Comment (Xanh lá trầm) */
+    font-style: italic;
+}
+
+.highlight .k, .highlight .kc, .highlight .kd, .highlight .kp, .highlight .kr, .highlight .kt {
+    color: #569cd6; /* Keyword (Xanh dương - import, if, else...) */
+    font-weight: bold;
+}
+
+.highlight .n, .highlight .nb, .highlight .no {
+    color: #d4d4d4; /* Biến bình thường (Trắng xám) */
+}
+
+.highlight .nf, .highlight .fm {
+    color: #dcdcaa; /* Tên hàm/Function (Vàng nhạt - main, print...) */
+}
+
+.highlight .s, .highlight .sa, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .se, .highlight .sh, .highlight .si, .highlight .sx, .highlight .sr, .highlight .s1, .highlight .ss {
+    color: #ce9178; /* Chuỗi/String (Cam đất) */
+}
+
+.highlight .nt {
+    color: #569cd6; /* Tên thẻ HTML (Xanh dương) */
+}
+
+.highlight .na {
+    color: #9cdcfe; /* Tên thuộc tính (Xanh nhạt) */
+}
+
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
+    color: #b5cea8; /* Số/Number (Xanh lá mạ) */
+}
+
+.highlight .o, .highlight .ow {
+    color: #d4d4d4; /* Toán tử ( =, +, - ) */
+}
+
+.highlight .gd {
+    color: #f44747; /* Git delete (Đỏ) */
+}
+
+.highlight .gi {
+    color: #6a9955; /* Git add (Xanh) */
+}
+
+/* Code inline (ví dụ `như thế này`) */
+p code, li code {
+    background-color: #2d2d2d; /* Nền xám đen nhẹ */
+    color: #ce9178; /* Chữ màu cam đất cho nổi */
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border: 1px solid #444;
+}
