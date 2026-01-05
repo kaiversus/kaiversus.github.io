@@ -917,3 +917,29 @@ html {
     border-color: #fff;
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
+/* --- SEARCH INPUT STYLE --- */
+.cyber-input {
+    background: rgba(0, 0, 0, 0.5); /* Nền tối bán trong suốt */
+    border: 1px solid #444;
+    border-left: 3px solid var(--primary); /* Viền trái xanh lá */
+    color: #fff;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    padding: 8px 15px;
+    width: 100%;
+    max-width: 400px; /* Giới hạn chiều rộng cho đẹp */
+    outline: none;
+    transition: 0.3s;
+    margin-left: 10px;
+}
+
+.cyber-input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+    background: rgba(0, 20, 0, 0.8);
+}
+
+.cyber-input::placeholder {
+    color: #555;
+    font-style: italic;
+}
