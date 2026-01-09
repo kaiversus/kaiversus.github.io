@@ -7,292 +7,197 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&family=Oxanium:wght@700;800&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
     
     <style>
-        /* --- CẤU HÌNH --- */
+        /* --- CẤU HÌNH GIAO DIỆN WRITEUP --- */
         :root {
-            --pastel-accent: #9dfccf; 
-            --bg-code: #161b22;       
-            --bg-page: #0d1117;       
-            --text-main: #c9d1d9;     
-            --border-color: #30363d;
-            --content-width: 1100px; /* Biến dùng chung để căn thẳng hàng */
+            --bg-page: #0d1117;       /* Nền tối dễ đọc */
+            --text-main: #c9d1d9;     /* Chữ xám sáng */
+            --border-color: #30363d;  /* Viền mờ */
+            --accent-color: #00ff41;  /* Màu xanh Matrix chủ đạo */
+            --content-width: 1100px;
         }
 
-        /* --- RESET GLOBAL --- */
+        /* --- OVERRIDE (GHI ĐÈ) STYLE CŨ --- */
         body {
-            font-family: 'Inter', sans-serif !important;
             background-color: var(--bg-page) !important;
             color: var(--text-main) !important;
-            line-height: 1.8;
-            margin: 0;
+            font-family: 'Inter', sans-serif !important; /* Dùng font Inter cho nội dung dễ đọc */
             overflow-x: hidden;
         }
 
-        /* Tắt hiệu ứng cũ */
+        /* Tắt hiệu ứng mưa Matrix để không rối mắt khi đọc */
         canvas#cyber-matrix { display: none !important; }
-        
-        /* Ẩn container cũ của style.css nếu nó lỡ hiện ra */
-        body > .container { padding: 0 !important; max-width: none !important; }
 
-        /* --- CLASS CĂN CHỈNH CHUNG (QUAN TRỌNG) --- */
-        .layout-max-width {
-            max-width: var(--content-width);
-            margin: 0 auto;
-            padding: 0 20px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        /* --- HEADER FIX --- */
+        /* --- HEADER ĐỒNG BỘ VỚI TRANG CHỦ --- */
+        /* Giữ nguyên style header của style.css nhưng ép nền tối để dễ nhìn */
         header {
-            display: block !important; /* Tắt flex gốc */
-            background: rgba(13, 17, 23, 0.98) !important;
-            border-bottom: 1px solid var(--border-color) !important;
-            padding: 0 !important;
+            background: rgba(5, 10, 20, 0.95) !important;
+            border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 1000;
+            padding: 0 20px !important; 
             width: 100% !important;
-            box-shadow: 0 1px 0 rgba(255,255,255,0.1);
-        }
-
-        .header-inner {
-            display: flex;
+            box-sizing: border-box;
+            display: flex !important;
             justify-content: space-between;
             align-items: center;
-            height: 70px; /* Chiều cao header cố định */
         }
 
-        /* Fix Logo mạnh tay */
-        a.logo {
-            font-family: 'Inter', sans-serif !important;
-            font-weight: 900 !important;
-            font-size: 1.5rem !important;
-            color: #fff !important;
-            text-shadow: none !important;
-            letter-spacing: -0.5px !important;
-            border: none !important;
-            padding: 0 !important;
-            margin: 0 !important;
-            display: inline-block;
-        }
-        
-        /* Gạch chân Logo */
-        a.logo span {
-            border-bottom: 3px solid var(--pastel-accent);
-            padding-bottom: 3px;
-        }
-
-        /* Fix Menu */
-        nav a {
-            font-family: 'Inter', sans-serif !important;
-            font-size: 0.9rem !important;
-            font-weight: 600 !important;
-            color: #8b949e !important;
-            text-transform: uppercase !important;
-            letter-spacing: 0.5px !important;
-            text-decoration: none !important;
-            margin-left: 25px;
-            padding: 0 !important;
-            border: none !important; /* Xóa gạch chân hover cũ */
-        }
-        
-        nav a:hover {
-            color: #fff !important;
-            text-shadow: none !important;
-        }
-
-        /* --- LAYOUT BÀI VIẾT --- */
-        .writeup-grid {
+        /* --- BỐ CỤC BÀI VIẾT --- */
+        .writeup-layout {
+            max-width: var(--content-width);
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 260px; /* Nội dung / Sidebar */
-            gap: 60px;
-            padding-top: 50px;
-            padding-bottom: 100px;
+            grid-template-columns: 1fr 250px; /* Nội dung 70% - Mục lục 30% */
+            gap: 50px;
+            padding: 40px 20px 100px 20px;
         }
 
-        /* --- CONTENT STYLE --- */
-        h1.post-title { 
-            font-size: 2.5rem; 
-            color: #fff; 
-            font-weight: 800;
-            line-height: 1.2;
-            letter-spacing: -1px;
-            margin-top: 0;
+        /* --- PHẦN NỘI DUNG CHÍNH --- */
+        .writeup-content {
+            min-width: 0; /* Tránh bị vỡ layout khi có code dài */
+        }
+
+        .writeup-content h1 {
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+            font-size: 2.5rem;
             margin-bottom: 10px;
-            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
         }
 
-        .writeup-content h1:first-of-type { display: none !important; }
-
-        .writeup-content h2 { 
-            margin-top: 3.5rem; 
-            border-bottom: 1px solid var(--border-color); 
-            padding-bottom: 10px; 
-            color: #fff; 
-            font-weight: 700;
-            font-size: 1.7rem;
-            letter-spacing: -0.5px;
-            scroll-margin-top: 90px;
-        }
-        
-        .writeup-content h3 { 
-            margin-top: 2.5rem; 
-            color: var(--pastel-accent); 
-            font-weight: 600; 
-            font-size: 1.3rem;
-            scroll-margin-top: 90px;
+        .writeup-content h2 {
+            margin-top: 3rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            color: #fff;
+            font-family: 'Oxanium', sans-serif;
         }
 
-        /* --- TABLE FIX (GỌN) --- */
+        /* --- FIX LỖI TABLE (QUAN TRỌNG) --- */
         .writeup-content table {
-            width: auto !important;
-            min-width: 50%;
-            max-width: 100%;
+            width: 100%;
             border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 0.9rem;
+            margin: 20px 0;
+            font-size: 0.95rem;
+            background: #161b22; /* Nền bảng tối hơn nền web chút */
             border: 1px solid var(--border-color);
-            border-radius: 6px;
-            background: transparent !important;
-            display: table !important;
         }
 
-        .writeup-content th, 
-        .writeup-content td {
-            padding: 10px 20px;
-            border: 1px solid var(--border-color) !important;
+        .writeup-content th, .writeup-content td {
+            padding: 12px 15px;
+            border: 1px solid var(--border-color);
             text-align: left;
-            background: transparent !important;
-            color: var(--text-main) !important;
+            color: var(--text-main); /* Đảm bảo chữ hiện màu xám sáng */
         }
 
         .writeup-content th {
-            background-color: #161b22 !important;
-            color: #fff !important;
-            font-weight: 700;
-            font-size: 0.8rem;
+            background-color: #21262d;
+            color: #fff;
             text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        /* Cột đầu tiên (Attribute) */
+        .writeup-content td:first-child {
+            font-weight: 600;
+            color: var(--accent-color); /* Tô màu xanh cho cột tên */
+            width: 30%; /* Cố định chiều rộng để không bị ép cột 2 */
+        }
+
+        /* --- CODE BLOCK STYLE --- */
+        .writeup-content pre {
+            background: #161b22 !important;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
         }
         
-        .writeup-content td:first-child {
-            color: #fff !important;
-            font-weight: 600;
-            background-color: rgba(255,255,255,0.02) !important;
-            white-space: nowrap;
-        }
-
-        /* --- CODE BLOCK FIX --- */
-        .writeup-content pre, 
-        .writeup-content div.highlighter-rouge {
-            background-color: var(--bg-code) !important;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px !important;
-            margin: 25px 0;
-            overflow-x: auto;
-            display: block;
-        }
-
-        .writeup-content code, .writeup-content pre code {
-            background: transparent !important;
-            border: none !important;
-            padding: 0 !important;
-            color: #e6edf3 !important;
-            font-family: 'JetBrains Mono', monospace !important;
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        /* Inline Code */
-        .writeup-content p code, .writeup-content li code {
-            background: rgba(110, 118, 129, 0.4) !important;
-            padding: 3px 6px !important;
+        .writeup-content code {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(110, 118, 129, 0.4);
+            padding: 2px 6px;
             border-radius: 4px;
-            color: var(--pastel-accent) !important;
-            font-family: 'JetBrains Mono', monospace !important;
-            font-size: 0.85em;
+            color: var(--accent-color);
+        }
+        
+        .writeup-content pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
         }
 
-        /* --- SIDEBAR TOC --- */
+        /* --- SIDEBAR MỤC LỤC (TOC) --- */
         .writeup-sidebar {
             position: sticky;
-            top: 90px;
+            top: 100px;
             height: fit-content;
-            max-height: calc(100vh - 100px);
-            overflow-y: auto;
         }
-
-        .toc-title {
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            font-size: 0.75rem;
+        
+        .toc-header {
+            font-family: 'Orbitron', sans-serif;
             color: #8b949e;
-            margin-bottom: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 15px;
             letter-spacing: 1px;
-            text-transform: uppercase;
         }
 
         #toc {
             list-style: none;
             padding: 0;
-            margin: 0;
             border-left: 2px solid #21262d;
         }
-        
-        #toc li { margin: 0; }
-        
+
         #toc a {
+            display: block;
+            padding: 5px 0 5px 20px;
             color: #8b949e;
             text-decoration: none;
             font-size: 0.9rem;
+            border-left: 2px solid transparent;
+            margin-left: -2px;
             transition: 0.2s;
-            display: block;
-            padding: 6px 0 6px 18px;
-            border-left: 2px solid transparent; 
-            margin-left: -2px; 
-            line-height: 1.5;
         }
 
-        #toc a.toc-h3 { padding-left: 35px; font-size: 0.85rem; }
-
         #toc a:hover, #toc a.active {
-            color: #fff;
-            border-left-color: var(--pastel-accent);
-            background: linear-gradient(90deg, rgba(157, 252, 207, 0.05), transparent);
+            color: var(--accent-color);
+            border-left-color: var(--accent-color);
         }
 
         /* --- MOBILE --- */
         @media (max-width: 900px) {
-            .writeup-grid { grid-template-columns: 1fr; padding-top: 30px; gap: 40px; }
+            .writeup-layout { grid-template-columns: 1fr; }
             .writeup-sidebar { display: none; }
-            .header-inner { height: auto; padding: 15px 20px; flex-direction: column; gap: 15px; }
-            nav a { margin: 0 10px; }
-            .writeup-content table { width: 100% !important; display: block !important; overflow-x: auto; }
+            header { flex-direction: column; gap: 10px; padding: 15px !important; }
         }
     </style>
 </head>
 
 <body>
+
     <header>
-        <div class="layout-max-width header-inner">
-            <a href="/" class="logo"><span>KAIVERSUS</span></a>
-            <nav>
-                <a href="/writeups/">Writeups</a>
-                <a href="/">Home</a>
-            </nav>
-        </div>
+        <a href="https://kaiversus.github.io/" class="logo" style="text-decoration: none;">KAIVERSUS BLOG</a>
+        <nav>
+            <a href="/">Homepage</a>
+            <a href="/about/">About_me</a> 
+            <a href="https://kaiversus.github.io/#writeups">Repository</a>
+        </nav>
     </header>
 
-    <div class="layout-max-width writeup-grid">
+    <div class="writeup-layout">
         <main class="writeup-content">
-            <div style="margin-bottom: 40px;">
-                <h1 class="post-title">{{ page.title }}</h1>
-                <div style="color: #8b949e; font-family: 'Inter', sans-serif; font-size: 0.95rem; margin-top: 10px;">
-                    {{ page.date | date: "%Y-%m-%d" }} • <span style="color: var(--pastel-accent);">{{ page.category | default: "Reverse Engineering" }}</span>
+            <div style="margin-bottom: 30px; border-bottom: 1px dashed #333; padding-bottom: 20px;">
+                <h1 style="margin: 0;">{{ page.title }}</h1>
+                <div style="margin-top: 10px; color: #888;">
+                    <span>DATE: {{ page.date | date: "%Y-%m-%d" }}</span> | 
+                    <span style="color: var(--accent-color);">CAT: {{ page.category | default: "CTF" }}</span>
                 </div>
             </div>
             
@@ -300,7 +205,7 @@
         </main>
 
         <aside class="writeup-sidebar">
-            <div class="toc-title">ON THIS PAGE</div>
+            <div class="toc-header">// SYSTEM_NAV</div>
             <ul id="toc"></ul>
         </aside>
     </div>
@@ -310,11 +215,6 @@
             const toc = document.getElementById('toc');
             const headers = document.querySelectorAll('.writeup-content h2, .writeup-content h3');
             
-            if (headers.length === 0 && document.querySelector('.writeup-sidebar')) {
-                document.querySelector('.writeup-sidebar').style.display = 'none';
-                return;
-            }
-
             headers.forEach(header => {
                 const id = header.id || header.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
                 header.id = id;
@@ -323,32 +223,13 @@
                 const a = document.createElement('a');
                 a.href = `#${id}`;
                 a.textContent = header.textContent;
-                
-                if (header.tagName === 'H3') {
-                    a.classList.add('toc-h3');
-                }
+                if(header.tagName === 'H3') a.style.paddingLeft = "40px";
                 
                 li.appendChild(a);
                 toc.appendChild(li);
             });
-
-            window.addEventListener('scroll', () => {
-                let current = '';
-                headers.forEach(header => {
-                    const top = header.offsetTop;
-                    if (pageYOffset >= top - 150) {
-                        current = header.getAttribute('id');
-                    }
-                });
-
-                document.querySelectorAll('#toc a').forEach(a => {
-                    a.classList.remove('active');
-                    if (a.getAttribute('href') === `#${current}`) {
-                        a.classList.add('active');
-                    }
-                });
-            });
         });
     </script>
+
 </body>
 </html>
