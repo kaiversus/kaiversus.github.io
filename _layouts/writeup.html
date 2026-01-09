@@ -11,15 +11,17 @@
     <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
     
     <style>
-        /* --- CONFIG MÀU SẮC --- */
+        /* --- CẤU HÌNH MÀU SẮC --- */
         :root {
-            --pastel-accent: #7afdcb; /* Xanh Mint Pastel */
-            --bg-code: #161b22;       /* Nền code tối */
-            --bg-page: #0d1117;       /* Nền trang tối */
-            --text-main: #c9d1d9;     /* Màu chữ */
+            /* Màu Pastel Green (Xanh pha trắng dịu mắt) */
+            --pastel-accent: #9dfccf; 
+            --bg-code: #161b22;       
+            --bg-page: #0d1117;       
+            --text-main: #c9d1d9;     
+            --border-color: #30363d;
         }
 
-        /* RESET STYLE CƠ BẢN */
+        /* RESET CƠ BẢN */
         body {
             font-family: 'Inter', sans-serif !important;
             background-color: var(--bg-page) !important;
@@ -27,13 +29,12 @@
             line-height: 1.8;
         }
 
-        /* Ẩn hiệu ứng cũ */
         canvas#cyber-matrix { display: none !important; }
 
         /* --- HEADER & LOGO --- */
         header {
-            padding: 25px 0 !important;
-            border-bottom: 1px solid #30363d;
+            padding: 20px 0 !important;
+            border-bottom: 1px solid var(--border-color);
             background: rgba(13, 17, 23, 0.95);
         }
 
@@ -44,14 +45,15 @@
             color: #fff !important;
             text-transform: uppercase;
             text-decoration: none !important;
+            letter-spacing: -1px;
             
-            /* Hiệu ứng Glitch tĩnh & Gạch chân Pastel */
+            /* Hiệu ứng Glitch nhẹ + Gạch chân Pastel */
             text-shadow: 2px 2px 0px rgba(255, 0, 80, 0.8), -2px -2px 0px rgba(0, 255, 120, 0.8);
             border-bottom: 3px solid var(--pastel-accent);
-            padding-bottom: 2px;
+            padding-bottom: 4px;
         }
-        
-        /* --- LAYOUT CHIA CỘT --- */
+
+        /* --- LAYOUT --- */
         .writeup-layout {
             display: grid;
             grid-template-columns: 1fr 280px;
@@ -61,8 +63,9 @@
             padding: 60px 20px;
         }
 
-        /* --- TYPOGRAPHY BÀI VIẾT --- */
-        .writeup-content h1 { 
+        /* --- NỘI DUNG BÀI VIẾT --- */
+        /* Tiêu đề chính của Layout */
+        h1.post-title { 
             font-size: 2.5rem; 
             color: #fff; 
             font-weight: 800;
@@ -71,62 +74,67 @@
             margin-bottom: 10px;
         }
 
+        /* ẨN TIÊU ĐỀ THỪA TRONG NỘI DUNG MARKDOWN (HACK FIX) */
+        .writeup-content > h1:first-child {
+            display: none; 
+        }
+
         .writeup-content h2 { 
             margin-top: 3.5rem; 
-            border-bottom: 1px solid #30363d; 
+            border-bottom: 1px solid var(--border-color); 
             padding-bottom: 10px; 
             color: #fff; 
             font-weight: 700;
-            font-size: 1.5rem;
+            font-size: 1.6rem;
         }
         
         .writeup-content h3 { 
             margin-top: 2.5rem; 
             color: var(--pastel-accent); 
             font-weight: 600; 
+            font-size: 1.2rem;
         }
 
-        /* --- FIX LỖI CODE BLOCK (QUAN TRỌNG) --- */
-        /* 1. Ép background cho khung bao ngoài (pre hoặc div highlighter) */
+        /* --- FIX LỖI CODE BLOCK BỊ SỌC --- */
+        /* Ép toàn bộ khối code dùng chung 1 nền */
         .writeup-content pre, 
-        .writeup-content div.highlighter-rouge {
-            background-color: var(--bg-code) !important; /* Màu nền bắt buộc */
-            border: 1px solid #30363d;
-            border-radius: 8px;
-            padding: 20px !important;
-            margin: 25px 0;
+        .writeup-content div.highlighter-rouge, 
+        .writeup-content figure.highlight {
+            background-color: var(--bg-code) !important;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 1.2rem !important;
+            margin: 1.5rem 0;
             overflow-x: auto;
-            width: 100%;
-            display: block; /* Đảm bảo là khối */
+            display: block;
         }
 
-        /* 2. Xóa background của từng dòng chữ bên trong để tránh đứt quãng */
+        /* Xóa màu nền của từng dòng chữ bên trong */
+        .writeup-content code, 
         .writeup-content pre code,
-        .writeup-content div.highlighter-rouge code,
-        .writeup-content div.highlighter-rouge pre {
+        .writeup-content .highlight code {
             background: transparent !important;
             border: none !important;
             padding: 0 !important;
             margin: 0 !important;
-            color: #e6edf3 !important;
+            color: #e6edf3 !important; /* Màu chữ code sáng */
             font-family: 'JetBrains Mono', monospace !important;
             font-size: 0.9rem;
             line-height: 1.5;
-            box-shadow: none !important;
         }
 
-        /* 3. Style cho Inline Code (code ngắn trong dòng) */
+        /* Code ngắn (Inline code) thì vẫn giữ nền xám */
         .writeup-content p code, 
         .writeup-content li code {
-            background: rgba(110, 118, 129, 0.4) !important; /* Nền mờ cho inline */
-            padding: 3px 6px !important;
+            background: rgba(110, 118, 129, 0.4) !important;
+            padding: 2px 6px !important;
             border-radius: 4px;
             color: var(--pastel-accent) !important;
             font-family: 'JetBrains Mono', monospace !important;
             font-size: 0.85em;
         }
 
-        /* --- SIDEBAR MỤC LỤC (DEBUGGER STYLE) --- */
+        /* --- SIDEBAR MỤC LỤC (KIỂU THANH DỌC | ) --- */
         .writeup-sidebar {
             position: sticky;
             top: 40px;
@@ -147,57 +155,36 @@
             list-style: none;
             padding: 0;
             margin: 0;
-            position: relative;
+            border-left: 2px solid var(--border-color); /* Trục dọc mờ */
         }
         
-        /* Đường line dọc nối các điểm */
-        #toc::before {
-            content: '';
-            position: absolute;
-            top: 12px; bottom: 12px; left: 4px;
-            width: 1px;
-            background: #30363d;
-            z-index: 0;
-        }
-
-        #toc li { 
-            margin-bottom: 12px; 
-            position: relative;
-            z-index: 1; 
-        }
+        #toc li { margin: 0; }
         
         #toc a {
             color: #8b949e;
             text-decoration: none;
             font-size: 0.9rem;
             transition: 0.2s;
-            display: flex;
-            align-items: center;
-            padding-left: 25px; 
+            display: block;
+            padding: 8px 0 8px 20px; /* Khoảng cách chữ */
+            border-left: 2px solid transparent; /* Thanh active ẩn */
+            margin-left: -2px; /* Đè lên trục dọc */
         }
 
-        /* DẤU CHẤM DEBUGGER (BREAKPOINT) */
-        #toc a::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            width: 9px; height: 9px;
-            border-radius: 50%;
-            background: #30363d; /* Màu xám (disabled breakpoint) */
-            border: 2px solid var(--bg-page); /* Viền trùng nền để cắt line */
-            transition: 0.3s;
+        /* Style cho mục con (H3) */
+        #toc a.toc-h3 {
+            padding-left: 35px;
+            font-size: 0.85rem;
         }
 
-        /* Khi active: Sáng màu Pastel */
-        #toc a:hover, #toc a.active { color: #fff; }
-        
-        #toc a:hover::before, #toc a.active::before {
-            background: var(--pastel-accent);
-            box-shadow: 0 0 8px var(--pastel-accent);
-            transform: scale(1.2);
+        /* Khi Hover hoặc Active -> Hiện thanh dọc màu Pastel */
+        #toc a:hover, #toc a.active {
+            color: #fff;
+            border-left-color: var(--pastel-accent);
+            background: linear-gradient(90deg, rgba(157, 252, 207, 0.05), transparent); /* Hiệu ứng phát sáng nhẹ nền */
         }
 
-        /* Responsive Mobile */
+        /* Mobile */
         @media (max-width: 900px) {
             .writeup-layout { grid-template-columns: 1fr; }
             .writeup-sidebar { display: none; }
@@ -221,7 +208,7 @@
     <div class="writeup-layout">
         <main class="writeup-content">
             <div style="margin-bottom: 40px;">
-                <h1>{{ page.title }}</h1>
+                <h1 class="post-title">{{ page.title }}</h1>
                 <div style="color: #8b949e; font-family: 'Inter', sans-serif; font-size: 0.9rem; margin-top: 10px;">
                     {{ page.date | date: "%Y-%m-%d" }} • {{ page.category | default: "Reverse Engineering" }}
                 </div>
@@ -254,10 +241,9 @@
                 a.href = `#${id}`;
                 a.textContent = header.textContent;
                 
-                // Thụt lề cho h3
+                // Đánh dấu class để style riêng cho H3
                 if (header.tagName === 'H3') {
-                    a.style.marginLeft = '15px'; 
-                    a.style.fontSize = '0.85rem';
+                    a.classList.add('toc-h3');
                 }
                 
                 li.appendChild(a);
@@ -269,7 +255,7 @@
                 let current = '';
                 headers.forEach(header => {
                     const top = header.offsetTop;
-                    if (pageYOffset >= top - 150) {
+                    if (pageYOffset >= top - 100) {
                         current = header.getAttribute('id');
                     }
                 });
