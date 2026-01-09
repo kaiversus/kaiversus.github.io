@@ -335,5 +335,3 @@ picoCTF{block_3SRhViRbT1qcX_XUjM0r49cH_qCzmJZzBK_c83eaee3}
 ```
 
 ---
-
-`#ctf` `#writeup` `#[category]` `#[picoCTF]` `#[Reverse]`
