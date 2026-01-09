@@ -11,194 +11,218 @@
     <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
     
     <style>
-        /* --- CẤU HÌNH MÀU SẮC --- */
+        /* --- CẤU HÌNH --- */
         :root {
-            --pastel-accent: #9dfccf; /* Xanh Mint */
+            --pastel-accent: #9dfccf; 
             --bg-code: #161b22;       
             --bg-page: #0d1117;       
             --text-main: #c9d1d9;     
             --border-color: #30363d;
+            --content-width: 1100px; /* Biến dùng chung để căn thẳng hàng */
         }
 
+        /* --- RESET GLOBAL --- */
         body {
             font-family: 'Inter', sans-serif !important;
             background-color: var(--bg-page) !important;
             color: var(--text-main) !important;
             line-height: 1.8;
             margin: 0;
-            overflow-x: hidden; /* Chặn thanh cuộn ngang trang */
+            overflow-x: hidden;
         }
 
-        /* Tắt mưa ma trận */
+        /* Tắt hiệu ứng cũ */
         canvas#cyber-matrix { display: none !important; }
+        
+        /* Ẩn container cũ của style.css nếu nó lỡ hiện ra */
+        body > .container { padding: 0 !important; max-width: none !important; }
 
-        /* --- HEADER FIX (CỰC MẠNH) --- */
-        header {
-            /* Ghi đè style.css gốc */
-            display: block !important; 
-            padding: 0 !important;
-            margin: 0 !important;
-            border-bottom: 1px solid var(--border-color) !important; /* Ép hiện viền */
-            background: rgba(13, 17, 23, 0.98) !important; /* Ép hiện nền tối */
-            width: 100% !important;
-            position: relative;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4) !important;
+        /* --- CLASS CĂN CHỈNH CHUNG (QUAN TRỌNG) --- */
+        .layout-max-width {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        /* Wrapper để căn giữa nội dung header */
+        /* --- HEADER FIX --- */
+        header {
+            display: block !important; /* Tắt flex gốc */
+            background: rgba(13, 17, 23, 0.98) !important;
+            border-bottom: 1px solid var(--border-color) !important;
+            padding: 0 !important;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100% !important;
+            box-shadow: 0 1px 0 rgba(255,255,255,0.1);
+        }
+
         .header-inner {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 15px 20px; /* Padding thật ở đây */
-            height: auto;
+            height: 70px; /* Chiều cao header cố định */
         }
 
-        .logo {
+        /* Fix Logo mạnh tay */
+        a.logo {
             font-family: 'Inter', sans-serif !important;
             font-weight: 900 !important;
             font-size: 1.5rem !important;
             color: #fff !important;
-            text-transform: uppercase;
-            text-decoration: none !important;
-            letter-spacing: -0.5px;
             text-shadow: none !important;
+            letter-spacing: -0.5px !important;
             border: none !important;
             padding: 0 !important;
+            margin: 0 !important;
+            display: inline-block;
         }
         
-        .logo span {
+        /* Gạch chân Logo */
+        a.logo span {
             border-bottom: 3px solid var(--pastel-accent);
-            padding-bottom: 2px;
+            padding-bottom: 3px;
         }
 
-        /* --- LAYOUT CHÍNH --- */
-        .writeup-layout {
+        /* Fix Menu */
+        nav a {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.9rem !important;
+            font-weight: 600 !important;
+            color: #8b949e !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+            text-decoration: none !important;
+            margin-left: 25px;
+            padding: 0 !important;
+            border: none !important; /* Xóa gạch chân hover cũ */
+        }
+        
+        nav a:hover {
+            color: #fff !important;
+            text-shadow: none !important;
+        }
+
+        /* --- LAYOUT BÀI VIẾT --- */
+        .writeup-grid {
             display: grid;
-            grid-template-columns: 1fr 260px; /* Nội dung - Sidebar */
-            gap: 50px;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 50px 20px;
+            grid-template-columns: 1fr 260px; /* Nội dung / Sidebar */
+            gap: 60px;
+            padding-top: 50px;
+            padding-bottom: 100px;
         }
 
         /* --- CONTENT STYLE --- */
         h1.post-title { 
-            font-size: 2.2rem; 
+            font-size: 2.5rem; 
             color: #fff; 
             font-weight: 800;
-            line-height: 1.3;
-            text-transform: uppercase;
+            line-height: 1.2;
+            letter-spacing: -1px;
             margin-top: 0;
             margin-bottom: 10px;
+            text-transform: uppercase;
         }
 
-        /* Ẩn H1 trùng lặp trong bài viết */
         .writeup-content h1:first-of-type { display: none !important; }
 
         .writeup-content h2 { 
-            margin-top: 3rem; 
+            margin-top: 3.5rem; 
             border-bottom: 1px solid var(--border-color); 
             padding-bottom: 10px; 
             color: #fff; 
             font-weight: 700;
-            font-size: 1.5rem;
+            font-size: 1.7rem;
             letter-spacing: -0.5px;
-            scroll-margin-top: 100px; /* Để khi click TOC không bị che bởi header */
+            scroll-margin-top: 90px;
         }
         
         .writeup-content h3 { 
-            margin-top: 2rem; 
+            margin-top: 2.5rem; 
             color: var(--pastel-accent); 
             font-weight: 600; 
-            font-size: 1.1rem;
-            scroll-margin-top: 100px;
+            font-size: 1.3rem;
+            scroll-margin-top: 90px;
         }
 
-        /* --- TABLE FIX (GỌN GÀNG & KHÔNG VỠ) --- */
+        /* --- TABLE FIX (GỌN) --- */
         .writeup-content table {
-            width: auto !important; /* Tự co theo nội dung */
-            min-width: 400px;       /* Không bé quá */
-            max-width: 100%;        /* Không tràn màn hình */
+            width: auto !important;
+            min-width: 50%;
+            max-width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 25px 0;
             font-size: 0.9rem;
             border: 1px solid var(--border-color);
             border-radius: 6px;
             background: transparent !important;
-            display: table !important; /* Dùng display table chuẩn */
+            display: table !important;
         }
 
         .writeup-content th, 
         .writeup-content td {
-            padding: 8px 16px;
+            padding: 10px 20px;
             border: 1px solid var(--border-color) !important;
             text-align: left;
             background: transparent !important;
             color: var(--text-main) !important;
-            vertical-align: top;
         }
-        
-        /* Style Header Bảng */
+
         .writeup-content th {
             background-color: #161b22 !important;
             color: #fff !important;
             font-weight: 700;
-            text-transform: uppercase;
             font-size: 0.8rem;
-            white-space: nowrap; /* Tiêu đề không xuống dòng */
+            text-transform: uppercase;
         }
-
-        /* Cột Attribute (cột 1) đậm và không xuống dòng */
+        
         .writeup-content td:first-child {
             color: #fff !important;
             font-weight: 600;
-            white-space: nowrap; 
             background-color: rgba(255,255,255,0.02) !important;
+            white-space: nowrap;
         }
 
-        /* --- CODE BLOCK --- */
+        /* --- CODE BLOCK FIX --- */
         .writeup-content pre, 
         .writeup-content div.highlighter-rouge {
             background-color: var(--bg-code) !important;
             border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 15px !important;
-            margin: 20px 0;
-            overflow-x: auto; /* Cuộn ngang nếu code dài */
+            border-radius: 8px;
+            padding: 20px !important;
+            margin: 25px 0;
+            overflow-x: auto;
             display: block;
         }
 
-        .writeup-content code, 
-        .writeup-content pre code {
+        .writeup-content code, .writeup-content pre code {
             background: transparent !important;
             border: none !important;
             padding: 0 !important;
             color: #e6edf3 !important;
             font-family: 'JetBrains Mono', monospace !important;
-            font-size: 0.85rem;
-            line-height: 1.5;
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
 
         /* Inline Code */
         .writeup-content p code, .writeup-content li code {
             background: rgba(110, 118, 129, 0.4) !important;
-            padding: 2px 6px !important;
+            padding: 3px 6px !important;
             border-radius: 4px;
             color: var(--pastel-accent) !important;
             font-family: 'JetBrains Mono', monospace !important;
             font-size: 0.85em;
         }
 
-        /* --- TOC SIDEBAR --- */
+        /* --- SIDEBAR TOC --- */
         .writeup-sidebar {
             position: sticky;
-            top: 20px; /* Cách đỉnh màn hình 20px */
+            top: 90px;
             height: fit-content;
-            max-height: 90vh;
+            max-height: calc(100vh - 100px);
             overflow-y: auto;
         }
 
@@ -207,7 +231,7 @@
             font-weight: 700;
             font-size: 0.75rem;
             color: #8b949e;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
@@ -227,13 +251,13 @@
             font-size: 0.9rem;
             transition: 0.2s;
             display: block;
-            padding: 6px 0 6px 15px;
+            padding: 6px 0 6px 18px;
             border-left: 2px solid transparent; 
             margin-left: -2px; 
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
-        #toc a.toc-h3 { padding-left: 30px; font-size: 0.85rem; }
+        #toc a.toc-h3 { padding-left: 35px; font-size: 0.85rem; }
 
         #toc a:hover, #toc a.active {
             color: #fff;
@@ -241,33 +265,34 @@
             background: linear-gradient(90deg, rgba(157, 252, 207, 0.05), transparent);
         }
 
-        /* --- MOBILE RESPONSIVE --- */
+        /* --- MOBILE --- */
         @media (max-width: 900px) {
-            .writeup-layout { grid-template-columns: 1fr; padding: 30px 20px; }
-            .writeup-sidebar { display: none; } /* Ẩn TOC trên mobile */
-            .header-inner { flex-direction: column; gap: 15px; }
-            .writeup-content table { width: 100% !important; display: block !important; overflow-x: auto; } /* Mobile cho bảng cuộn ngang */
+            .writeup-grid { grid-template-columns: 1fr; padding-top: 30px; gap: 40px; }
+            .writeup-sidebar { display: none; }
+            .header-inner { height: auto; padding: 15px 20px; flex-direction: column; gap: 15px; }
+            nav a { margin: 0 10px; }
+            .writeup-content table { width: 100% !important; display: block !important; overflow-x: auto; }
         }
     </style>
 </head>
 
 <body>
     <header>
-        <div class="header-inner">
+        <div class="layout-max-width header-inner">
             <a href="/" class="logo"><span>KAIVERSUS</span></a>
-            <nav style="display: flex; gap: 20px;">
-                <a href="/writeups/" style="font-size: 0.9rem; color: #8b949e; text-decoration: none; font-weight: 600; text-transform: uppercase;">Writeups</a>
-                <a href="/" style="font-size: 0.9rem; color: #8b949e; text-decoration: none; font-weight: 600; text-transform: uppercase;">Home</a>
+            <nav>
+                <a href="/writeups/">Writeups</a>
+                <a href="/">Home</a>
             </nav>
         </div>
     </header>
 
-    <div class="writeup-layout">
+    <div class="layout-max-width writeup-grid">
         <main class="writeup-content">
             <div style="margin-bottom: 40px;">
                 <h1 class="post-title">{{ page.title }}</h1>
-                <div style="color: #8b949e; font-family: 'Inter', sans-serif; font-size: 0.9rem; margin-top: 10px;">
-                    {{ page.date | date: "%Y-%m-%d" }} • {{ page.category | default: "Reverse Engineering" }}
+                <div style="color: #8b949e; font-family: 'Inter', sans-serif; font-size: 0.95rem; margin-top: 10px;">
+                    {{ page.date | date: "%Y-%m-%d" }} • <span style="color: var(--pastel-accent);">{{ page.category | default: "Reverse Engineering" }}</span>
                 </div>
             </div>
             
@@ -283,17 +308,14 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const toc = document.getElementById('toc');
-            // Lấy tất cả thẻ H2, H3 trong bài
             const headers = document.querySelectorAll('.writeup-content h2, .writeup-content h3');
             
-            // Nếu không có header thì ẩn sidebar
             if (headers.length === 0 && document.querySelector('.writeup-sidebar')) {
                 document.querySelector('.writeup-sidebar').style.display = 'none';
                 return;
             }
 
             headers.forEach(header => {
-                // Giữ nguyên ID nếu Jekyll đã tạo, nếu chưa thì tự tạo
                 const id = header.id || header.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
                 header.id = id;
                 
@@ -310,12 +332,11 @@
                 toc.appendChild(li);
             });
 
-            // Highlight TOC khi cuộn trang
             window.addEventListener('scroll', () => {
                 let current = '';
                 headers.forEach(header => {
                     const top = header.offsetTop;
-                    if (pageYOffset >= top - 150) { // Offset trừ hao chiều cao header
+                    if (pageYOffset >= top - 150) {
                         current = header.getAttribute('id');
                     }
                 });
