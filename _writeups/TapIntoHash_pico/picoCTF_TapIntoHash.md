@@ -276,7 +276,7 @@ The weekness lies in the `xor_bytes` and the use of `zip`:
 * `key_hash` use 32 bytes because is use SHA-256, but each data block is split into chunks of only 16 bytes. So the `zip(a, b)` stops at shoter length => get 16 bytes 
 * The XOR structure: If 𝐴 ⊕ 𝐵 = 𝐶, then 𝐶 ⊕ 𝐵 = 𝐴. So Plaintext XOR Key = Ciphertext → Ciphertext XOR Key = Plaintext
 
----
+
 
 ## Solution
 
