@@ -14,31 +14,32 @@
     <style>
         /* --- CẤU HÌNH GIAO DIỆN WRITEUP --- */
         :root {
-            --bg-page: #0d1117;       /* Nền tối dễ đọc */
-            --text-main: #c9d1d9;     /* Chữ xám sáng */
-            --border-color: #30363d;  /* Viền mờ */
-            --accent-color: #00ff41;  /* Màu xanh Matrix chủ đạo */
+            --bg-page: #0d1117;       
+            --text-main: #c9d1d9;     
+            --border-color: #30363d;  
+            --accent-color: #00ff41;  
             --content-width: 1100px;
         }
 
-        /* --- OVERRIDE (GHI ĐÈ) STYLE CŨ --- */
+        /* --- OVERRIDE STYLE CŨ --- */
         body {
             background-color: var(--bg-page) !important;
             color: var(--text-main) !important;
-            font-family: 'Inter', sans-serif !important; /* Dùng font Inter cho nội dung dễ đọc */
+            font-family: 'Inter', sans-serif !important;
             overflow-x: hidden;
         }
 
-        /* Tắt hiệu ứng mưa Matrix để không rối mắt khi đọc */
         canvas#cyber-matrix { display: none !important; }
 
-        /* --- HEADER ĐỒNG BỘ VỚI TRANG CHỦ --- */
-        /* Giữ nguyên style header của style.css nhưng ép nền tối để dễ nhìn */
+        /* --- HEADER (ĐÃ SỬA: KHÔNG CÒN ĐI THEO MÀN HÌNH) --- */
         header {
             background: rgba(5, 10, 20, 0.95) !important;
             border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
+            
+            /* Thay đổi ở đây: sticky -> relative */
+            position: relative !important; 
+            top: auto !important;
+            
             z-index: 1000;
             padding: 0 20px !important; 
             width: 100% !important;
@@ -48,20 +49,17 @@
             align-items: center;
         }
 
-        /* --- BỐ CỤC BÀI VIẾT --- */
+        /* --- BỐ CỤC --- */
         .writeup-layout {
             max-width: var(--content-width);
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 250px; /* Nội dung 70% - Mục lục 30% */
+            grid-template-columns: 1fr 250px; 
             gap: 50px;
             padding: 40px 20px 100px 20px;
         }
 
-        /* --- PHẦN NỘI DUNG CHÍNH --- */
-        .writeup-content {
-            min-width: 0; /* Tránh bị vỡ layout khi có code dài */
-        }
+        .writeup-content { min-width: 0; }
 
         .writeup-content h1 {
             font-family: 'Orbitron', sans-serif;
@@ -79,13 +77,13 @@
             font-family: 'Oxanium', sans-serif;
         }
 
-        /* --- FIX LỖI TABLE (QUAN TRỌNG) --- */
+        /* --- TABLE --- */
         .writeup-content table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
             font-size: 0.95rem;
-            background: #161b22; /* Nền bảng tối hơn nền web chút */
+            background: #161b22;
             border: 1px solid var(--border-color);
         }
 
@@ -93,7 +91,7 @@
             padding: 12px 15px;
             border: 1px solid var(--border-color);
             text-align: left;
-            color: var(--text-main); /* Đảm bảo chữ hiện màu xám sáng */
+            color: var(--text-main);
         }
 
         .writeup-content th {
@@ -103,14 +101,13 @@
             font-weight: 700;
         }
 
-        /* Cột đầu tiên (Attribute) */
         .writeup-content td:first-child {
             font-weight: 600;
-            color: var(--accent-color); /* Tô màu xanh cho cột tên */
-            width: 30%; /* Cố định chiều rộng để không bị ép cột 2 */
+            color: var(--accent-color);
+            width: 30%;
         }
 
-        /* --- CODE BLOCK STYLE --- */
+        /* --- CODE BLOCK --- */
         .writeup-content pre {
             background: #161b22 !important;
             border: 1px solid var(--border-color);
@@ -134,10 +131,11 @@
             color: inherit;
         }
 
-        /* --- SIDEBAR MỤC LỤC (TOC) --- */
+        /* --- SIDEBAR MỤC LỤC (ĐÃ SỬA VỊ TRÍ) --- */
         .writeup-sidebar {
             position: sticky;
-            top: 100px;
+            /* Đẩy lên cao hơn (20px) vì không còn Header che nữa */
+            top: 20px; 
             height: fit-content;
         }
         
