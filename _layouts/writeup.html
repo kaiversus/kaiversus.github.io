@@ -13,7 +13,7 @@
     <style>
         /* --- CẤU HÌNH MÀU SẮC --- */
         :root {
-            --pastel-accent: #9dfccf; /* Xanh Mint Pastel dịu mắt */
+            --pastel-accent: #9dfccf; /* Xanh Mint Pastel */
             --bg-code: #161b22;       
             --bg-page: #0d1117;       
             --text-main: #c9d1d9;     
@@ -46,17 +46,16 @@
             text-transform: uppercase;
             text-decoration: none !important;
             letter-spacing: -1px;
-            text-shadow: none !important; /* Xóa bóng cũ */
-            border-bottom: none !important; /* Xóa gạch chân cũ */
+            text-shadow: none !important;
+            border-bottom: none !important;
         }
         
-        /* Hiệu ứng Logo mới: Gạch chân màu Pastel */
         .logo span {
             border-bottom: 3px solid var(--pastel-accent);
             padding-bottom: 4px;
         }
 
-        /* --- LAYOUT CHIA CỘT --- */
+        /* --- LAYOUT --- */
         .writeup-layout {
             display: grid;
             grid-template-columns: 1fr 280px;
@@ -66,9 +65,7 @@
             padding: 60px 20px;
         }
 
-        /* --- NỘI DUNG BÀI VIẾT --- */
-        
-        /* Tiêu đề Layout (Cái này giữ lại) */
+        /* --- NỘI DUNG --- */
         h1.post-title { 
             font-size: 2.5rem; 
             color: #fff; 
@@ -78,10 +75,8 @@
             margin-bottom: 10px;
         }
 
-        /* FIX LỖI TIÊU ĐỀ KÉP: Ẩn thẻ h1 đầu tiên trong nội dung Markdown đi */
-        .writeup-content h1:first-of-type {
-            display: none !important;
-        }
+        /* ẨN TIÊU ĐỀ THỪA */
+        .writeup-content h1:first-of-type { display: none !important; }
 
         .writeup-content h2 { 
             margin-top: 3.5rem; 
@@ -100,48 +95,48 @@
             font-size: 1.2rem;
         }
 
-        /* --- FIX LỖI BẢNG (TABLE) --- */
-        /* Ghi đè toàn bộ style cũ của bảng */
+        /* --- FIX LỖI BẢNG (TABLE) BỊ QUÁ KHỔ --- */
+        /* Giảm kích thước bảng cho gọn gàng */
         .writeup-content table {
             width: 100%;
             border-collapse: collapse;
-            margin: 25px 0;
-            font-size: 0.95rem;
-            background: transparent !important; /* Xóa nền xanh cũ */
+            margin: 20px 0;
+            font-size: 0.85rem; /* Giảm cỡ chữ xuống nhỏ hơn text thường */
+            background: transparent !important;
             border: 1px solid var(--border-color);
         }
 
         .writeup-content th, 
         .writeup-content td {
-            padding: 12px 15px;
-            border: 1px solid var(--border-color) !important; /* Viền xám mỏng */
+            padding: 6px 12px; /* Giảm padding xuống còn 1 nửa so với trước */
+            border: 1px solid var(--border-color) !important;
             text-align: left;
-            background: transparent !important; /* Xóa nền xanh cũ */
+            background: transparent !important;
             color: var(--text-main) !important;
         }
 
         .writeup-content th {
-            background-color: #161b22 !important; /* Header màu tối */
+            background-color: #161b22 !important;
             color: #fff !important;
             font-weight: 600;
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-size: 0.8rem; /* Header bảng nhỏ gọn */
             letter-spacing: 0.5px;
         }
 
-        /* Stripe row (dòng chẵn lẻ) cho dễ đọc */
+        /* Stripe row */
         .writeup-content tr:nth-child(even) td {
             background-color: rgba(255, 255, 255, 0.02) !important;
         }
 
-        /* --- FIX LỖI CODE BLOCK --- */
+        /* --- CODE BLOCK --- */
         .writeup-content pre, 
         .writeup-content div.highlighter-rouge,
         .writeup-content figure.highlight {
             background-color: var(--bg-code) !important;
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            padding: 20px !important;
+            padding: 15px !important;
             margin: 20px 0;
             overflow-x: auto;
             display: block;
@@ -154,21 +149,21 @@
             padding: 0 !important;
             color: #e6edf3 !important;
             font-family: 'JetBrains Mono', monospace !important;
-            font-size: 0.9rem;
+            font-size: 0.85rem; /* Code cũng nhỏ lại xíu cho cân đối */
             line-height: 1.5;
         }
 
         /* Inline code */
         .writeup-content p code, .writeup-content li code {
             background: rgba(110, 118, 129, 0.4) !important;
-            padding: 3px 6px !important;
+            padding: 2px 6px !important;
             border-radius: 4px;
             color: var(--pastel-accent) !important;
             font-family: 'JetBrains Mono', monospace !important;
             font-size: 0.85em;
         }
 
-        /* --- SIDEBAR MỤC LỤC (THANH GẠCH DỌC |) --- */
+        /* --- SIDEBAR MỤC LỤC (THANH GẠCH |) --- */
         .writeup-sidebar {
             position: sticky;
             top: 40px;
@@ -189,7 +184,7 @@
             list-style: none;
             padding: 0;
             margin: 0;
-            border-left: 2px solid var(--border-color); /* Trục dọc mờ */
+            border-left: 2px solid var(--border-color); 
         }
         
         #toc li { margin: 0; }
@@ -200,25 +195,22 @@
             font-size: 0.9rem;
             transition: 0.2s;
             display: block;
-            padding: 8px 0 8px 20px; /* Padding trái để chữ cách xa trục */
-            border-left: 2px solid transparent; /* Thanh active ẩn */
-            margin-left: -2px; /* Đè lên trục dọc */
+            padding: 6px 0 6px 15px; /* Giảm padding mục lục cho gọn */
+            border-left: 2px solid transparent; 
+            margin-left: -2px; 
         }
 
-        /* Style cho H3 thụt vào */
         #toc a.toc-h3 {
-            padding-left: 35px;
+            padding-left: 30px;
             font-size: 0.85rem;
         }
 
-        /* Khi Active: Hiện thanh dọc màu Pastel */
         #toc a:hover, #toc a.active {
             color: #fff;
-            border-left-color: var(--pastel-accent); /* Thanh dọc phát sáng */
+            border-left-color: var(--pastel-accent);
             background: linear-gradient(90deg, rgba(157, 252, 207, 0.05), transparent);
         }
 
-        /* Mobile */
         @media (max-width: 900px) {
             .writeup-layout { grid-template-columns: 1fr; }
             .writeup-sidebar { display: none; }
