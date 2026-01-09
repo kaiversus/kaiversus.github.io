@@ -7,8 +7,6 @@ difficulty: Medium
 category: Reverse, Crypto
 ---
 
-# Tap into Hash - picoCTF
-
 ## Challenge Information
 
 | Attribute | Value |
