@@ -13,14 +13,13 @@
     <style>
         /* --- CẤU HÌNH MÀU SẮC --- */
         :root {
-            --pastel-accent: #9dfccf; /* Xanh Mint Pastel */
+            --pastel-accent: #9dfccf; 
             --bg-code: #161b22;       
             --bg-page: #0d1117;       
             --text-main: #c9d1d9;     
             --border-color: #30363d;
         }
 
-        /* RESET CƠ BẢN */
         body {
             font-family: 'Inter', sans-serif !important;
             background-color: var(--bg-page) !important;
@@ -28,10 +27,9 @@
             line-height: 1.8;
         }
 
-        /* Ẩn hiệu ứng mưa ma trận */
         canvas#cyber-matrix { display: none !important; }
 
-        /* --- HEADER & LOGO --- */
+        /* --- HEADER --- */
         header {
             padding: 20px 0 !important;
             border-bottom: 1px solid var(--border-color);
@@ -65,7 +63,7 @@
             padding: 60px 20px;
         }
 
-        /* --- NỘI DUNG --- */
+        /* --- CONTENT --- */
         h1.post-title { 
             font-size: 2.5rem; 
             color: #fff; 
@@ -75,7 +73,7 @@
             margin-bottom: 10px;
         }
 
-        /* ẨN TIÊU ĐỀ THỪA */
+        /* Ẩn tiêu đề lặp lại */
         .writeup-content h1:first-of-type { display: none !important; }
 
         .writeup-content h2 { 
@@ -95,24 +93,30 @@
             font-size: 1.2rem;
         }
 
-        /* --- FIX LỖI BẢNG (TABLE) BỊ QUÁ KHỔ --- */
-        /* Giảm kích thước bảng cho gọn gàng */
+        /* --- FIX TABLE: QUAN TRỌNG NHẤT Ở ĐÂY --- */
         .writeup-content table {
-            width: 100%;
+            width: auto !important; /* Ép bảng chỉ rộng bằng nội dung, KHÔNG giãn full */
+            max-width: 100%;        /* Không tràn màn hình trên mobile */
             border-collapse: collapse;
             margin: 20px 0;
-            font-size: 0.85rem; /* Giảm cỡ chữ xuống nhỏ hơn text thường */
-            background: transparent !important;
+            font-size: 0.85rem;
             border: 1px solid var(--border-color);
+            display: inline-table; /* Giúp bảng co lại gọn gàng */
         }
 
         .writeup-content th, 
         .writeup-content td {
-            padding: 6px 12px; /* Giảm padding xuống còn 1 nửa so với trước */
+            padding: 8px 15px; /* Padding vừa đủ thoáng */
             border: 1px solid var(--border-color) !important;
             text-align: left;
             background: transparent !important;
             color: var(--text-main) !important;
+            white-space: nowrap; /* Giữ chữ trên 1 dòng nếu có thể */
+        }
+        
+        /* Cho phép xuống dòng nếu nội dung quá dài (như cột Value) */
+        .writeup-content td:last-child {
+            white-space: normal;
         }
 
         .writeup-content th {
@@ -120,11 +124,10 @@
             color: #fff !important;
             font-weight: 600;
             text-transform: uppercase;
-            font-size: 0.8rem; /* Header bảng nhỏ gọn */
+            font-size: 0.75rem; 
             letter-spacing: 0.5px;
         }
 
-        /* Stripe row */
         .writeup-content tr:nth-child(even) td {
             background-color: rgba(255, 255, 255, 0.02) !important;
         }
@@ -149,11 +152,10 @@
             padding: 0 !important;
             color: #e6edf3 !important;
             font-family: 'JetBrains Mono', monospace !important;
-            font-size: 0.85rem; /* Code cũng nhỏ lại xíu cho cân đối */
+            font-size: 0.85rem;
             line-height: 1.5;
         }
 
-        /* Inline code */
         .writeup-content p code, .writeup-content li code {
             background: rgba(110, 118, 129, 0.4) !important;
             padding: 2px 6px !important;
@@ -163,7 +165,7 @@
             font-size: 0.85em;
         }
 
-        /* --- SIDEBAR MỤC LỤC (THANH GẠCH |) --- */
+        /* --- TOC (THANH GẠCH |) --- */
         .writeup-sidebar {
             position: sticky;
             top: 40px;
@@ -195,7 +197,7 @@
             font-size: 0.9rem;
             transition: 0.2s;
             display: block;
-            padding: 6px 0 6px 15px; /* Giảm padding mục lục cho gọn */
+            padding: 6px 0 6px 15px;
             border-left: 2px solid transparent; 
             margin-left: -2px; 
         }
@@ -224,75 +226,3 @@
             <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
                 <a href="/" class="logo"><span>KAIVERSUS</span></a>
                 <nav>
-                    <a href="/writeups/" style="font-size: 0.9rem; color: #8b949e; text-decoration: none; font-weight: 600; margin-left: 20px;">WRITEUPS</a>
-                    <a href="/" style="font-size: 0.9rem; color: #8b949e; text-decoration: none; font-weight: 600; margin-left: 20px;">HOME</a>
-                </nav>
-            </div>
-        </header>
-    </div>
-
-    <div class="writeup-layout">
-        <main class="writeup-content">
-            <div style="margin-bottom: 40px;">
-                <h1 class="post-title">{{ page.title }}</h1>
-                <div style="color: #8b949e; font-family: 'Inter', sans-serif; font-size: 0.9rem; margin-top: 10px;">
-                    {{ page.date | date: "%Y-%m-%d" }} • {{ page.category | default: "Reverse Engineering" }}
-                </div>
-            </div>
-            
-            {{ content }}
-        </main>
-
-        <aside class="writeup-sidebar">
-            <div class="toc-title">TABLE OF CONTENTS</div>
-            <ul id="toc"></ul>
-        </aside>
-    </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const toc = document.getElementById('toc');
-            const headers = document.querySelectorAll('.writeup-content h2, .writeup-content h3');
-            
-            if (headers.length === 0) {
-                document.querySelector('.writeup-sidebar').style.display = 'none';
-            }
-
-            headers.forEach(header => {
-                const id = header.id || header.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-                header.id = id;
-                
-                const li = document.createElement('li');
-                const a = document.createElement('a');
-                a.href = `#${id}`;
-                a.textContent = header.textContent;
-                
-                if (header.tagName === 'H3') {
-                    a.classList.add('toc-h3');
-                }
-                
-                li.appendChild(a);
-                toc.appendChild(li);
-            });
-
-            // Highlight TOC khi cuộn
-            window.addEventListener('scroll', () => {
-                let current = '';
-                headers.forEach(header => {
-                    const top = header.offsetTop;
-                    if (pageYOffset >= top - 100) {
-                        current = header.getAttribute('id');
-                    }
-                });
-
-                document.querySelectorAll('#toc a').forEach(a => {
-                    a.classList.remove('active');
-                    if (a.getAttribute('href').includes(current)) {
-                        a.classList.add('active');
-                    }
-                });
-            });
-        });
-    </script>
-</body>
-</html>
