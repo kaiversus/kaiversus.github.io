@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: writeup
 title: "Tap Into Hash - PicoCTF"
 date: 2025-01-14
 description: ""
