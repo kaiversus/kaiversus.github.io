@@ -15,8 +15,6 @@ category: Reverse, Crypto
 | **Category** | Crypto/Reverse |
 | **Difficulty** | Medium |
 
----
-
 ## Description
 Author: NGIRIMANA Schadrack
 
@@ -45,7 +43,6 @@ Find the encrypted file here. It might be good to analyze source file to get the
 
 <https://play.picoctf.org/practice/challenge/466?category=3&page=1>
 
----
 
 ## Reconnaissance 
 
