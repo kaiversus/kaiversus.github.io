@@ -8,30 +8,29 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
     
     <style>
-        /* --- CẤU HÌNH MÀU SẮC RIÊNG CHO WRITEUP --- */
+        /* --- CONFIG MÀU SẮC --- */
         :root {
-            /* Màu Pastel Green (Xanh pha trắng dịu mắt) */
-            --pastel-accent: #7afdcb; 
-            --bg-code: #161b22; /* Màu nền code tối chuẩn GitHub Dark */
-            --bg-page: #0d1117;
+            --pastel-accent: #7afdcb; /* Xanh Mint Pastel */
+            --bg-code: #161b22;       /* Nền code tối */
+            --bg-page: #0d1117;       /* Nền trang tối */
+            --text-main: #c9d1d9;     /* Màu chữ */
         }
 
-        /* 1. Reset nền và font */
+        /* RESET STYLE CƠ BẢN */
         body {
             font-family: 'Inter', sans-serif !important;
             background-color: var(--bg-page) !important;
-            color: #c9d1d9; /* Màu chữ xám trắng dễ đọc */
+            color: var(--text-main) !important;
             line-height: 1.8;
         }
 
-        /* Ẩn hiệu ứng mưa ma trận */
+        /* Ẩn hiệu ứng cũ */
         canvas#cyber-matrix { display: none !important; }
 
-        /* --- 2. HEADER STYLE (SỬA LẠI LOGO GIỐNG ẢNH) --- */
+        /* --- HEADER & LOGO --- */
         header {
             padding: 25px 0 !important;
             border-bottom: 1px solid #30363d;
@@ -39,38 +38,37 @@
         }
 
         .logo {
-            font-family: 'Inter', sans-serif !important; /* Đổi về font cứng cáp */
+            font-family: 'Inter', sans-serif !important;
             font-weight: 900 !important;
             font-size: 1.8rem !important;
             color: #fff !important;
-            letter-spacing: -1px;
             text-transform: uppercase;
-            text-shadow: 2px 2px 0px rgba(255, 0, 80, 0.8), -2px -2px 0px rgba(0, 255, 120, 0.8); /* Hiệu ứng Glitch nhẹ trong ảnh */
-            border-bottom: 3px solid var(--pastel-accent); /* Gạch chân xanh pastel */
-            padding-bottom: 2px;
             text-decoration: none !important;
+            
+            /* Hiệu ứng Glitch tĩnh & Gạch chân Pastel */
+            text-shadow: 2px 2px 0px rgba(255, 0, 80, 0.8), -2px -2px 0px rgba(0, 255, 120, 0.8);
+            border-bottom: 3px solid var(--pastel-accent);
+            padding-bottom: 2px;
         }
         
-        .logo:hover { transform: none; text-shadow: none; } /* Tắt hiệu ứng rung cũ */
-
-        /* --- 3. LAYOUT CHIA CỘT --- */
+        /* --- LAYOUT CHIA CỘT --- */
         .writeup-layout {
             display: grid;
-            grid-template-columns: 1fr 280px; /* Sidebar nhỏ gọn hơn */
+            grid-template-columns: 1fr 280px;
             gap: 60px;
             max-width: 1100px;
             margin: 0 auto;
             padding: 60px 20px;
         }
 
-        /* --- 4. NỘI DUNG BÀI VIẾT (FIX LỖI CODE BLOCK) --- */
+        /* --- TYPOGRAPHY BÀI VIẾT --- */
         .writeup-content h1 { 
             font-size: 2.5rem; 
             color: #fff; 
             font-weight: 800;
-            letter-spacing: -0.5px;
             line-height: 1.2;
             text-transform: uppercase;
+            margin-bottom: 10px;
         }
 
         .writeup-content h2 { 
@@ -82,40 +80,53 @@
             font-size: 1.5rem;
         }
         
-        .writeup-content h3 { margin-top: 2.5rem; color: var(--pastel-accent); font-weight: 600; }
-        
-        /* FIX LỖI CODE BLOCK: Gom background vào thẻ pre */
-        .writeup-content pre {
-            background: var(--bg-code) !important;
-            padding: 20px;
-            border-radius: 8px;
-            overflow-x: auto;
-            border: 1px solid #30363d;
-            margin: 20px 0;
-            width: 100%; /* Đảm bảo code full chiều ngang */
+        .writeup-content h3 { 
+            margin-top: 2.5rem; 
+            color: var(--pastel-accent); 
+            font-weight: 600; 
         }
-        
-        /* Code bên trong trong suốt để không bị đứt đoạn */
-        .writeup-content pre code {
-            background: transparent !important; 
+
+        /* --- FIX LỖI CODE BLOCK (QUAN TRỌNG) --- */
+        /* 1. Ép background cho khung bao ngoài (pre hoặc div highlighter) */
+        .writeup-content pre, 
+        .writeup-content div.highlighter-rouge {
+            background-color: var(--bg-code) !important; /* Màu nền bắt buộc */
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 20px !important;
+            margin: 25px 0;
+            overflow-x: auto;
+            width: 100%;
+            display: block; /* Đảm bảo là khối */
+        }
+
+        /* 2. Xóa background của từng dòng chữ bên trong để tránh đứt quãng */
+        .writeup-content pre code,
+        .writeup-content div.highlighter-rouge code,
+        .writeup-content div.highlighter-rouge pre {
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            color: #e6edf3 !important;
             font-family: 'JetBrains Mono', monospace !important;
             font-size: 0.9rem;
-            color: #e6edf3;
-            padding: 0;
-            border: none;
+            line-height: 1.5;
+            box-shadow: none !important;
         }
 
-        /* Inline code (code ngắn trong dòng văn bản) */
-        .writeup-content p code, .writeup-content li code {
-            background: rgba(110, 118, 129, 0.4);
-            padding: 2px 6px;
+        /* 3. Style cho Inline Code (code ngắn trong dòng) */
+        .writeup-content p code, 
+        .writeup-content li code {
+            background: rgba(110, 118, 129, 0.4) !important; /* Nền mờ cho inline */
+            padding: 3px 6px !important;
             border-radius: 4px;
+            color: var(--pastel-accent) !important;
             font-family: 'JetBrains Mono', monospace !important;
             font-size: 0.85em;
-            color: var(--pastel-accent);
         }
 
-        /* --- 5. SIDEBAR MỤC LỤC (DEBUGGER STYLE) --- */
+        /* --- SIDEBAR MỤC LỤC (DEBUGGER STYLE) --- */
         .writeup-sidebar {
             position: sticky;
             top: 40px;
@@ -139,13 +150,11 @@
             position: relative;
         }
         
-        /* Đường kẻ dọc mờ mờ nối các điểm (giống luồng chương trình) */
+        /* Đường line dọc nối các điểm */
         #toc::before {
             content: '';
             position: absolute;
-            top: 10px;
-            bottom: 10px;
-            left: 5px; /* Vị trí đường kẻ */
+            top: 12px; bottom: 12px; left: 4px;
             width: 1px;
             background: #30363d;
             z-index: 0;
@@ -154,7 +163,7 @@
         #toc li { 
             margin-bottom: 12px; 
             position: relative;
-            z-index: 1; /* Nổi lên trên đường kẻ */
+            z-index: 1; 
         }
         
         #toc a {
@@ -162,37 +171,33 @@
             text-decoration: none;
             font-size: 0.9rem;
             transition: 0.2s;
-            display: flex; /* Dùng flex để căn chỉnh icon */
+            display: flex;
             align-items: center;
-            padding-left: 25px; /* Chừa chỗ cho dấu chấm */
+            padding-left: 25px; 
         }
 
-        /* TẠO DẤU DEBUGGER (BREAKPOINT) */
+        /* DẤU CHẤM DEBUGGER (BREAKPOINT) */
         #toc a::before {
-            content: ''; /* Không dùng nội dung text */
+            content: '';
             position: absolute;
             left: 0;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%; /* Hình tròn */
-            background: #30363d; /* Màu xám khi chưa active (disabled breakpoint) */
-            border: 2px solid #0d1117; /* Viền trùng màu nền để cắt đường kẻ dọc */
+            width: 9px; height: 9px;
+            border-radius: 50%;
+            background: #30363d; /* Màu xám (disabled breakpoint) */
+            border: 2px solid var(--bg-page); /* Viền trùng nền để cắt line */
             transition: 0.3s;
         }
 
-        /* Khi Hover hoặc Active -> Breakpoint sáng lên */
-        #toc a:hover, #toc a.active {
-            color: #fff;
-        }
-
-        /* Breakpoint kích hoạt (Màu pastel đỏ hoặc xanh) */
+        /* Khi active: Sáng màu Pastel */
+        #toc a:hover, #toc a.active { color: #fff; }
+        
         #toc a:hover::before, #toc a.active::before {
-            background: var(--pastel-accent); /* Xanh pastel */
-            box-shadow: 0 0 10px var(--pastel-accent); /* Phát sáng nhẹ */
+            background: var(--pastel-accent);
+            box-shadow: 0 0 8px var(--pastel-accent);
             transform: scale(1.2);
         }
 
-        /* Mobile */
+        /* Responsive Mobile */
         @media (max-width: 900px) {
             .writeup-layout { grid-template-columns: 1fr; }
             .writeup-sidebar { display: none; }
@@ -201,15 +206,13 @@
 </head>
 
 <body>
-
-    <div class="container" style="padding-top: 0; padding-bottom: 0;">
+    <div class="container" style="padding: 0;">
         <header>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
                 <a href="/" class="logo">KAIVERSUS</a>
-                
                 <nav>
-                    <a href="/writeups/" style="font-size: 0.9rem;">WRITEUPS</a>
-                    <a href="/" style="font-size: 0.9rem;">HOME</a>
+                    <a href="/writeups/" style="font-size: 0.9rem; color: #8b949e; text-decoration: none; font-weight: 600; margin-left: 20px;">WRITEUPS</a>
+                    <a href="/" style="font-size: 0.9rem; color: #8b949e; text-decoration: none; font-weight: 600; margin-left: 20px;">HOME</a>
                 </nav>
             </div>
         </header>
@@ -217,9 +220,9 @@
 
     <div class="writeup-layout">
         <main class="writeup-content">
-            <div style="margin-bottom: 50px;">
-                <h1 style="font-family: 'Inter', sans-serif;">{{ page.title }}</h1>
-                <div style="color: #8b949e; font-family: 'Inter', sans-serif; font-size: 0.9rem; margin-top: 15px;">
+            <div style="margin-bottom: 40px;">
+                <h1>{{ page.title }}</h1>
+                <div style="color: #8b949e; font-family: 'Inter', sans-serif; font-size: 0.9rem; margin-top: 10px;">
                     {{ page.date | date: "%Y-%m-%d" }} • {{ page.category | default: "Reverse Engineering" }}
                 </div>
             </div>
@@ -251,7 +254,7 @@
                 a.href = `#${id}`;
                 a.textContent = header.textContent;
                 
-                // Thụt đầu dòng cho h3 nhưng vẫn giữ style debugger
+                // Thụt lề cho h3
                 if (header.tagName === 'H3') {
                     a.style.marginLeft = '15px'; 
                     a.style.fontSize = '0.85rem';
