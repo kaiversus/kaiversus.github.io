@@ -695,24 +695,36 @@ html {
     margin-top: 20px;
 }
 
-/* --- CODE BLOCK (FINAL PERFECT) --- */
+/* --- CODE BLOCK (HIGH CONTRAST) --- */
 .writeup-content pre {
-    /* 1. Màu sắc & Hiệu ứng (Giữ nguyên cái bạn thích) */
-    background: #21262d !important;
-    border: 1px solid #484f58; 
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    border-radius: 8px;
+    /* 1. Nâng nền lên xám sáng hơn hẳn */
+    background: #30363d !important; 
     
-    /* 2. TINH CHỈNH FONT CHỮ (QUAN TRỌNG) */
-    font-size: 0.85rem !important; /* Giảm size xuống cho tinh tế */
-    line-height: 1.5; /* Tăng khoảng cách dòng để dễ đọc hơn khi chữ nhỏ */
+    /* 2. Viền màu xanh Neon (theo theme) để tạo điểm nhấn */
+    border: 1px solid var(--accent-color) !important; 
     
-    /* 3. Layout */
+    /* 3. Đổ bóng mạnh hơn */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    
+    /* Font & Layout */
+    font-size: 0.85rem !important; 
+    line-height: 1.6;
     padding: 40px 20px 20px 20px; 
+    border-radius: 8px;
     overflow-x: auto;
     font-family: 'JetBrains Mono', monospace;
     position: relative; 
-    margin: 20px 0; 
+    margin: 25px 0; 
+}
+
+/* Chữ bên trong: Màu trắng sáng để tương phản tốt với nền xám */
+.writeup-content pre code {
+    font-size: inherit; 
+    background: transparent;
+    padding: 0;
+    color: #ffffff !important; /* Chữ trắng tinh khôi */
+    font-weight: 500; /* Đậm hơn xíu cho dễ đọc */
+    text-shadow: none;
 }
 
 /* Đảm bảo chữ bên trong cũng nhận size này */
