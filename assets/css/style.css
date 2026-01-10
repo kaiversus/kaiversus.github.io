@@ -695,42 +695,34 @@ html {
     margin-top: 20px;
 }
 
-/* --- CODE BLOCK & COPY BUTTON (UPDATED COLOR) --- */
-        .writeup-content pre {
-            /* 1. Đổi màu nền sáng hơn (Màu cũ: #161b22) */
-            background: #21262d !important;
-            
-            /* 2. Viền sáng và rõ hơn */
-            border: 1px solid #484f58; 
-            
-            /* 3. Thêm hiệu ứng đổ bóng để làm nổi bật khối code */
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-            
-            border-radius: 8px; /* Bo góc mềm mại hơn xíu */
-            padding: 40px 20px 20px 20px; /* Tăng khoảng cách cho thoáng */
-            overflow-x: auto;
-            font-family: 'JetBrains Mono', monospace;
-            position: relative; 
-            margin: 20px 0; /* Cách xa các đoạn văn một chút */
-        }
-        
-        /* Chỉnh lại màu chữ bên trong cho dễ đọc trên nền mới */
-        .writeup-content pre code {
-            background: transparent;
-            padding: 0;
-            color: #e6edf3; /* Màu trắng xám sáng sủa */
-            text-shadow: none;
-        }
+/* --- CODE BLOCK (FINAL PERFECT) --- */
+.writeup-content pre {
+    /* 1. Màu sắc & Hiệu ứng (Giữ nguyên cái bạn thích) */
+    background: #21262d !important;
+    border: 1px solid #484f58; 
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    border-radius: 8px;
+    
+    /* 2. TINH CHỈNH FONT CHỮ (QUAN TRỌNG) */
+    font-size: 0.85rem !important; /* Giảm size xuống cho tinh tế */
+    line-height: 1.5; /* Tăng khoảng cách dòng để dễ đọc hơn khi chữ nhỏ */
+    
+    /* 3. Layout */
+    padding: 40px 20px 20px 20px; 
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    position: relative; 
+    margin: 20px 0; 
+}
 
-        /* Code inline (dạng `text`) giữ nguyên hoặc chỉnh lại chút nếu muốn */
-        .writeup-content code {
-            font-family: 'JetBrains Mono', monospace;
-            background: rgba(110, 118, 129, 0.4);
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: var(--accent-color);
-        }
-
+/* Đảm bảo chữ bên trong cũng nhận size này */
+.writeup-content pre code {
+    font-size: inherit; /* Kế thừa size 0.85rem từ thẻ pre cha */
+    background: transparent;
+    padding: 0;
+    color: #e6edf3;
+    text-shadow: none;
+}
 /* 1. Thiết lập điểm neo cho khung bao ngoài (Wrapper)
    Đây là mấu chốt: Nút sẽ dính theo khung này chứ không dính theo thẻ pre đang cuộn */
 div.highlight, 
