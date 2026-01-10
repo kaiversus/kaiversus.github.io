@@ -28,6 +28,12 @@
             font-family: 'Inter', sans-serif !important;
             overflow-x: hidden;
         }
+        /* --- HIỆU ỨNG MENU SÁNG KHI ĐANG XEM --- */
+        nav a.active {
+            color: #00ff41 !important; /* Màu xanh Neon nổi bật */
+            text-shadow: 0 0 10px #00ff41; /* Hiệu ứng phát sáng */
+            border-bottom: 2px solid #00ff41; /* Gạch chân phát sáng */
+        }
 
         canvas#cyber-matrix { display: none !important; }
         header { background: rgba(5, 10, 20, 0.95) !important; }
@@ -140,9 +146,14 @@
         <header>
             <a href="https://kaiversus.github.io/" class="logo" style="text-decoration: none;">KAIVERSUS BLOG</a>
             <nav>
-                <a href="/">Homepage</a>
-                <a href="/about/">About_me</a> 
-                <a href="https://kaiversus.github.io/#writeups">Repository</a>
+                <a href="/" class="{% if page.url == '/' %}active{% endif %}">Homepage</a>
+                
+                <a href="/about/" class="{% if page.url == '/about/' %}active{% endif %}">About_me</a> 
+                
+                <a href="https://kaiversus.github.io/#writeups" 
+                   class="{% if page.url contains '/writeups/' or page.url contains '/projects/' or page.url contains '/courses/' %}active{% endif %}">
+                   Repository
+                </a>
             </nav>
         </header>
     </div>
