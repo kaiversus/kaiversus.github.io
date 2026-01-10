@@ -707,11 +707,18 @@ html {
     color: #e6edf3;
 }
 
-/* Nút Copy */
+/* Nút Copy - Fixed */
 .copy-btn {
-    position: absolute;
-    top: 5px;
-    right: 5px;
+    /* --- THAY ĐỔI QUAN TRỌNG --- */
+    position: sticky !important; /* Thay vì absolute, dùng sticky để dính */
+    left: auto; /* Reset thuộc tính left nếu có */
+    float: right; /* Đảm bảo nút nằm về phía bên phải luồng văn bản */
+    
+    /* Căn chỉnh vị trí dính */
+    top: 10px;    /* Cách mép trên 10px */
+    right: 10px;  /* Cách mép phải 10px (luôn giữ khoảng cách này khi cuộn) */
+    
+    /* --- GIỮ NGUYÊN STYLE GIAO DIỆN CỦA BẠN --- */
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: #8b949e;
@@ -724,8 +731,9 @@ html {
     z-index: 10;
 }
 
+/* Hiệu ứng hover giữ nguyên */
 .copy-btn:hover {
-    background: #238636; /* Xanh lá khi hover */
+    background: #238636;
     color: #fff;
     border-color: #238636;
 }
