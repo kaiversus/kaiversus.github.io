@@ -67,7 +67,6 @@ System.out.println("bit2 " + Integer.toBinaryString(bit2)); */ char rest = (char
 The first look might be a bit “scary” since the code is complex and hard to read. Don’t worry, just use `Shift + Alt + F` in VS Code, and everything will look much clearer: 
 
 ```java
-
 // These pesky special agents keep reverse engineering our source code and then
 // breaking into our secret vaults. THIS will teach those sneaky sneaks a
 // lesson.
