@@ -19,7 +19,7 @@
             --border-color: #30363d;  
             --accent-color: #00ff41;  
             --title-color: #ff0055;
-            --content-width: 1100px;
+            --content-width: 1100px; /* Biến dùng chung để căn lề */
         }
 
         /* --- OVERRIDE STYLE CŨ --- */
@@ -32,17 +32,26 @@
 
         canvas#cyber-matrix { display: none !important; }
 
-        /* --- HEADER --- */
+        /* --- HEADER (ĐÃ FIX ALIGNMENT) --- */
         header {
             background: rgba(5, 10, 20, 0.95) !important;
             border-bottom: 1px solid var(--border-color);
-            position: relative !important; /* Không chạy theo màn hình */
+            position: relative !important; 
             top: auto !important;
             z-index: 1000;
-            padding: 0 20px !important; 
+            padding: 0 !important; /* Bỏ padding ở đây, để thằng con lo */
             width: 100% !important;
             box-sizing: border-box;
-            display: flex !important;
+            display: block !important; /* Đổi từ flex sang block để wrapper hoạt động */
+        }
+
+        /* Class mới để căn chỉnh nội dung Header */
+        .header-inner {
+            max-width: var(--content-width); /* Đồng bộ độ rộng với body */
+            margin: 0 auto; /* Căn giữa */
+            padding: 0 20px; /* Padding giống hệt phần nội dung dưới */
+            height: 70px; /* Chiều cao cố định cho header */
+            display: flex;
             justify-content: space-between;
             align-items: center;
         }
@@ -72,7 +81,7 @@
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 10px;
             font-family: 'Oxanium', sans-serif;
-            text-shadow: 0 0 15px rgba(255, 0, 85, 0.3); /* Thêm chút effect phát sáng hồng */
+            text-shadow: 0 0 15px rgba(255, 0, 85, 0.3); 
         }
 
         /* --- TABLE --- */
@@ -101,19 +110,18 @@
 
         .writeup-content td:first-child {
             font-weight: 600;
-            color:;
             width: 30%;
         }
 
-        /* --- CODE BLOCK & COPY BUTTON --- */
+        /* --- CODE BLOCK & COPY BUTTON (ĐÃ FIX STICKY) --- */
         .writeup-content pre {
             background: #161b22 !important;
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            padding: 15px;
+            padding: 35px 15px 15px 15px; /* Tăng padding top để nút copy không che code */
             overflow-x: auto;
             font-family: 'JetBrains Mono', monospace;
-            position: relative; /* Để định vị nút Copy */
+            position: relative; 
         }
         
         .writeup-content code {
@@ -130,12 +138,18 @@
             color: inherit;
         }
 
-        /* Style cho nút Copy */
+        /* Style cho nút Copy - Đã sửa lỗi trôi */
         .copy-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(48, 54, 61, 0.7);
+            position: sticky; /* Thay vì absolute */
+            left: auto;       /* Quan trọng để không bị dính trái */
+            float: right;     /* Đẩy sang phải */
+            top: 0px;         /* Cách mép trên */
+            right: 0px;       /* Cách mép phải */
+            
+            margin-top: -25px; /* Hack nhẹ để đẩy nút lên vùng padding-top */
+            margin-right: -5px;
+            
+            background: rgba(48, 54, 61, 0.9);
             border: 1px solid var(--border-color);
             border-radius: 4px;
             color: #8b949e;
@@ -144,12 +158,12 @@
             font-family: 'Inter', sans-serif;
             font-size: 0.75rem;
             transition: all 0.2s;
-            opacity: 1; /* Luôn hiển thị */
+            opacity: 1; 
             z-index: 10;
         }
 
         .copy-btn:hover {
-            background: #238636; /* Màu xanh Github */
+            background: #238636; 
             color: var(--accent-color);
             border-color: #238636;
         }
@@ -195,7 +209,8 @@
         @media (max-width: 900px) {
             .writeup-layout { grid-template-columns: 1fr; }
             .writeup-sidebar { display: none; }
-            header { flex-direction: column; gap: 10px; padding: 15px !important; }
+            /* Mobile header fix */
+            .header-inner { flex-direction: column; gap: 10px; height: auto; padding: 15px 20px; }
         }
     </style>
 </head>
@@ -203,12 +218,14 @@
 <body>
 
     <header>
-        <a href="https://kaiversus.github.io/" class="logo" style="text-decoration: none;">KAIVERSUS BLOG</a>
-        <nav>
-            <a href="/">Homepage</a>
-            <a href="/about/">About_me</a> 
-            <a href="https://kaiversus.github.io/#writeups">Repository</a>
-        </nav>
+        <div class="header-inner">
+            <a href="https://kaiversus.github.io/" class="logo" style="text-decoration: none;">KAIVERSUS BLOG</a>
+            <nav>
+                <a href="/">Homepage</a>
+                <a href="/about/">About_me</a> 
+                <a href="https://kaiversus.github.io/#writeups">Repository</a>
+            </nav>
+        </div>
     </header>
 
     <div class="writeup-layout">
@@ -250,28 +267,23 @@
                 toc.appendChild(li);
             });
 
-            // 2. TẠO NÚT COPY CODE
+            // 2. TẠO NÚT COPY CODE (Updated)
             document.querySelectorAll('.writeup-content pre').forEach(pre => {
-                // Kiểm tra xem bên trong pre có thẻ code không
                 if (!pre.querySelector('code')) return;
 
-                // Tạo nút
                 const btn = document.createElement('button');
                 btn.className = 'copy-btn';
                 btn.textContent = 'Copy';
                 
-                // Xử lý sự kiện click
                 btn.addEventListener('click', () => {
-                    const code = pre.querySelector('code').innerText; // Lấy nội dung text
+                    const code = pre.querySelector('code').innerText;
                     
                     navigator.clipboard.writeText(code).then(() => {
-                        // Hiệu ứng khi copy thành công
                         const originalText = btn.textContent;
                         btn.textContent = 'Copied!';
                         btn.style.background = '#238636';
                         btn.style.color = '#fff';
                         
-                        // Trả lại trạng thái cũ sau 2 giây
                         setTimeout(() => {
                             btn.textContent = originalText;
                             btn.style.background = ''; 
@@ -283,8 +295,8 @@
                     });
                 });
                 
-                // Gắn nút vào khối code
-                pre.appendChild(btn);
+                // Chèn nút vào đầu thẻ pre để position sticky hoạt động chuẩn hơn với float
+                pre.insertBefore(btn, pre.firstChild);
             });
         });
     </script>
