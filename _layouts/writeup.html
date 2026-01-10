@@ -28,11 +28,13 @@
             font-family: 'Inter', sans-serif !important;
             overflow-x: hidden;
         }
-        /* --- HIỆU ỨNG MENU SÁNG KHI ĐANG XEM --- */
-        nav a.active {
-            color: #00ff41 !important; /* Màu xanh Neon nổi bật */
-            text-shadow: 0 0 10px #00ff41; /* Hiệu ứng phát sáng */
-            border-bottom: 2px solid #00ff41; /* Gạch chân phát sáng */
+        /* --- ACTIVE STATE CHO MỤC LỤC --- */
+        #toc a.active {
+            color: #00ff41 !important; /* Màu xanh Neon */
+            border-left-color: #00ff41 !important; /* Viền trái phát sáng */
+            text-shadow: 0 0 10px rgba(0, 255, 65, 0.5); /* Hiệu ứng glow */
+            padding-left: 25px; /* Thụt vào một chút cho hiệu ứng chuyển động */
+            font-weight: bold;
         }
 
         canvas#cyber-matrix { display: none !important; }
@@ -146,13 +148,12 @@
         <header>
             <a href="https://kaiversus.github.io/" class="logo" style="text-decoration: none;">KAIVERSUS BLOG</a>
             <nav>
+                <a href="/">Homepage</a>
+                <a href="/about/">About_me</a> 
+                <a href="https://kaiversus.github.io/#writeups">Repository</a>
                 <a href="/" class="{% if page.url == '/' %}active{% endif %}">Homepage</a>
                 
                 <a href="/about/" class="{% if page.url == '/about/' %}active{% endif %}">About_me</a> 
-                
-                <a href="https://kaiversus.github.io/#writeups" 
-                   class="{% if page.url contains '/writeups/' or page.url contains '/projects/' or page.url contains '/courses/' %}active{% endif %}">
-                   Repository
                 </a>
             </nav>
         </header>
@@ -179,33 +180,60 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // 1. TOC (Mục lục)
+            // 1. TẠO MỤC LỤC (GIỮ NGUYÊN)
             const toc = document.getElementById('toc');
             const headers = document.querySelectorAll('.writeup-content h2, .writeup-content h3');
+            
             headers.forEach(header => {
                 const id = header.id || header.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
                 header.id = id;
+                
                 const li = document.createElement('li');
                 const a = document.createElement('a');
                 a.href = `#${id}`;
                 a.textContent = header.textContent;
                 if(header.tagName === 'H3') a.style.paddingLeft = "40px";
+                
+                // Thêm class để JS dễ tìm
+                a.classList.add('toc-link'); 
+                
                 li.appendChild(a);
                 toc.appendChild(li);
             });
 
-            // 2. COPY BUTTON (SINGLE INSTANCE LOGIC)
-            // Tìm tất cả các thẻ PRE có chứa CODE (nơi chứa nội dung thực sự)
+            // 2. SCROLL SPY (TÍNH NĂNG MỚI: TỰ ĐỘNG SÁNG MỤC LỤC)
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -70% 0px', // Kích hoạt khi header nằm ở 30% phía trên màn hình
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Xóa active cũ
+                        document.querySelectorAll('.toc-link').forEach(link => {
+                            link.classList.remove('active');
+                        });
+                        
+                        // Active mục mới tương ứng với header đang thấy
+                        const id = entry.target.getAttribute('id');
+                        const activeLink = document.querySelector(`.toc-link[href="#${id}"]`);
+                        if (activeLink) {
+                            activeLink.classList.add('active');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            // Bắt đầu theo dõi tất cả các thẻ h2, h3
+            headers.forEach(header => observer.observe(header));
+
+            // 3. COPY BUTTON (LOGIC CŨ - KHÔNG ĐỔI)
             const preTags = document.querySelectorAll('.writeup-content pre');
-            
             preTags.forEach(pre => {
                 if (!pre.querySelector('code')) return;
-
-                // Leo ngược lên tìm Wrapper gần nhất (highlighter-rouge HOẶC highlight)
-                // Logic này đảm bảo ta chỉ gắn nút vào 1 chỗ duy nhất là thằng bao ngoài cùng
                 const wrapper = pre.closest('div.highlighter-rouge') || pre.closest('div.highlight') || pre.parentElement;
-
-                // Kiểm tra 1 lần nữa: Wrapper này đã có nút copy chưa?
                 if (wrapper.querySelector('.copy-btn')) return;
 
                 const btn = document.createElement('button');
@@ -226,8 +254,6 @@
                         }, 2000);
                     });
                 });
-                
-                // Gắn nút vào Wrapper (lớp Cha) để nó nằm đè lên lớp Con (đã trong suốt)
                 wrapper.appendChild(btn);
             });
         });
