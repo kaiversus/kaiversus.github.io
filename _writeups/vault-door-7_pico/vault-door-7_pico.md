@@ -42,7 +42,7 @@ This vault uses bit shifts to convert a password string into an array of integer
 
 #### Initial Observations
 
-**Source code of VaultDoor8.java**
+**Source code of VaultDoor7.java**
 ```java
 import java.util.*;
 import javax.crypto.Cipher;
