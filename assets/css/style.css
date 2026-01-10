@@ -695,17 +695,41 @@ html {
     margin-top: 20px;
 }
 
-.writeup-content pre {
-    background: #161b22; /* Nền xám đen đậm (dịu mắt hơn đen tuyền) */
-    border: 1px solid #30363d; /* Viền xám tối */
-    border-radius: 6px;
-    padding: 15px;
-    overflow-x: auto;
-    font-family: 'Courier New', monospace;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: #e6edf3;
-}
+/* --- CODE BLOCK & COPY BUTTON (UPDATED COLOR) --- */
+        .writeup-content pre {
+            /* 1. Đổi màu nền sáng hơn (Màu cũ: #161b22) */
+            background: #21262d !important;
+            
+            /* 2. Viền sáng và rõ hơn */
+            border: 1px solid #484f58; 
+            
+            /* 3. Thêm hiệu ứng đổ bóng để làm nổi bật khối code */
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            
+            border-radius: 8px; /* Bo góc mềm mại hơn xíu */
+            padding: 40px 20px 20px 20px; /* Tăng khoảng cách cho thoáng */
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            position: relative; 
+            margin: 20px 0; /* Cách xa các đoạn văn một chút */
+        }
+        
+        /* Chỉnh lại màu chữ bên trong cho dễ đọc trên nền mới */
+        .writeup-content pre code {
+            background: transparent;
+            padding: 0;
+            color: #e6edf3; /* Màu trắng xám sáng sủa */
+            text-shadow: none;
+        }
+
+        /* Code inline (dạng `text`) giữ nguyên hoặc chỉnh lại chút nếu muốn */
+        .writeup-content code {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(110, 118, 129, 0.4);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--accent-color);
+        }
 
 /* 1. Thiết lập điểm neo cho khung bao ngoài (Wrapper)
    Đây là mấu chốt: Nút sẽ dính theo khung này chứ không dính theo thẻ pre đang cuộn */
