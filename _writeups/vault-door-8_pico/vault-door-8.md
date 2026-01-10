@@ -64,7 +64,7 @@ System.out.println("bit2 " + Integer.toBinaryString(bit2)); */ char rest = (char
 0xF4, 0xC0, 0x97, 0xF0, 0x77, 0x97, 0xC0, 0xE4, 0xF0, 0x77, 0xA4, 0xD0, 0xC5, 0x77, 0xF4, 0x86, 0xD0, 0xA5, 0x45, 0x96, 0x27, 0xB5, 0x77, 0xF1, 0xC2, 0xD1, 0xB4, 0xD1, 0xB4, 0xF1, 0xF1, 0x85 }; return Arrays.equals(scrambled, expected); } }
 ```
 
-The first look might be a bit “scary” since the code is complex and hard to read. Don’t worry, just use Shift + Alt + F in VS Code, and everything will look much clearer: 
+The first look might be a bit “scary” since the code is complex and hard to read. Don’t worry, just use `Shift + Alt + F` in VS Code, and everything will look much clearer: 
 
 ```java
 
