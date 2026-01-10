@@ -12,17 +12,16 @@
     <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
     
     <style>
-        /* --- CẤU HÌNH GIAO DIỆN WRITEUP --- */
+        /* --- GLOBAL VARIABLES --- */
         :root {
             --bg-page: #0d1117;       
             --text-main: #c9d1d9;     
             --border-color: #30363d;  
             --accent-color: #00ff41;  
-            --title-color: #ff0055;
             --content-width: 1200px; 
+            --code-bg: #161b22; /* Github Dark Dimmed */
         }
 
-        /* --- OVERRIDE STYLE CŨ --- */
         body {
             background-color: var(--bg-page) !important;
             color: var(--text-main) !important;
@@ -31,10 +30,9 @@
         }
 
         canvas#cyber-matrix { display: none !important; }
-
         header { background: rgba(5, 10, 20, 0.95) !important; }
 
-        /* --- BỐ CỤC NỘI DUNG --- */
+        /* --- LAYOUT --- */
         .writeup-layout {
             max-width: var(--content-width);
             margin: 0 auto;
@@ -50,68 +48,66 @@
         /* --- TABLE --- */
         .writeup-content table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95rem; background: #161b22; border: 1px solid var(--border-color); }
         .writeup-content th, .writeup-content td { padding: 12px 15px; border: 1px solid var(--border-color); text-align: left; color: var(--text-main); }
-        .writeup-content th { background-color: #21262d; color: #fff; text-transform: uppercase; font-weight: 700; }
+        .writeup-content th { background-color: #21262d; color: #fff; font-weight: 700; }
         .writeup-content td:first-child { font-weight: 600; width: 30%; }
 
         /* ==========================================================================
-           FIX JEKYLL CODE BLOCKS (DARKER & SINGLE BUTTON)
+           FIX JEKYLL NESTED LAYERS (TRIỆT TIÊU 2 LỚP)
            ========================================================================== */
         
-        /* 1. Target lớp vỏ bao ngoài cùng */
-        div.highlighter-rouge, 
-        div.highlight {
-            /* MÀU NỀN TỐI HƠN (#161b22 - Github Dark Dimmed) */
-            background-color: #161b22 !important; 
-            
-            /* KHÔNG VIỀN */
-            border: none !important; 
-            
+        /* 1. LỚP VỎ NGOÀI CÙNG (Cha): Chịu trách nhiệm hiển thị Background & Box */
+        div.highlighter-rouge {
+            background-color: var(--code-bg) !important; 
             border-radius: 8px;
             margin: 25px 0;
-            position: relative; /* Để neo nút copy */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Bóng đổ sâu hơn cho nổi trên nền đen */
+            position: relative; /* Neo nút copy */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            border: none !important;
         }
 
-        /* 2. Reset style cho thẻ pre bên trong (trong suốt) */
+        /* 2. LỚP GIỮA (Con): Bị Jekyll chèn vào -> Reset về trong suốt hoàn toàn */
+        div.highlighter-rouge div.highlight {
+            background: transparent !important;
+            border: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+        }
+
+        /* 3. LỚP TRONG CÙNG (Thẻ Pre): Chứa chữ -> Căn chỉnh padding cho đẹp */
         div.highlighter-rouge pre.highlight,
-        div.highlight pre.highlight,
+        pre.highlight,
         .writeup-content pre {
             background: transparent !important; 
             border: none !important;
             margin: 0 !important;
-            padding: 40px 20px 20px 20px !important;
+            /* Padding này quan trọng: Chừa chỗ cho nút Copy ở góc phải */
+            padding: 40px 20px 20px 20px !important; 
             overflow-x: auto;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem !important;
             line-height: 1.6;
         }
 
-        /* 3. Màu chữ code */
-        .writeup-content pre code,
-        div.highlighter-rouge code {
-            color: #e6edf3 !important; /* Trắng xám dịu mắt */
-            background: transparent !important;
-            text-shadow: none;
-            padding: 0;
+        /* 4. FALLBACK: Nếu Jekyll KHÔNG sinh ra highlighter-rouge mà chỉ có highlight (hiếm) */
+        div.highlight:not(.highlighter-rouge div.highlight) {
+            background-color: var(--code-bg) !important;
+            border-radius: 8px;
+            margin: 25px 0;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
         }
 
-        /* Inline code */
-        p > code, li > code {
-            font-family: 'JetBrains Mono', monospace;
-            background: rgba(110, 118, 129, 0.4);
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: var(--accent-color);
-            font-size: 0.9em;
-        }
+        /* CODE TEXT COLOR */
+        code { color: #e6edf3 !important; text-shadow: none; padding: 0; }
+        p > code, li > code { background: rgba(110, 118, 129, 0.4); padding: 2px 6px; border-radius: 4px; color: var(--accent-color); font-size: 0.9em; font-family: 'JetBrains Mono', monospace; }
 
-        /* --- NÚT COPY (FIXED) --- */
+        /* --- SINGLE COPY BUTTON --- */
         .copy-btn {
             position: absolute;
             top: 10px;         
             right: 10px;       
-            
-            background: rgba(48, 54, 61, 0.6); /* Nền trong suốt hơn cho tinh tế */
+            background: rgba(48, 54, 61, 0.6);
             border: 1px solid #30363d;
             border-radius: 4px;
             color: #8b949e;
@@ -122,14 +118,9 @@
             transition: all 0.2s;
             z-index: 100;
         }
+        .copy-btn:hover { background: #238636; color: #fff; border-color: #238636; }
 
-        .copy-btn:hover {
-            background: #238636; 
-            color: #fff;
-            border-color: #238636;
-        }
-
-        /* --- SIDEBAR & MOBILE --- */
+        /* --- RESPONSIVE --- */
         .writeup-sidebar { position: sticky; top: 20px; height: fit-content; }
         .toc-header { font-family: 'Orbitron', sans-serif; color: #8b949e; font-size: 0.8rem; margin-bottom: 15px; letter-spacing: 1px; }
         #toc { list-style: none; padding: 0; border-left: 2px solid #21262d; }
@@ -177,7 +168,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // 1. MỤC LỤC
+            // 1. TOC (Mục lục)
             const toc = document.getElementById('toc');
             const headers = document.querySelectorAll('.writeup-content h2, .writeup-content h3');
             headers.forEach(header => {
@@ -192,20 +183,19 @@
                 toc.appendChild(li);
             });
 
-            // 2. NÚT COPY CODE (LOGIC MỚI: TRÁNH TRÙNG LẶP)
-            // Thay vì tìm div, ta tìm thẻ 'pre' (chứa code) rồi tìm cha của nó để gắn nút
+            // 2. COPY BUTTON (SINGLE INSTANCE LOGIC)
+            // Tìm tất cả các thẻ PRE có chứa CODE (nơi chứa nội dung thực sự)
             const preTags = document.querySelectorAll('.writeup-content pre');
             
             preTags.forEach(pre => {
-                // Kiểm tra xem pre này có code không
                 if (!pre.querySelector('code')) return;
 
-                // Tìm wrapper gần nhất (div.highlight hoặc div.highlighter-rouge)
-                // Đây là nơi ta sẽ gắn nút vào (chứ không gắn vào pre để tránh trôi)
+                // Leo ngược lên tìm Wrapper gần nhất (highlighter-rouge HOẶC highlight)
+                // Logic này đảm bảo ta chỉ gắn nút vào 1 chỗ duy nhất là thằng bao ngoài cùng
                 const wrapper = pre.closest('div.highlighter-rouge') || pre.closest('div.highlight') || pre.parentElement;
 
-                // CỰC KỲ QUAN TRỌNG: Kiểm tra xem wrapper này đã có nút copy chưa
-                if (wrapper.querySelector('.copy-btn')) return; 
+                // Kiểm tra 1 lần nữa: Wrapper này đã có nút copy chưa?
+                if (wrapper.querySelector('.copy-btn')) return;
 
                 const btn = document.createElement('button');
                 btn.className = 'copy-btn';
@@ -226,11 +216,10 @@
                     });
                 });
                 
-                // Gắn nút vào wrapper (đã được set position relative trong CSS)
+                // Gắn nút vào Wrapper (lớp Cha) để nó nằm đè lên lớp Con (đã trong suốt)
                 wrapper.appendChild(btn);
             });
         });
     </script>
-
 </body>
 </html>
