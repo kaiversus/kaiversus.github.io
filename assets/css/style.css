@@ -707,18 +707,36 @@ html {
     color: #e6edf3;
 }
 
-/* Nút Copy - Fixed */
+/* 1. Thiết lập điểm neo cho khung bao ngoài (Wrapper)
+   Đây là mấu chốt: Nút sẽ dính theo khung này chứ không dính theo thẻ pre đang cuộn */
+div.highlight, 
+figure.highlight,
+.highlighter-rouge {
+    position: relative !important; 
+}
+
+/* 2. Vô hiệu hóa điểm neo của thẻ Pre 
+   Điều này khiến nút Copy "bỏ qua" thanh cuộn của thẻ Pre và tìm đến khung bao ngoài */
+pre.highlight, 
+pre {
+    position: static !important; 
+    padding-top: 35px !important; /* Tạo khoảng trống bên trên để nút không che mất code */
+}
+
+/* 3. Cài đặt vị trí tuyệt đối cho nút Copy */
 .copy-btn {
-    /* --- THAY ĐỔI QUAN TRỌNG --- */
-    position: sticky !important; /* Thay vì absolute, dùng sticky để dính */
-    left: auto; /* Reset thuộc tính left nếu có */
-    float: right; /* Đảm bảo nút nằm về phía bên phải luồng văn bản */
+    /* Ghim chặt vào góc phải của khung bao ngoài */
+    position: absolute !important;
+    top: 5px !important;
+    right: 5px !important;
     
-    /* Căn chỉnh vị trí dính */
-    top: 10px;    /* Cách mép trên 10px */
-    right: 10px;  /* Cách mép phải 10px (luôn giữ khoảng cách này khi cuộn) */
+    /* Reset các thuộc tính cũ để tránh xung đột */
+    float: none !important;
+    left: auto !important;
+    margin: 0 !important;
+    bottom: auto !important;
     
-    /* --- GIỮ NGUYÊN STYLE GIAO DIỆN CỦA BẠN --- */
+    /* Style giao diện của bạn */
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: #8b949e;
@@ -728,16 +746,15 @@ html {
     cursor: pointer;
     transition: 0.2s;
     font-family: sans-serif;
-    z-index: 10;
+    z-index: 100; /* Luôn nổi lên trên cùng */
 }
 
-/* Hiệu ứng hover giữ nguyên */
+/* Hiệu ứng Hover */
 .copy-btn:hover {
     background: #238636;
     color: #fff;
     border-color: #238636;
 }
-
 /* Code inline (ví dụ `như này`) */
 .writeup-content p code, 
 .writeup-content li code {
