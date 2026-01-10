@@ -19,7 +19,8 @@
             --border-color: #30363d;  
             --accent-color: #00ff41;  
             --title-color: #ff0055;
-            --content-width: 1100px; /* Biến dùng chung để căn lề */
+            /* Đồng bộ kích thước với .container trong style.css */
+            --content-width: 1200px; 
         }
 
         /* --- OVERRIDE STYLE CŨ --- */
@@ -32,38 +33,23 @@
 
         canvas#cyber-matrix { display: none !important; }
 
-        /* --- HEADER (ĐÃ FIX ALIGNMENT) --- */
+        /* --- SỬA LẠI HEADER: KHÔI PHỤC STYLE GỐC --- */
+        /* Đảm bảo header có nền tối để không bị chìm chữ */
         header {
-            background: rgba(5, 10, 20, 0.95) !important;
-            border-bottom: 1px solid var(--border-color);
-            position: relative !important; 
-            top: auto !important;
-            z-index: 1000;
-            padding: 0 !important; /* Bỏ padding ở đây, để thằng con lo */
-            width: 100% !important;
-            box-sizing: border-box;
-            display: block !important; /* Đổi từ flex sang block để wrapper hoạt động */
+             background: rgba(5, 10, 20, 0.95) !important;
+             /* Giữ nguyên các thuộc tính khác của style.css */
         }
 
-        /* Class mới để căn chỉnh nội dung Header */
-        .header-inner {
-            max-width: var(--content-width); /* Đồng bộ độ rộng với body */
-            margin: 0 auto; /* Căn giữa */
-            padding: 0 20px; /* Padding giống hệt phần nội dung dưới */
-            height: 70px; /* Chiều cao cố định cho header */
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        /* --- BỐ CỤC --- */
+        /* --- BỐ CỤC NỘI DUNG (ĐỒNG BỘ VỚI CONTAINER GỐC) --- */
         .writeup-layout {
-            max-width: var(--content-width);
+            max-width: var(--content-width); /* 1200px */
             margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 250px; 
             gap: 50px;
-            padding: 40px 20px 100px 20px;
+            
+            /* QUAN TRỌNG: Padding trái/phải 10px để khớp với .container của Header */
+            padding: 40px 10px 100px 10px; 
         }
 
         .writeup-content { min-width: 0; }
@@ -113,12 +99,13 @@
             width: 30%;
         }
 
-        /* --- CODE BLOCK & COPY BUTTON (ĐÃ FIX STICKY) --- */
+        /* --- CODE BLOCK & COPY BUTTON (FIXED STICKY) --- */
         .writeup-content pre {
             background: #161b22 !important;
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            padding: 35px 15px 15px 15px; /* Tăng padding top để nút copy không che code */
+            /* Tạo khoảng trống bên trên để nút copy nằm gọn gàng */
+            padding: 35px 15px 15px 15px; 
             overflow-x: auto;
             font-family: 'JetBrains Mono', monospace;
             position: relative; 
@@ -138,15 +125,16 @@
             color: inherit;
         }
 
-        /* Style cho nút Copy - Đã sửa lỗi trôi */
+        /* Style cho nút Copy */
         .copy-btn {
-            position: sticky; /* Thay vì absolute */
-            left: auto;       /* Quan trọng để không bị dính trái */
-            float: right;     /* Đẩy sang phải */
-            top: 0px;         /* Cách mép trên */
-            right: 0px;       /* Cách mép phải */
+            position: sticky; 
+            left: auto;       
+            float: right;     
+            top: 0px;         
+            right: 0px;       
             
-            margin-top: -25px; /* Hack nhẹ để đẩy nút lên vùng padding-top */
+            /* Kéo nút lên vùng padding-top */
+            margin-top: -25px; 
             margin-right: -5px;
             
             background: rgba(48, 54, 61, 0.9);
@@ -158,7 +146,6 @@
             font-family: 'Inter', sans-serif;
             font-size: 0.75rem;
             transition: all 0.2s;
-            opacity: 1; 
             z-index: 10;
         }
 
@@ -209,24 +196,23 @@
         @media (max-width: 900px) {
             .writeup-layout { grid-template-columns: 1fr; }
             .writeup-sidebar { display: none; }
-            /* Mobile header fix */
-            .header-inner { flex-direction: column; gap: 10px; height: auto; padding: 15px 20px; }
+            header { flex-direction: column; gap: 10px; padding: 15px !important; height: auto !important; }
         }
     </style>
 </head>
 
 <body>
 
-    <header>
-        <div class="header-inner">
+    <div class="container" style="padding-top: 2px; padding-bottom: 2px;">
+        <header>
             <a href="https://kaiversus.github.io/" class="logo" style="text-decoration: none;">KAIVERSUS BLOG</a>
             <nav>
                 <a href="/">Homepage</a>
                 <a href="/about/">About_me</a> 
                 <a href="https://kaiversus.github.io/#writeups">Repository</a>
             </nav>
-        </div>
-    </header>
+        </header>
+    </div>
 
     <div class="writeup-layout">
         <main class="writeup-content">
@@ -267,7 +253,7 @@
                 toc.appendChild(li);
             });
 
-            // 2. TẠO NÚT COPY CODE (Updated)
+            // 2. TẠO NÚT COPY CODE
             document.querySelectorAll('.writeup-content pre').forEach(pre => {
                 if (!pre.querySelector('code')) return;
 
@@ -295,7 +281,6 @@
                     });
                 });
                 
-                // Chèn nút vào đầu thẻ pre để position sticky hoạt động chuẩn hơn với float
                 pre.insertBefore(btn, pre.firstChild);
             });
         });
