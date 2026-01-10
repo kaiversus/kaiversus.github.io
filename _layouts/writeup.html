@@ -54,37 +54,32 @@
         .writeup-content td:first-child { font-weight: 600; width: 30%; }
 
         /* ==========================================================================
-           FIX JEKYLL CODE BLOCKS (TARGET TRỰC TIẾP LỚP VỎ CỦA JEKYLL)
+           FIX JEKYLL CODE BLOCKS (DARKER & SINGLE BUTTON)
            ========================================================================== */
         
-        /* 1. Target lớp vỏ bao ngoài cùng mà Jekyll sinh ra */
+        /* 1. Target lớp vỏ bao ngoài cùng */
         div.highlighter-rouge, 
         div.highlight {
-            /* MÀU NỀN CHÍNH Ở ĐÂY (#30363d) */
-            background-color: #30363d !important; 
+            /* MÀU NỀN TỐI HƠN (#161b22 - Github Dark Dimmed) */
+            background-color: #161b22 !important; 
             
             /* KHÔNG VIỀN */
             border: none !important; 
             
-            /* Bo góc và khoảng cách */
             border-radius: 8px;
             margin: 25px 0;
-            
-            /* Quan trọng để nút copy dính vào đây */
-            position: relative; 
-            
-            /* Đổ bóng nhẹ cho nổi */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative; /* Để neo nút copy */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Bóng đổ sâu hơn cho nổi trên nền đen */
         }
 
-        /* 2. Reset style cho thẻ pre bên trong (để nó trong suốt) */
+        /* 2. Reset style cho thẻ pre bên trong (trong suốt) */
         div.highlighter-rouge pre.highlight,
         div.highlight pre.highlight,
         .writeup-content pre {
-            background: transparent !important; /* Trong suốt để lấy màu của lớp cha */
+            background: transparent !important; 
             border: none !important;
             margin: 0 !important;
-            padding: 40px 20px 20px 20px !important; /* Padding để chừa chỗ cho nút copy */
+            padding: 40px 20px 20px 20px !important;
             overflow-x: auto;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem !important;
@@ -94,13 +89,13 @@
         /* 3. Màu chữ code */
         .writeup-content pre code,
         div.highlighter-rouge code {
-            color: #ffffff !important; /* Chữ trắng */
+            color: #e6edf3 !important; /* Trắng xám dịu mắt */
             background: transparent !important;
             text-shadow: none;
             padding: 0;
         }
 
-        /* Inline code (code ngắn trong dòng văn bản) */
+        /* Inline code */
         p > code, li > code {
             font-family: 'JetBrains Mono', monospace;
             background: rgba(110, 118, 129, 0.4);
@@ -110,14 +105,14 @@
             font-size: 0.9em;
         }
 
-        /* --- NÚT COPY --- */
+        /* --- NÚT COPY (FIXED) --- */
         .copy-btn {
-            position: absolute; /* Dùng absolute neo vào div.highlight (relative) */
+            position: absolute;
             top: 10px;         
             right: 10px;       
             
-            background: rgba(48, 54, 61, 0.9);
-            border: 1px solid var(--border-color);
+            background: rgba(48, 54, 61, 0.6); /* Nền trong suốt hơn cho tinh tế */
+            border: 1px solid #30363d;
             border-radius: 4px;
             color: #8b949e;
             padding: 4px 10px;
@@ -197,21 +192,27 @@
                 toc.appendChild(li);
             });
 
-            // 2. NÚT COPY CODE (Updated for Jekyll Wrapper)
-            // Tìm tất cả các khối div mà Jekyll sinh ra
-            const codeBlocks = document.querySelectorAll('div.highlighter-rouge, div.highlight');
+            // 2. NÚT COPY CODE (LOGIC MỚI: TRÁNH TRÙNG LẶP)
+            // Thay vì tìm div, ta tìm thẻ 'pre' (chứa code) rồi tìm cha của nó để gắn nút
+            const preTags = document.querySelectorAll('.writeup-content pre');
             
-            codeBlocks.forEach(block => {
-                // Kiểm tra xem đã có nút chưa (đề phòng chạy 2 lần)
-                if (block.querySelector('.copy-btn')) return;
+            preTags.forEach(pre => {
+                // Kiểm tra xem pre này có code không
+                if (!pre.querySelector('code')) return;
+
+                // Tìm wrapper gần nhất (div.highlight hoặc div.highlighter-rouge)
+                // Đây là nơi ta sẽ gắn nút vào (chứ không gắn vào pre để tránh trôi)
+                const wrapper = pre.closest('div.highlighter-rouge') || pre.closest('div.highlight') || pre.parentElement;
+
+                // CỰC KỲ QUAN TRỌNG: Kiểm tra xem wrapper này đã có nút copy chưa
+                if (wrapper.querySelector('.copy-btn')) return; 
 
                 const btn = document.createElement('button');
                 btn.className = 'copy-btn';
                 btn.textContent = 'Copy';
                 
                 btn.addEventListener('click', () => {
-                    // Lấy nội dung text từ thẻ code bên trong
-                    const code = block.querySelector('code').innerText;
+                    const code = pre.querySelector('code').innerText;
                     navigator.clipboard.writeText(code).then(() => {
                         const originalText = btn.textContent;
                         btn.textContent = 'Copied!';
@@ -225,8 +226,8 @@
                     });
                 });
                 
-                // Gắn nút trực tiếp vào div wrapper
-                block.appendChild(btn);
+                // Gắn nút vào wrapper (đã được set position relative trong CSS)
+                wrapper.appendChild(btn);
             });
         });
     </script>
