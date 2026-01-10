@@ -32,10 +32,7 @@
 
         canvas#cyber-matrix { display: none !important; }
 
-        /* --- HEADER --- */
-        header {
-             background: rgba(5, 10, 20, 0.95) !important;
-        }
+        header { background: rgba(5, 10, 20, 0.95) !important; }
 
         /* --- BỐ CỤC NỘI DUNG --- */
         .writeup-layout {
@@ -46,105 +43,81 @@
             gap: 50px;
             padding: 40px 10px 100px 10px; 
         }
-
         .writeup-content { min-width: 0; }
-
-        .writeup-content h1 {
-            font-family: 'Orbitron', sans-serif;
-            color: #fff;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
-        }
-
-        .writeup-content h2 {
-            margin-top: 3rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
-            font-family: 'Oxanium', sans-serif;
-            text-shadow: 0 0 15px rgba(255, 0, 85, 0.3); 
-        }
+        .writeup-content h1 { font-family: 'Orbitron', sans-serif; color: #fff; font-size: 2.5rem; margin-bottom: 10px; text-shadow: 0 0 10px rgba(0, 255, 65, 0.3); }
+        .writeup-content h2 { margin-top: 3rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; font-family: 'Oxanium', sans-serif; text-shadow: 0 0 15px rgba(255, 0, 85, 0.3); }
 
         /* --- TABLE --- */
-        .writeup-content table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 0.95rem;
-            background: #161b22;
-            border: 1px solid var(--border-color);
-        }
+        .writeup-content table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95rem; background: #161b22; border: 1px solid var(--border-color); }
+        .writeup-content th, .writeup-content td { padding: 12px 15px; border: 1px solid var(--border-color); text-align: left; color: var(--text-main); }
+        .writeup-content th { background-color: #21262d; color: #fff; text-transform: uppercase; font-weight: 700; }
+        .writeup-content td:first-child { font-weight: 600; width: 30%; }
 
-        .writeup-content th, .writeup-content td {
-            padding: 12px 15px;
-            border: 1px solid var(--border-color);
-            text-align: left;
-            color: var(--text-main);
-        }
-
-        .writeup-content th {
-            background-color: #21262d;
-            color: #fff;
-            text-transform: uppercase;
-            font-weight: 700;
-        }
-
-        .writeup-content td:first-child {
-            font-weight: 600;
-            width: 30%;
-        }
-
-        /* --- CODE BLOCK (CLEAN & FLAT) --- */
-        .writeup-content pre {
-            /* 1. MÀU NỀN BLOCK (Giữ màu xám sáng #30363d như bạn muốn) */
-            background: #30363d !important; 
+        /* ==========================================================================
+           FIX JEKYLL CODE BLOCKS (TARGET TRỰC TIẾP LỚP VỎ CỦA JEKYLL)
+           ========================================================================== */
+        
+        /* 1. Target lớp vỏ bao ngoài cùng mà Jekyll sinh ra */
+        div.highlighter-rouge, 
+        div.highlight {
+            /* MÀU NỀN CHÍNH Ở ĐÂY (#30363d) */
+            background-color: #30363d !important; 
             
-            /* 2. KHÔNG VIỀN (No Border) */
+            /* KHÔNG VIỀN */
             border: none !important; 
             
-            /* 3. Đổ bóng nhẹ để tách nền (không bị chìm) */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            
-            /* Font & Layout */
-            font-size: 0.85rem !important; 
-            line-height: 1.6;
-            padding: 40px 20px 20px 20px; 
+            /* Bo góc và khoảng cách */
             border-radius: 8px;
+            margin: 25px 0;
+            
+            /* Quan trọng để nút copy dính vào đây */
+            position: relative; 
+            
+            /* Đổ bóng nhẹ cho nổi */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 2. Reset style cho thẻ pre bên trong (để nó trong suốt) */
+        div.highlighter-rouge pre.highlight,
+        div.highlight pre.highlight,
+        .writeup-content pre {
+            background: transparent !important; /* Trong suốt để lấy màu của lớp cha */
+            border: none !important;
+            margin: 0 !important;
+            padding: 40px 20px 20px 20px !important; /* Padding để chừa chỗ cho nút copy */
             overflow-x: auto;
             font-family: 'JetBrains Mono', monospace;
-            position: relative; 
-            margin: 25px 0; 
+            font-size: 0.85rem !important;
+            line-height: 1.6;
         }
-        
-        .writeup-content pre code {
-            font-size: inherit; 
-            background: transparent;
-            padding: 0;
+
+        /* 3. Màu chữ code */
+        .writeup-content pre code,
+        div.highlighter-rouge code {
             color: #ffffff !important; /* Chữ trắng */
-            font-weight: 500;
+            background: transparent !important;
             text-shadow: none;
+            padding: 0;
         }
-        
-        .writeup-content code {
+
+        /* Inline code (code ngắn trong dòng văn bản) */
+        p > code, li > code {
             font-family: 'JetBrains Mono', monospace;
             background: rgba(110, 118, 129, 0.4);
             padding: 2px 6px;
             border-radius: 4px;
             color: var(--accent-color);
+            font-size: 0.9em;
         }
 
-        /* --- NÚT COPY (STICKY) --- */
+        /* --- NÚT COPY --- */
         .copy-btn {
-            position: sticky; 
-            left: auto;       
-            float: right;     
-            top: 0px;         
-            right: 0px;       
-            margin-top: -25px; 
-            margin-right: -5px;
+            position: absolute; /* Dùng absolute neo vào div.highlight (relative) */
+            top: 10px;         
+            right: 10px;       
             
             background: rgba(48, 54, 61, 0.9);
-            border: 1px solid var(--border-color); /* Viền nút copy giữ lại cho rõ */
+            border: 1px solid var(--border-color);
             border-radius: 4px;
             color: #8b949e;
             padding: 4px 10px;
@@ -152,7 +125,7 @@
             font-family: 'Inter', sans-serif;
             font-size: 0.75rem;
             transition: all 0.2s;
-            z-index: 10;
+            z-index: 100;
         }
 
         .copy-btn:hover {
@@ -161,44 +134,12 @@
             border-color: #238636;
         }
 
-        /* --- SIDEBAR MỤC LỤC --- */
-        .writeup-sidebar {
-            position: sticky;
-            top: 20px; 
-            height: fit-content;
-        }
-        
-        .toc-header {
-            font-family: 'Orbitron', sans-serif;
-            color: #8b949e;
-            font-size: 0.8rem;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-        }
-
-        #toc {
-            list-style: none;
-            padding: 0;
-            border-left: 2px solid #21262d;
-        }
-
-        #toc a {
-            display: block;
-            padding: 5px 0 5px 20px;
-            color: #8b949e;
-            text-decoration: none;
-            font-size: 0.9rem;
-            border-left: 2px solid transparent;
-            margin-left: -2px;
-            transition: 0.2s;
-        }
-
-        #toc a:hover, #toc a.active {
-            color: var(--accent-color);
-            border-left-color: var(--accent-color);
-        }
-
-        /* --- MOBILE --- */
+        /* --- SIDEBAR & MOBILE --- */
+        .writeup-sidebar { position: sticky; top: 20px; height: fit-content; }
+        .toc-header { font-family: 'Orbitron', sans-serif; color: #8b949e; font-size: 0.8rem; margin-bottom: 15px; letter-spacing: 1px; }
+        #toc { list-style: none; padding: 0; border-left: 2px solid #21262d; }
+        #toc a { display: block; padding: 5px 0 5px 20px; color: #8b949e; text-decoration: none; font-size: 0.9rem; border-left: 2px solid transparent; margin-left: -2px; transition: 0.2s; }
+        #toc a:hover, #toc a.active { color: var(--accent-color); border-left-color: var(--accent-color); }
         @media (max-width: 900px) {
             .writeup-layout { grid-template-columns: 1fr; }
             .writeup-sidebar { display: none; }
@@ -241,14 +182,12 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // 1. TẠO MỤC LỤC
+            // 1. MỤC LỤC
             const toc = document.getElementById('toc');
             const headers = document.querySelectorAll('.writeup-content h2, .writeup-content h3');
-            
             headers.forEach(header => {
                 const id = header.id || header.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
                 header.id = id;
-                
                 const li = document.createElement('li');
                 const a = document.createElement('a');
                 a.href = `#${id}`;
@@ -258,16 +197,21 @@
                 toc.appendChild(li);
             });
 
-            // 2. TẠO NÚT COPY CODE
-            document.querySelectorAll('.writeup-content pre').forEach(pre => {
-                if (!pre.querySelector('code')) return;
+            // 2. NÚT COPY CODE (Updated for Jekyll Wrapper)
+            // Tìm tất cả các khối div mà Jekyll sinh ra
+            const codeBlocks = document.querySelectorAll('div.highlighter-rouge, div.highlight');
+            
+            codeBlocks.forEach(block => {
+                // Kiểm tra xem đã có nút chưa (đề phòng chạy 2 lần)
+                if (block.querySelector('.copy-btn')) return;
 
                 const btn = document.createElement('button');
                 btn.className = 'copy-btn';
                 btn.textContent = 'Copy';
                 
                 btn.addEventListener('click', () => {
-                    const code = pre.querySelector('code').innerText;
+                    // Lấy nội dung text từ thẻ code bên trong
+                    const code = block.querySelector('code').innerText;
                     navigator.clipboard.writeText(code).then(() => {
                         const originalText = btn.textContent;
                         btn.textContent = 'Copied!';
@@ -278,13 +222,11 @@
                             btn.style.background = ''; 
                             btn.style.color = '';
                         }, 2000);
-                    }).catch(err => {
-                        console.error('Failed to copy: ', err);
-                        btn.textContent = 'Error';
                     });
                 });
                 
-                pre.insertBefore(btn, pre.firstChild);
+                // Gắn nút trực tiếp vào div wrapper
+                block.appendChild(btn);
             });
         });
     </script>
