@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} | Kaiversus</title>
+    <title>Kaiversus</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&family=Oxanium:wght@700;800&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
@@ -11,35 +11,52 @@
     <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
 
     <style>
-        /* 1. Target mọi lớp vỏ mà Jekyll sinh ra cho code */
+        /* 1. Thiết lập màu nền và viền cho khối code (Jekyll Wrapper) */
         div.highlighter-rouge, 
-        div.highlight,
-        pre.highlight {
-            /* Màu nền Xám Xanh (Sáng hơn nền web đen) */
-            background-color: #161b22 !important; 
-            
-            /* Viền xanh Neon để nổi bật */
-            border: 1px solid #00ff41 !important; 
-            
-            /* Bo góc và đổ bóng */
+        div.highlight {
+            background-color: #161b22 !important; /* Màu xám đen (Github Dark) */
+            border: 1px solid #00ff41 !important; /* Viền Neon xanh */
             border-radius: 6px;
-            box-shadow: 0 0 15px rgba(0, 255, 65, 0.1); 
             margin: 20px 0;
+            position: relative; /* Để làm điểm neo cho nút copy */
         }
 
-        /* 2. Xóa nền của thẻ pre con để không che mất nền cha */
-        div.highlighter-rouge pre,
-        div.highlight pre {
+        /* 2. Xóa nền của thẻ pre con để tránh bị chồng màu */
+        div.highlighter-rouge pre.highlight,
+        div.highlight pre.highlight,
+        pre {
             background: transparent !important;
             border: none !important;
             margin: 0 !important;
-            padding: 15px !important;
+            padding: 20px !important;
         }
 
-        /* 3. Chỉnh màu chữ code cho sáng rõ */
+        /* 3. Màu chữ trong code */
         code {
-            color: #e6edf3 !important; /* Trắng xám */
+            color: #e6edf3 !important; /* Màu trắng xám dễ đọc */
             text-shadow: none !important;
+        }
+
+        /* 4. Nút Copy (Sticky/Absolute) */
+        .copy-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            z-index: 10;
+            background: rgba(40, 44, 52, 0.9);
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: monospace;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: #00ff41;
+            color: #000;
         }
     </style>
 </head>
@@ -63,31 +80,61 @@
         <p>kaiversus_52Hz</p>
     </footer>
 
-<script>
-    const textElement = document.getElementById('typing-text');
-    const texts = ["SECURITY RESEARCHER", "CTF PLAYER", "REVERSE ENGINEER", "HCMUTE STUDENT"]; 
-    let count = 0;
-    let index = 0;
-    let currentText = "";
-    let letter = "";
+    <script>
+        const textElement = document.getElementById('typing-text');
+        if (textElement) { // Chỉ chạy nếu có element
+            const texts = ["SECURITY RESEARCHER", "CTF PLAYER", "REVERSE ENGINEER", "HCMUTE STUDENT"]; 
+            let count = 0;
+            let index = 0;
+            let currentText = "";
+            let letter = "";
 
-    (function type() {
-        if (!textElement) return; // Fix lỗi nếu không tìm thấy element
-        if (count === texts.length) { count = 0; }
-        currentText = texts[count];
-        letter = currentText.slice(0, ++index);
-        
-        textElement.textContent = letter;
-        
-        if (letter.length === currentText.length) {
-            count++;
-            index = 0;
-            setTimeout(type, 2000); 
-        } else {
-            setTimeout(type, 100); 
+            (function type() {
+                if (count === texts.length) { count = 0; }
+                currentText = texts[count];
+                letter = currentText.slice(0, ++index);
+                
+                textElement.textContent = letter;
+                
+                if (letter.length === currentText.length) {
+                    count++;
+                    index = 0;
+                    setTimeout(type, 2000); 
+                } else {
+                    setTimeout(type, 100); 
+                }
+            }());
         }
-    }());
-</script>
-<script src="{{ "/assets/js/cyber-bg.js" | relative_url }}"></script>
+    </script>
+    
+    <script src="{{ "/assets/js/cyber-bg.js" | relative_url }}"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Tìm tất cả các khối code wrapper
+            const blocks = document.querySelectorAll('div.highlighter-rouge, div.highlight');
+            
+            blocks.forEach(block => {
+                // Kiểm tra xem đã có nút copy chưa để tránh tạo trùng
+                if (block.querySelector('.copy-btn')) return;
+
+                const btn = document.createElement('button');
+                btn.className = 'copy-btn';
+                btn.textContent = 'Copy';
+                
+                btn.addEventListener('click', () => {
+                    // Lấy nội dung text
+                    const code = block.querySelector('code').innerText;
+                    navigator.clipboard.writeText(code).then(() => {
+                        const originalText = btn.textContent;
+                        btn.textContent = 'Copied!';
+                        setTimeout(() => { btn.textContent = originalText; }, 2000);
+                    });
+                });
+                
+                block.appendChild(btn);
+            });
+        });
+    </script>
 </body>
 </html>
