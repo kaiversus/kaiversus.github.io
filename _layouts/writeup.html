@@ -99,18 +99,18 @@
             width: 30%;
         }
 
-/* --- CODE BLOCK (HIGH CONTRAST) --- */
+/* --- CODE BLOCK (LIGHTER & DISTINCT) --- */
         .writeup-content pre {
-            /* 1. Nâng nền lên xám sáng hơn hẳn */
-            background: #30363d !important; 
+            /* 1. Đổi sang màu Xám Xanh (Sáng hơn nền web nhiều) */
+            background-color: #2d333b !important; 
             
-            /* 2. Viền màu xanh Neon (theo theme) để tạo điểm nhấn */
+            /* 2. Viền vẫn giữ màu Neon để giữ style Cyberpunk */
             border: 1px solid var(--accent-color) !important; 
             
-            /* 3. Đổ bóng mạnh hơn */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            /* 3. Đổ bóng */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
             
-            /* Font & Layout */
+            /* Các thuộc tính Font & Layout giữ nguyên */
             font-size: 0.85rem !important; 
             line-height: 1.6;
             padding: 40px 20px 20px 20px; 
@@ -119,18 +119,21 @@
             font-family: 'JetBrains Mono', monospace;
             position: relative; 
             margin: 25px 0; 
+            
+            /* Sửa lỗi hiển thị trên một số trình duyệt */
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
         }
-        
-        /* Chữ bên trong: Màu trắng sáng để tương phản tốt với nền xám */
+
+        /* Màu chữ trắng để tương phản tốt trên nền xám */
         .writeup-content pre code {
-            font-size: inherit; 
-            background: transparent;
+            color: #ffffff !important; 
+            background: transparent !important;
+            font-size: inherit;
             padding: 0;
-            color: #ffffff !important; /* Chữ trắng tinh khôi */
-            font-weight: 500; /* Đậm hơn xíu cho dễ đọc */
             text-shadow: none;
         }
-        
         .writeup-content code {
             font-family: 'JetBrains Mono', monospace;
             background: rgba(110, 118, 129, 0.4);
