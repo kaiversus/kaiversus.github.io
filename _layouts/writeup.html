@@ -19,7 +19,6 @@
             --border-color: #30363d;  
             --accent-color: #00ff41;  
             --title-color: #ff0055;
-            /* Đồng bộ kích thước với .container trong style.css */
             --content-width: 1200px; 
         }
 
@@ -33,22 +32,18 @@
 
         canvas#cyber-matrix { display: none !important; }
 
-        /* --- SỬA LẠI HEADER: KHÔI PHỤC STYLE GỐC --- */
-        /* Đảm bảo header có nền tối để không bị chìm chữ */
+        /* --- HEADER --- */
         header {
              background: rgba(5, 10, 20, 0.95) !important;
-             /* Giữ nguyên các thuộc tính khác của style.css */
         }
 
-        /* --- BỐ CỤC NỘI DUNG (ĐỒNG BỘ VỚI CONTAINER GỐC) --- */
+        /* --- BỐ CỤC NỘI DUNG --- */
         .writeup-layout {
-            max-width: var(--content-width); /* 1200px */
+            max-width: var(--content-width);
             margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 250px; 
             gap: 50px;
-            
-            /* QUAN TRỌNG: Padding trái/phải 10px để khớp với .container của Header */
             padding: 40px 10px 100px 10px; 
         }
 
@@ -99,16 +94,16 @@
             width: 30%;
         }
 
-/* --- CODE BLOCK (HIGH CONTRAST) --- */
+        /* --- CODE BLOCK (CLEAN & FLAT) --- */
         .writeup-content pre {
-            /* 1. Nâng nền lên xám sáng hơn hẳn */
+            /* 1. MÀU NỀN BLOCK (Giữ màu xám sáng #30363d như bạn muốn) */
             background: #30363d !important; 
             
-            /* 2. Viền màu xanh Neon (theo theme) để tạo điểm nhấn */
-            border: 1px solid var(--accent-color) !important; 
+            /* 2. KHÔNG VIỀN (No Border) */
+            border: none !important; 
             
-            /* 3. Đổ bóng mạnh hơn */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            /* 3. Đổ bóng nhẹ để tách nền (không bị chìm) */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             
             /* Font & Layout */
             font-size: 0.85rem !important; 
@@ -121,13 +116,12 @@
             margin: 25px 0; 
         }
         
-        /* Chữ bên trong: Màu trắng sáng để tương phản tốt với nền xám */
         .writeup-content pre code {
             font-size: inherit; 
             background: transparent;
             padding: 0;
-            color: #ffffff !important; /* Chữ trắng tinh khôi */
-            font-weight: 500; /* Đậm hơn xíu cho dễ đọc */
+            color: #ffffff !important; /* Chữ trắng */
+            font-weight: 500;
             text-shadow: none;
         }
         
@@ -138,27 +132,19 @@
             border-radius: 4px;
             color: var(--accent-color);
         }
-        
-        .writeup-content pre code {
-            background: transparent;
-            padding: 0;
-            color: inherit;
-        }
 
-        /* Style cho nút Copy */
+        /* --- NÚT COPY (STICKY) --- */
         .copy-btn {
             position: sticky; 
             left: auto;       
             float: right;     
             top: 0px;         
             right: 0px;       
-            
-            /* Kéo nút lên vùng padding-top */
             margin-top: -25px; 
             margin-right: -5px;
             
             background: rgba(48, 54, 61, 0.9);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--border-color); /* Viền nút copy giữ lại cho rõ */
             border-radius: 4px;
             color: #8b949e;
             padding: 4px 10px;
@@ -171,7 +157,7 @@
 
         .copy-btn:hover {
             background: #238636; 
-            color: var(--accent-color);
+            color: #fff;
             border-color: #238636;
         }
 
@@ -268,7 +254,6 @@
                 a.href = `#${id}`;
                 a.textContent = header.textContent;
                 if(header.tagName === 'H3') a.style.paddingLeft = "40px";
-                
                 li.appendChild(a);
                 toc.appendChild(li);
             });
@@ -283,13 +268,11 @@
                 
                 btn.addEventListener('click', () => {
                     const code = pre.querySelector('code').innerText;
-                    
                     navigator.clipboard.writeText(code).then(() => {
                         const originalText = btn.textContent;
                         btn.textContent = 'Copied!';
                         btn.style.background = '#238636';
                         btn.style.color = '#fff';
-                        
                         setTimeout(() => {
                             btn.textContent = originalText;
                             btn.style.background = ''; 
