@@ -695,46 +695,6 @@ html {
     margin-top: 20px;
 }
 
-/* --- CODE BLOCK (HIGH CONTRAST) --- */
-.writeup-content pre {
-    /* 1. Nâng nền lên xám sáng hơn hẳn */
-    background: #30363d !important; 
-    
-    /* 2. Viền màu xanh Neon (theo theme) để tạo điểm nhấn */
-    border: 1px solid var(--accent-color) !important; 
-    
-    /* 3. Đổ bóng mạnh hơn */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    
-    /* Font & Layout */
-    font-size: 0.85rem !important; 
-    line-height: 1.6;
-    padding: 40px 20px 20px 20px; 
-    border-radius: 8px;
-    overflow-x: auto;
-    font-family: 'JetBrains Mono', monospace;
-    position: relative; 
-    margin: 25px 0; 
-}
-
-/* Chữ bên trong: Màu trắng sáng để tương phản tốt với nền xám */
-.writeup-content pre code {
-    font-size: inherit; 
-    background: transparent;
-    padding: 0;
-    color: #ffffff !important; /* Chữ trắng tinh khôi */
-    font-weight: 500; /* Đậm hơn xíu cho dễ đọc */
-    text-shadow: none;
-}
-
-/* Đảm bảo chữ bên trong cũng nhận size này */
-.writeup-content pre code {
-    font-size: inherit; /* Kế thừa size 0.85rem từ thẻ pre cha */
-    background: transparent;
-    padding: 0;
-    color: #e6edf3;
-    text-shadow: none;
-}
 /* 1. Thiết lập điểm neo cho khung bao ngoài (Wrapper)
    Đây là mấu chốt: Nút sẽ dính theo khung này chứ không dính theo thẻ pre đang cuộn */
 div.highlight, 
