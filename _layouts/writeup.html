@@ -176,10 +176,11 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // 1. TẠO MỤC LỤC (GIỮ NGUYÊN)
+            // 1. TẠO MỤC LỤC
             const toc = document.getElementById('toc');
             const headers = document.querySelectorAll('.writeup-content h2, .writeup-content h3');
-            
+            const tocLinks = []; // Mảng lưu các link để xử lý sau này
+
             headers.forEach(header => {
                 const id = header.id || header.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
                 header.id = id;
@@ -190,42 +191,53 @@
                 a.textContent = header.textContent;
                 if(header.tagName === 'H3') a.style.paddingLeft = "40px";
                 
-                // Thêm class để JS dễ tìm
-                a.classList.add('toc-link'); 
+                a.classList.add('toc-link'); // Class để JS tìm
+                tocLinks.push(a); // Lưu vào mảng
                 
                 li.appendChild(a);
                 toc.appendChild(li);
             });
 
-            // 2. SCROLL SPY (TÍNH NĂNG MỚI: TỰ ĐỘNG SÁNG MỤC LỤC)
+            // 2. SCROLL SPY (NÂNG CẤP: BẮT ĐƯỢC MỤC CUỐI CÙNG)
             const observerOptions = {
                 root: null,
-                rootMargin: '0px 0px -70% 0px', // Kích hoạt khi header nằm ở 30% phía trên màn hình
-                threshold: 0.1
+                // Mở rộng vùng nhận diện xuống 50% màn hình (thay vì 30% như cũ)
+                // Giúp bắt các mục thấp dễ hơn
+                rootMargin: '0px 0px -50% 0px', 
+                threshold: 0
             };
 
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         // Xóa active cũ
-                        document.querySelectorAll('.toc-link').forEach(link => {
-                            link.classList.remove('active');
-                        });
+                        document.querySelectorAll('.toc-link').forEach(link => link.classList.remove('active'));
                         
-                        // Active mục mới tương ứng với header đang thấy
+                        // Active mục mới
                         const id = entry.target.getAttribute('id');
                         const activeLink = document.querySelector(`.toc-link[href="#${id}"]`);
-                        if (activeLink) {
-                            activeLink.classList.add('active');
-                        }
+                        if (activeLink) activeLink.classList.add('active');
                     }
                 });
             }, observerOptions);
 
-            // Bắt đầu theo dõi tất cả các thẻ h2, h3
             headers.forEach(header => observer.observe(header));
 
-            // 3. COPY BUTTON (LOGIC CŨ - KHÔNG ĐỔI)
+            // 3. LOGIC CƯỠNG CHẾ CUỐI TRANG (FIX LỖI FLAG)
+            window.addEventListener('scroll', () => {
+                // Kiểm tra nếu người dùng đã cuộn gần đến đáy trang (còn cách 50px)
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+                    // Xóa hết active hiện tại
+                    document.querySelectorAll('.toc-link').forEach(link => link.classList.remove('active'));
+                    
+                    // Bắt buộc sáng mục cuối cùng
+                    if (tocLinks.length > 0) {
+                        tocLinks[tocLinks.length - 1].classList.add('active');
+                    }
+                }
+            });
+
+            // 4. COPY BUTTON (GIỮ NGUYÊN)
             const preTags = document.querySelectorAll('.writeup-content pre');
             preTags.forEach(pre => {
                 if (!pre.querySelector('code')) return;
