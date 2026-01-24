@@ -1,110 +1,306 @@
----
-layout: course
----
-{% assign theme_color = "var(--primary)" %}
-{% if page.category == "Web Security" %}
-    {% assign theme_color = "#ffaa00" %}
-{% elsif page.category == "Reverse Engineering" %}
-    {% assign theme_color = "var(--accent)" %}
-{% endif %}
-
-<article class="container" style="margin-top: 40px; --primary: {{ theme_color }};">
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title }} | Kaiversus Training</title>
     
-    <div style="border-bottom: 1px solid #333; padding-bottom: 20px; margin-bottom: 30px;">
-        <a href="/courses/" class="cmd-btn" style="font-size: 0.8rem; color: #888; text-decoration: none;">
-            &lt;&lt; RETURN_TO_MODULES
-        </a>
-        <h1 style="color: var(--primary); font-size: 2.5rem; margin-top: 10px; text-transform: uppercase;">
-            {{ page.title }}
-        </h1>
-        <div style="font-family: monospace; color: #666;">
-            <span>Subject: {{ page.category }}</span> | 
-            <span>Author: root@kaiversus</span> | 
-            <span>Date: {{ page.date | date: "%Y-%m-%d" }}</span>
-        </div>
-    </div>
+    {% assign theme_color = "#00ff41" %} {% if page.category == "Web Security" %}
+        {% assign theme_color = "#ffaa00" %} {% elsif page.category == "Reverse Engineering" %}
+        {% assign theme_color = "#ff0055" %} {% endif %}
 
-    <div class="log-card" style="margin-bottom: 40px; padding: 20px; border-left: 3px solid var(--primary);">
-        <h3 style="color: var(--primary); margin-top: 0;">// MODULE_INFORMATION</h3>
-        <table style="width: 100%; color: #ccc; border-collapse: collapse;">
-            <tr style="border-bottom: 1px dashed #333;">
-                <td style="padding: 10px; font-weight: bold; width: 30%;">Module Name</td>
-                <td style="padding: 10px;">{{ page.title }}</td>
-            </tr>
-            <tr style="border-bottom: 1px dashed #333;">
-                <td style="padding: 10px; font-weight: bold;">Difficulty</td>
-                <td style="padding: 10px;">
-                    {% if page.difficulty == 'Hard' %}
-                        <span style="color: var(--accent);">{{ page.difficulty }} (⭐⭐⭐)</span>
-                    {% elsif page.difficulty == 'Medium' %}
-                        <span style="color: #ffaa00;">{{ page.difficulty }} (⭐⭐)</span>
-                    {% else %}
-                        <span style="color: var(--primary);">{{ page.difficulty }} (⭐)</span>
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <td style="padding: 10px; font-weight: bold;">Prerequisites</td>
-                <td style="padding: 10px; font-family: monospace; color: #aaa;">{{ page.prerequisites | default: "None" }}</td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="post-content" style="font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; line-height: 1.6; color: #ddd;">
-        {{ content }}
-    </div>
-
-    <div style="margin-top: 50px; text-align: right;">
-        <span class="cmd-btn" style="cursor: default; color: var(--primary);">[ END_OF_LOG ]</span>
-    </div>
-
-</article>
-
-<style>
-    /* Style cho các thẻ Heading trong bài */
-    .post-content h2 {
-        color: var(--primary);
-        border-bottom: 1px solid #333;
-        padding-bottom: 10px;
-        margin-top: 40px;
-        font-family: 'Orbitron', sans-serif;
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&family=Oxanium:wght@700;800&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
-    .post-content h3 {
-        color: #fff;
-        margin-top: 30px;
-        border-left: 3px solid var(--primary);
-        padding-left: 10px;
-    }
-
-    /* Style cho Code block */
-    .post-content pre {
-        background: #0a0a0a !important;
-        border: 1px solid #333;
-        border-radius: 5px;
-        padding: 15px;
-        overflow-x: auto;
-        box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
-    }
+    <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
     
-    .post-content code {
-        font-family: 'Courier New', monospace;
-        color: var(--primary); /* Code màu xanh/vàng tùy theo môn */
-    }
+    <style>
+        /* --- GLOBAL VARIABLES --- */
+        :root {
+            --bg-page: #050a14;
+            --text-main: #c9d1d9;      
+            --border-color: #30363d;   
+            --accent-color: {{ theme_color }}; /* Màu động theo bài học */  
+            --content-width: 1200px; 
+            --code-bg: #161b22;
+        }
 
-    /* Style cho Table trong bài viết */
-    .post-content table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-        background: rgba(255,255,255,0.02);
-    }
-    .post-content th, .post-content td {
-        border: 1px solid #333;
-        padding: 10px;
-    }
-    .post-content th {
-        background: rgba(255,255,255,0.05);
-        color: var(--primary);
-    }
-</style>
+        body {
+            background-color: var(--bg-page) !important;
+            color: var(--text-main) !important;
+            font-family: 'Inter', sans-serif !important;
+            overflow-x: hidden;
+        }
+        
+        /* --- ACTIVE STATE CHO MỤC LỤC --- */
+        #toc a.active {
+            color: var(--accent-color) !important; 
+            border-left-color: var(--accent-color) !important; 
+            text-shadow: 0 0 10px var(--accent-color); 
+            padding-left: 25px; 
+            font-weight: bold;
+        }
+
+        canvas#cyber-matrix { display: none !important; }
+        header { background: rgba(5, 10, 20, 0.95) !important; }
+
+        /* --- LAYOUT --- */
+        .writeup-layout {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 250px; 
+            gap: 50px;
+            padding: 40px 10px 100px 10px; 
+        }
+        .writeup-content { min-width: 0; }
+        
+        /* Tiêu đề ăn theo màu Accent */
+        .writeup-content h1 { 
+            font-family: 'Orbitron', sans-serif; 
+            color: var(--accent-color); 
+            font-size: 2.5rem; 
+            margin-bottom: 10px; 
+            text-shadow: 0 0 20px rgba(0,0,0,0.5); 
+        }
+        
+        .writeup-content h2 { 
+            margin-top: 3rem; 
+            border-bottom: 1px solid var(--border-color); 
+            padding-bottom: 10px; 
+            font-family: 'Oxanium', sans-serif; 
+            color: #fff;
+        }
+
+        /* --- TABLE --- */
+        .writeup-content table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95rem; background: #161b22; border: 1px solid var(--border-color); }
+        .writeup-content th, .writeup-content td { padding: 12px 15px; border: 1px solid var(--border-color); text-align: left; color: var(--text-main); }
+        .writeup-content th { background-color: #21262d; color: var(--accent-color); font-weight: 700; }
+        .writeup-content td:first-child { font-weight: 600; width: 30%; color: #fff; }
+
+        /* --- INFO CARD (Dành riêng cho Course) --- */
+        .info-card {
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--accent-color);
+            background: rgba(22, 27, 34, 0.5);
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 0 5px 5px 0;
+        }
+
+        /* ==========================================================================
+           FIX JEKYLL NESTED LAYERS
+           ========================================================================== */
+        div.highlighter-rouge {
+            background-color: var(--code-bg) !important; 
+            border-radius: 8px;
+            margin: 25px 0;
+            position: relative; 
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color) !important; /* Thêm viền nhẹ */
+        }
+
+        div.highlighter-rouge div.highlight {
+            background: transparent !important;
+            border: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+        }
+
+        div.highlighter-rouge pre.highlight,
+        pre.highlight,
+        .writeup-content pre {
+            background: transparent !important; 
+            border: none !important;
+            margin: 0 !important;
+            padding: 20px 20px 20px 20px !important; 
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem !important;
+            line-height: 1.6;
+        }
+
+        /* CODE TEXT COLOR */
+        code { color: #e6edf3 !important; text-shadow: none; padding: 0; }
+        p > code, li > code { background: rgba(110, 118, 129, 0.2); padding: 2px 6px; border-radius: 4px; color: var(--accent-color); font-size: 0.9em; font-family: 'JetBrains Mono', monospace; border: 1px solid rgba(255,255,255,0.1); }
+
+        /* --- COPY BUTTON --- */
+        .copy-btn {
+            position: absolute;
+            top: 10px;          
+            right: 10px;        
+            background: rgba(48, 54, 61, 0.6);
+            border: 1px solid #30363d;
+            border-radius: 4px;
+            color: #8b949e;
+            padding: 4px 10px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            transition: all 0.2s;
+            z-index: 100;
+        }
+        .copy-btn:hover { background: var(--accent-color); color: #000; border-color: var(--accent-color); font-weight: bold; }
+
+        /* --- RESPONSIVE --- */
+        .writeup-sidebar { position: sticky; top: 20px; height: fit-content; }
+        .toc-header { font-family: 'Orbitron', sans-serif; color: #8b949e; font-size: 0.8rem; margin-bottom: 15px; letter-spacing: 1px; }
+        #toc { list-style: none; padding: 0; border-left: 2px solid #21262d; }
+        #toc a { display: block; padding: 5px 0 5px 20px; color: #8b949e; text-decoration: none; font-size: 0.9rem; border-left: 2px solid transparent; margin-left: -2px; transition: 0.2s; }
+        #toc a:hover, #toc a.active { color: var(--accent-color); border-left-color: var(--accent-color); }
+        
+        @media (max-width: 900px) {
+            .writeup-layout { grid-template-columns: 1fr; }
+            .writeup-sidebar { display: none; }
+            header { flex-direction: column; gap: 10px; padding: 15px !important; height: auto !important; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container" style="padding-top: 2px; padding-bottom: 2px;">
+        <header>
+            <a href="/" class="logo" style="text-decoration: none;">KAIVERSUS</a>
+            <nav>
+                <a href="/">Homepage</a>
+                <a href="/about/">About_me</a> 
+                <a href="/courses/" style="color: var(--accent-color);">Training_Center</a>
+            </nav>
+        </header>
+    </div>
+
+    <div class="writeup-layout">
+        <main class="writeup-content">
+            <div style="margin-bottom: 30px; border-bottom: 1px dashed #333; padding-bottom: 20px;">
+                <a href="/courses/" style="color: #888; text-decoration: none; font-size: 0.8rem; display: block; margin-bottom: 10px;">&lt;&lt; BACK_TO_MODULES</a>
+                <h1 style="margin: 0;">{{ page.title }}</h1>
+                <div style="margin-top: 10px; color: #888; font-family: monospace;">
+                    <span>DATE: {{ page.date | date: "%Y-%m-%d" }}</span> | 
+                    <span style="color: var(--accent-color);">SUBJECT: {{ page.category }}</span>
+                </div>
+            </div>
+            
+            <div class="info-card">
+                <table style="margin: 0; background: transparent; border: none;">
+                    <tr style="border: none;">
+                        <td style="border: none; padding: 5px 0; color: #888; width: 150px;">DIFFICULTY:</td>
+                        <td style="border: none; padding: 5px 0;">
+                            {% if page.difficulty == 'Hard' %}
+                                <span style="color: #ff0055;">⭐⭐⭐ (Hard)</span>
+                            {% elsif page.difficulty == 'Medium' %}
+                                <span style="color: #ffaa00;">⭐⭐ (Medium)</span>
+                            {% else %}
+                                <span style="color: #00ff41;">⭐ (Easy)</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr style="border: none;">
+                        <td style="border: none; padding: 5px 0; color: #888;">PREREQUISITES:</td>
+                        <td style="border: none; padding: 5px 0; font-family: monospace; color: #ccc;">
+                            {{ page.prerequisites | default: "None" }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            {{ content }}
+            
+            <div style="margin-top: 80px; text-align: center; border-top: 1px solid var(--border-color); padding-top: 30px;">
+                <a href="/courses/" class="cmd-btn" style="color: var(--accent-color); text-decoration: none; border: 1px solid var(--accent-color); padding: 10px 30px; border-radius: 4px;">COMPLETE_MODULE</a>
+            </div>
+
+        </main>
+
+        <aside class="writeup-sidebar">
+            <div class="toc-header" style="color: var(--accent-color);">// MODULE_NAV</div>
+            <ul id="toc"></ul>
+        </aside>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // 1. TẠO MỤC LỤC
+            const toc = document.getElementById('toc');
+            const headers = document.querySelectorAll('.writeup-content h2, .writeup-content h3');
+            const tocLinks = []; 
+
+            headers.forEach(header => {
+                const id = header.id || header.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                header.id = id;
+                
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = `#${id}`;
+                a.textContent = header.textContent;
+                if(header.tagName === 'H3') a.style.paddingLeft = "40px";
+                
+                a.classList.add('toc-link'); 
+                tocLinks.push(a); 
+                
+                li.appendChild(a);
+                toc.appendChild(li);
+            });
+
+            // 2. SCROLL SPY
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -50% 0px', 
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        document.querySelectorAll('.toc-link').forEach(link => link.classList.remove('active'));
+                        const id = entry.target.getAttribute('id');
+                        const activeLink = document.querySelector(`.toc-link[href="#${id}"]`);
+                        if (activeLink) activeLink.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            headers.forEach(header => observer.observe(header));
+
+            window.addEventListener('scroll', () => {
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+                    document.querySelectorAll('.toc-link').forEach(link => link.classList.remove('active'));
+                    if (tocLinks.length > 0) {
+                        tocLinks[tocLinks.length - 1].classList.add('active');
+                    }
+                }
+            });
+
+            // 4. COPY BUTTON
+            const preTags = document.querySelectorAll('.writeup-content pre');
+            preTags.forEach(pre => {
+                if (!pre.querySelector('code')) return;
+                const wrapper = pre.closest('div.highlighter-rouge') || pre.closest('div.highlight') || pre.parentElement;
+                if (wrapper.querySelector('.copy-btn')) return;
+
+                const btn = document.createElement('button');
+                btn.className = 'copy-btn';
+                btn.textContent = 'Copy';
+                
+                btn.addEventListener('click', () => {
+                    const code = pre.querySelector('code').innerText;
+                    navigator.clipboard.writeText(code).then(() => {
+                        const originalText = btn.textContent;
+                        btn.textContent = 'Copied!';
+                        btn.style.background = 'var(--accent-color)'; 
+                        btn.style.color = '#000';
+                        setTimeout(() => {
+                            btn.textContent = originalText;
+                            btn.style.background = ''; 
+                            btn.style.color = '';
+                        }, 2000);
+                    });
+                });
+                wrapper.appendChild(btn);
+            });
+        });
+    </script>
+</body>
+</html>
