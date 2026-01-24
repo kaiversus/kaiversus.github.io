@@ -73,7 +73,6 @@ permalink: /courses/
     /* Hiệu ứng hover cho link bài học */
     .lesson-link a:hover {
         color: var(--cat-color) !important;
-        text-shadow: 0 0 5px var(--cat-color);
         padding-left: 5px; /* Dịch chuyển nhẹ khi hover */
     }
 </style>
