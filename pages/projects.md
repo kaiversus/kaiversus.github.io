@@ -3,6 +3,71 @@ layout: default
 title: Projects Archive
 permalink: /projects/
 ---
+
+<style>
+    /* Style chung cho nút kiểu Cyberpunk */
+    .btn-terminal {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 16px;
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        text-decoration: none;
+        border: 1px solid;
+        transition: all 0.3s ease;
+        background: rgba(0, 20, 0, 0.3); /* Nền tối nhẹ */
+        letter-spacing: 1px;
+        margin-right: 10px;
+        margin-bottom: 10px;
+    }
+
+    /* Icon text bên trong nút */
+    .btn-icon {
+        margin-right: 8px;
+        font-weight: bold;
+    }
+
+    /* --- BIẾN THỂ MÀU SẮC --- */
+
+    /* 1. Primary (Dùng cho Career - Xanh lá) */
+    .btn-primary {
+        color: var(--primary);
+        border-color: var(--primary);
+    }
+    .btn-primary:hover {
+        background: rgba(0, 255, 65, 0.15);
+        box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+        text-shadow: 0 0 5px var(--primary);
+        color: #fff;
+    }
+
+    /* 2. Accent (Dùng cho Personal - Đỏ/Hồng) */
+    .btn-accent {
+        color: var(--accent);
+        border-color: var(--accent);
+    }
+    .btn-accent:hover {
+        background: rgba(255, 0, 85, 0.15);
+        box-shadow: 0 0 10px rgba(255, 0, 85, 0.5);
+        text-shadow: 0 0 5px var(--accent);
+        color: #fff;
+    }
+
+    /* 3. Neutral (Dùng cho Github - Xám) */
+    .btn-neutral {
+        color: #888;
+        border-color: #444;
+    }
+    .btn-neutral:hover {
+        border-color: #fff;
+        color: #fff;
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    }
+
+</style>
+
 <section class="container" style="margin-top: 50px;">
     
     <h1 style="color: var(--primary);">// PROJECTS_DIRECTORY</h1>
@@ -17,7 +82,6 @@ permalink: /projects/
 
     <div class="card-grid">
         {% assign career_projects = site.projects | where: "category", "career" %}
-        
         {% for post in career_projects reversed %}
         <article class="log-card" style="border-left: 3px solid var(--primary);">
             <div class="log-header">
@@ -26,22 +90,22 @@ permalink: /projects/
             </div>
 
             {% if post.image %}
-            <div style="margin-bottom: 15px; border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 4px; overflow: hidden;">
-                <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" style="width: 100%; display: block; opacity: 0.9;">
+            <div style="margin-bottom: 15px; border: 1px solid rgba(0, 255, 65, 0.3); border-radius: 2px; overflow: hidden;">
+                <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" style="width: 100%; display: block; opacity: 0.85; filter: grayscale(30%); transition: all 0.3s;">
             </div>
             {% endif %}
 
             <h3 class="log-title">{{ post.title }}</h3>
             <p class="log-desc">{{ post.description }}</p>
             
-            <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 20px; border-top: 1px dashed #333; padding-top: 15px;">
-                <a href="{{ post.url }}" class="cmd-btn" style="color: var(--primary);">
-                    > [ READ_ANALYSIS ]
+            <div style="margin-top: 25px; padding-top: 15px; border-top: 1px dashed rgba(0, 255, 65, 0.3); display: flex; flex-wrap: wrap;">
+                <a href="{{ post.url }}" class="btn-terminal btn-primary">
+                    <span class="btn-icon">►</span> ACCESS_DATA
                 </a>
 
                 {% if post.github_link %}
-                <a href="{{ post.github_link }}" target="_blank" class="cmd-btn" style="color: #fff;">
-                    <span style="color: #888;">::</span> [ GITHUB_SOURCE ]
+                <a href="{{ post.github_link }}" target="_blank" class="btn-terminal btn-neutral">
+                    <span class="btn-icon">&lt;/&gt;</span> SOURCE_CODE
                 </a>
                 {% endif %}
             </div>
@@ -58,7 +122,6 @@ permalink: /projects/
 
     <div class="card-grid">
         {% assign personal_projects = site.projects | where: "category", "personal" %}
-        
         {% for post in personal_projects reversed %}
         <article class="log-card" style="border-left: 3px solid var(--accent);">
             <div class="log-header">
@@ -67,22 +130,22 @@ permalink: /projects/
             </div>
 
             {% if post.image %}
-            <div style="margin-bottom: 15px; border: 1px solid rgba(255, 0, 85, 0.3); border-radius: 4px; overflow: hidden;">
-                <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" style="width: 100%; display: block; opacity: 0.9;">
+            <div style="margin-bottom: 15px; border: 1px solid rgba(255, 0, 85, 0.3); border-radius: 2px; overflow: hidden;">
+                <img src="{{ post.image | relative_url }}" alt="{{ post.title }}" style="width: 100%; display: block; opacity: 0.85; filter: grayscale(30%); transition: all 0.3s;">
             </div>
             {% endif %}
 
             <h3 class="log-title" style="color: #ddd;">{{ post.title }}</h3>
             <p class="log-desc">{{ post.description }}</p>
             
-            <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 20px; border-top: 1px dashed #333; padding-top: 15px;">
-                <a href="{{ post.url }}" class="cmd-btn" style="color: var(--accent);">
-                    > [ INSPECT_LOG ]
+             <div style="margin-top: 25px; padding-top: 15px; border-top: 1px dashed rgba(255, 0, 85, 0.3); display: flex; flex-wrap: wrap;">
+                <a href="{{ post.url }}" class="btn-terminal btn-accent">
+                    <span class="btn-icon">►</span> INSPECT_LOG
                 </a>
 
                 {% if post.github_link %}
-                <a href="{{ post.github_link }}" target="_blank" class="cmd-btn" style="color: #fff;">
-                    <span style="color: #888;">::</span> [ REPO_LINK ]
+                <a href="{{ post.github_link }}" target="_blank" class="btn-terminal btn-neutral">
+                    <span class="btn-icon">&lt;/&gt;</span> REPO_LINK
                 </a>
                 {% endif %}
             </div>
