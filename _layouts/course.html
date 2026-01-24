@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
     
     <style>
-        /* --- THEME CONFIG (MÀU CAM) --- */
+        /* --- THEME CONFIG: MÀU CAM --- */
         :root {
             --bg-page: #050a14;
             --text-main: #c9d1d9;      
@@ -51,10 +51,10 @@
         }
         .course-content { min-width: 0; }
         
-        /* --- TITLE & HEADINGS --- */
+        /* --- TITLE & HEADINGS (MÀU CAM) --- */
         .course-content h1 { 
             font-family: 'Orbitron', sans-serif; 
-            color: var(--course-accent) !important; /* MÀU CAM */
+            color: var(--course-accent) !important; 
             font-size: 2.5rem; 
             margin-bottom: 10px; 
             text-shadow: 0 0 10px rgba(255, 170, 0, 0.3); 
@@ -66,7 +66,7 @@
             border-bottom: 1px solid var(--border-color); 
             padding-bottom: 10px; 
             font-family: 'Oxanium', sans-serif; 
-            color: #ffcc66 !important; /* Cam nhạt hơn cho H2 */
+            color: #ffcc66 !important; /* Cam nhạt hơn */
             font-size: 1.8rem;
         }
 
@@ -76,7 +76,6 @@
             font-family: 'Orbitron', sans-serif;
         }
 
-        /* Nội dung dễ đọc */
         .course-content p, .course-content li {
             font-size: 1.1rem; 
             line-height: 1.8;  
@@ -90,7 +89,7 @@
         .course-content th { background-color: #21262d; color: var(--course-accent); font-weight: 700; border-bottom: 2px solid var(--course-accent); }
         .course-content td:first-child { font-weight: 600; width: 30%; color: #fff; }
 
-        /* --- CODE BLOCK --- */
+        /* --- CODE BLOCK (VIỀN CAM) --- */
         div.highlighter-rouge {
             background-color: var(--code-bg) !important; 
             border-radius: 8px;
@@ -98,7 +97,7 @@
             position: relative;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
             border: 1px solid #30363d !important;
-            border-left: 3px solid var(--course-accent) !important; /* Viền trái cam */
+            border-left: 3px solid var(--course-accent) !important;
         }
         div.highlighter-rouge pre.highlight, pre.highlight {
             padding: 20px !important; 
@@ -143,7 +142,6 @@
 </head>
 
 <body>
-
     <div class="container" style="padding-top: 2px; padding-bottom: 2px;">
         <header>
             <a href="https://kaiversus.github.io/" class="logo" style="text-decoration: none;">KAIVERSUS<span style="color: var(--course-accent);">.EDU</span></a>
@@ -159,7 +157,6 @@
         <main class="course-content">
             <div style="margin-bottom: 30px; border-bottom: 1px dashed #333; padding-bottom: 20px;">
                 <h1 style="margin: 0;">{{ page.title }}</h1>
-                
                 <div style="margin-top: 10px; color: #888; font-family: monospace;">
                     {% if page.date %}
                     <span>UPDATED: {{ page.date | date: "%Y-%m-%d" }}</span> | 
@@ -180,14 +177,11 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            /* TẠO MỤC LỤC TỰ ĐỘNG */
+            /* TẠO MỤC LỤC & COPY BUTTON (GIỮ NGUYÊN NHƯ CŨ) */
             const toc = document.getElementById('toc');
             const headers = document.querySelectorAll('.course-content h2, .course-content h3');
             const tocLinks = []; 
-
-            if(headers.length === 0) {
-                document.querySelector('.course-sidebar').style.display = 'none';
-            }
+            if(headers.length === 0) { document.querySelector('.course-sidebar').style.display = 'none'; }
 
             headers.forEach(header => {
                 const id = header.id || header.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -203,7 +197,6 @@
                 toc.appendChild(li);
             });
 
-            /* SCROLL SPY */
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -216,7 +209,6 @@
             }, { rootMargin: '0px 0px -60% 0px' });
             headers.forEach(header => observer.observe(header));
 
-            /* COPY BUTTON */
             document.querySelectorAll('.course-content pre').forEach(pre => {
                 if (!pre.querySelector('code')) return;
                 const wrapper = pre.closest('div.highlighter-rouge') || pre.parentElement;
