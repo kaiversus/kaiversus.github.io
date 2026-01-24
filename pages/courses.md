@@ -121,9 +121,8 @@ permalink: /courses/
     <div style="display: flex; justify-content: space-between; align-items: end; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px;">
         <h1 style="color: var(--course-theme); margin: 0;">// ACADEMY_DATABASE</h1>
         <span style="font-family: monospace; color: #666;">SYS_STATUS: ONLINE</span>
-        <a href="/" class="btn-cyber secondary" style="font-size: 0.8rem;"><< BACK_TO_ROOT</a>
     </div>
-
+    <a href="/" class="btn-cyber secondary" style="font-size: 0.8rem;"><< BACK_TO_ROOT</a>
     <div id="category-view" class="category-list">
         
         <div class="cat-row" onclick="openCourse('Malware')">
