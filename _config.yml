@@ -29,3 +29,10 @@ defaults:
       type: "writeups"
     values:
       layout: "writeup"
+
+defaults:
+  - scope:
+      path: ""
+      type: "scorses"
+    values:
+      layout: "scorse"
