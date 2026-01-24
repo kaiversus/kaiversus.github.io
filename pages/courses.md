@@ -5,7 +5,7 @@ permalink: /courses/
 ---
 <section class="container" style="margin-top: 50px;">
     <h1 style="color: var(--primary);">// TRAINING_MODULES</h1>
-    <a href="/" class="btn-cyber secondary" style="font-size: 0.8rem;"><< BACK_TO_ROOT</a>
+    <a href="/" class="btn-cyber" style="font-size: 0.8rem;"><< BACK_TO_ROOT</a>
     
     {% assign categories = "Malware|Web Security|Reverse Engineering" | split: "|" %}
 
