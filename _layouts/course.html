@@ -12,12 +12,13 @@
     <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
     
     <style>
-        /* --- GLOBAL VARIABLES --- */
+        /* --- THEME CONFIG (MÀU CAM) --- */
         :root {
             --bg-page: #050a14;
             --text-main: #c9d1d9;      
             --border-color: #30363d;   
-            --code-bg: #161b22; 
+            --code-bg: #161b22;
+            --course-accent: #ffaa00; /* Màu Cam Chủ Đạo */
         }
 
         body {
@@ -29,9 +30,9 @@
 
         /* --- ACTIVE STATE CHO MỤC LỤC --- */
         #toc a.active {
-            color: var(--primary) !important; 
-            border-left-color: var(--primary) !important;
-            text-shadow: 0 0 10px rgba(0, 255, 65, 0.5); 
+            color: var(--course-accent) !important; 
+            border-left-color: var(--course-accent) !important;
+            text-shadow: 0 0 10px rgba(255, 170, 0, 0.5); 
             padding-left: 25px;
             font-weight: bold;
         }
@@ -50,25 +51,22 @@
         }
         .course-content { min-width: 0; }
         
-        /* --- CHỈNH SỬA TITLE & FONT (THEO YÊU CẦU) --- */
-        
-        /* 1. Tiêu đề H1: Màu xanh lá, Font to */
+        /* --- TITLE & HEADINGS --- */
         .course-content h1 { 
             font-family: 'Orbitron', sans-serif; 
-            color: var(--primary) !important; /* ĐỔI SANG MÀU XANH */
-            font-size: 2.5rem; /* Cỡ chữ tiêu đề lớn */
+            color: var(--course-accent) !important; /* MÀU CAM */
+            font-size: 2.5rem; 
             margin-bottom: 10px; 
-            text-shadow: 0 0 10px rgba(0, 255, 65, 0.3); 
+            text-shadow: 0 0 10px rgba(255, 170, 0, 0.3); 
             line-height: 1.2;
         }
         
-        /* 2. Tiêu đề H2: Màu xanh lá, có gạch chân */
         .course-content h2 { 
             margin-top: 3rem; 
             border-bottom: 1px solid var(--border-color); 
             padding-bottom: 10px; 
             font-family: 'Oxanium', sans-serif; 
-            color: var(--primary) !important; /* ĐỔI SANG MÀU XANH */
+            color: #ffcc66 !important; /* Cam nhạt hơn cho H2 */
             font-size: 1.8rem;
         }
 
@@ -78,11 +76,10 @@
             font-family: 'Orbitron', sans-serif;
         }
 
-        /* 3. NỘI DUNG BÀI VIẾT: Tăng cỡ chữ và khoảng cách dòng */
-        .course-content p, 
-        .course-content li {
-            font-size: 1.1rem; /* Tăng kích thước chữ (Chuẩn thường là 1rem) */
-            line-height: 1.8;  /* Tăng khoảng cách dòng cho thoáng (Padding chữ) */
+        /* Nội dung dễ đọc */
+        .course-content p, .course-content li {
+            font-size: 1.1rem; 
+            line-height: 1.8;  
             color: #e6edf3;
             margin-bottom: 15px;
         }
@@ -90,7 +87,7 @@
         /* --- TABLE --- */
         .course-content table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 1rem; background: #161b22; border: 1px solid var(--border-color); }
         .course-content th, .course-content td { padding: 12px 15px; border: 1px solid var(--border-color); text-align: left; color: var(--text-main); }
-        .course-content th { background-color: #21262d; color: var(--primary); font-weight: 700; }
+        .course-content th { background-color: #21262d; color: var(--course-accent); font-weight: 700; border-bottom: 2px solid var(--course-accent); }
         .course-content td:first-child { font-weight: 600; width: 30%; color: #fff; }
 
         /* --- CODE BLOCK --- */
@@ -101,17 +98,17 @@
             position: relative;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
             border: 1px solid #30363d !important;
+            border-left: 3px solid var(--course-accent) !important; /* Viền trái cam */
         }
         div.highlighter-rouge pre.highlight, pre.highlight {
             padding: 20px !important; 
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.95rem !important; /* Code cũng to hơn chút */
+            font-size: 0.95rem !important;
             line-height: 1.6;
         }
         
-        /* Inline Code (như chữ `signature` trong ảnh) */
         code { 
-            color: var(--primary) !important; /* Chữ code màu xanh */
+            color: var(--course-accent) !important; 
             background: rgba(110, 118, 129, 0.2); 
             padding: 2px 6px; 
             border-radius: 4px; 
@@ -127,14 +124,14 @@
             font-family: 'Inter', sans-serif; font-size: 0.75rem;
             transition: all 0.2s; z-index: 100;
         }
-        .copy-btn:hover { background: var(--primary); color: #000; border-color: var(--primary); font-weight: bold;}
+        .copy-btn:hover { background: var(--course-accent); color: #000; border-color: var(--course-accent); font-weight: bold;}
 
         /* --- RESPONSIVE --- */
         .course-sidebar { position: sticky; top: 20px; height: fit-content; }
         .toc-header { font-family: 'Orbitron', sans-serif; color: #8b949e; font-size: 0.9rem; margin-bottom: 15px; letter-spacing: 1px; font-weight: bold; }
         #toc { list-style: none; padding: 0; border-left: 2px solid #21262d; }
         #toc a { display: block; padding: 8px 0 8px 20px; color: #8b949e; text-decoration: none; font-size: 0.95rem; border-left: 2px solid transparent; margin-left: -2px; transition: 0.2s; }
-        #toc a:hover, #toc a.active { color: var(--primary); border-left-color: var(--primary); }
+        #toc a:hover, #toc a.active { color: var(--course-accent); border-left-color: var(--course-accent); }
         
         @media (max-width: 900px) {
             .course-layout { grid-template-columns: 1fr; }
@@ -149,7 +146,7 @@
 
     <div class="container" style="padding-top: 2px; padding-bottom: 2px;">
         <header>
-            <a href="https://kaiversus.github.io/" class="logo" style="text-decoration: none;">KAIVERSUS BLOG</a>
+            <a href="https://kaiversus.github.io/" class="logo" style="text-decoration: none;">KAIVERSUS<span style="color: var(--course-accent);">.EDU</span></a>
             <nav>
                 <a href="/">Homepage</a>
                 <a href="/courses/">Courses_List</a> 
@@ -167,8 +164,7 @@
                     {% if page.date %}
                     <span>UPDATED: {{ page.date | date: "%Y-%m-%d" }}</span> | 
                     {% endif %}
-                    
-                    <span style="color: var(--primary);">LEVEL: {{ page.difficulty | default: "All Levels" }}</span> |
+                    <span style="color: var(--course-accent);">LEVEL: {{ page.difficulty | default: "All Levels" }}</span> |
                     <span>AUTHOR: {{ page.author | default: "Kaiversus" }}</span>
                 </div>
             </div>
@@ -196,7 +192,6 @@
             headers.forEach(header => {
                 const id = header.id || header.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
                 header.id = id;
-                
                 const li = document.createElement('li');
                 const a = document.createElement('a');
                 a.href = `#${id}`;
@@ -221,18 +216,17 @@
             }, { rootMargin: '0px 0px -60% 0px' });
             headers.forEach(header => observer.observe(header));
 
-            /* COPY BUTTON LOGIC */
+            /* COPY BUTTON */
             document.querySelectorAll('.course-content pre').forEach(pre => {
                 if (!pre.querySelector('code')) return;
                 const wrapper = pre.closest('div.highlighter-rouge') || pre.parentElement;
-                
                 const btn = document.createElement('button');
                 btn.className = 'copy-btn';
                 btn.textContent = 'Copy';
                 btn.onclick = () => {
                     navigator.clipboard.writeText(pre.innerText);
                     btn.textContent = 'Copied!';
-                    btn.style.background = 'var(--primary)';
+                    btn.style.background = 'var(--course-accent)';
                     btn.style.color = '#000';
                     setTimeout(() => { btn.textContent = 'Copy'; btn.style = ''; }, 2000);
                 };
