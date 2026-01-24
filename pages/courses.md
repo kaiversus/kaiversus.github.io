@@ -27,7 +27,7 @@ permalink: /courses/
                         </div>
                         <span class="cmd-btn" style="font-size: 1.2rem;">[ + EXPAND ]</span>
                     </div>
-                    <p class="log-desc" style="margin-bottom: 0;">> Detected {{ course_files.size }} lessons available.</p>
+                    <p class="log-desc" style="margin-bottom: 0;">> {{ course_files.size }} lessons available.</p>
                 </summary>
 
                 <div style="margin-top: 20px; border-top: 1px dashed #333; padding-top: 15px; padding-left: 20px;">
