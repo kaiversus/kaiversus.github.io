@@ -31,62 +31,65 @@
         </header>
     </div>
 
-    </div>
-
-</div>
-
     {% if page.collection %}
         <main class="container writeup-content" style="padding-top: 40px; min-height: 60vh;">
+            
             {% if page.collection == 'courses' %}
-    <div class="container" style="margin-top: 40px; margin-bottom: -30px;">
-        <a href="/courses/" style="
-            color: #ffaa00; 
-            font-family: 'Courier New', monospace; 
-            text-decoration: none; 
-            font-size: 0.9rem; 
-            opacity: 0.7;
-            transition: 0.3s;
-        " onmouseover="this.style.opacity='1'; this.style.letterSpacing='1px'" onmouseout="this.style.opacity='0.7'; this.style.letterSpacing='0'">
-            [ Users:~$ cd course ]
-        </a>
-    </div>
-    {% endif %}
-    {{ content }}
+            <div class="container" style="margin-top: 0px; margin-bottom: 20px;">
+                <a href="/courses/" style="
+                    color: #ffaa00; 
+                    font-family: 'Courier New', monospace; 
+                    text-decoration: none; 
+                    font-size: 0.9rem; 
+                    opacity: 0.7;
+                    transition: 0.3s;
+                " onmouseover="this.style.opacity='1'; this.style.letterSpacing='1px'" onmouseout="this.style.opacity='0.7'; this.style.letterSpacing='0'">
+                    [ Users:~$ cd .. ]
+                </a>
+            </div>
+            {% endif %}
+
             {{ content }}
+            
         </main>
     {% else %}
         {{ content }}
     {% endif %}
+
     <footer style="text-align: center; padding: 50px; color: var(--text-sub);">
         <p>kaiversus_52Hz</p>
     </footer>
-<script>
-    const textElement = document.getElementById('typing-text');
-    // Cập nhật lại danh sách này cho đúng với profile mới
-    const texts = ["SECURITY RESEARCHER", "CTF PLAYER", "REVERSE ENGINEER", "HCMUTE STUDENT"]; 
-    let count = 0;
-    let index = 0;
-    let currentText = "";
-    let letter = "";
 
-    (function type() {
-        if (count === texts.length) { count = 0; }
-        currentText = texts[count];
-        letter = currentText.slice(0, ++index);
-        
-        textElement.textContent = letter;
-        
-        if (letter.length === currentText.length) {
-            count++;
-            index = 0;
-            setTimeout(type, 2000); 
-        } else {
-            setTimeout(type, 100); 
+    <script>
+        const textElement = document.getElementById('typing-text');
+        if (textElement) {
+            const texts = ["SECURITY RESEARCHER", "CTF PLAYER", "REVERSE ENGINEER", "HCMUTE STUDENT"]; 
+            let count = 0;
+            let index = 0;
+            let currentText = "";
+            let letter = "";
+
+            (function type() {
+                if (count === texts.length) { count = 0; }
+                currentText = texts[count];
+                letter = currentText.slice(0, ++index);
+                
+                textElement.textContent = letter;
+                
+                if (letter.length === currentText.length) {
+                    count++;
+                    index = 0;
+                    setTimeout(type, 2000); 
+                } else {
+                    setTimeout(type, 100); 
+                }
+            }());
         }
-    }());
-</script>
-<script src="{{ "/assets/js/cyber-bg.js" | relative_url }}"></script>
-<script src="{{ "/assets/js/cyber-bg.js" | relative_url }}"></script>
-<script src="{{ "/assets/js/copy-code.js" | relative_url }}"></script>
+    </script>
+
+    <script src="{{ "/assets/js/cyber-bg.js" | relative_url }}"></script>
+    
+    <script src="{{ "/assets/js/copy-code.js" | relative_url }}"></script>
+
 </body>
 </html>
