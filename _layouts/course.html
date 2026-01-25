@@ -151,6 +151,7 @@
             </nav>
         </header>
     </div>
+
     <div class="course-layout">
         <main class="course-content">
             <div style="margin-bottom: 20px;">
@@ -166,8 +167,7 @@
                     [ Users:~$ cd .. ]
                 </a>
             </div>
-    <div class="course-layout">
-        <main class="course-content">
+
             <div style="margin-bottom: 30px; border-bottom: 1px dashed #333; padding-bottom: 20px;">
                 <h1 style="margin: 0;">{{ page.title }}</h1>
                 <div style="margin-top: 10px; color: #888; font-family: monospace;">
@@ -190,11 +190,14 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            /* TẠO MỤC LỤC & COPY BUTTON (GIỮ NGUYÊN NHƯ CŨ) */
+            /* TẠO MỤC LỤC & COPY BUTTON */
             const toc = document.getElementById('toc');
             const headers = document.querySelectorAll('.course-content h2, .course-content h3');
-            const tocLinks = []; 
-            if(headers.length === 0) { document.querySelector('.course-sidebar').style.display = 'none'; }
+            
+            if(headers.length === 0) { 
+                const sidebar = document.querySelector('.course-sidebar');
+                if(sidebar) sidebar.style.display = 'none'; 
+            }
 
             headers.forEach(header => {
                 const id = header.id || header.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
@@ -205,11 +208,11 @@
                 a.textContent = header.textContent;
                 if(header.tagName === 'H3') a.style.paddingLeft = "30px";
                 a.classList.add('toc-link'); 
-                tocLinks.push(a); 
                 li.appendChild(a);
                 toc.appendChild(li);
             });
 
+            // Intersection Observer cho Active State
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -222,9 +225,14 @@
             }, { rootMargin: '0px 0px -60% 0px' });
             headers.forEach(header => observer.observe(header));
 
+            // Copy Code Button
             document.querySelectorAll('.course-content pre').forEach(pre => {
                 if (!pre.querySelector('code')) return;
                 const wrapper = pre.closest('div.highlighter-rouge') || pre.parentElement;
+                
+                // Tránh thêm nút copy 2 lần nếu thẻ pre không có wrapper chuẩn
+                if (wrapper.querySelector('.copy-btn')) return;
+
                 const btn = document.createElement('button');
                 btn.className = 'copy-btn';
                 btn.textContent = 'Copy';
@@ -235,6 +243,11 @@
                     btn.style.color = '#000';
                     setTimeout(() => { btn.textContent = 'Copy'; btn.style = ''; }, 2000);
                 };
+                
+                // Style cho wrapper để nút copy định vị đúng
+                if (getComputedStyle(wrapper).position === 'static') {
+                    wrapper.style.position = 'relative';
+                }
                 wrapper.appendChild(btn);
             });
         });
