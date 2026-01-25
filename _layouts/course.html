@@ -166,6 +166,19 @@
                     [ Users:~$ cd .. ]
                 </a>
             </div>
+    <div class="course-layout">
+        <main class="course-content">
+            <div style="margin-bottom: 30px; border-bottom: 1px dashed #333; padding-bottom: 20px;">
+                <h1 style="margin: 0;">{{ page.title }}</h1>
+                <div style="margin-top: 10px; color: #888; font-family: monospace;">
+                    {% if page.date %}
+                    <span>UPDATED: {{ page.date | date: "%Y-%m-%d" }}</span> | 
+                    {% endif %}
+                    <span style="color: var(--course-accent);">LEVEL: {{ page.difficulty | default: "All Levels" }}</span> |
+                    <span>AUTHOR: {{ page.author | default: "Kaiversus" }}</span>
+                </div>
+            </div>
+            
             {{ content }}
         </main>
 
