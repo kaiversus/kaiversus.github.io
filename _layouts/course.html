@@ -151,7 +151,9 @@
             </nav>
         </header>
     </div>
-        <div style="margin-bottom: 20px;">
+    <div class="course-layout">
+        <main class="course-content">
+            <div style="margin-bottom: 20px;">
                 <a href="/courses/" onclick="history.back(); return false;" style="
                     color: var(--course-accent); 
                     font-family: 'JetBrains Mono', monospace; 
@@ -160,12 +162,10 @@
                     opacity: 0.7;
                     transition: 0.3s;
                     display: inline-block;
-                    cursor: pointer;
                 " onmouseover="this.style.opacity='1'; this.style.letterSpacing='1px'" onmouseout="this.style.opacity='0.7'; this.style.letterSpacing='0'">
-                    [ cd - ]
+                    [ Users:~$ cd .. ]
                 </a>
             </div>
-            
             {{ content }}
         </main>
 
