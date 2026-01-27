@@ -50,7 +50,84 @@
             padding: 40px 10px 100px 10px; 
         }
         .course-content { min-width: 0; }
-        
+        /* --- FIX ẢNH (IMAGES) --- */
+        /* Ảnh sẽ tự co lại vừa khung, căn giữa và bo góc nhẹ */
+        .course-content img {
+            max-width: 100%;     /* Quan trọng: Ngăn ảnh tràn lề */
+            height: auto;        /* Giữ tỉ lệ ảnh */
+            display: block;
+            margin: 20px auto;   /* Căn giữa */
+            border-radius: 6px;  /* Bo góc nhẹ */
+            border: 1px solid var(--border-color); /* Viền mỏng cho đẹp */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3); /* Bóng đổ nhẹ */
+        }
+
+        /* --- FIX BẢNG (TABLE) TỰ NHIÊN HƠN --- */
+        .table-responsive {
+            overflow-x: auto;
+            margin: 25px 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: #161b22;
+            
+            /* Thanh cuộn mảnh, đẹp hơn cho Firefox */
+            scrollbar-width: thin;
+            scrollbar-color: #30363d #0d1117;
+        }
+
+        /* Custom Thanh cuộn cho Chrome/Edge/Safari */
+        .table-responsive::-webkit-scrollbar {
+            height: 6px; /* Thanh cuộn ngang mỏng thôi */
+        }
+        .table-responsive::-webkit-scrollbar-track {
+            background: #0d1117;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+        .table-responsive::-webkit-scrollbar-thumb {
+            background-color: #30363d;
+            border-radius: 10px;
+        }
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background-color: var(--course-accent); /* Hover vào sáng màu cam */
+        }
+
+        .course-content table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin: 0; 
+            font-size: 1rem; 
+            /* Min-width giúp bảng không bị bóp nát chữ khi ở mobile */
+            /* Người dùng sẽ vuốt ngang để xem phần còn lại */
+            min-width: 600px; 
+        }
+
+        .course-content th, .course-content td { 
+            padding: 14px 20px; /* Tăng padding cho thoáng */
+            border-bottom: 1px solid var(--border-color); /* Chỉ kẻ ngang cho giống style hiện đại */
+            border-right: 1px dashed rgba(48, 54, 61, 0.4); /* Kẻ dọc mờ hơn */
+            text-align: left; 
+            color: var(--text-main); 
+            vertical-align: top;
+        }
+        .course-content th { border-top: none; }
+        .course-content tr:last-child td { border-bottom: none; } /* Bỏ kẻ đáy dòng cuối */
+        .course-content td:last-child { border-right: none; } /* Bỏ kẻ dọc cột cuối */
+
+        .course-content th { 
+            background-color: #21262d; 
+            color: var(--course-accent); 
+            font-weight: 700; 
+            white-space: nowrap; 
+            position: sticky; /* Giữ tiêu đề cột khi cuộn dọc (nếu cần sau này) */
+            top: 0;
+        }
+
+        .course-content td:first-child { 
+            font-weight: 600; 
+            color: #fff;
+            /* Đã bỏ white-space: nowrap để cho phép xuống dòng tự nhiên */
+        }
         /* --- TITLE & HEADINGS (MÀU CAM) --- */
         .course-content h1 { 
             font-family: 'Orbitron', sans-serif; 
@@ -198,18 +275,16 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-        // --- [PATCH] FIX LỖI BẢNG TRÀN MÀN HÌNH ---
+            /* 1. AUTO WRAP TABLE (FIXED) */
+            // Tự động thêm thanh cuộn cho bảng
             const tables = document.querySelectorAll('.course-content table');
             tables.forEach(table => {
-                // 1. Tạo thẻ div bao bên ngoài
-                const wrapper = document.createElement('div');
-                wrapper.className = 'table-responsive'; // Class CSS chúng ta vừa thêm ở trên
-                
-                // 2. Chèn wrapper vào trước bảng
-                table.parentNode.insertBefore(wrapper, table);
-                
-                // 3. Di chuyển bảng vào trong wrapper
-                wrapper.appendChild(table);
+                if (!table.parentElement.classList.contains('table-responsive')) {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'table-responsive';
+                    table.parentNode.insertBefore(wrapper, table);
+                    wrapper.appendChild(table);
+                }
             });
             /* TẠO MỤC LỤC & COPY BUTTON */
             const toc = document.getElementById('toc');
