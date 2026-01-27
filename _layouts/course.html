@@ -62,54 +62,39 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.3); /* Bóng đổ nhẹ */
         }
 
-       /* --- FIX BẢNG GỌN GÀNG (CLEAN STYLE) --- */
-        
-        /* 1. Khung cuộn "tàng hình" - Chỉ giữ chức năng, không hiển thị viền */
+        /* --- FIX BẢNG: Xóa khung dư, bo góc đẹp --- */
         .table-responsive {
             overflow-x: auto;
             margin: 25px 0;
-            /* Xóa border và background để không còn cảm giác "khung dư" */
-            border: none; 
-            background: transparent;
-            
-            /* Thanh cuộn mảnh */
+            border: none; /* Quan trọng: Xóa viền khung ngoài */
+            background: transparent; /* Xóa nền khung ngoài */
             scrollbar-width: thin;
             scrollbar-color: #30363d transparent;
         }
-
-        /* 2. Thiết kế bảng liền khối */
+        
         .course-content table { 
             width: 100%; 
-            border-collapse: separate; /* Bắt buộc dùng separate để bo góc được */
-            border-spacing: 0;         /* Xóa khoảng cách giữa các ô */
-            margin: 0; 
+            border-collapse: separate; 
+            border-spacing: 0;         
             min-width: 600px;
             
-            /* Viền và bo góc nằm trực tiếp ở bảng */
+            /* Viền và bo góc chuyển vào đây */
             border: 1px solid var(--border-color);
             border-radius: 8px; 
-            overflow: hidden; /* Cắt gọn các góc vuông thừa ra */
+            overflow: hidden; 
             background: #161b22;
         }
-
+        
         .course-content th, .course-content td { 
-            padding: 12px 16px; /* Padding vừa vặn */
-            text-align: left; 
-            color: var(--text-main);
-            vertical-align: top;
-            
-            /* Chỉ kẻ viền dưới và viền phải mờ */
+            padding: 12px 16px; /* Căn chỉnh khoảng cách vừa mắt */
             border-bottom: 1px solid var(--border-color);
             border-right: 1px solid rgba(48, 54, 61, 0.5); 
+            vertical-align: top;
         }
-
-        /* --- XỬ LÝ VIỀN THỪA (QUAN TRỌNG) --- */
         
-        /* Xóa viền phải của cột cuối cùng */
-        .course-content th:last-child, 
-        .course-content td:last-child { 
-            border-right: none; 
-        }
+        /* Xóa các viền thừa ở mép ngoài */
+        .course-content th:last-child, .course-content td:last-child { border-right: none; }
+        .course-content tr:last-child td { border-bottom: none; }
         
         /* Xóa viền đáy của dòng cuối cùng */
         .course-content tr:last-child td { 
