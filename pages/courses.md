@@ -149,8 +149,6 @@ permalink: /courses/
             <span class="cat-abbr">&lt;DIR_REV&gt;</span>
         </div>
 
-        
-
     </div>
 
     <div id="detail-view" class="course-detail-view">
