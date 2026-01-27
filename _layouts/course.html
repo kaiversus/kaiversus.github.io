@@ -62,117 +62,74 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.3); /* Bóng đổ nhẹ */
         }
 
-        /* --- FIX BẢNG (TABLE) TỰ NHIÊN HƠN --- */
+       /* --- FIX BẢNG GỌN GÀNG (CLEAN STYLE) --- */
+        
+        /* 1. Khung cuộn "tàng hình" - Chỉ giữ chức năng, không hiển thị viền */
         .table-responsive {
             overflow-x: auto;
             margin: 25px 0;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            background: #161b22;
+            /* Xóa border và background để không còn cảm giác "khung dư" */
+            border: none; 
+            background: transparent;
             
-            /* Thanh cuộn mảnh, đẹp hơn cho Firefox */
+            /* Thanh cuộn mảnh */
             scrollbar-width: thin;
-            scrollbar-color: #30363d #0d1117;
+            scrollbar-color: #30363d transparent;
         }
 
-        /* Custom Thanh cuộn cho Chrome/Edge/Safari */
-        .table-responsive::-webkit-scrollbar {
-            height: 6px; /* Thanh cuộn ngang mỏng thôi */
-        }
-        .table-responsive::-webkit-scrollbar-track {
-            background: #0d1117;
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
-        }
-        .table-responsive::-webkit-scrollbar-thumb {
-            background-color: #30363d;
-            border-radius: 10px;
-        }
-        .table-responsive::-webkit-scrollbar-thumb:hover {
-            background-color: var(--course-accent); /* Hover vào sáng màu cam */
-        }
-
+        /* 2. Thiết kế bảng liền khối */
         .course-content table { 
             width: 100%; 
-            border-collapse: collapse; 
+            border-collapse: separate; /* Bắt buộc dùng separate để bo góc được */
+            border-spacing: 0;         /* Xóa khoảng cách giữa các ô */
             margin: 0; 
-            font-size: 1rem; 
-            /* Min-width giúp bảng không bị bóp nát chữ khi ở mobile */
-            /* Người dùng sẽ vuốt ngang để xem phần còn lại */
-            min-width: 600px; 
+            min-width: 600px;
+            
+            /* Viền và bo góc nằm trực tiếp ở bảng */
+            border: 1px solid var(--border-color);
+            border-radius: 8px; 
+            overflow: hidden; /* Cắt gọn các góc vuông thừa ra */
+            background: #161b22;
         }
 
         .course-content th, .course-content td { 
-            padding: 14px 20px; /* Tăng padding cho thoáng */
-            border-bottom: 1px solid var(--border-color); /* Chỉ kẻ ngang cho giống style hiện đại */
-            border-right: 1px dashed rgba(48, 54, 61, 0.4); /* Kẻ dọc mờ hơn */
+            padding: 12px 16px; /* Padding vừa vặn */
             text-align: left; 
-            color: var(--text-main); 
+            color: var(--text-main);
             vertical-align: top;
+            
+            /* Chỉ kẻ viền dưới và viền phải mờ */
+            border-bottom: 1px solid var(--border-color);
+            border-right: 1px solid rgba(48, 54, 61, 0.5); 
         }
-        .course-content th { border-top: none; }
-        .course-content tr:last-child td { border-bottom: none; } /* Bỏ kẻ đáy dòng cuối */
-        .course-content td:last-child { border-right: none; } /* Bỏ kẻ dọc cột cuối */
 
+        /* --- XỬ LÝ VIỀN THỪA (QUAN TRỌNG) --- */
+        
+        /* Xóa viền phải của cột cuối cùng */
+        .course-content th:last-child, 
+        .course-content td:last-child { 
+            border-right: none; 
+        }
+        
+        /* Xóa viền đáy của dòng cuối cùng */
+        .course-content tr:last-child td { 
+            border-bottom: none; 
+        }
+
+        /* Style cho Header */
         .course-content th { 
             background-color: #21262d; 
             color: var(--course-accent); 
             font-weight: 700; 
+            border-bottom: 2px solid var(--course-accent); /* Điểm nhấn màu cam */
             white-space: nowrap; 
-            position: sticky; /* Giữ tiêu đề cột khi cuộn dọc (nếu cần sau này) */
-            top: 0;
         }
 
+        /* Style cho cột đầu tiên (First Column) */
         .course-content td:first-child { 
             font-weight: 600; 
             color: #fff;
-            /* Đã bỏ white-space: nowrap để cho phép xuống dòng tự nhiên */
-        }
-        /* --- TITLE & HEADINGS (MÀU CAM) --- */
-        .course-content h1 { 
-            font-family: 'Orbitron', sans-serif; 
-            color: white !important; 
-            font-size: 2.5rem; 
-            margin-bottom: 10px; 
-            text-shadow: 0 0 10px rgba(255, 170, 0, 0.3); 
-            line-height: 1.2;
-        }
-        
-        .course-content h2 { 
-            margin-top: 3rem; 
-            border-bottom: 1px solid var(--border-color); 
-            padding-bottom: 10px; 
-            font-family: 'Oxanium', sans-serif; 
-            color: #ffcc66 !important; /* Cam nhạt hơn */
-            font-size: 1.8rem;
-        }
-
-        .course-content h3 {
-            color: #fff;
-            margin-top: 2rem;
-            font-family: 'Orbitron', sans-serif;
-        }
-
-        .course-content p, .course-content li {
-            font-size: 1.1rem; 
-            line-height: 1.8;  
-            color: #e6edf3;
-            margin-bottom: 15px;
-        }
-
-        /* --- TABLE --- */
-        .course-content table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 1rem; background: #161b22; border: 1px solid var(--border-color); }
-        .course-content th, .course-content td { padding: 12px 15px; border: 1px solid var(--border-color); text-align: left; color: var(--text-main); }
-        .course-content th { background-color: #21262d; color: var(--course-accent); font-weight: 700; border-bottom: 2px solid var(--course-accent); }
-        /* --- THÊM CLASS NÀY ĐỂ XỬ LÝ CUỘN --- */
-        .table-responsive {
-            overflow-x: auto;
-            margin: 20px 0;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-        }
-        /* ĐÃ FIX: Xóa white-space: nowrap để không bị tràn */
-        .course-content td:first-child { font-weight: 600; width: auto; color: #fff; }
+        }}
 
         /* --- CODE BLOCK (VIỀN CAM) --- */
         div.highlighter-rouge {
