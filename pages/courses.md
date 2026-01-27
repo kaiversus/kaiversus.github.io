@@ -143,9 +143,9 @@ permalink: /courses/
             <span class="cat-abbr">&lt;DIR_REV&gt;</span>
         </div>
 
-        <div class="cat-row" onclick="openCourse('Crypto')">
+        <div class="cat-row" onclick="openCourse('TryHackMe')">
             <span class="cat-id">[ 0x04 ]</span>
-            <span class="cat-name">CRYPTOGRAPHY</span>
+            <span class="cat-name">TRYHACKME</span>
             <span class="cat-abbr">&lt;DIR_CRY&gt;</span>
         </div>
         
