@@ -55,9 +55,9 @@ $$
 
 **WPA2 vs the “Broken” WEP**
 
-| WEP (Wired Equivalent Privacy) | WPA2: |
-| --- | --- |
-| Used a static key, if gathering enough packets (statical analysis), the key eventually revealed itself cuz it repeated patterns | Used the 4-WHS to ensure that even if using the same password for 10 years, the PTK changes every single time which reconnect |
+| WEP (Wired Equivalent Privacy) | WPA2 |
+| :--- | :--- |
+| Used a static key, if gathering enough packets (statistical analysis), the key eventually revealed itself cuz it repeated patterns | Used the 4-WHS to ensure that even if using the same password for 10 years, the PTK changes every single time which reconnect |
 
 **The Weakness of Offline Cracking**
 
@@ -127,15 +127,15 @@ The task file for practice can be downloaded from the provided
 
 After downloading and extracting the archive, five different files are obtained, as shown in the figure like this
 
-![](pic2.png)
+![](/pic2.png)
 
 In this task, we focus on the file `NinjaJc01-01.cap`, while the remaining files contain reconnaissance logs
 
 The analysis is performed using Ubuntu on Windows via WSL. To crack the captured handshake, the following command is used:
 `aircrack-ng -w [path_to_rockyou.txt] [path_to_NinjaJc01-01.cap]`
 
-After a few seconds, Aircrack-ng successfully recovers the WPA password
-![](pic1.png)
+After a few seconds, Aircrack-ng successfully recovers the WPA password: 
+![](/pic1.png)
 The cracked password for the network **“James Honor 8”** is:
 
 greeneggsandham
