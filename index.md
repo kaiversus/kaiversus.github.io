@@ -9,9 +9,7 @@ description: "Portfolio of Dinh Thien Bao (Kaiversus) - A personal archive for C
 
     <div class="hero-text">
         <h3 class="text-gold" style="color: var(--primary); font-size: 1rem; letter-spacing: 3px; margin-bottom: 5px;">[ STATUS: COMPROMISED ]</h3>
-        
-        <h1>DINH THIEN BAO</h1>
-
+        <h1 style="margin-bottom: 5px;">DINH THIEN BAO</h1>
         <pre class="ascii-logo" style="color: var(--accent);">██╗  ██╗ █████╗ ██╗██╗   ██╗███████╗██████╗ ███████╗██╗   ██╗███████╗
 ██║ ██╔╝██╔══██╗██║██║   ██║██╔════╝██╔══██╗██╔════╝██║   ██║██╔════╝
 █████╔╝ ███████║██║██║   ██║█████╗  ██████╔╝███████╗██║   ██║███████╗
