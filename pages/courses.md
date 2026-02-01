@@ -1,4 +1,3 @@
-![Uploading {9B2A69FF-DB3A-424A-B582-E82B34245C8B}.png…]()
 ---
 layout: default
 title: Courses Library
