@@ -58,7 +58,11 @@
             gap: 50px;
             padding: 40px 10px 100px 10px; 
         }
-        .course-content { min-width: 0; }
+        .course-content { 
+            min-width: 0; 
+            font-family: 'JetBrains Mono', 'Consolas', monospace !important;
+            font-size: 0.95rem;
+        }
         /* --- FIX ẢNH (IMAGES) --- */
         /* Ảnh sẽ tự co lại vừa khung, căn giữa và bo góc nhẹ */
         .course-content img {
@@ -163,9 +167,10 @@
         }
 
         .course-content p, .course-content li {
-            font-size: 1.1rem;
+            font-family: 'JetBrains Mono', 'Consolas', monospace !important;
+            font-size: 0.95rem;
             line-height: 1.8;
-            color: var(--text-main); /* <--- ĐỔI Ở ĐÂY: Dùng màu xám nhạt (#c9d1d9) thay vì màu trắng sáng cũ */
+            color: var(--text-main); 
             margin-bottom: 15px;
         }
         /* ĐÃ FIX: Xóa white-space: nowrap để không bị tràn */
