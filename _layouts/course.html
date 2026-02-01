@@ -105,42 +105,66 @@
             background-color: var(--course-accent); /* Hover vào sáng màu cam */
         }
 
+        /* --- TABLE LOGIC: CÂN ĐỐI TỰ ĐỘNG --- */
+
         .course-content table { 
             width: 100%; 
             border-collapse: collapse; 
             margin: 0; 
-            font-size: 1rem; 
-            /* Min-width giúp bảng không bị bóp nát chữ khi ở mobile */
-            /* Người dùng sẽ vuốt ngang để xem phần còn lại */
+            font-size: 0.9rem; /* Giảm size chữ chút cho bảng gọn hơn */
+            
+            /* Giữ nguyên min-width để đảm bảo trên điện thoại không bị nát, chấp nhận cuộn ngang */
             min-width: 600px; 
+            table-layout: auto; /* Để trình duyệt tự tính toán dựa trên nội dung */
         }
-
-        .course-content th, .course-content td { 
-            padding: 14px 20px; /* Tăng padding cho thoáng */
-            border-bottom: 1px solid var(--border-color); /* Chỉ kẻ ngang cho giống style hiện đại */
-            border-right: 1px dashed rgba(48, 54, 61, 0.4); /* Kẻ dọc mờ hơn */
-            text-align: left; 
-            color: var(--text-main); 
-            vertical-align: top;
-        }
-        .course-content th { border-top: none; }
-        .course-content tr:last-child td { border-bottom: none; } /* Bỏ kẻ đáy dòng cuối */
-        .course-content td:last-child { border-right: none; } /* Bỏ kẻ dọc cột cuối */
-
+        
+        /* 1. XỬ LÝ TIÊU ĐỀ (HEADER) */
         .course-content th { 
             background-color: #21262d; 
             color: var(--course-accent); 
             font-weight: 700; 
-            white-space: nowrap; 
-            position: sticky; /* Giữ tiêu đề cột khi cuộn dọc (nếu cần sau này) */
-            top: 0;
+            padding: 10px 15px; 
+            text-align: left; 
+            border-bottom: 2px solid var(--border-color);
+            vertical-align: bottom; /* Căn đáy để đẹp hơn khi tiêu đề bị ngắt dòng */
+        
+            /* QUAN TRỌNG: Cho phép tiêu đề xuống dòng để tiết kiệm diện tích ngang */
+            white-space: normal !important; 
+            max-width: 150px; /* Nếu tiêu đề dài quá 150px thì ép xuống dòng */
         }
-
+        
+        /* 2. XỬ LÝ Ô DỮ LIỆU (CELLS) */
+        .course-content td { 
+            padding: 10px 15px; 
+            border-bottom: 1px solid var(--border-color); 
+            border-right: 1px dashed rgba(48, 54, 61, 0.4); 
+            color: var(--text-main); 
+            vertical-align: top; /* Nội dung luôn bắt đầu từ trên cùng */
+            line-height: 1.5;
+        }
+        
+        /* 3. MẸO CÂN ĐỐI CỘT (MAGIC CSS) */
+        
+        /* Cột đầu tiên (Thường là Offset, Key, Name): Ép co lại vừa khít nội dung */
         .course-content td:first-child { 
             font-weight: 600; 
-            color: #fff;
-            /* Đã bỏ white-space: nowrap để cho phép xuống dòng tự nhiên */
+            color: #e6edf3; 
+            width: 1%; /* Mẹo: Ép cột này chỉ rộng bằng nội dung dài nhất của nó */
+            white-space: nowrap; /* Giữ nội dung cột đầu (VD: 0x0040) trên 1 dòng cho đẹp */
         }
+        
+        /* Cột cuối cùng (Thường là Description): Cho phép chiếm hết chỗ trống còn lại */
+        .course-content td:last-child { 
+            border-right: none; 
+            width: auto; /* Tự động giãn ra tối đa */
+        }
+        
+        /* Các cột ở giữa (Size, Value...): Cho phép chữ tự xuống dòng nếu quá dài */
+        .course-content td {
+            word-break: break-word; /* Ngắt dòng nếu gặp chuỗi hex dài dằng dặc */
+        }
+
+        .course-content tr:last-child td { border-bottom: none; } /* Bỏ kẻ đáy dòng cuối */
         /* --- TITLE & HEADINGS (MÀU CAM) --- */
         .course-content h1 { 
             font-family: 'Orbitron', sans-serif; 
