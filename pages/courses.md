@@ -1,3 +1,4 @@
+![Uploading {9B2A69FF-DB3A-424A-B582-E82B34245C8B}.png…]()
 ---
 layout: default
 title: Courses Library
@@ -163,7 +164,8 @@ permalink: /courses/
         <p style="color: #666; font-family: monospace; margin-bottom: 30px;">> List of available modules in this directory:</p>
 
         <div class="module-grid">
-            {% for post in site.courses reversed %}
+            {% assign sorted_courses = site.courses | sort: 'title' %}
+            {% for post in sorted_courses %}
             <article class="module-card filter-item" 
                      data-cat="{{ post.category | default: 'General' }}" 
                      onclick="window.location.href='{{ post.url }}'">
