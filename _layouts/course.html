@@ -27,6 +27,7 @@
             --border-color: #30363d;   
             --code-bg: #161b22;
             --course-accent: #ffaa00; /* Màu Cam Chủ Đạo */
+            --code-bg: #161b22;
         }
 
         body {
@@ -170,30 +171,53 @@
         /* ĐÃ FIX: Xóa white-space: nowrap để không bị tràn */
         .course-content td:first-child { font-weight: 600; width: auto; color: #fff; }
 
-        /* --- CODE BLOCK (VIỀN CAM) --- */
+        /* 1. LỚP VỎ NGOÀI CÙNG: Chịu trách nhiệm nền và bo góc */
         div.highlighter-rouge {
             background-color: var(--code-bg) !important; 
             border-radius: 8px;
             margin: 25px 0;
-            position: relative;
+            position: relative; /* Để neo nút copy */
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            border: 1px solid #30363d !important;
+            border: none !important; /* Bỏ viền cam cũ */
         }
-        div.highlighter-rouge pre.highlight, pre.highlight {
-            padding: 20px !important; 
+        
+        /* 2. LỚP GIỮA: Reset về trong suốt để không bị chồng màu nền */
+        div.highlighter-rouge div.highlight {
+            background: transparent !important;
+            border: none !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+        }
+        
+        /* 3. LỚP TRONG CÙNG (Thẻ Pre): Chứa chữ code */
+        div.highlighter-rouge pre.highlight,
+        pre.highlight {
+            background: transparent !important; 
+            border: none !important;
+            margin: 0 !important;
+            padding: 20px 20px 20px 20px !important; /* Padding chuẩn */
+            overflow-x: auto;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.95rem !important;
+            font-size: 0.85rem !important; /* Chữ nhỏ gọn hơn */
             line-height: 1.6;
         }
         
+        /* 4. MÀU CHỮ CODE (QUAN TRỌNG) */
         code { 
-            color: #ffcc66 !important; 
-            background: rgba(110, 118, 129, 0.2); 
+            color: #e6edf3 !important; /* Đổi từ màu cam sang màu trắng xám */
+            text-shadow: none; 
+            padding: 0; 
+        }
+        /* Inline code styles */
+        p > code, li > code, td > code { 
+            background: rgba(110, 118, 129, 0.4); /* Nền xám trong suốt */
             padding: 2px 6px; 
             border-radius: 4px; 
+            color: var(--course-accent); /* Dùng màu xanh neon làm điểm nhấn */
+            font-size: 0.9em; 
             font-family: 'JetBrains Mono', monospace; 
         }
-
         /* --- COPY BUTTON --- */
         .copy-btn {
             position: absolute; top: 10px; right: 10px;        
