@@ -136,7 +136,7 @@ permalink: /courses/
             <span class="cat-name">TRYHACKME</span>
             <span class="cat-abbr">&lt;DIR_CRY&gt;</span>
         </div>
-
+        <!--
         <div class="cat-row" onclick="openCourse('Web')">
             <span class="cat-id">[ 0x03 ]</span>
             <span class="cat-name">WEB EXPLOITATION</span>
@@ -148,6 +148,7 @@ permalink: /courses/
             <span class="cat-name">REVERSE ENGINEERING</span>
             <span class="cat-abbr">&lt;DIR_REV&gt;</span>
         </div>
+        -->
 
     </div>
 
