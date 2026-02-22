@@ -699,6 +699,7 @@ div.highlight,
 figure.highlight,
 .highlighter-rouge {
     position: relative !important; 
+    background: transparent !important;
 }
 
 /* 2. Vô hiệu hóa điểm neo của thẻ Pre 
@@ -708,7 +709,11 @@ pre {
     position: static !important; 
     padding-top: 35px !important; /* Tạo khoảng trống bên trên để nút không che mất code */
 }
-
+pre code {
+    background: transparent !important; /* Xóa màu nền của từng dòng code */
+    border: none !important;            /* Xóa viền nếu có */
+    padding: 0 !important;              /* Xóa khoảng đệm thừa */
+}
 /* 3. Cài đặt vị trí tuyệt đối cho nút Copy */
 .copy-btn {
     /* Ghim chặt vào góc phải của khung bao ngoài */
