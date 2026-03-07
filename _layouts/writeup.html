@@ -1,27 +1,80 @@
 ---
 layout: default
 ---
-<section class="container" style="max-width: 900px; margin: 0 auto; padding-top: 40px; padding-bottom: 60px; font-family: 'Courier New', monospace;">
+<div class="writeup-container">
     
-    <div style="margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px;">
-        <div style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">
-            <span style="color: #00ff41; margin-right: 10px;">root@kaiversus:~/writeups$</span> cat {{ page.title | slugify }}.md
+    <article class="writeup-content">
+        <div class="writeup-header">
+            <div class="terminal-prompt">
+                <span style="color: #00ff41;">root@kaiversus:~/writeups$</span> cat {{ page.title | slugify }}.md
+            </div>
+            <h1>{{ page.title }}</h1>
+            <div class="writeup-meta">
+                [ DATE: {{ page.date | date: "%Y-%m-%d" }} ]
+            </div>
         </div>
-        <h1 style="color: #fff; font-size: 2.2rem; margin-bottom: 10px; font-weight: bold; font-family: 'Courier New', monospace;">
-            {{ page.title }}
-        </h1>
-        <div style="color: #888; font-size: 0.85rem;">
-            [ CREATED: {{ page.date | date: "%Y-%m-%d" }} ] 
-            {% if page.category %} | [ TAGS: <span style="color: #00ff41;">{{ page.category }}</span> ]{% endif %}
-        </div>
-    </div>
 
-    <article class="markdown-terminal">
         {{ content }}
+        
+        <div style="margin-top: 50px; border-top: 1px dashed #30363d; padding-top: 20px;">
+            <a href="/writeups/" style="color: #8b949e; text-decoration: none;">[ cd .. ] Back to Archive</a>
+        </div>
     </article>
-    
-    <div style="margin-top: 60px; padding-top: 20px; border-top: 1px dashed rgba(255,255,255,0.1); text-align: left;">
-        <a href="/writeups/" style="color: #666; text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='#00ff41'" onmouseout="this.style.color='#666'">[ cd .. ] Return to Writeups</a>
-    </div>
 
-</section>
+    <aside class="writeup-sidebar">
+        <div class="toc-wrapper">
+            <div class="toc-title">ON THIS PAGE</div>
+            <nav id="custom-toc"></nav>
+        </div>
+    </aside>
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 1. TẠO MỤC LỤC (TOC)
+        const toc = document.getElementById('custom-toc');
+        const headings = document.querySelectorAll('.writeup-content h2, .writeup-content h3');
+        
+        headings.forEach(h => {
+            // Tạo ID cho thẻ H2/H3 nếu chưa có
+            if (!h.id) {
+                h.id = h.innerText.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            }
+            const a = document.createElement('a');
+            a.href = '#' + h.id;
+            a.textContent = h.innerText;
+            a.className = 'toc-link ' + h.tagName.toLowerCase();
+            toc.appendChild(a);
+        });
+
+        // 2. TẠO NÚT COPY CODE
+        const codeBlocks = document.querySelectorAll('pre');
+        codeBlocks.forEach(pre => {
+            // Bọc pre trong một div relative
+            const wrapper = document.createElement('div');
+            wrapper.className = 'code-wrapper';
+            pre.parentNode.insertBefore(wrapper, pre);
+            wrapper.appendChild(pre);
+
+            // Tạo nút
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn';
+            copyBtn.innerHTML = 'Copy';
+            wrapper.appendChild(copyBtn);
+
+            // Xử lý sự kiện copy
+            copyBtn.addEventListener('click', () => {
+                const code = pre.querySelector('code') ? pre.querySelector('code').innerText : pre.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    copyBtn.innerHTML = 'Copied!';
+                    copyBtn.style.color = '#00ff41';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = 'Copy';
+                        copyBtn.style.color = '#8b949e';
+                    }, 2000);
+                });
+            });
+        });
+    });
+</script>
