@@ -50,47 +50,32 @@ title: Home Base | Kaiversus
     <a href="#writeups" class="section-link">all posts</a>
   </div>
 <div class="writeup-list">
-    {% for post in site.writeups reversed limit:3 %}
+    {% assign combined_posts = site.writeups | concat: site.courses | sort: "date" | reverse %}
+    
+    {% for post in combined_posts limit:3 %}
     <a href="{{ post.url | relative_url }}" class="writeup-item">
       <div class="wi-idx">0{{ forloop.index }}</div>
       
       <div class="wi-body">
         <div class="wi-meta">
-          <span class="tag tag-re">Writeup</span>
+          {% if post.collection == "courses" %}
+            <span class="tag tag-crypto">Course</span>
+          {% else %}
+            <span class="tag tag-re">Writeup</span>
+          {% endif %}
+          
           <span class="wi-date">{{ post.date | date: "%b %Y" }}</span>
         </div>
         
         <div class="wi-title">{{ post.title }}</div>
-        <div class="wi-desc">{{ post.description }}</div>
+        
+        <div class="wi-desc">{{ post.description | default: "Truy cập để đọc chi tiết nhật ký hệ thống..." }}</div>
         
       </div>
       <div class="wi-arrow">→</div>
     </a>
     {% endfor %}
   </div>
-    </a>
-    <a href="#" class="writeup-item">
-      <div class="wi-idx">02</div>
-      <div class="wi-body">
-        <div class="wi-meta"><span class="tag tag-malware">Malware</span><span class="wi-date">Jan 2025</span></div>
-        <div class="wi-title">Unpacking a Custom UPX Variant with XOR Key Rotation</div>
-        <div class="wi-desc">Static + dynamic analysis to recover the original payload from a modified packer.</div>
-        <div class="wi-tools"><span class="tool-tag">x64dbg</span><span class="tool-tag">PE-bear</span></div>
-      </div>
-      <div class="wi-arrow">→</div>
-    </a>
-    <a href="#" class="writeup-item">
-      <div class="wi-idx">03</div>
-      <div class="wi-body">
-        <div class="wi-meta"><span class="tag tag-re">RE</span><span class="wi-date">Dec 2024</span></div>
-        <div class="wi-title">Reversing a Rust Binary — HKCERT CTF 2024</div>
-        <div class="wi-desc">Ghidra walkthrough on a Rust challenge with obfuscated string handling.</div>
-        <div class="wi-tools"><span class="tool-tag">Ghidra</span><span class="tool-tag">radare2</span></div>
-      </div>
-      <div class="wi-arrow">→</div>
-    </a>
-  </div>
-</div>
 <hr class="section-divider">
 
 <div class="section" id="projects">
