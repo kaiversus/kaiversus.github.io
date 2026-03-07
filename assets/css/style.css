@@ -467,17 +467,12 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
 
 /* H2: Có đường gạch chân và ký tự // phía trước */
 .writeup-content h2 {
-    color: var(--primary); /* Xanh lá Matrix */
+    color: #4ade80 !important; /* Màu xanh lá mint chuẩn của chữ SYSTEM */
     font-size: 1.6rem;
-    border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+    border-bottom: 1px solid rgba(74, 222, 128, 0.2); /* Viền mờ tiệp màu chữ */
     padding-bottom: 10px;
     display: flex;
     align-items: center;
-}
-.writeup-content h2::before {
-    content: '// ';
-    color: #555;
-    margin-right: 12px;
 }
 
 /* H3: Có vạch nhấn màu đỏ/hồng bên trái */
@@ -642,12 +637,9 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
 
 /* Phân cấp rõ H2 và H3 trong mục lục */
 .toc-link.h2 {
-    color: #4ade80 !important; /* Màu xanh lá mint chuẩn của chữ SYSTEM */
-    font-size: 1.6rem;
-    border-bottom: 1px solid rgba(74, 222, 128, 0.2); /* Viền mờ tiệp màu chữ */
-    padding-bottom: 10px;
-    display: flex;
-    align-items: center;
+    color: #aaa;
+    font-weight: bold;
+    margin-top: 5px;
 }
 .toc-link.h3 {
     padding-left: 15px; /* Thụt đầu dòng cho H3 */
