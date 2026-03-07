@@ -416,7 +416,7 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
 
 .writeup-container {
     display: flex;
-    max-width: 1100px;
+    max-width: 1150px;
     margin: 60px auto;
     padding: 0 20px;
     gap: 60px;
@@ -427,7 +427,7 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
 .writeup-content {
     flex: 1;
     min-width: 0; 
-    max-width: 800px;
+    max-width: 900px;
     color: #d1d5db; /* Màu xám trắng sáng hơn, rất dễ đọc */
     font-family: 'Rajdhani', 'Courier New', monospace; /* Đồng bộ font với trang chủ */
     font-size: 0.9rem;
