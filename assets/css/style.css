@@ -411,7 +411,7 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
 }
 
 /* =========================================
-   GIAO DIỆN WRITEUP TỐI GIẢN (MINIMALIST)
+   GIAO DIỆN WRITEUP TỐI GIẢN (MINIMALIST & DARK)
    ========================================= */
 
 .writeup-container {
@@ -420,28 +420,27 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
     margin: 40px auto;
     padding: 0 20px;
     gap: 50px;
-    align-items: flex-start; /* Quan trọng để cột ToC bám dính được */
+    align-items: flex-start;
 }
 
 /* --- CỘT NỘI DUNG CHÍNH --- */
 .writeup-content {
     flex: 1;
     min-width: 0; 
-    color: #c9d1d9; /* Màu text xám nhạt, cực dịu mắt */
-    font-family: 'Courier New', monospace; /* Hoặc 'Rajdhani' tùy bạn */
+    color: #8b949e; /* Text xám trầm, giảm độ chói */
+    font-family: 'Courier New', monospace;
     font-size: 1.05rem;
     line-height: 1.7;
 }
 
 .writeup-header {
     margin-bottom: 40px;
-    border-bottom: 1px solid #30363d;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
     padding-bottom: 20px;
 }
 
 .terminal-prompt {
-    color: #8b949e;
-    font-family: 'Courier New', monospace;
+    color: #666;
     font-size: 0.9rem;
     margin-bottom: 15px;
 }
@@ -450,30 +449,22 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
     color: #fff;
     font-size: 2.2rem;
     margin: 0 0 10px 0;
-    font-family: 'Courier New', monospace;
 }
 
-.writeup-meta { color: #8b949e; font-size: 0.85rem; }
-
-/* Tiêu đề trong bài */
+/* Tiêu đề trong bài (H2, H3) - Chỉnh màu Xanh lá giống hình */
 .writeup-content h2, .writeup-content h3 {
-    color: #fff;
+    color: #00ff41; 
     font-family: 'Courier New', monospace;
     margin-top: 2em;
     margin-bottom: 1em;
 }
 
 .writeup-content h2 {
-    border-bottom: 1px solid #30363d;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
     padding-bottom: 8px;
-    color: #00ff41; /* Nhấn nhẹ tiêu đề H2 bằng xanh lá mờ */
 }
 
-/* Liên kết */
-.writeup-content a {
-    color: #58a6ff;
-    text-decoration: none;
-}
+.writeup-content a { color: #58a6ff; text-decoration: none; }
 .writeup-content a:hover { text-decoration: underline; }
 
 /* Bảng biểu (Tables) */
@@ -484,40 +475,33 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
     font-size: 0.95rem;
 }
 .writeup-content th, .writeup-content td {
-    border: 1px solid #30363d;
+    border: 1px solid rgba(255,255,255,0.05);
     padding: 12px;
     text-align: left;
 }
 .writeup-content th {
-    background: #161b22;
-    color: #c9d1d9;
-}
-
-/* Trích dẫn */
-.writeup-content blockquote {
-    border-left: 3px solid #30363d;
-    margin: 1.5em 0;
-    padding: 10px 20px;
-    color: #8b949e;
-    background: transparent;
+    background: #0d1117;
+    color: #00ff41; /* Header bảng màu xanh */
 }
 
 /* --- CODE BLOCKS & COPY BUTTON --- */
-.code-wrapper {
-    position: relative;
-    margin: 1.5em 0;
-}
-
-.code-wrapper pre {
+div.highlight, pre {
     background: #0d1117 !important; /* Đen tuyền sâu */
-    border: 1px solid #30363d; /* Viền xám mỏng */
+    border: 1px solid rgba(255,255,255,0.05); /* Viền cực mờ */
     border-radius: 6px;
     padding: 15px;
     overflow-x: auto;
+    margin: 1.5em 0;
 }
 
-.code-wrapper pre code {
-    color: #c9d1d9; /* Text trắng xám dịu mắt */
+div.highlight pre {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+pre code {
+    color: #c9d1d9;
     font-family: 'Courier New', monospace;
     font-size: 0.9rem;
 }
@@ -532,25 +516,33 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
     border-radius: 4px;
     padding: 4px 10px;
     font-size: 0.75rem;
-    font-family: 'Courier New', monospace;
     cursor: pointer;
     transition: 0.2s;
+    z-index: 10;
 }
-.copy-btn:hover {
-    background: #30363d;
-    color: #fff;
-}
+.copy-btn:hover { background: #30363d; color: #fff; }
+
+/* --- SYNTAX HIGHLIGHTING (Tô màu cho code) --- */
+/* (Màu phong cách Github Dark / Terminal) */
+.highlight .c, .highlight .cm, .highlight .c1 { color: #8b949e; font-style: italic; } /* Comment */
+.highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr { color: #ff7b72; } /* Keyword */
+.highlight .s, .highlight .s1, .highlight .s2, .highlight .sa, .highlight .sb, .highlight .dl { color: #a5d6ff; } /* String */
+.highlight .n, .highlight .nx { color: #c9d1d9; } /* Name/Variable */
+.highlight .nf, .highlight .fm { color: #d2a8ff; } /* Function */
+.highlight .m, .highlight .mi, .highlight .mf, .highlight .mh { color: #79c0ff; } /* Number */
+.highlight .o, .highlight .ow { color: #ff7b72; } /* Operator */
+.highlight .p, .highlight .pi { color: #c9d1d9; } /* Punctuation */
 
 /* --- CỘT MỤC LỤC BÊN PHẢI (STICKY TOC) --- */
 .writeup-sidebar {
     width: 250px;
     position: sticky;
-    top: 80px; /* Cố định khi cuộn chuột */
+    top: 80px; 
     flex-shrink: 0;
 }
 
 .toc-wrapper {
-    border-left: 1px solid #30363d;
+    border-left: 1px solid rgba(255,255,255,0.1);
     padding-left: 20px;
 }
 
@@ -558,23 +550,21 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
     color: #fff;
     font-size: 0.85rem;
     font-weight: bold;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     letter-spacing: 1px;
 }
 
 .toc-link {
-    display: block;
     color: #8b949e;
     text-decoration: none;
     font-size: 0.9rem;
-    margin-bottom: 12px;
     transition: 0.2s;
     line-height: 1.4;
+    display: block; /* Đảm bảo link hiển thị dạng khối (dọc) */
 }
 .toc-link:hover { color: #00ff41; }
-.toc-link.h3 { padding-left: 15px; font-size: 0.85rem; }
+.toc-link.h3 { padding-left: 15px; font-size: 0.85rem; } /* Thụt lề cho mục nhỏ */
 
-/* Responsive: Ẩn ToC trên điện thoại */
 @media (max-width: 900px) {
     .writeup-container { flex-direction: column; }
     .writeup-sidebar { display: none; }
