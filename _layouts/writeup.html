@@ -4,282 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }} | Kaiversus</title>
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&family=Oxanium:wght@700;800&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&family=Oxanium:wght@700;800&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
-    
-    <style>
-        /* --- GLOBAL VARIABLES --- */
-        :root {
-            --bg-page: #050a14;
-            --text-main: #c9d1d9;     
-            --border-color: #30363d;  
-            --accent-color: #00ff41;  
-            --content-width: 1200px; 
-            --code-bg: #161b22; /* Github Dark Dimmed */
-        }
-
-        body {
-            background-color: var(--bg-page) !important;
-            color: var(--text-main) !important;
-            font-family: 'Inter', sans-serif !important;
-            overflow-x: hidden;
-        }
-        /* --- ACTIVE STATE CHO MỤC LỤC --- */
-        #toc a.active {
-            color: #00ff41 !important; /* Màu xanh Neon */
-            border-left-color: #00ff41 !important; /* Viền trái phát sáng */
-            text-shadow: 0 0 10px rgba(0, 255, 65, 0.5); /* Hiệu ứng glow */
-            padding-left: 25px; /* Thụt vào một chút cho hiệu ứng chuyển động */
-            font-weight: bold;
-        }
-
-        canvas#cyber-matrix { display: none !important; }
-        header { background: rgba(5, 10, 20, 0.95) !important; }
-
-        /* --- LAYOUT --- */
-        .writeup-layout {
-            max-width: var(--content-width);
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 250px; 
-            gap: 50px;
-            padding: 40px 10px 100px 10px; 
-        }
-        .writeup-content { 
-            min-width: 0;
-            font-family: 'JetBrains Mono', 'Consolas', monospace !important;
-            font-size: 0.95rem;
-        }
-        .writeup-content h1 { font-family: 'Orbitron', sans-serif; color: #fff; font-size: 2.5rem; margin-bottom: 10px; text-shadow: 0 0 10px rgba(0, 255, 65, 0.3); }
-        .writeup-content h2 { margin-top: 3rem; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; font-family: 'Oxanium', sans-serif; text-shadow: 0 0 15px rgba(255, 0, 85, 0.3); }
-        .writeup-content p, .writeup-content li {
-            font-family: 'JetBrains Mono', 'Consolas', monospace !important;
-            font-size: 0.95rem;
-            line-height: 1.8;
-            color: var(--text-main); 
-            margin-bottom: 15px;
-        }
-        .writeup-content strong, 
-        .writeup-content b {
-            color: var(--accent-color) !important; /* Dùng màu xanh neon của writeup */
-            font-weight: 700; 
-        }
-        /* --- TABLE --- */
-        .writeup-content table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95rem; background: #161b22; border: 1px solid var(--border-color); }
-        .writeup-content th, .writeup-content td { padding: 12px 15px; border: 1px solid var(--border-color); text-align: left; color: var(--text-main); }
-        .writeup-content th { background-color: #21262d; color: #fff; font-weight: 700; }
-        .writeup-content td:first-child { font-weight: 600; width: 30%; }
-
-        /* ==========================================================================
-           FIX JEKYLL NESTED LAYERS (TRIỆT TIÊU 2 LỚP)
-           ========================================================================== */
-        
-        /* 1. LỚP VỎ NGOÀI CÙNG (Cha): Chịu trách nhiệm hiển thị Background & Box */
-        div.highlighter-rouge {
-            background-color: var(--code-bg) !important; 
-            border-radius: 8px;
-            margin: 25px 0;
-            position: relative; /* Neo nút copy */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            border: none !important;
-        }
-
-        /* 2. LỚP GIỮA (Con): Bị Jekyll chèn vào -> Reset về trong suốt hoàn toàn */
-        div.highlighter-rouge div.highlight {
-            background: transparent !important;
-            border: none !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            box-shadow: none !important;
-        }
-
-        /* 3. LỚP TRONG CÙNG (Thẻ Pre): Chứa chữ -> Căn chỉnh padding cho đẹp */
-        div.highlighter-rouge pre.highlight,
-        pre.highlight,
-        .writeup-content pre {
-            background: transparent !important; 
-            border: none !important;
-            margin: 0 !important;
-            /* Padding này quan trọng: Chừa chỗ cho nút Copy ở góc phải */
-            padding: 20px 20px 20px 20px !important; 
-            overflow-x: auto;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem !important;
-            line-height: 1.6;
-        }
-
-        /* 4. FALLBACK: Nếu Jekyll KHÔNG sinh ra highlighter-rouge mà chỉ có highlight (hiếm) */
-        div.highlight:not(.highlighter-rouge div.highlight) {
-            background-color: var(--code-bg) !important;
-            border-radius: 8px;
-            margin: 25px 0;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        /* CODE TEXT COLOR */
-        code { color: #e6edf3 !important; text-shadow: none; padding: 0; }
-        p > code, li > code { background: rgba(110, 118, 129, 0.4); padding: 2px 6px; border-radius: 4px; color: var(--accent-color); font-size: 0.9em; font-family: 'JetBrains Mono', monospace; }
-
-        /* --- SINGLE COPY BUTTON --- */
-        .copy-btn {
-            position: absolute;
-            top: 10px;         
-            right: 10px;       
-            background: rgba(48, 54, 61, 0.6);
-            border: 1px solid #30363d;
-            border-radius: 4px;
-            color: #8b949e;
-            padding: 4px 10px;
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
-            transition: all 0.2s;
-            z-index: 100;
-        }
-        .copy-btn:hover { background: #238636; color: #fff; border-color: #238636; }
-
-        /* --- RESPONSIVE --- */
-        .writeup-sidebar { position: sticky; top: 20px; height: fit-content; }
-        .toc-header { font-family: 'Orbitron', sans-serif; color: #8b949e; font-size: 0.8rem; margin-bottom: 15px; letter-spacing: 1px; }
-        #toc { list-style: none; padding: 0; border-left: 2px solid #21262d; }
-        #toc a { display: block; padding: 5px 0 5px 20px; color: #8b949e; text-decoration: none; font-size: 0.9rem; border-left: 2px solid transparent; margin-left: -2px; transition: 0.2s; }
-        #toc a:hover, #toc a.active { color: var(--accent-color); border-left-color: var(--accent-color); }
-        @media (max-width: 900px) {
-            .writeup-layout { grid-template-columns: 1fr; }
-            .writeup-sidebar { display: none; }
-            header { flex-direction: column; gap: 10px; padding: 15px !important; height: auto !important; }
-        }
-    </style>
 </head>
-
 <body>
 
     <div class="container" style="padding-top: 2px; padding-bottom: 2px;">
         <header>
-            <a href="https://kaiversus.github.io/" class="logo" style="text-decoration: none;">KAIVERSUS BLOG</a>
+            <a href="/" class="logo" style="text-decoration: none;">KAIVERSUS</a>
             <nav>
                 <a href="/">Homepage</a>
                 <a href="/about/">About_me</a> 
-                <a href="https://kaiversus.github.io/#writeups">Repository</a>
+                <a href="/writeups/">Writeups</a>
             </nav>
         </header>
     </div>
 
-    <div class="writeup-layout">
-        <main class="writeup-content">
-            <div style="margin-bottom: 30px; border-bottom: 1px dashed #333; padding-bottom: 20px;">
-                <h1 style="margin: 0;">{{ page.title }}</h1>
-                <div style="margin-top: 10px; color: #888;">
-                    <span>DATE: {{ page.date | date: "%Y-%m-%d" }}</span> | 
-                    <span style="color: var(--accent-color);">CAT: {{ page.category | default: "CTF" }}</span>
-                </div>
+    <section class="container" style="margin-top: 40px; min-height: 70vh;">
+        <div style="margin-bottom: 30px; border-bottom: 1px dashed #333; padding-bottom: 20px;">
+            <div style="font-family: 'Courier New', monospace; color: #888; font-size: 0.9rem; margin-bottom: 15px;">
+                <span style="color: var(--primary); margin-right: 10px;">root@kaiversus:~/writeups$</span> cat {{ page.title | slugify }}.md
             </div>
-            
+            <h1 style="color: #fff; font-size: 2.2rem; margin-bottom: 10px; font-family: 'Orbitron', sans-serif;">{{ page.title }}</h1>
+            <div style="color: var(--accent); font-family: 'Courier New', monospace; font-size: 0.9rem;">
+                [ CREATED: {{ page.date | date: "%Y-%m-%d" }} ]
+            </div>
+        </div>
+
+        <article class="sys-reader-body" style="background: var(--glass); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; padding: 30px; margin-bottom: 40px;">
             {{ content }}
-        </main>
+        </article>
 
-        <aside class="writeup-sidebar">
-            <div class="toc-header">// SYSTEM_NAV</div>
-            <ul id="toc"></ul>
-        </aside>
-    </div>
+        <div style="text-align: center; margin-bottom: 50px;">
+            <a href="/writeups/" class="btn-cyber secondary"><< RETURN_TO_DIR</a>
+        </div>
+    </section>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // 1. TẠO MỤC LỤC
-            const toc = document.getElementById('toc');
-            const headers = document.querySelectorAll('.writeup-content h2, .writeup-content h3');
-            const tocLinks = []; // Mảng lưu các link để xử lý sau này
+    <footer style="text-align: center; padding: 30px; color: #555; border-top: 1px solid #111;">
+        <p style="font-family: 'Courier New', monospace;">[ EOF ]</p>
+    </footer>
 
-            headers.forEach(header => {
-                const id = header.id || header.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
-                header.id = id;
-                
-                const li = document.createElement('li');
-                const a = document.createElement('a');
-                a.href = `#${id}`;
-                a.textContent = header.textContent;
-                if(header.tagName === 'H3') a.style.paddingLeft = "40px";
-                
-                a.classList.add('toc-link'); // Class để JS tìm
-                tocLinks.push(a); // Lưu vào mảng
-                
-                li.appendChild(a);
-                toc.appendChild(li);
-            });
-
-            // 2. SCROLL SPY (NÂNG CẤP: BẮT ĐƯỢC MỤC CUỐI CÙNG)
-            const observerOptions = {
-                root: null,
-                // Mở rộng vùng nhận diện xuống 50% màn hình (thay vì 30% như cũ)
-                // Giúp bắt các mục thấp dễ hơn
-                rootMargin: '0px 0px -50% 0px', 
-                threshold: 0
-            };
-
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        // Xóa active cũ
-                        document.querySelectorAll('.toc-link').forEach(link => link.classList.remove('active'));
-                        
-                        // Active mục mới
-                        const id = entry.target.getAttribute('id');
-                        const activeLink = document.querySelector(`.toc-link[href="#${id}"]`);
-                        if (activeLink) activeLink.classList.add('active');
-                    }
-                });
-            }, observerOptions);
-
-            headers.forEach(header => observer.observe(header));
-
-            // 3. LOGIC CƯỠNG CHẾ CUỐI TRANG (FIX LỖI FLAG)
-            window.addEventListener('scroll', () => {
-                // Kiểm tra nếu người dùng đã cuộn gần đến đáy trang (còn cách 50px)
-                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
-                    // Xóa hết active hiện tại
-                    document.querySelectorAll('.toc-link').forEach(link => link.classList.remove('active'));
-                    
-                    // Bắt buộc sáng mục cuối cùng
-                    if (tocLinks.length > 0) {
-                        tocLinks[tocLinks.length - 1].classList.add('active');
-                    }
-                }
-            });
-
-            // 4. COPY BUTTON (GIỮ NGUYÊN)
-            const preTags = document.querySelectorAll('.writeup-content pre');
-            preTags.forEach(pre => {
-                if (!pre.querySelector('code')) return;
-                const wrapper = pre.closest('div.highlighter-rouge') || pre.closest('div.highlight') || pre.parentElement;
-                if (wrapper.querySelector('.copy-btn')) return;
-
-                const btn = document.createElement('button');
-                btn.className = 'copy-btn';
-                btn.textContent = 'Copy';
-                
-                btn.addEventListener('click', () => {
-                    const code = pre.querySelector('code').innerText;
-                    navigator.clipboard.writeText(code).then(() => {
-                        const originalText = btn.textContent;
-                        btn.textContent = 'Copied!';
-                        btn.style.background = '#238636';
-                        btn.style.color = '#fff';
-                        setTimeout(() => {
-                            btn.textContent = originalText;
-                            btn.style.background = ''; 
-                            btn.style.color = '';
-                        }, 2000);
-                    });
-                });
-                wrapper.appendChild(btn);
-            });
-        });
-    </script>
 </body>
 </html>
