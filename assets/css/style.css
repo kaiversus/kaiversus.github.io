@@ -411,15 +411,15 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
 }
 
 /* =========================================
-   GIAO DIỆN WRITEUP TỐI GIẢN (MINIMALIST & DARK)
+   GIAO DIỆN WRITEUP - SYSTEM TERMINAL THEME
    ========================================= */
 
 .writeup-container {
     display: flex;
-    max-width: 1200px;
+    max-width: 1250px;
     margin: 40px auto;
     padding: 0 20px;
-    gap: 50px;
+    gap: 60px;
     align-items: flex-start;
 }
 
@@ -427,143 +427,216 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
 .writeup-content {
     flex: 1;
     min-width: 0; 
-    color: #8b949e; /* Text xám trầm, giảm độ chói */
-    font-family: 'Courier New', monospace;
-    font-size: 1.05rem;
-    line-height: 1.7;
+    color: #d1d5db; /* Màu xám trắng sáng hơn, rất dễ đọc */
+    font-family: 'Rajdhani', 'Courier New', monospace; /* Đồng bộ font với trang chủ */
+    font-size: 1.15rem;
+    line-height: 1.8;
 }
 
 .writeup-header {
-    margin-bottom: 40px;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    padding-bottom: 20px;
+    margin-bottom: 50px;
+    border-bottom: 1px dashed rgba(255,255,255,0.15);
+    padding-bottom: 25px;
 }
 
 .terminal-prompt {
-    color: #666;
-    font-size: 0.9rem;
+    color: #888;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
     margin-bottom: 15px;
 }
 
 .writeup-header h1 {
     color: #fff;
-    font-size: 2.2rem;
+    font-size: 2.6rem;
     margin: 0 0 10px 0;
+    font-family: 'Orbitron', sans-serif; /* Font Cyberpunk của bạn */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
 }
 
-/* Tiêu đề trong bài (H2, H3) - Chỉnh màu Xanh lá giống hình */
+/* --- PHÂN CẤP HEADING (H2, H3) RÕ RÀNG --- */
 .writeup-content h2, .writeup-content h3 {
-    color: #00ff41; 
-    font-family: 'Courier New', monospace;
-    margin-top: 2em;
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    margin-top: 2.5em;
     margin-bottom: 1em;
+    letter-spacing: 1px;
 }
 
+/* H2: Có đường gạch chân và ký tự // phía trước */
 .writeup-content h2 {
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    padding-bottom: 8px;
+    color: var(--primary); /* Xanh lá Matrix */
+    font-size: 1.6rem;
+    border-bottom: 1px solid rgba(0, 255, 65, 0.2);
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+.writeup-content h2::before {
+    content: '// ';
+    color: #555;
+    margin-right: 12px;
 }
 
-.writeup-content a { color: #58a6ff; text-decoration: none; }
-.writeup-content a:hover { text-decoration: underline; }
+/* H3: Có vạch nhấn màu đỏ/hồng bên trái */
+.writeup-content h3 {
+    color: #fff;
+    font-size: 1.3rem;
+    border-left: 3px solid var(--accent);
+    padding-left: 15px;
+}
 
-/* Bảng biểu (Tables) */
+.writeup-content a { color: var(--primary); text-decoration: none; border-bottom: 1px dashed var(--primary); }
+.writeup-content a:hover { color: #fff; background: rgba(0, 255, 65, 0.1); }
+
+/* --- BẢNG BIỂU (TABLES) --- */
 .writeup-content table {
     width: 100%;
     border-collapse: collapse;
-    margin: 1.5em 0;
+    margin: 2em 0;
+    font-family: 'Courier New', monospace;
     font-size: 0.95rem;
+    background: rgba(5, 10, 20, 0.5); /* Trùng với màu kính trang chủ */
 }
 .writeup-content th, .writeup-content td {
     border: 1px solid rgba(255,255,255,0.05);
-    padding: 12px;
+    padding: 15px;
     text-align: left;
 }
 .writeup-content th {
-    background: #0d1117;
-    color: #00ff41; /* Header bảng màu xanh */
+    background: rgba(0, 255, 65, 0.05);
+    color: var(--primary);
 }
 
-/* --- CODE BLOCKS & COPY BUTTON --- */
+/* --- CODE BLOCKS & INLINE CODE --- */
+/* Code nội dòng */
+.writeup-content p code, .writeup-content li code {
+    background: rgba(255,255,255,0.08);
+    color: #ffaa00; /* Màu vàng cam nổi bật cho dễ nhìn */
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    font-family: 'Courier New', monospace;
+}
+
+/* Khối Code lớn */
 div.highlight, pre {
-    background: #0d1117 !important; /* Đen tuyền sâu */
-    border: 1px solid rgba(255,255,255,0.05); /* Viền cực mờ */
-    border-radius: 6px;
-    padding: 15px;
+    background: var(--bg-dark) !important; /* Đen thẫm như màn hình Terminal */
+    border: 1px solid rgba(255,255,255,0.05);
+    border-left: 2px solid var(--primary); /* Nẹp viền xanh bên trái */
+    border-radius: 4px;
+    padding: 20px;
     overflow-x: auto;
-    margin: 1.5em 0;
-}
-
-div.highlight pre {
-    margin: 0;
-    padding: 0;
-    border: none;
+    margin: 2em 0;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.5); /* Đổ bóng chìm sâu vào trong */
 }
 
 pre code {
-    color: #c9d1d9;
+    color: #e2e8f0; /* Chữ code trắng sáng */
     font-family: 'Courier New', monospace;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    background: transparent;
 }
 
+/* Căn chỉnh lại vị trí nút Copy */
 .copy-btn {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background: #21262d;
-    color: #8b949e;
-    border: 1px solid #30363d;
+    top: 15px;
+    right: 15px;
+    background: rgba(255,255,255,0.05);
+    color: #888;
+    border: 1px solid rgba(255,255,255,0.1);
     border-radius: 4px;
-    padding: 4px 10px;
+    padding: 5px 12px;
     font-size: 0.75rem;
+    font-family: 'Courier New', monospace;
     cursor: pointer;
     transition: 0.2s;
     z-index: 10;
 }
-.copy-btn:hover { background: #30363d; color: #fff; }
+.copy-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
 
-/* --- SYNTAX HIGHLIGHTING (Tô màu cho code) --- */
-/* (Màu phong cách Github Dark / Terminal) */
-.highlight .c, .highlight .cm, .highlight .c1 { color: #8b949e; font-style: italic; } /* Comment */
-.highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr { color: #ff7b72; } /* Keyword */
-.highlight .s, .highlight .s1, .highlight .s2, .highlight .sa, .highlight .sb, .highlight .dl { color: #a5d6ff; } /* String */
-.highlight .n, .highlight .nx { color: #c9d1d9; } /* Name/Variable */
-.highlight .nf, .highlight .fm { color: #d2a8ff; } /* Function */
-.highlight .m, .highlight .mi, .highlight .mf, .highlight .mh { color: #79c0ff; } /* Number */
-.highlight .o, .highlight .ow { color: #ff7b72; } /* Operator */
-.highlight .p, .highlight .pi { color: #c9d1d9; } /* Punctuation */
+/* Thêm Syntax Highlighting (Tô màu lệnh) */
+.highlight .c, .highlight .cm, .highlight .c1 { color: #6b7280; font-style: italic; } /* Comment */
+.highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr { color: #ff0055; } /* Keyword - Đỏ Accent */
+.highlight .s, .highlight .s1, .highlight .s2, .highlight .sa, .highlight .sb, .highlight .dl { color: #00ff41; } /* String - Xanh lá */
+.highlight .n, .highlight .nx { color: #d1d5db; } /* Variable */
+.highlight .nf, .highlight .fm { color: #3b82f6; } /* Function - Xanh biển */
+.highlight .m, .highlight .mi, .highlight .mf, .highlight .mh { color: #ffaa00; } /* Number - Vàng cam */
+.highlight .o, .highlight .ow { color: #ff0055; } /* Operator */
 
-/* --- CỘT MỤC LỤC BÊN PHẢI (STICKY TOC) --- */
+/* --- CỘT MỤC LỤC BÊN PHẢI (FIX NẰM DỌC) --- */
 .writeup-sidebar {
-    width: 250px;
+    width: 280px;
     position: sticky;
-    top: 80px; 
+    top: 100px; 
     flex-shrink: 0;
 }
 
 .toc-wrapper {
     border-left: 1px solid rgba(255,255,255,0.1);
     padding-left: 20px;
+    text-align: left !important; /* Ép căn trái toàn bộ */
 }
 
 .toc-title {
     color: #fff;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     font-weight: bold;
-    margin-bottom: 20px;
-    letter-spacing: 1px;
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
 }
 
-.toc-link {
-    color: #8b949e;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: 0.2s;
-    line-height: 1.4;
-    display: block; /* Đảm bảo link hiển thị dạng khối (dọc) */
+/* Định dạng thẻ bọc Mục lục để bắt buộc xếp dọc */
+#custom-toc {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
 }
-.toc-link:hover { color: #00ff41; }
-.toc-link.h3 { padding-left: 15px; font-size: 0.85rem; } /* Thụt lề cho mục nhỏ */
+
+/* Định dạng từng dòng mục lục */
+.toc-link {
+    display: block !important; /* Ép xuống dòng */
+    width: 100%;
+    color: #888;
+    text-decoration: none !important;
+    font-size: 0.95rem;
+    font-family: 'Courier New', monospace;
+    transition: all 0.2s;
+    line-height: 1.4;
+    position: relative;
+    border: none !important;
+}
+
+.toc-link:hover { 
+    color: var(--primary);
+    padding-left: 5px; /* Khi di chuột mục lục sẽ trượt nhẹ sang phải */
+}
+
+/* Phân cấp rõ H2 và H3 trong mục lục */
+.toc-link.h2 {
+    color: #aaa;
+    font-weight: bold;
+    margin-top: 5px;
+}
+.toc-link.h3 {
+    padding-left: 15px; /* Thụt đầu dòng cho H3 */
+    font-size: 0.85rem;
+}
+/* Thêm dấu > trước mục H3 */
+.toc-link.h3::before {
+    content: '>';
+    color: #444;
+    margin-right: 8px;
+    position: absolute;
+    left: 0;
+}
+.toc-link.h3:hover::before { color: var(--primary); }
 
 @media (max-width: 900px) {
     .writeup-container { flex-direction: column; }
