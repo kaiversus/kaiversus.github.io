@@ -33,10 +33,34 @@ title: Home Base | Kaiversus
         <a href="#recent" class="btn btn-green">Recent Posts</a><a href="#projects" class="btn btn-ghost">Projects</a>
       </div>
       <div class="hero-stats-row">
-        <div class="stat-inline"><span class="stat-num">40+</span><span class="stat-lbl">Writeups</span></div>
-        <div class="stat-inline"><span class="stat-num">12+</span><span class="stat-lbl">Projects</span></div>
-        <div class="stat-inline"><span class="stat-num">8+</span><span class="stat-lbl">CTFs</span></div>
-        <div class="stat-inline"><span class="stat-num">3yr</span><span class="stat-lbl">Active</span></div>
+        <div class="stat-inline">
+          <span class="stat-num">{{ site.writeups.size }}</span>
+          <span class="stat-lbl">Writeups</span>
+        </div>
+        
+        <div class="stat-inline">
+          <span class="stat-num">{{ site.projects.size }}</span>
+          <span class="stat-lbl">Projects</span>
+        </div>
+        
+        {% assign ctf_count = 0 %}
+        {% for post in site.writeups %}
+          {% if post.title contains "CTF" or post.title contains "ctf" %}
+            {% assign ctf_count = ctf_count | plus: 1 %}
+          {% endif %}
+        {% endfor %}
+        <div class="stat-inline">
+          <span class="stat-num">{{ ctf_count }}</span>
+          <span class="stat-lbl">CTFs</span>
+        </div>
+        
+        {% assign current_year = 'now' | date: "%Y" | plus: 0 %}
+        {% assign start_year = 2022 %}
+        {% assign active_years = current_year | minus: start_year %}
+        <div class="stat-inline">
+          <span class="stat-num">{{ active_years }}yr</span>
+          <span class="stat-lbl">Active</span>
+        </div>
       </div>
     </div>
   </div>
