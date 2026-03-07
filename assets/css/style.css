@@ -681,3 +681,53 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
     .writeup-container { flex-direction: column; }
     .writeup-sidebar { display: none; }
 }
+
+/* =========================================
+   LIGHT MODE CHO GIAO DIỆN WRITEUP
+   ========================================= */
+html.light .writeup-content {
+    color: var(--text); /* Dùng biến text màu đen/nâu của theme sáng */
+}
+
+html.light .writeup-header h1,
+html.light .writeup-content h3 {
+    color: var(--text);
+    text-shadow: none; /* Bỏ bóng phát sáng trên nền trắng */
+}
+
+html.light .writeup-content h2 {
+    color: var(--green) !important;
+}
+
+html.light .terminal-prompt {
+    color: var(--text-muted);
+}
+
+html.light .writeup-content a {
+    color: var(--green);
+    border-bottom-color: var(--green);
+}
+
+/* Fix Bảng biểu (Tables) trên nền sáng */
+html.light .writeup-content table {
+    background: var(--bg-surface);
+}
+html.light .writeup-content th, 
+html.light .writeup-content td {
+    border-color: var(--border);
+}
+
+/* Fix Mục lục (TOC) trên nền sáng */
+html.light .toc-title {
+    color: var(--text);
+}
+html.light #custom-toc .toc-link {
+    color: var(--text-muted) !important;
+}
+html.light #custom-toc .toc-link:hover,
+html.light .toc-link.h3:hover::before {
+    color: var(--green) !important;
+}
+html.light .toc-link.h2 {
+    color: var(--text-sub);
+}
