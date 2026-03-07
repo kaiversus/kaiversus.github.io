@@ -436,6 +436,7 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
 
 .writeup-header {
     margin-bottom: 50px;
+    border-bottom: 1px dashed rgba(255,255,255,0.15);
     padding-bottom: 25px;
 }
 
@@ -607,7 +608,6 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
 }
 
 .toc-wrapper {
-    border-left: 1px solid rgba(255,255,255,0.1);
     padding-left: 20px;
     text-align: left !important; /* Ép căn trái toàn bộ */
 }
@@ -635,13 +635,15 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
     display: block !important; /* Ép xuống dòng */
     width: 100%;
     color: #888;
+    /* Xóa triệt để đường kẻ ngang */
     text-decoration: none !important;
+    border: none !important; 
+    border-bottom: none !important;
     font-size: 0.95rem;
     font-family: 'Courier New', monospace;
     transition: all 0.2s;
     line-height: 1.4;
     position: relative;
-    border: none !important;
 }
 
 .toc-link:hover { 
