@@ -192,9 +192,26 @@ function nextLine() {
 
 setTimeout(nextLine, 1000);
 
-// ── Theme toggle ──
-const toggleBtn = document.getElementById('theme-toggle');
-const html = document.documentElement;
+// KIỂM TRA VÀ ÁP DỤNG THEME KHI LOAD TRANG
+const currentTheme = localStorage.getItem('theme') || 'dark';
+if (currentTheme === 'light') {
+    document.documentElement.classList.add('light'); // Thêm class .light vào thẻ html
+} else {
+    document.documentElement.classList.remove('light');
+}
+
+// XỬ LÝ KHI BẤM NÚT TOGGLE
+const themeToggleBtn = document.getElementById('theme-toggle');
+if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+        // Bật/tắt class 'light'
+        document.documentElement.classList.toggle('light');
+        
+        // Kiểm tra xem hiện tại đang có class 'light' không để lưu vào localStorage
+        const newTheme = document.documentElement.classList.contains('light') ? 'light' : 'dark';
+        localStorage.setItem('theme', newTheme);
+    });
+}
 
 // Restore saved preference
 if (localStorage.getItem('theme') === 'light') {
