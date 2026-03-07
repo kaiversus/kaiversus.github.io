@@ -1,8 +1,3 @@
----
-layout: default
-title: "kaiversus — Cyber Security Researcher"
----
-
 <!-- ════════════════ HERO ════════════════ -->
 <div class="hero-banner">
   <canvas id="matrix-canvas"></canvas>

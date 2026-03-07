@@ -1,74 +1,209 @@
-/* File: assets/js/cyber-bg.js
-    Hiệu ứng mưa mã nhị phân/hex cyberpunk
-*/
+// ══════════════════════════════════════
+// MATRIX RAIN — RED
+// ══════════════════════════════════════
+(function() {
+  const canvas = document.getElementById('matrix-canvas');
+  const ctx    = canvas.getContext('2d');
+  const CHARS  = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%^&*()_+-=[]{}|;:,./<>?\\~`';
+  const FONT_SZ = 14;
+  let cols, drops;
 
-const canvas = document.getElementById('cyber-matrix');
-const ctx = canvas.getContext('2d');
+  function resize() {
+    const banner = canvas.parentElement;
+    canvas.width  = banner.offsetWidth;
+    canvas.height = banner.offsetHeight;
+    cols  = Math.floor(canvas.width / FONT_SZ);
+    drops = Array.from({ length: cols }, () => Math.random() * -60 | 0);
+  }
 
-// Thiết lập kích thước canvas bằng đúng kích thước phần Hero
-let heroSection = document.querySelector('.hero-section');
-canvas.width = heroSection.offsetWidth;
-canvas.height = heroSection.offsetHeight;
-
-// CẤU HÌNH MÀU SẮC Ở ĐÂY
-// Bạn không thích màu xanh, tôi đổi sang màu hồng neon của bạn (#ff0055)
-// Bạn có thể đổi thành màu đỏ (#ff0000), tím (#800080) tùy thích.
-const colorNeon = '#ff0055'; 
-
-// Các ký tự sẽ rơi xuống (Nhị phân và Hex cho ngầu)
-const characters = '01010101ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
-const charArray = characters.split('');
-
-const fontSize = 20; // Kích thước chữ
-const columns = canvas.width / fontSize; // Số cột
-
-// Mảng chứa vị trí Y (dọc) của các giọt mưa
-const drops = [];
-for (let i = 0; i < columns; i++) {
-    // Bắt đầu rơi từ các vị trí ngẫu nhiên ngoài màn hình để tự nhiên hơn
-    drops[i] = Math.random() * -100; 
-}
-
-function draw() {
-    // Tạo hiệu ứng vệt mờ: Vẽ một lớp màu đen bán trong suốt lên frame cũ
-    ctx.fillStyle = 'rgba(5, 10, 20, 0.1)'; // Màu nền đen của bạn với độ mờ 0.1
+  function draw() {
+    const isLight = document.documentElement.classList.contains('light');
+    ctx.fillStyle = isLight ? 'rgba(240,232,216,0.2)' : 'rgba(8,0,13,0.18)';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Thiết lập màu chữ và font
-    ctx.fillStyle = colorNeon; 
-    ctx.font = fontSize + 'px monospace'; // Dùng font monospace cho giống code
+    ctx.font = `${FONT_SZ}px "Courier New", monospace`;
 
-    // Vẽ các ký tự
-    for (let i = 0; i < columns; i++) {
-        // Chọn ký tự ngẫu nhiên
-        const text = charArray[Math.floor(Math.random() * charArray.length)];
-        
-        // Vẽ ký tự tại vị trí X (cột i) và Y (giá trị drops[i])
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+    for (let i = 0; i < drops.length; i++) {
+      const char = CHARS[Math.random() * CHARS.length | 0];
+      const y    = drops[i] * FONT_SZ;
+      const x    = i * FONT_SZ;
 
-        // Nếu giọt mưa rơi quá đáy màn hình VÀ một điều kiện ngẫu nhiên xảy ra
-        // thì reset nó lại lên đỉnh để tạo vòng lặp vô tận
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
+      if (drops[i] * FONT_SZ > 0 && drops[i] * FONT_SZ < canvas.height) {
+        // Light mode: warm amber tones; dark mode: red
+        const isLight = document.documentElement.classList.contains('light');
+        if (isLight) {
+          ctx.fillStyle = `rgba(160,100,30,${0.35 + Math.random()*0.25})`;
+          ctx.fillText(char, x, y);
+          for (let t = 1; t < 4; t++) {
+            const by = y - t * FONT_SZ;
+            if (by > 0) {
+              ctx.fillStyle = `rgba(${130 - t*20},${80 - t*15},${20},${0.25 - t*0.06})`;
+              ctx.fillText(CHARS[Math.random() * CHARS.length | 0], x, by);
+            }
+          }
+        } else {
+          ctx.fillStyle = `rgba(255,160,160,${0.7 + Math.random()*0.3})`;
+          ctx.fillText(char, x, y);
+          const depth = Math.random();
+          if (depth > 0.7)      ctx.fillStyle = `rgba(200,10,40,0.85)`;
+          else if (depth > 0.4) ctx.fillStyle = `rgba(160,0,30,0.65)`;
+          else                  ctx.fillStyle = `rgba(90,0,20,0.45)`;
+          for (let t = 1; t < 4; t++) {
+            const by = y - t * FONT_SZ;
+            if (by > 0) {
+              const alpha = 0.6 - t * 0.15;
+              ctx.fillStyle = `rgba(${180 - t*30},0,${20 + t*5},${alpha})`;
+              ctx.fillText(CHARS[Math.random() * CHARS.length | 0], x, by);
+            }
+          }
         }
+      }
 
-        // Di chuyển giọt mưa xuống dưới
-        drops[i]++;
+      // reset drop when it reaches bottom (randomly)
+      if (y > canvas.height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+      drops[i]++;
     }
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  setInterval(draw, 45);
+})();
+
+const asciiEl = document.getElementById('ascii-art');
+if (asciiEl) asciiEl.setAttribute('data-text', asciiEl.textContent);
+
+// ── Syslog prompt typer ──
+const syslogMsgs = [
+  'Malware is just misunderstood software...',
+  'If it runs, it can be reversed.',
+  'There is no patch for human stupidity.',
+  'Access granted. Proceed with caution.',
+];
+const syslogEl = document.getElementById('syslog-msg');
+let sIdx = 0, sChar = 0, sDel = false;
+function typeSyslog() {
+  if (!syslogEl) return;
+  const cur = syslogMsgs[sIdx];
+  if (!sDel) {
+    syslogEl.textContent = cur.slice(0, ++sChar);
+    if (sChar === cur.length) setTimeout(() => { sDel=true; typeSyslog(); }, 2800);
+    else setTimeout(typeSyslog, 42);
+  } else {
+    syslogEl.textContent = cur.slice(0, --sChar);
+    if (sChar === 0) { sDel=false; sIdx=(sIdx+1)%syslogMsgs.length; setTimeout(typeSyslog,500); }
+    else setTimeout(typeSyslog, 20);
+  }
+}
+setTimeout(typeSyslog, 800);
+
+// ── Role cycling typer ──
+const roles = [
+  'Reverse Engineering · Binary Exploitation · Malware Analysis',
+  'Dissecting bits. Constructing exploits.',
+  'Breaking things to understand how they work.',
+];
+const roleEl = document.getElementById('typed-role');
+let rIdx = 0, rChar = 0, deleting = false;
+function typeRole() {
+  const cur = roles[rIdx];
+  if (!deleting) {
+    if (roleEl) roleEl.textContent = cur.slice(0, ++rChar);
+    if (rChar === cur.length) { setTimeout(() => { deleting=true; typeRole(); }, 2200); }
+    else setTimeout(typeRole, 38);
+  } else {
+    if (roleEl) roleEl.textContent = cur.slice(0, --rChar);
+    if (rChar === 0) { deleting=false; rIdx=(rIdx+1)%roles.length; setTimeout(typeRole,400); }
+    else setTimeout(typeRole, 18);
+  }
+}
+setTimeout(typeRole, 700);
+
+// ── Terminal body typer ──
+const tb = document.getElementById('terminal-body');
+
+const lines = [
+  { type: 'cmd',     prompt: 'kaiversus@blog:~$ ', text: 'whoami' },
+  { type: 'out',     text: 'Dinh Thien Bao  //  kaiversus' },
+  { type: 'blank' },
+  { type: 'cmd',     prompt: 'kaiversus@blog:~$ ', text: 'cat focus.txt' },
+  { type: 'out',     text: 'Reverse Engineering · Binary Exploitation · Malware Analysis' },
+  { type: 'blank' },
+  { type: 'cmd',     prompt: 'kaiversus@blog:~$ ', text: 'uptime' },
+  { type: 'comment', text: '# 3 years active  |  40+ writeups  |  [ SYSTEM: ONLINE ]' },
+  { type: 'blank' },
+  { type: 'cursor' },
+];
+
+let lineIdx = 0, charIdx = 0, currentEl = null;
+
+function nextLine() {
+  if (lineIdx >= lines.length) return;
+  const l = lines[lineIdx];
+
+  if (l.type === 'blank') {
+    const d = document.createElement('div');
+    d.className = 't-blank';
+    tb.appendChild(d);
+    lineIdx++; charIdx = 0;
+    setTimeout(nextLine, 60);
+    return;
+  }
+
+  if (l.type === 'cursor') {
+    const row = document.createElement('div'); row.className = 't-line';
+    const p = document.createElement('span'); p.className = 't-prompt';
+    p.textContent = 'kaiversus@blog:~$ ';
+    const c = document.createElement('span'); c.className = 't-cursor';
+    row.appendChild(p); row.appendChild(c);
+    tb.appendChild(row);
+    return;
+  }
+
+  if (charIdx === 0) {
+    const row = document.createElement('div'); row.className = 't-line';
+    if (l.type === 'cmd') {
+      const p = document.createElement('span'); p.className = 't-prompt';
+      p.textContent = l.prompt;
+      row.appendChild(p);
+    }
+    const span = document.createElement('span');
+    span.className = l.type === 'cmd' ? 't-cmd'
+                   : l.type === 'comment' ? 't-out t-comment'
+                   : 't-out';
+    row.appendChild(span);
+    tb.appendChild(row);
+    currentEl = span;
+  }
+
+  if (charIdx < l.text.length) {
+    currentEl.textContent += l.text[charIdx];
+    charIdx++;
+    const delay = l.type === 'cmd' ? 48 : 10;
+    setTimeout(nextLine, delay);
+  } else {
+    lineIdx++; charIdx = 0;
+    const pause = l.type === 'cmd' ? 280 : 28;
+    setTimeout(nextLine, pause);
+  }
 }
 
-// Chạy hàm draw liên tục (khoảng 30fps)
-setInterval(draw, 75);
+setTimeout(nextLine, 1000);
 
-// Xử lý khi người dùng thay đổi kích thước cửa sổ trình duyệt
-window.addEventListener('resize', () => {
-    heroSection = document.querySelector('.hero-section');
-    canvas.width = heroSection.offsetWidth;
-    canvas.height = heroSection.offsetHeight;
-    // Tính toán lại số cột
-    const newColumns = canvas.width / fontSize;
-    // Thêm các cột mới nếu màn hình rộng ra
-    for (let i = columns; i < newColumns; i++) {
-        drops[i] = Math.random() * -100;
-    }
+// ── Theme toggle ──
+const toggleBtn = document.getElementById('theme-toggle');
+const html = document.documentElement;
+
+// Restore saved preference
+if (localStorage.getItem('theme') === 'light') {
+  html.classList.add('light');
+  toggleBtn.textContent = '☾';
+}
+
+toggleBtn.addEventListener('click', () => {
+  const isLight = html.classList.toggle('light');
+  toggleBtn.textContent = isLight ? '☾' : '☀';
+  localStorage.setItem('theme', isLight ? 'light' : 'dark');
 });
