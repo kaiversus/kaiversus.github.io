@@ -409,3 +409,111 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
     color: #888;
     background: rgba(255,255,255,0.02);
 }
+
+/* =========================================
+   STYLE CHO NỘI DUNG WRITEUP (MARKDOWN TERMINAL)
+   ========================================= */
+
+.markdown-terminal {
+    font-family: 'Courier New', monospace;
+    color: #c9d1d9; /* Màu text xám sáng, dễ đọc như Github Dark */
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+/* Các thẻ Tiêu đề (H1, H2, H3) */
+.markdown-terminal h1, 
+.markdown-terminal h2, 
+.markdown-terminal h3 {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    color: #fff;
+    margin-top: 2.5em;
+    margin-bottom: 1em;
+}
+
+.markdown-terminal h2 {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 10px;
+    color: #00ff41; /* Tiêu đề mục xanh lá */
+}
+
+/* --- STYLE CHO MỤC LỤC (TOC) --- */
+/* (Jekyll thường sinh ra id="markdown-toc" cho mục lục) */
+#markdown-toc {
+    background: rgba(255,255,255,0.02);
+    border: 1px dashed rgba(255,255,255,0.1);
+    padding: 20px 20px 20px 40px;
+    border-radius: 6px;
+    margin: 2em 0;
+}
+
+#markdown-toc li { margin-bottom: 8px; }
+#markdown-toc a {
+    color: #ffaa00; /* Link mục lục màu vàng cam */
+    text-decoration: none;
+}
+#markdown-toc a:hover { text-decoration: underline; color: #fff; }
+
+/* Link thường trong bài */
+.markdown-terminal a {
+    color: #3b82f6; /* Xanh dương của link Terminal */
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+.markdown-terminal a:hover { border-bottom-color: #3b82f6; }
+
+/* Bảng biểu (Tables) tinh chỉnh lại */
+.markdown-terminal table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2em 0;
+    font-size: 0.95rem;
+}
+
+.markdown-terminal th, .markdown-terminal td {
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.markdown-terminal th {
+    background: rgba(0, 255, 65, 0.05);
+    color: #00ff41;
+}
+
+/* Code Blocks */
+.markdown-terminal pre {
+    background: #0d1117 !important; /* Đen tuyền sâu hơn */
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 15px;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 1.5em 0;
+}
+
+.markdown-terminal pre code {
+    background: transparent;
+    color: #c9d1d9; /* Text code xám */
+    padding: 0;
+    border: none;
+}
+
+/* Inline code (Code trong dòng) */
+.markdown-terminal p code, 
+.markdown-terminal li code {
+    background: rgba(255,255,255,0.05);
+    color: #ff5555; /* Đỏ nhẹ cho dễ chú ý */
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+/* Trích dẫn (Blockquote) */
+.markdown-terminal blockquote {
+    margin: 1.5em 0;
+    padding: 10px 20px;
+    color: #888;
+    border-left: 3px solid #00ff41;
+    background: rgba(0,255,65,0.02);
+}
