@@ -1,9 +1,83 @@
 ---
 layout: default
 ---
-
 <div class="writeup-container">
-    <div class="writeup-content sys-reader-body">
+    
+    <article class="writeup-content">
+        <div class="writeup-header">
+            <div class="terminal-prompt">
+                <span style="color: #4ade80;">root@kaiversus:~/writeups$</span> cat {{ page.title | slugify }}.md
+            </div>
+            <h1>{{ page.title }}</h1>
+            <div class="writeup-meta">
+                [ DATE: {{ page.date | date: "%Y-%m-%d" }} ]
+            </div>
+        </div>
+
         {{ content }}
-    </div>
+        
+        <div style="margin-top: 50px; border-top: 1px dashed #30363d; padding-top: 20px;">
+            <a href="/writeups/" style="color: #8b949e; text-decoration: none;">[ cd .. ] Back to Archive</a>
+        </div>
+    </article>
+
+    <aside class="writeup-sidebar">
+        <div class="toc-wrapper">
+            <div class="toc-title">ON THIS PAGE</div>
+            <nav id="custom-toc"></nav>
+        </div>
+    </aside>
+
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 1. TẠO MỤC LỤC (TOC) DỌC
+        const toc = document.getElementById('custom-toc');
+        const headings = document.querySelectorAll('.writeup-content h2, .writeup-content h3');
+        
+        // Ép ToC thành cột dọc
+        toc.style.display = 'flex';
+        toc.style.flexDirection = 'column';
+        toc.style.gap = '10px';
+
+        headings.forEach(h => {
+            if (!h.id) {
+                h.id = h.innerText.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            }
+            const a = document.createElement('a');
+            a.href = '#' + h.id;
+            a.textContent = h.innerText;
+            a.className = 'toc-link ' + h.tagName.toLowerCase();
+            toc.appendChild(a);
+        });
+
+        // 2. TẠO NÚT COPY CODE CHUẨN CHO JEKYLL
+        // Jekyll thường bọc code trong div.highlight
+        const codeBlocks = document.querySelectorAll('div.highlight, pre'); 
+        
+        codeBlocks.forEach(block => {
+            // Tránh thêm nút 2 lần nếu div.highlight đã chứa pre
+            if(block.tagName.toLowerCase() === 'pre' && block.parentNode.classList.contains('highlight')) return;
+
+            block.style.position = 'relative';
+
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn';
+            copyBtn.innerHTML = 'Copy';
+            block.appendChild(copyBtn);
+
+            copyBtn.addEventListener('click', () => {
+                const code = block.querySelector('code') ? block.querySelector('code').innerText : block.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    copyBtn.innerHTML = 'Copied!';
+                    copyBtn.style.color = '#00ff41';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = 'Copy';
+                        copyBtn.style.color = '#8b949e';
+                    }, 2000);
+                });
+            });
+        });
+    });
+</script>
