@@ -411,109 +411,171 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
 }
 
 /* =========================================
-   STYLE CHO NỘI DUNG WRITEUP (MARKDOWN TERMINAL)
+   GIAO DIỆN WRITEUP TỐI GIẢN (MINIMALIST)
    ========================================= */
 
-.markdown-terminal {
-    font-family: 'Courier New', monospace;
-    color: #c9d1d9; /* Màu text xám sáng, dễ đọc như Github Dark */
+.writeup-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    gap: 50px;
+    align-items: flex-start; /* Quan trọng để cột ToC bám dính được */
+}
+
+/* --- CỘT NỘI DUNG CHÍNH --- */
+.writeup-content {
+    flex: 1;
+    min-width: 0; 
+    color: #c9d1d9; /* Màu text xám nhạt, cực dịu mắt */
+    font-family: 'Courier New', monospace; /* Hoặc 'Rajdhani' tùy bạn */
     font-size: 1.05rem;
     line-height: 1.7;
 }
 
-/* Các thẻ Tiêu đề (H1, H2, H3) */
-.markdown-terminal h1, 
-.markdown-terminal h2, 
-.markdown-terminal h3 {
+.writeup-header {
+    margin-bottom: 40px;
+    border-bottom: 1px solid #30363d;
+    padding-bottom: 20px;
+}
+
+.terminal-prompt {
+    color: #8b949e;
     font-family: 'Courier New', monospace;
-    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.writeup-header h1 {
     color: #fff;
-    margin-top: 2.5em;
+    font-size: 2.2rem;
+    margin: 0 0 10px 0;
+    font-family: 'Courier New', monospace;
+}
+
+.writeup-meta { color: #8b949e; font-size: 0.85rem; }
+
+/* Tiêu đề trong bài */
+.writeup-content h2, .writeup-content h3 {
+    color: #fff;
+    font-family: 'Courier New', monospace;
+    margin-top: 2em;
     margin-bottom: 1em;
 }
 
-.markdown-terminal h2 {
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 10px;
-    color: #00ff41; /* Tiêu đề mục xanh lá */
+.writeup-content h2 {
+    border-bottom: 1px solid #30363d;
+    padding-bottom: 8px;
+    color: #00ff41; /* Nhấn nhẹ tiêu đề H2 bằng xanh lá mờ */
 }
 
-/* --- STYLE CHO MỤC LỤC (TOC) --- */
-/* (Jekyll thường sinh ra id="markdown-toc" cho mục lục) */
-#markdown-toc {
-    background: rgba(255,255,255,0.02);
-    border: 1px dashed rgba(255,255,255,0.1);
-    padding: 20px 20px 20px 40px;
-    border-radius: 6px;
-    margin: 2em 0;
-}
-
-#markdown-toc li { margin-bottom: 8px; }
-#markdown-toc a {
-    color: #ffaa00; /* Link mục lục màu vàng cam */
+/* Liên kết */
+.writeup-content a {
+    color: #58a6ff;
     text-decoration: none;
 }
-#markdown-toc a:hover { text-decoration: underline; color: #fff; }
+.writeup-content a:hover { text-decoration: underline; }
 
-/* Link thường trong bài */
-.markdown-terminal a {
-    color: #3b82f6; /* Xanh dương của link Terminal */
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-}
-.markdown-terminal a:hover { border-bottom-color: #3b82f6; }
-
-/* Bảng biểu (Tables) tinh chỉnh lại */
-.markdown-terminal table {
+/* Bảng biểu (Tables) */
+.writeup-content table {
     width: 100%;
     border-collapse: collapse;
-    margin: 2em 0;
+    margin: 1.5em 0;
     font-size: 0.95rem;
 }
-
-.markdown-terminal th, .markdown-terminal td {
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 12px 15px;
+.writeup-content th, .writeup-content td {
+    border: 1px solid #30363d;
+    padding: 12px;
     text-align: left;
 }
-
-.markdown-terminal th {
-    background: rgba(0, 255, 65, 0.05);
-    color: #00ff41;
+.writeup-content th {
+    background: #161b22;
+    color: #c9d1d9;
 }
 
-/* Code Blocks */
-.markdown-terminal pre {
-    background: #0d1117 !important; /* Đen tuyền sâu hơn */
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 15px;
-    border-radius: 6px;
-    overflow-x: auto;
-    margin: 1.5em 0;
-}
-
-.markdown-terminal pre code {
-    background: transparent;
-    color: #c9d1d9; /* Text code xám */
-    padding: 0;
-    border: none;
-}
-
-/* Inline code (Code trong dòng) */
-.markdown-terminal p code, 
-.markdown-terminal li code {
-    background: rgba(255,255,255,0.05);
-    color: #ff5555; /* Đỏ nhẹ cho dễ chú ý */
-    padding: 2px 6px;
-    border-radius: 3px;
-    font-size: 0.9em;
-}
-
-/* Trích dẫn (Blockquote) */
-.markdown-terminal blockquote {
+/* Trích dẫn */
+.writeup-content blockquote {
+    border-left: 3px solid #30363d;
     margin: 1.5em 0;
     padding: 10px 20px;
-    color: #888;
-    border-left: 3px solid #00ff41;
-    background: rgba(0,255,65,0.02);
+    color: #8b949e;
+    background: transparent;
+}
+
+/* --- CODE BLOCKS & COPY BUTTON --- */
+.code-wrapper {
+    position: relative;
+    margin: 1.5em 0;
+}
+
+.code-wrapper pre {
+    background: #0d1117 !important; /* Đen tuyền sâu */
+    border: 1px solid #30363d; /* Viền xám mỏng */
+    border-radius: 6px;
+    padding: 15px;
+    overflow-x: auto;
+}
+
+.code-wrapper pre code {
+    color: #c9d1d9; /* Text trắng xám dịu mắt */
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #21262d;
+    color: #8b949e;
+    border: 1px solid #30363d;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    font-family: 'Courier New', monospace;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.copy-btn:hover {
+    background: #30363d;
+    color: #fff;
+}
+
+/* --- CỘT MỤC LỤC BÊN PHẢI (STICKY TOC) --- */
+.writeup-sidebar {
+    width: 250px;
+    position: sticky;
+    top: 80px; /* Cố định khi cuộn chuột */
+    flex-shrink: 0;
+}
+
+.toc-wrapper {
+    border-left: 1px solid #30363d;
+    padding-left: 20px;
+}
+
+.toc-title {
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.toc-link {
+    display: block;
+    color: #8b949e;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    transition: 0.2s;
+    line-height: 1.4;
+}
+.toc-link:hover { color: #00ff41; }
+.toc-link.h3 { padding-left: 15px; font-size: 0.85rem; }
+
+/* Responsive: Ẩn ToC trên điện thoại */
+@media (max-width: 900px) {
+    .writeup-container { flex-direction: column; }
+    .writeup-sidebar { display: none; }
 }
