@@ -419,7 +419,7 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
     max-width: 1100px;
     margin: 60px auto;
     padding: 0 20px;
-    gap: 80px;
+    gap: 60px;
     align-items: flex-start;
 }
 
