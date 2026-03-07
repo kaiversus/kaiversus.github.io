@@ -631,19 +631,26 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
 }
 
 /* Định dạng từng dòng mục lục */
-.toc-link {
-    display: block !important; /* Ép xuống dòng */
+#custom-toc .toc-link {
+    /* Xóa sạch mọi định dạng mặc định từ theme gốc */
+    all: unset; 
+    
+    /* Thiết lập lại từ đầu */
+    display: block !important;
     width: 100%;
-    color: #888;
-    /* Xóa triệt để đường kẻ ngang */
-    text-decoration: none !important;
-    border: none !important; 
-    border-bottom: none !important;
+    cursor: pointer;
+    color: #888 !important;
     font-size: 0.95rem;
     font-family: 'Courier New', monospace;
-    transition: all 0.2s;
-    line-height: 1.4;
-    position: relative;
+    line-height: 2; /* Tăng khoảng cách dòng cho thoáng */
+    transition: all 0.2s ease;
+    
+    /* KHÔNG CHO PHÉP BẤT KỲ ĐƯỜNG KẺ NÀO XUẤT HIỆN */
+    text-decoration: none !important;
+    border: none !important;
+    border-bottom: 0 !important;
+    box-shadow: none !important; /* Quan trọng: Xóa đổ bóng giả đường kẻ */
+    outline: none !important;
 }
 
 .toc-link:hover { 
