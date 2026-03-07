@@ -43,15 +43,9 @@ title: Home Base | Kaiversus
           <span class="stat-lbl">Projects</span>
         </div>
         
-        {% assign ctf_count = 0 %}
-        {% for post in site.writeups %}
-          {% if post.title contains "CTF" or post.title contains "ctf" %}
-            {% assign ctf_count = ctf_count | plus: 1 %}
-          {% endif %}
-        {% endfor %}
         <div class="stat-inline">
-          <span class="stat-num">{{ ctf_count }}</span>
-          <span class="stat-lbl">CTFs</span>
+          <span class="stat-num">{{ site.courses.size }}</span>
+          <span class="stat-lbl">Posts</span>
         </div>
         
         {% assign current_year = 'now' | date: "%Y" | plus: 0 %}
