@@ -291,3 +291,22 @@ footer { max-width: 900px; margin: 0 auto; padding: var(--space-xl) var(--space-
   .ascii-art { font-size: 4px; }
   .dir-grid { grid-template-columns: 1fr; }
 }
+
+/* =========================================
+   LÀM NỔI BẬT THANH ĐIỀU HƯỚNG (NAV BAR)
+   ========================================= */
+
+/* 1. Chế độ Tối (Dark Mode) */
+.nav-logo-at   { color: rgba(255,255,255,0.7) !important; }
+.nav-logo-host { color: #ffffff !important; }
+.nav-links a   { color: rgba(255,255,255,0.85) !important; font-weight: 600; }
+.nav-links a .slash { color: var(--green) !important; font-weight: 700; }
+.nav-right     { color: rgba(255,255,255,0.85) !important; font-weight: 600; }
+
+/* 2. Chế độ Sáng (Light Mode) */
+html.light .nav-logo-at   { color: rgba(0,0,0,0.6) !important; }
+html.light .nav-logo-host { color: #1c1a14 !important; font-weight: 800; }
+html.light .nav-links a   { color: #1c1a14 !important; font-weight: 700; }
+html.light .nav-links a .slash { color: #1e6e28 !important; font-weight: 800; }
+html.light .nav-right     { color: #1c1a14 !important; font-weight: 700; }
+html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,0.4) !important; }
