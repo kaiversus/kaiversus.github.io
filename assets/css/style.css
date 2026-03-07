@@ -511,61 +511,83 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
 }
 
 /* --- CODE BLOCKS & INLINE CODE --- */
-/* Code nội dòng */
+/* Code nội dòng (Inline Code) */
 .writeup-content p code, .writeup-content li code {
     background: rgba(255,255,255,0.08);
-    color: #ffaa00; /* Màu vàng cam nổi bật cho dễ nhìn */
+    color: #e5c07b; /* Vàng nhạt dịu mắt */
     padding: 2px 6px;
     border-radius: 4px;
     font-size: 0.9em;
     font-family: 'Courier New', monospace;
 }
 
-/* Khối Code lớn */
-div.highlight, pre {
-    background: var(--bg-dark) !important; /* Đen thẫm như màn hình Terminal */
-    border: 1px solid rgba(255,255,255,0.05);
-    border-left: 2px solid var(--primary); /* Nẹp viền xanh bên trái */
-    border-radius: 4px;
-    padding: 20px;
-    overflow-x: auto;
+/* KHỐI CODE LỚN (Loại bỏ viền thừa) */
+.writeup-content div.highlight {
+    background: #0d1117; /* Đen nhám dịu mắt như Github Dark */
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
     margin: 2em 0;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.5); /* Đổ bóng chìm sâu vào trong */
+    position: relative; /* Dùng để neo nút Copy */
 }
 
-pre code {
-    color: #e2e8f0; /* Chữ code trắng sáng */
+/* Xóa bỏ mọi padding/margin/background của thẻ pre bên trong để không bị hộp lồng hộp */
+.writeup-content div.highlight pre {
+    margin: 0;
+    padding: 20px;
+    background: transparent !important;
+    border: none;
+    box-shadow: none;
+    overflow-x: auto;
+}
+
+/* Trường hợp mã Markdown sinh ra thẻ pre đứng một mình không có div bọc */
+.writeup-content > pre {
+    background: #0d1117 !important;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 20px;
+    margin: 2em 0;
+    overflow-x: auto;
+    position: relative;
+}
+
+.writeup-content pre code {
+    color: #abb2bf; /* Xám nhạt chuẩn One Dark - rất dịu mắt */
     font-family: 'Courier New', monospace;
     font-size: 0.95rem;
-    background: transparent;
+    line-height: 1.6;
 }
 
-/* Căn chỉnh lại vị trí nút Copy */
+/* --- Tinh chỉnh Nút Copy --- */
 .copy-btn {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(255,255,255,0.05);
-    color: #888;
-    border: 1px solid rgba(255,255,255,0.1);
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    color: #5c6370;
+    border: 1px solid #5c6370;
     border-radius: 4px;
-    padding: 5px 12px;
+    padding: 4px 12px;
     font-size: 0.75rem;
     font-family: 'Courier New', monospace;
     cursor: pointer;
     transition: 0.2s;
     z-index: 10;
 }
-.copy-btn:hover { background: rgba(255,255,255,0.1); color: #fff; }
+.copy-btn:hover { 
+    background: rgba(255,255,255,0.1); 
+    color: #abb2bf; 
+    border-color: #abb2bf;
+}
 
-/* Thêm Syntax Highlighting (Tô màu lệnh) */
-.highlight .c, .highlight .cm, .highlight .c1 { color: #6b7280; font-style: italic; } /* Comment */
-.highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr { color: #ff0055; } /* Keyword - Đỏ Accent */
-.highlight .s, .highlight .s1, .highlight .s2, .highlight .sa, .highlight .sb, .highlight .dl { color: #00ff41; } /* String - Xanh lá */
-.highlight .n, .highlight .nx { color: #d1d5db; } /* Variable */
-.highlight .nf, .highlight .fm { color: #3b82f6; } /* Function - Xanh biển */
-.highlight .m, .highlight .mi, .highlight .mf, .highlight .mh { color: #ffaa00; } /* Number - Vàng cam */
-.highlight .o, .highlight .ow { color: #ff0055; } /* Operator */
+/* --- SYNTAX HIGHLIGHTING (Theme: One Dark - Dịu mắt, Pastel) --- */
+.highlight .c, .highlight .cm, .highlight .c1 { color: #5c6370; font-style: italic; } /* Comment - Xám chìm */
+.highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr { color: #c678dd; } /* Keyword - Tím nhạt */
+.highlight .s, .highlight .s1, .highlight .s2, .highlight .sa, .highlight .sb, .highlight .dl { color: #98c379; } /* String - Xanh lá mạ */
+.highlight .n, .highlight .nx { color: #abb2bf; } /* Variable/Text - Xám nhạt */
+.highlight .nf, .highlight .fm { color: #61afef; } /* Function - Xanh dương nhạt */
+.highlight .m, .highlight .mi, .highlight .mf, .highlight .mh { color: #d19a66; } /* Number - Cam đất */
+.highlight .o, .highlight .ow { color: #56b6c2; } /* Operator - Xanh lơ */
 
 /* --- CỘT MỤC LỤC BÊN PHẢI (FIX NẰM DỌC) --- */
 .writeup-sidebar {
