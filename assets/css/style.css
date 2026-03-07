@@ -519,11 +519,18 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
 
 /* KHỐI CODE LỚN (Loại bỏ viền thừa) */
 .writeup-content div.highlight {
-    background: #0d1117; /* Đen nhám dịu mắt như Github Dark */
-    border: 1px solid rgba(255,255,255,0.08);
+    background: #161b22; /* Đen nhám dịu mắt như Github Dark */
+    border: 1px solid rgba(255,255,255,0.1);
     border-radius: 8px;
     margin: 2em 0;
     position: relative; /* Dùng để neo nút Copy */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Đảm bảo thẻ pre bên trong không đè màu khác lên */
+.writeup-content div.highlight pre {
+    background: transparent !important;
+    padding: 20px;
 }
 
 /* Xóa bỏ mọi padding/margin/background của thẻ pre bên trong để không bị hộp lồng hộp */
@@ -534,6 +541,13 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
     border: none;
     box-shadow: none;
     overflow-x: auto;
+}
+/* Nếu có inline code (mã trong dòng văn bản), cũng nên cho sáng lên tương ứng */
+.writeup-content p code, .writeup-content li code {
+    background: #21262d; /* Sáng hơn nền block code một chút */
+    color: #4ade80; /* Màu xanh terminal bạn thích */
+    padding: 3px 6px;
+    border-radius: 4px;
 }
 
 /* Trường hợp mã Markdown sinh ra thẻ pre đứng một mình không có div bọc */
