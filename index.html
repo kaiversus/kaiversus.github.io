@@ -49,16 +49,25 @@ title: Home Base | Kaiversus
     </div>
     <a href="#writeups" class="section-link">all posts</a>
   </div>
-  <div class="writeup-list">
-    <a href="#" class="writeup-item">
-      <div class="wi-idx">01</div>
+<div class="writeup-list">
+    {% for post in site.writeups reversed limit:3 %}
+    <a href="{{ post.url | relative_url }}" class="writeup-item">
+      <div class="wi-idx">0{{ forloop.index }}</div>
+      
       <div class="wi-body">
-        <div class="wi-meta"><span class="tag tag-ctf">CTF · Pwn</span><span class="wi-date">Feb 2025</span></div>
-        <div class="wi-title">Exploiting a Stack Buffer Overflow in a Custom ELF Binary</div>
-        <div class="wi-desc">Bypassing NX + ASLR with ret2libc chaining and ROP gadgets.</div>
-        <div class="wi-tools"><span class="tool-tag">pwntools</span><span class="tool-tag">ROPgadget</span><span class="tool-tag">GDB</span></div>
+        <div class="wi-meta">
+          <span class="tag tag-re">Writeup</span>
+          <span class="wi-date">{{ post.date | date: "%b %Y" }}</span>
+        </div>
+        
+        <div class="wi-title">{{ post.title }}</div>
+        <div class="wi-desc">{{ post.description }}</div>
+        
       </div>
       <div class="wi-arrow">→</div>
+    </a>
+    {% endfor %}
+  </div>
     </a>
     <a href="#" class="writeup-item">
       <div class="wi-idx">02</div>
@@ -91,22 +100,62 @@ title: Home Base | Kaiversus
   <div class="syslog-prompt">
     <span class="t-prompt">root@repo:~$</span><span class="t-msg" id="syslog-msg"></span><span class="t-cursor"></span>
   </div>
-  <div class="dir-grid">
-    <a href="#" class="dir-card green">
-      <div class="dir-header"><span>home/kai/writeups</span><span class="dir-badge">[DIR]</span></div>
-      <div class="dir-body"><div class="dir-title">WRITEUPS</div><ul class="dir-list"><li>CTF Solutions</li><li>Malware Analysis Logs</li><li>Access Denied to unauthorized users</li></ul></div>
-      <div class="dir-footer"><span class="dir-cta">[ CD_INTO_DIR ]</span></div>
+<div class="dir-grid">
+
+    <a href="{{ '/writeups/' | relative_url }}" class="dir-card green">
+      <div class="dir-header">
+        <span>home/kai/writeups</span>
+        <span class="dir-badge">[DIR]</span>
+      </div>
+      <div class="dir-body">
+        <div class="dir-title">WRITEUPS</div>
+        <ul class="dir-list">
+          <li>CTF Solutions</li>
+          <li>Malware Analysis Logs</li>
+          <li>Access Denied to unauthorized users</li>
+        </ul>
+      </div>
+      <div class="dir-footer">
+        <span class="dir-cta">[ CD_INTO_DIR ]</span>
+      </div>
     </a>
-    <a href="#" class="dir-card yellow">
-      <div class="dir-header"><span>home/kai/courses</span><span class="dir-badge">[DIR]</span></div>
-      <div class="dir-body"><div class="dir-title">COURSES</div><ul class="dir-list"><li>Learning Path</li><li>Certifications &amp; Notes</li><li>Knowledge Base</li></ul></div>
-      <div class="dir-footer"><span class="dir-cta">[ CD_INTO_DIR ]</span></div>
+
+    <a href="{{ '/courses/' | relative_url }}" class="dir-card yellow">
+      <div class="dir-header">
+        <span>home/kai/courses</span>
+        <span class="dir-badge">[DIR]</span>
+      </div>
+      <div class="dir-body">
+        <div class="dir-title">COURSES</div>
+        <ul class="dir-list">
+          <li>Learning Path</li>
+          <li>Certifications &amp; Notes</li>
+          <li>Knowledge Base</li>
+        </ul>
+      </div>
+      <div class="dir-footer">
+        <span class="dir-cta">[ CD_INTO_DIR ]</span>
+      </div>
     </a>
-    <a href="#" class="dir-card red">
-      <div class="dir-header"><span>/home/kai/projects</span><span class="dir-badge">[DIR]</span></div>
-      <div class="dir-body"><div class="dir-title">PROJECTS</div><ul class="dir-list"><li>Github Repositories</li><li>Coding Tools</li><li>Personal Malware Samples</li></ul></div>
-      <div class="dir-footer"><span class="dir-cta">[ CD_INTO_DIR ]</span></div>
+
+    <a href="{{ '/projects/' | relative_url }}" class="dir-card red">
+      <div class="dir-header">
+        <span>/home/kai/projects</span>
+        <span class="dir-badge">[DIR]</span>
+      </div>
+      <div class="dir-body">
+        <div class="dir-title">PROJECTS</div>
+        <ul class="dir-list">
+          <li>Github Repositories</li>
+          <li>Coding Tools</li>
+          <li>Personal Malware Samples</li>
+        </ul>
+      </div>
+      <div class="dir-footer">
+        <span class="dir-cta">[ CD_INTO_DIR ]</span>
+      </div>
     </a>
+
   </div>
 </div>
 <hr class="section-divider">
