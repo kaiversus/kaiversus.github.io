@@ -32,12 +32,16 @@ layout: default
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        // 1. TẠO MỤC LỤC (TOC)
+        // 1. TẠO MỤC LỤC (TOC) DỌC
         const toc = document.getElementById('custom-toc');
         const headings = document.querySelectorAll('.writeup-content h2, .writeup-content h3');
         
+        // Ép ToC thành cột dọc
+        toc.style.display = 'flex';
+        toc.style.flexDirection = 'column';
+        toc.style.gap = '10px';
+
         headings.forEach(h => {
-            // Tạo ID cho thẻ H2/H3 nếu chưa có
             if (!h.id) {
                 h.id = h.innerText.toLowerCase().replace(/[^a-z0-9]+/g, '-');
             }
@@ -48,24 +52,23 @@ layout: default
             toc.appendChild(a);
         });
 
-        // 2. TẠO NÚT COPY CODE
-        const codeBlocks = document.querySelectorAll('pre');
-        codeBlocks.forEach(pre => {
-            // Bọc pre trong một div relative
-            const wrapper = document.createElement('div');
-            wrapper.className = 'code-wrapper';
-            pre.parentNode.insertBefore(wrapper, pre);
-            wrapper.appendChild(pre);
+        // 2. TẠO NÚT COPY CODE CHUẨN CHO JEKYLL
+        // Jekyll thường bọc code trong div.highlight
+        const codeBlocks = document.querySelectorAll('div.highlight, pre'); 
+        
+        codeBlocks.forEach(block => {
+            // Tránh thêm nút 2 lần nếu div.highlight đã chứa pre
+            if(block.tagName.toLowerCase() === 'pre' && block.parentNode.classList.contains('highlight')) return;
 
-            // Tạo nút
+            block.style.position = 'relative';
+
             const copyBtn = document.createElement('button');
             copyBtn.className = 'copy-btn';
             copyBtn.innerHTML = 'Copy';
-            wrapper.appendChild(copyBtn);
+            block.appendChild(copyBtn);
 
-            // Xử lý sự kiện copy
             copyBtn.addEventListener('click', () => {
-                const code = pre.querySelector('code') ? pre.querySelector('code').innerText : pre.innerText;
+                const code = block.querySelector('code') ? block.querySelector('code').innerText : block.innerText;
                 navigator.clipboard.writeText(code).then(() => {
                     copyBtn.innerHTML = 'Copied!';
                     copyBtn.style.color = '#00ff41';
