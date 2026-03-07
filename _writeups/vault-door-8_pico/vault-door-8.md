@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: writeup
 title: "VaultDoor8 - PicoCTF"
 date: 2026-01-10
 description: ""
