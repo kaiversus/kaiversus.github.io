@@ -67,7 +67,7 @@ html.light body {
 nav {
   position: sticky; top: 0; z-index: 100;
   display: flex; align-items: center;
-  height: 52px; padding: 0 40px;
+  height: 65px; padding: 0 40px;
   background: rgba(13, 17, 23, 0.98); backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(63,185,80,0.18);
 }
@@ -77,19 +77,19 @@ html.light nav {
   box-shadow: 0 1px 12px rgba(0,0,0,0.08) !important;
 }
 .nav-logo { display: flex; align-items: center; gap: 6px; text-decoration: none; flex-shrink: 0; margin-right: 40px; }
-.nav-logo-user { font-family: var(--mono); font-size: 13px; font-weight: 700; color: #58a6ff; letter-spacing: 0.02em; }
-.nav-logo-at   { font-family: var(--mono); font-size: 13px; color: rgba(255,255,255,0.2); font-weight: 300; }
-.nav-logo-host { font-family: var(--mono); font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 0.02em; }
-.nav-logo-sym  { font-family: var(--mono); font-size: 13px; color: var(--green); font-weight: 400; margin-left: 2px; }
+.nav-logo-user { font-family: var(--mono); font-size: 15px; font-weight: 700; color: #58a6ff; letter-spacing: 0.02em; }
+.nav-logo-at   { font-family: var(--mono); font-size: 15px; color: rgba(255,255,255,0.2); font-weight: 300; }
+.nav-logo-host { font-family: var(--mono); font-size: 15px; font-weight: 600; color: rgba(255,255,255,0.5); letter-spacing: 0.02em; }
+.nav-logo-sym  { font-family: var(--mono); font-size: 15px; color: var(--green); font-weight: 400; margin-left: 2px; }
 .nav-sep { width: 1px; height: 20px; background: rgba(255,255,255,0.08); margin-right: 8px; flex-shrink: 0; }
 .nav-links { display: flex; list-style: none; flex: 1; }
-.nav-links a { display: flex; align-items: center; padding: 0 16px; height: 52px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.15s; position: relative; }
+.nav-links a { display: flex; align-items: center; padding: 0 16px; height: 65px; font-family: var(--mono); font-size: 14px; letter-spacing: 0.06em; color: rgba(255,255,255,0.3); text-decoration: none; transition: color 0.15s; position: relative; }
 .nav-links a .slash { color: rgba(63,185,80,0.3); margin-right: 2px; transition: color 0.15s; }
 .nav-links a:hover { color: rgba(255,255,255,0.85); }
 .nav-links a:hover .slash { color: var(--green); }
 .nav-links a::after { content: ''; position: absolute; bottom: -1px; left: 16px; right: 16px; height: 1px; background: var(--green); transform: scaleX(0); transform-origin: left; transition: transform 0.2s ease; }
 .nav-links a:hover::after { transform: scaleX(1); }
-.nav-right { margin-left: auto; display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); }
+.nav-right { margin-left: auto; display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 13px; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); }
 .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; box-shadow: 0 0 8px var(--green); animation: blink 3s ease-in-out infinite; }
 @keyframes blink { 0%,90%,100%{opacity:1} 95%{opacity:0} }
 
@@ -239,7 +239,7 @@ html.light .terminal-title   { color: rgba(80,55,20,0.4); }
 .syslog-prompt .t-prompt { color: var(--green); }
 .syslog-prompt .t-msg { color: var(--text-muted); }
 
-.theme-toggle { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 6px; border: 1px solid var(--border-dim); background: transparent; cursor: pointer; color: var(--text-muted); font-size: 14px; transition: border-color 0.15s, color 0.15s, background 0.15s; margin-left: 16px; flex-shrink: 0; }
+.theme-toggle { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; border-radius: 6px; border: 1px solid var(--border-dim); background: transparent; cursor: pointer; color: var(--text-muted); font-size: 16px; transition: border-color 0.15s, color 0.15s, background 0.15s; margin-left: 16px; flex-shrink: 0; }
 .theme-toggle:hover { border-color: var(--green); color: var(--green); background: var(--green-dim); }
 
 html.light nav { background: rgba(245,240,232,0.98); border-bottom: 1px solid var(--border); box-shadow: 0 1px 8px rgba(0,0,0,0.08); }
