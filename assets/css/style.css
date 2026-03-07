@@ -430,7 +430,7 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
     max-width: 800px;
     color: #d1d5db; /* Màu xám trắng sáng hơn, rất dễ đọc */
     font-family: 'Rajdhani', 'Courier New', monospace; /* Đồng bộ font với trang chủ */
-    font-size: 1.15rem;
+    font-size: 0.9rem;
     line-height: 1.8;
 }
 
