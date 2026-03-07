@@ -310,3 +310,102 @@ html.light .nav-links a   { color: #1c1a14 !important; font-weight: 700; }
 html.light .nav-links a .slash { color: #1e6e28 !important; font-weight: 800; }
 html.light .nav-right     { color: #1c1a14 !important; font-weight: 700; }
 html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,0.4) !important; }
+
+
+/* =========================================
+   HỆ THỐNG ĐỌC FILE (MARKDOWN CONTENT)
+   ========================================= */
+.sys-reader-body {
+    font-family: 'Rajdhani', sans-serif;
+    color: #ccc;
+    font-size: 1.15rem;
+    line-height: 1.7;
+}
+
+.sys-reader-body h1, 
+.sys-reader-body h2, 
+.sys-reader-body h3 {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--primary);
+    margin-top: 35px;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.sys-reader-body h2 {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 10px;
+}
+
+.sys-reader-body h3 {
+    color: #fff;
+}
+
+.sys-reader-body a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px dashed var(--accent);
+    transition: 0.3s;
+}
+
+.sys-reader-body a:hover {
+    color: #fff;
+    border-bottom-style: solid;
+}
+
+/* Code block & Inline code */
+.sys-reader-body code {
+    font-family: 'Courier New', monospace;
+    background: #000;
+    color: var(--accent);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.sys-reader-body pre {
+    background: var(--bg-dark) !important;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-left: 3px solid var(--primary);
+    padding: 20px;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin: 20px 0;
+}
+
+.sys-reader-body pre code {
+    background: transparent;
+    color: #00ff41; /* Màu Terminal mặc định */
+    padding: 0;
+    border: none;
+}
+
+/* Bảng biểu (Tables) */
+.sys-reader-body table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 1rem;
+}
+
+.sys-reader-body th, .sys-reader-body td {
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 12px;
+}
+
+.sys-reader-body th {
+    background: rgba(0, 255, 65, 0.05);
+    color: var(--primary);
+    font-family: 'Orbitron', sans-serif;
+    text-align: left;
+}
+
+/* Trích dẫn (Blockquote) */
+.sys-reader-body blockquote {
+    border-left: 3px solid #555;
+    margin: 20px 0;
+    padding: 10px 20px;
+    color: #888;
+    background: rgba(255,255,255,0.02);
+}
