@@ -1,0 +1,208 @@
+---
+layout: default
+title: "kaiversus — Cyber Security Researcher"
+---
+
+<!-- ════════════════ HERO ════════════════ -->
+<div class="hero-banner">
+  <canvas id="matrix-canvas"></canvas>
+
+  <!-- ASCII Art + Glitch -->
+  <div class="ascii-wrap">
+    <pre class="ascii-art" id="ascii-art">██╗  ██╗ █████╗ ██╗██╗   ██╗███████╗██████╗ ███████╗██╗   ██╗███████╗
+██║ ██╔╝██╔══██╗██║██║   ██║██╔════╝██╔══██╗██╔════╝██║   ██║██╔════╝
+█████╔╝ ███████║██║██║   ██║█████╗  ██████╔╝███████╗██║   ██║███████╗
+██╔═██╗ ██╔══██║██║╚██╗ ██╔╝██╔══╝  ██╔══██╗╚════██║██║   ██║╚════██║
+██║  ██╗██║  ██║██║ ╚████╔╝ ███████╗██║  ██║███████║╚██████╔╝███████║
+╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝  ╚══════╝╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚══════╝</pre>
+    <div class="ascii-sub">
+      <span class="ascii-role" id="typed-role"></span><span class="t-cursor"></span>
+    </div>
+  </div>
+
+  <!-- Bottom: terminal + right col -->
+  <div class="hero-bottom">
+
+    <!-- Terminal -->
+    <div class="terminal-window">
+      <div class="terminal-chrome">
+        <span class="dot dot-red"></span>
+        <span class="dot dot-yellow"></span>
+        <span class="dot dot-green"></span>
+        <span class="terminal-title">kaiversus@blog: ~</span>
+      </div>
+      <div class="terminal-body" id="terminal-body"><!-- typed by JS --></div>
+    </div>
+
+    <!-- Right col -->
+    <div class="hero-right-col">
+
+      <div class="hero-bio">
+        <div class="hero-bio-label">// about</div>
+        <p class="hero-bio-text">Security researcher from Vietnam. I spend my time reversing malware, breaking binaries, and writing about what I find.</p>
+      </div>
+
+      <div class="hero-skills">
+        <span class="skill-chip hi">Reverse Engineering</span>
+        <span class="skill-chip hi">Binary Exploitation</span>
+        <span class="skill-chip">Malware Analysis</span>
+        <span class="skill-chip">CTF</span>
+      </div>
+
+      <div class="hero-cta">
+        <a href="#recent"   class="btn btn-green">Recent Posts</a>
+        <a href="#projects" class="btn btn-ghost">Projects</a>
+      </div>
+
+      <div class="hero-stats-row">
+        <div class="stat-inline"><span class="stat-num">40+</span><span class="stat-lbl">Writeups</span></div>
+        <div class="stat-inline"><span class="stat-num">12+</span><span class="stat-lbl">Projects</span></div>
+        <div class="stat-inline"><span class="stat-num">8+</span><span class="stat-lbl">CTFs</span></div>
+        <div class="stat-inline"><span class="stat-num">3yr</span><span class="stat-lbl">Active</span></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ RECENT POSTS ════════════════ -->
+<div class="section" id="recent">
+  <div class="section-head">
+    <div class="section-dir">
+      <span class="section-path"><span class="arrow">~/</span>home/kai/writeups</span>
+      <span class="section-title">Recent Posts</span>
+    </div>
+    <a href="#writeups" class="section-link">all posts</a>
+  </div>
+
+  <div class="writeup-list">
+    <a href="#" class="writeup-item">
+      <div class="wi-idx">01</div>
+      <div class="wi-body">
+        <div class="wi-meta">
+          <span class="tag tag-ctf">CTF · Pwn</span>
+          <span class="wi-date">Feb 2025</span>
+        </div>
+        <div class="wi-title">Exploiting a Stack Buffer Overflow in a Custom ELF Binary</div>
+        <div class="wi-desc">Bypassing NX + ASLR with ret2libc chaining and ROP gadgets.</div>
+        <div class="wi-tools">
+          <span class="tool-tag">pwntools</span>
+          <span class="tool-tag">ROPgadget</span>
+          <span class="tool-tag">GDB</span>
+        </div>
+      </div>
+      <div class="wi-arrow">→</div>
+    </a>
+
+    <a href="#" class="writeup-item">
+      <div class="wi-idx">02</div>
+      <div class="wi-body">
+        <div class="wi-meta">
+          <span class="tag tag-malware">Malware</span>
+          <span class="wi-date">Jan 2025</span>
+        </div>
+        <div class="wi-title">Unpacking a Custom UPX Variant with XOR Key Rotation</div>
+        <div class="wi-desc">Static + dynamic analysis to recover the original payload from a modified packer.</div>
+        <div class="wi-tools">
+          <span class="tool-tag">x64dbg</span>
+          <span class="tool-tag">PE-bear</span>
+        </div>
+      </div>
+      <div class="wi-arrow">→</div>
+    </a>
+
+    <a href="#" class="writeup-item">
+      <div class="wi-idx">03</div>
+      <div class="wi-body">
+        <div class="wi-meta">
+          <span class="tag tag-re">RE</span>
+          <span class="wi-date">Dec 2024</span>
+        </div>
+        <div class="wi-title">Reversing a Rust Binary — HKCERT CTF 2024</div>
+        <div class="wi-desc">Ghidra walkthrough on a Rust challenge with obfuscated string handling.</div>
+        <div class="wi-tools">
+          <span class="tool-tag">Ghidra</span>
+          <span class="tool-tag">radare2</span>
+        </div>
+      </div>
+      <div class="wi-arrow">→</div>
+    </a>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ════════════════ SYSTEM LOGS ════════════════ -->
+<div class="section" id="projects">
+
+  <div class="syslog-head">
+    <div class="syslog-title"><span class="hi">SYSTEM</span> LOGS</div>
+    <a href="#" class="syslog-archive">[ARCHIVE_VIEW]</a>
+  </div>
+
+  <div class="syslog-prompt">
+    <span class="t-prompt">root@repo:~$</span>
+    <span class="t-msg" id="syslog-msg"></span>
+    <span class="t-cursor"></span>
+  </div>
+
+  <div class="dir-grid">
+
+    <a href="#" class="dir-card green">
+      <div class="dir-header">
+        <span>home/kai/writeups</span>
+        <span class="dir-badge">[DIR]</span>
+      </div>
+      <div class="dir-body">
+        <div class="dir-title">WRITEUPS</div>
+        <ul class="dir-list">
+          <li>CTF Solutions</li>
+          <li>Malware Analysis Logs</li>
+          <li>Access Denied to unauthorized users</li>
+        </ul>
+      </div>
+      <div class="dir-footer">
+        <span class="dir-cta">[ CD_INTO_DIR ]</span>
+      </div>
+    </a>
+
+    <a href="#" class="dir-card yellow">
+      <div class="dir-header">
+        <span>home/kai/courses</span>
+        <span class="dir-badge">[DIR]</span>
+      </div>
+      <div class="dir-body">
+        <div class="dir-title">COURSES</div>
+        <ul class="dir-list">
+          <li>Learning Path</li>
+          <li>Certifications &amp; Notes</li>
+          <li>Knowledge Base</li>
+        </ul>
+      </div>
+      <div class="dir-footer">
+        <span class="dir-cta">[ CD_INTO_DIR ]</span>
+      </div>
+    </a>
+
+    <a href="#" class="dir-card red">
+      <div class="dir-header">
+        <span>/home/kai/projects</span>
+        <span class="dir-badge">[DIR]</span>
+      </div>
+      <div class="dir-body">
+        <div class="dir-title">PROJECTS</div>
+        <ul class="dir-list">
+          <li>Github Repositories</li>
+          <li>Coding Tools</li>
+          <li>Personal Malware Samples</li>
+        </ul>
+      </div>
+      <div class="dir-footer">
+        <span class="dir-cta">[ CD_INTO_DIR ]</span>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<hr class="section-divider">
