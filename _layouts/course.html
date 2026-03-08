@@ -84,6 +84,14 @@ document.addEventListener("DOMContentLoaded", function() {
         btn.style.color = '#00ff41';
         setTimeout(() => { btn.innerHTML = 'Copy'; btn.style.color = '#8b949e'; }, 2000);
       });
+      // Wrap tables for horizontal scroll
+    document.querySelectorAll('.writeup-content table').forEach(t => {
+      const wrap = document.createElement('div');
+      wrap.style.cssText = 'display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:2em 0;';
+      t.parentNode.insertBefore(wrap, t);
+      wrap.appendChild(t);
+      t.style.margin = '0';
+      });
     });
   });
 });
