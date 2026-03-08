@@ -69,6 +69,14 @@ document.addEventListener("DOMContentLoaded", function() {
     toc.appendChild(a);
   });
 
+  document.querySelectorAll('.writeup-content table').forEach(t => {
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'overflow-x:auto;-webkit-overflow-scrolling:touch;margin:2em 0;max-width:100%;';
+  t.style.margin = '0';
+  t.parentNode.insertBefore(wrap, t);
+  wrap.appendChild(t);
+  });
+
   // Copy buttons
   document.querySelectorAll('div.highlight, pre').forEach(block => {
     if (block.tagName.toLowerCase() === 'pre' && block.parentNode.classList.contains('highlight')) return;
