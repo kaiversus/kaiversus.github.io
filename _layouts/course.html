@@ -54,62 +54,78 @@ html.light .writeup-content h3 { border-left-color: #cc7700 !important; }
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-  // TOC
+  
+  // ==========================================
+  // 1. TẠO MỤC LỤC (TOC) TỰ ĐỘNG
+  // ==========================================
   const toc = document.getElementById('custom-toc');
   const headings = document.querySelectorAll('.writeup-content h2, .writeup-content h3');
-  toc.style.display = 'flex';
-  toc.style.flexDirection = 'column';
-  toc.style.gap = '10px';
-  headings.forEach(h => {
-    if (!h.id) h.id = h.innerText.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    const a = document.createElement('a');
-    a.href = '#' + h.id;
-    a.textContent = h.innerText;
-    a.className = 'toc-link ' + h.tagName.toLowerCase();
-    toc.appendChild(a);
-  });
+  
+  if (toc && headings.length > 0) {
+    toc.style.display = 'flex';
+    toc.style.flexDirection = 'column';
+    toc.style.gap = '10px';
+    
+    headings.forEach(h => {
+      // Dùng textContent thay vì innerText để luôn lấy được text
+      let headingText = h.textContent.trim();
+      
+      // Tạo ID nếu thẻ chưa có ID
+      if (!h.id) {
+        h.id = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      }
+      
+      const a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.textContent = headingText;
+      a.className = 'toc-link ' + h.tagName.toLowerCase();
+      toc.appendChild(a);
+    });
+  }
 
+  // ==========================================
+  // 2. WRAP TABLES (Thêm thanh cuộn ngang cho bảng)
+  // ==========================================
   document.querySelectorAll('.writeup-content table').forEach(t => {
-  const wrap = document.createElement('div');
-  wrap.style.cssText = 'overflow-x:auto;-webkit-overflow-scrolling:touch;margin:2em 0;max-width:100%;';
-  t.style.margin = '0';
-  t.parentNode.insertBefore(wrap, t);
-  wrap.appendChild(t);
+    // Ngăn chặn việc bọc bảng nhiều lần nếu script chạy lại
+    if (t.parentElement.classList.contains('table-wrapper')) return;
+    
+    const wrap = document.createElement('div');
+    wrap.className = 'table-wrapper';
+    wrap.style.cssText = 'display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:2em 0;max-width:100%;';
+    
+    t.parentNode.insertBefore(wrap, t);
+    wrap.appendChild(t);
+    t.style.margin = '0'; // Xóa margin gốc của bảng
   });
 
-  // Copy buttons
+  // ==========================================
+  // 3. NÚT COPY CODE
+  // ==========================================
   document.querySelectorAll('div.highlight, pre').forEach(block => {
+    // Bỏ qua thẻ pre nếu nó đã nằm trong div.highlight để không tạo 2 nút
     if (block.tagName.toLowerCase() === 'pre' && block.parentNode.classList.contains('highlight')) return;
+    
     block.style.position = 'relative';
     const btn = document.createElement('button');
     btn.className = 'copy-btn';
     btn.innerHTML = 'Copy';
     block.appendChild(btn);
+    
     btn.addEventListener('click', () => {
       const code = block.querySelector('code') ? block.querySelector('code').innerText : block.innerText;
       navigator.clipboard.writeText(code).then(() => {
         btn.innerHTML = 'Copied!';
         btn.style.color = '#00ff41';
-        setTimeout(() => { btn.innerHTML = 'Copy'; btn.style.color = '#8b949e'; }, 2000);
+        setTimeout(() => { 
+          btn.innerHTML = 'Copy'; 
+          btn.style.color = '#5c6370'; 
+        }, 2000);
       });
-      // Wrap tables for horizontal scroll
-    document.querySelectorAll('.writeup-content table').forEach(t => {
-      const wrap = document.createElement('div');
-      wrap.style.cssText = 'display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:2em 0;';
-      t.parentNode.insertBefore(wrap, t);
-      wrap.appendChild(t);
-      t.style.margin = '0';
-      });
-      // JS-based sticky TOC (bypass CSS sticky issues)
-    const sidebar = document.querySelector('.toc-wrapper');
-    if (sidebar) {
-      const offsetTop = 80;
-      window.addEventListener('scroll', () => {
-        const scrollY = window.scrollY;
-        sidebar.style.transform = `translateY(${scrollY}px)`;
-      });
-    }
     });
   });
+
+  // Lưu ý: Đã xóa đoạn Javascript làm TOC trượt theo màn hình 
+  // vì đã thay bằng thuộc tính 'position: sticky;' trong CSS.
 });
 </script>
