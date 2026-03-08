@@ -100,6 +100,15 @@ document.addEventListener("DOMContentLoaded", function() {
       wrap.appendChild(t);
       t.style.margin = '0';
       });
+      // JS-based sticky TOC (bypass CSS sticky issues)
+    const sidebar = document.querySelector('.toc-wrapper');
+    if (sidebar) {
+      const offsetTop = 80;
+      window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        sidebar.style.transform = `translateY(${scrollY}px)`;
+      });
+    }
     });
   });
 });
