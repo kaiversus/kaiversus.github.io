@@ -49,7 +49,7 @@ html { scroll-behavior: smooth; font-size: 16px; }
 body {
   background: var(--bg); color: var(--text);
   font-family: var(--mono); line-height: 1.7;
-  overflow-x: hidden; transition: background 0.3s, color 0.3s;
+  transition: background 0.3s, color 0.3s;
 }
 
 html:not(.light) body {
@@ -329,6 +329,7 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
    WRITEUP / COURSE LAYOUT
    ========================================= */
 .writeup-container {
+  overflow-x: hidden;
   display: flex;
   align-items: flex-start;
   gap: 40px;
@@ -537,7 +538,7 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
   top: 72px;
   max-height: calc(100vh - 100px);
   overflow-y: auto;
-  overflow-x: hidden;
+  overflow-x: visible;
   scrollbar-width: none;
 }
 .toc-wrapper::-webkit-scrollbar { display: none; }
