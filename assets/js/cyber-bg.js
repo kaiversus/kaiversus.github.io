@@ -3,6 +3,7 @@
 // ══════════════════════════════════════
 (function() {
   const canvas = document.getElementById('matrix-canvas');
+  if (!canvas) return;
   const ctx    = canvas.getContext('2d');
   const CHARS  = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%^&*()_+-=[]{}|;:,./<>?\\~`';
   const FONT_SZ = 14;
@@ -29,7 +30,6 @@
       const x    = i * FONT_SZ;
 
       if (drops[i] * FONT_SZ > 0 && drops[i] * FONT_SZ < canvas.height) {
-        // Light mode: warm amber tones; dark mode: red
         const isLight = document.documentElement.classList.contains('light');
         if (isLight) {
           ctx.fillStyle = `rgba(160,100,30,${0.35 + Math.random()*0.25})`;
@@ -59,10 +59,7 @@
         }
       }
 
-      // reset drop when it reaches bottom (randomly)
-      if (y > canvas.height && Math.random() > 0.975) {
-        drops[i] = 0;
-      }
+      if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
       drops[i]++;
     }
   }
@@ -108,13 +105,14 @@ const roles = [
 const roleEl = document.getElementById('typed-role');
 let rIdx = 0, rChar = 0, deleting = false;
 function typeRole() {
+  if (!roleEl) return;
   const cur = roles[rIdx];
   if (!deleting) {
-    if (roleEl) roleEl.textContent = cur.slice(0, ++rChar);
+    roleEl.textContent = cur.slice(0, ++rChar);
     if (rChar === cur.length) { setTimeout(() => { deleting=true; typeRole(); }, 2200); }
     else setTimeout(typeRole, 38);
   } else {
-    if (roleEl) roleEl.textContent = cur.slice(0, --rChar);
+    roleEl.textContent = cur.slice(0, --rChar);
     if (rChar === 0) { deleting=false; rIdx=(rIdx+1)%roles.length; setTimeout(typeRole,400); }
     else setTimeout(typeRole, 18);
   }
@@ -140,7 +138,7 @@ const lines = [
 let lineIdx = 0, charIdx = 0, currentEl = null;
 
 function nextLine() {
-  if (lineIdx >= lines.length) return;
+  if (!tb || lineIdx >= lines.length) return;
   const l = lines[lineIdx];
 
   if (l.type === 'blank') {
@@ -191,36 +189,3 @@ function nextLine() {
 }
 
 setTimeout(nextLine, 1000);
-
-// KIỂM TRA VÀ ÁP DỤNG THEME KHI LOAD TRANG
-const currentTheme = localStorage.getItem('theme') || 'dark';
-if (currentTheme === 'light') {
-    document.documentElement.classList.add('light'); // Thêm class .light vào thẻ html
-} else {
-    document.documentElement.classList.remove('light');
-}
-
-// XỬ LÝ KHI BẤM NÚT TOGGLE
-const themeToggleBtn = document.getElementById('theme-toggle');
-if (themeToggleBtn) {
-    themeToggleBtn.addEventListener('click', () => {
-        // Bật/tắt class 'light'
-        document.documentElement.classList.toggle('light');
-        
-        // Kiểm tra xem hiện tại đang có class 'light' không để lưu vào localStorage
-        const newTheme = document.documentElement.classList.contains('light') ? 'light' : 'dark';
-        localStorage.setItem('theme', newTheme);
-    });
-}
-
-// Restore saved preference
-if (localStorage.getItem('theme') === 'light') {
-  html.classList.add('light');
-  toggleBtn.textContent = '☾';
-}
-
-toggleBtn.addEventListener('click', () => {
-  const isLight = html.classList.toggle('light');
-  toggleBtn.textContent = isLight ? '☾' : '☀';
-  localStorage.setItem('theme', isLight ? 'light' : 'dark');
-});

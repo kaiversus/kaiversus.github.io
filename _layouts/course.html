@@ -10,264 +10,345 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&family=Oxanium:wght@700;800&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaiversus</title>
-    <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
+
+    <!-- ① Theme manager: MUST be in <head> to apply saved theme before render -->
+    <script src="{{ "/assets/js/theme.js" | relative_url }}"></script>
 
     <script type="text/javascript" async
       src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
     </script>
     
     <style>
-        /* --- THEME CONFIG: MÀU CAM --- */
+        /* =============================================
+           DARK MODE (default) — Orange accent
+        ============================================= */
         :root {
-            --bg-page: #050a14;
-            --text-main: #c9d1d9;      
-            --border-color: #30363d;   
-            --code-bg: #161b22;
-            --course-accent: #ffaa00; /* Màu Cam Chủ Đạo */
-            --code-bg: #161b22;
+            --bg-page:        #050a14;
+            --text-main:      #c9d1d9;
+            --border-color:   #30363d;
+            --code-bg:        #161b22;
+            --course-accent:  #ffaa00;
+            --header-bg:      rgba(5, 10, 20, 0.95);
+            --header-border:  rgba(255, 170, 0, 0.18);
+            --nav-text:       rgba(255,255,255,0.85);
+            --nav-logo-color: #ffaa00;
+            --table-head-bg:  #21262d;
+            --row-hover:      rgba(255,255,255,0.03);
         }
 
+        /* =============================================
+           LIGHT MODE — warm parchment palette
+        ============================================= */
+        html.light {
+            --bg-page:        #faf6ee;
+            --text-main:      #2a2520;
+            --border-color:   #c8bfaa;
+            --code-bg:        #f0e9d8;
+            --course-accent:  #cc7700;
+            --header-bg:      rgba(245, 240, 232, 0.97);
+            --header-border:  rgba(180, 130, 40, 0.25);
+            --nav-text:       #2a2520;
+            --nav-logo-color: #cc7700;
+            --table-head-bg:  #e8dfc8;
+            --row-hover:      rgba(0,0,0,0.03);
+        }
+
+        /* ── Base ── */
         body {
             background-color: var(--bg-page) !important;
             color: var(--text-main) !important;
             font-family: 'Inter', sans-serif !important;
             overflow-x: hidden;
+            transition: background-color 0.3s, color 0.3s;
         }
 
-        /* --- ACTIVE STATE CHO MỤC LỤC --- */
+        canvas#cyber-matrix { display: none !important; }
+
+        /* ── Header / Nav ── */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            height: 60px;
+            background: var(--header-bg) !important;
+            border-bottom: 1px solid var(--header-border);
+            backdrop-filter: blur(20px);
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 900;
+            color: var(--nav-logo-color) !important;
+            text-decoration: none;
+            letter-spacing: 2px;
+            transition: color 0.3s;
+        }
+
+        nav { display: flex; align-items: center; gap: 8px; }
+
+        nav a {
+            color: var(--nav-text) !important;
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            padding: 6px 14px;
+            border-radius: 4px;
+            transition: color 0.2s, background 0.2s;
+        }
+        nav a:hover {
+            color: var(--course-accent) !important;
+            background: rgba(128,128,128,0.08);
+        }
+
+        /* ── Theme toggle button ── */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            cursor: pointer;
+            color: var(--text-main);
+            font-size: 15px;
+            transition: border-color 0.2s, color 0.2s, background 0.2s;
+            margin-left: 8px;
+        }
+        .theme-toggle:hover {
+            border-color: var(--course-accent);
+            color: var(--course-accent);
+            background: rgba(255,170,0,0.08);
+        }
+
+        /* ── TOC active state ── */
         #toc a.active {
-            color: var(--course-accent) !important; 
+            color: var(--course-accent) !important;
             border-left-color: var(--course-accent) !important;
-            text-shadow: 0 0 10px rgba(255, 170, 0, 0.5); 
+            text-shadow: 0 0 10px rgba(255,170,0,0.3);
             padding-left: 25px;
             font-weight: bold;
         }
 
-        canvas#cyber-matrix { display: none !important; }
-        header { background: rgba(5, 10, 20, 0.95) !important; }
-
-        /* --- LAYOUT --- */
+        /* ── Layout ── */
         .course-layout {
             max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 250px; 
+            grid-template-columns: 1fr 250px;
             gap: 50px;
-            padding: 40px 10px 100px 10px; 
+            padding: 40px 10px 100px 10px;
         }
-        .course-content { 
-            min-width: 0; 
+
+        .course-content {
+            min-width: 0;
             font-family: 'JetBrains Mono', 'Consolas', monospace !important;
             font-size: 0.95rem;
         }
-        /* --- FIX ẢNH (IMAGES) --- */
-        /* Ảnh sẽ tự co lại vừa khung, căn giữa và bo góc nhẹ */
+
+        /* ── Images ── */
         .course-content img {
-            max-width: 100%;     /* Quan trọng: Ngăn ảnh tràn lề */
-            height: auto;        /* Giữ tỉ lệ ảnh */
+            max-width: 100%;
+            height: auto;
             display: block;
-            margin: 20px auto;   /* Căn giữa */
-            border-radius: 6px;  /* Bo góc nhẹ */
-            border: 1px solid var(--border-color); /* Viền mỏng cho đẹp */
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3); /* Bóng đổ nhẹ */
+            margin: 20px auto;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: border-color 0.3s;
         }
 
-        /* --- FIX BẢNG (TABLE) TỰ NHIÊN HƠN --- */
+        /* ── Scrollable table wrapper ── */
         .table-responsive {
             overflow-x: auto;
             margin: 25px 0;
-            border: none;
             border-radius: 8px;
-            background: #161b22;
-            
-            /* Thanh cuộn mảnh, đẹp hơn cho Firefox */
+            background: var(--code-bg);
             scrollbar-width: thin;
-            scrollbar-color: #30363d #0d1117;
+            scrollbar-color: var(--border-color) transparent;
+            transition: background 0.3s;
         }
+        .table-responsive::-webkit-scrollbar { height: 6px; }
+        .table-responsive::-webkit-scrollbar-track { background: transparent; }
+        .table-responsive::-webkit-scrollbar-thumb { background-color: var(--border-color); border-radius: 10px; }
+        .table-responsive::-webkit-scrollbar-thumb:hover { background-color: var(--course-accent); }
 
-        /* Custom Thanh cuộn cho Chrome/Edge/Safari */
-        .table-responsive::-webkit-scrollbar {
-            height: 6px; /* Thanh cuộn ngang mỏng thôi */
+        /* ── Tables ── */
+        .course-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+            font-size: 0.9rem;
+            min-width: 600px;
+            table-layout: auto;
         }
-        .table-responsive::-webkit-scrollbar-track {
-            background: #0d1117;
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
-        }
-        .table-responsive::-webkit-scrollbar-thumb {
-            background-color: #30363d;
-            border-radius: 10px;
-        }
-        .table-responsive::-webkit-scrollbar-thumb:hover {
-            background-color: var(--course-accent); /* Hover vào sáng màu cam */
-        }
-
-        /* --- TABLE LOGIC: CÂN ĐỐI TỰ ĐỘNG --- */
-
-        .course-content table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            margin: 0; 
-            font-size: 0.9rem; /* Giảm size chữ chút cho bảng gọn hơn */
-            
-            /* Giữ nguyên min-width để đảm bảo trên điện thoại không bị nát, chấp nhận cuộn ngang */
-            min-width: 600px; 
-            table-layout: auto; /* Để trình duyệt tự tính toán dựa trên nội dung */
-        }
-        
-        /* 1. XỬ LÝ TIÊU ĐỀ (HEADER) */
-        .course-content th { 
-            background-color: #21262d; 
-            color: var(--course-accent); 
-            font-weight: 700; 
-            padding: 10px 15px; 
-            text-align: left; 
+        .course-content th {
+            background-color: var(--table-head-bg);
+            color: var(--course-accent);
+            font-weight: 700;
+            padding: 10px 15px;
+            text-align: left;
             border-bottom: 2px solid var(--border-color);
-            vertical-align: bottom; /* Căn đáy để đẹp hơn khi tiêu đề bị ngắt dòng */
+            white-space: normal !important;
+            max-width: 150px;
             vertical-align: middle !important;
-            /* QUAN TRỌNG: Cho phép tiêu đề xuống dòng để tiết kiệm diện tích ngang */
-            white-space: normal !important; 
-            max-width: 150px; /* Nếu tiêu đề dài quá 150px thì ép xuống dòng */
+            transition: background-color 0.3s;
         }
-        
-        /* 2. XỬ LÝ Ô DỮ LIỆU (CELLS) */
-        .course-content td { 
-            padding: 10px 15px; 
-            border-bottom: 1px solid var(--border-color); 
-            border-right: 1px dashed rgba(48, 54, 61, 0.4); 
-            color: var(--text-main); 
-            vertical-align: top; /* Nội dung luôn bắt đầu từ trên cùng */
-            line-height: 1.5;
-        }
-        
-        /* 3. MẸO CÂN ĐỐI CỘT (MAGIC CSS) */
-        
-        /* Cột đầu tiên (Thường là Offset, Key, Name): Ép co lại vừa khít nội dung */
-        .course-content td:first-child { 
-            font-weight: 600; 
-            color: #e6edf3; 
-        }
-        
-        /* Cột cuối cùng (Thường là Description): Cho phép chiếm hết chỗ trống còn lại */
-        .course-content td:last-child { 
-            border-right: none; 
-            width: auto; /* Tự động giãn ra tối đa */
-        }
-        
-        /* Các cột ở giữa (Size, Value...): Cho phép chữ tự xuống dòng nếu quá dài */
         .course-content td {
-            word-break: break-word; /* Ngắt dòng nếu gặp chuỗi hex dài dằng dặc */
+            padding: 10px 15px;
+            border-bottom: 1px solid var(--border-color);
+            border-right: 1px dashed rgba(128,128,128,0.2);
+            color: var(--text-main);
+            vertical-align: top;
+            line-height: 1.5;
+            word-break: break-word;
         }
+        .course-content td:first-child { font-weight: 600; color: var(--text-main); }
+        .course-content td:last-child { border-right: none; width: auto; }
+        .course-content tr:last-child td { border-bottom: none; }
+        .course-content tr:hover td { background: var(--row-hover); }
 
-        .course-content tr:last-child td { border-bottom: none; } /* Bỏ kẻ đáy dòng cuối */
-        /* --- TITLE & HEADINGS (MÀU CAM) --- */
-        .course-content h1 { 
-            font-family: 'Orbitron', sans-serif; 
-            color: white !important; 
-            font-size: 2.5rem; 
-            margin-bottom: 10px; 
-            text-shadow: 0 0 10px rgba(255, 170, 0, 0.3); 
+        /* ── Headings ── */
+        .course-content h1 {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--text-main) !important;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255,170,0,0.15);
             line-height: 1.2;
         }
-        
-        .course-content h2 { 
-            margin-top: 3rem; 
-            border-bottom: 1px solid var(--border-color); 
-            padding-bottom: 10px; 
-            font-family: 'Oxanium', sans-serif; 
-            color: #ffcc66 !important; /* Cam nhạt hơn */
+        .course-content h2 {
+            margin-top: 3rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            font-family: 'Oxanium', sans-serif;
+            color: var(--course-accent) !important;
             font-size: 1.8rem;
         }
-
         .course-content h3 {
-            color: #fff;
+            color: var(--text-main) !important;
             margin-top: 2rem;
             font-family: 'Orbitron', sans-serif;
         }
 
+        /* ── Body text ── */
         .course-content p, .course-content li {
             font-family: 'JetBrains Mono', 'Consolas', monospace !important;
             font-size: 0.95rem;
             line-height: 1.8;
-            color: var(--text-main); 
+            color: var(--text-main);
             margin-bottom: 15px;
         }
-        .course-content strong, 
-        .course-content b {
-            color: #ffcc66 !important; /* Màu cam nhạt giống tiêu đề H2 */
-            font-weight: 700;          /* Đảm bảo chữ dày và rõ */
+        .course-content strong, .course-content b {
+            color: var(--course-accent) !important;
+            font-weight: 700;
         }
-        /* ĐÃ FIX: Xóa white-space: nowrap để không bị tràn */
-        .course-content td:first-child { font-weight: 600; width: auto; color: #fff; }
 
-        /* 1. LỚP VỎ NGOÀI CÙNG: Chịu trách nhiệm nền và bo góc */
+        /* ── Code blocks ── */
         div.highlighter-rouge {
-            background-color: var(--code-bg) !important; 
+            background-color: var(--code-bg) !important;
             border-radius: 8px;
             margin: 25px 0;
-            position: relative; /* Để neo nút copy */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-            border: none !important; /* Bỏ viền cam cũ */
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            border: none !important;
+            transition: background-color 0.3s;
         }
-        
-        /* 2. LỚP GIỮA: Reset về trong suốt để không bị chồng màu nền */
         div.highlighter-rouge div.highlight {
             background: transparent !important;
             border: none !important;
             margin: 0 !important;
             padding: 0 !important;
-            box-shadow: none !important;
         }
-        
-        /* 3. LỚP TRONG CÙNG (Thẻ Pre): Chứa chữ code */
         div.highlighter-rouge pre.highlight,
         pre.highlight {
-            background: transparent !important; 
+            background: transparent !important;
             border: none !important;
             margin: 0 !important;
-            padding: 20px 20px 20px 20px !important; /* Padding chuẩn */
+            padding: 20px !important;
             overflow-x: auto;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem !important; /* Chữ nhỏ gọn hơn */
+            font-size: 0.85rem !important;
             line-height: 1.6;
         }
-        
-        /* 4. MÀU CHỮ CODE (QUAN TRỌNG) */
-        code { 
-            color: #e6edf3 !important; /* Đổi từ màu cam sang màu trắng xám */
-            text-shadow: none; 
-            padding: 0; 
+        code {
+            color: var(--text-main) !important;
+            text-shadow: none;
+            padding: 0;
         }
-        /* Inline code styles */
-        p > code, li > code, td > code { 
-            background: rgba(110, 118, 129, 0.4); /* Nền xám trong suốt */
-            padding: 2px 6px; 
-            border-radius: 4px; 
-            color: var(--course-accent); /* Dùng màu xanh neon làm điểm nhấn */
-            font-size: 0.9em; 
-            font-family: 'JetBrains Mono', monospace; 
+
+        /* Inline code */
+        p > code, li > code, td > code {
+            background: rgba(128,128,128,0.15);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--course-accent) !important;
+            font-size: 0.9em;
+            font-family: 'JetBrains Mono', monospace;
         }
-        /* --- COPY BUTTON --- */
+
+        /* Light mode code text override */
+        html.light code { color: #2a2520 !important; }
+        html.light p > code, html.light li > code, html.light td > code {
+            color: var(--course-accent) !important;
+            background: rgba(0,0,0,0.07);
+        }
+
+        /* ── Copy button ── */
         .copy-btn {
-            position: absolute; top: 10px; right: 10px;        
-            background: rgba(48, 54, 61, 0.6);
-            border: 1px solid #30363d; border-radius: 4px;
-            color: #8b949e; padding: 4px 10px; cursor: pointer;
+            position: absolute; top: 10px; right: 10px;
+            background: rgba(128,128,128,0.15);
+            border: 1px solid var(--border-color); border-radius: 4px;
+            color: var(--text-main); padding: 4px 10px; cursor: pointer;
             font-family: 'Inter', sans-serif; font-size: 0.75rem;
             transition: all 0.2s; z-index: 100;
+            opacity: 0.7;
         }
-        .copy-btn:hover { background: var(--course-accent); color: #000; border-color: var(--course-accent); font-weight: bold;}
+        .copy-btn:hover {
+            background: var(--course-accent);
+            color: #000;
+            border-color: var(--course-accent);
+            font-weight: bold;
+            opacity: 1;
+        }
 
-        /* --- RESPONSIVE --- */
-        .course-sidebar { position: sticky; top: 20px; height: fit-content; }
-        .toc-header { font-family: 'Orbitron', sans-serif; color: #8b949e; font-size: 0.8rem; margin-bottom: 15px; letter-spacing: 1px; font-weight: bold; }
-        #toc { list-style: none; padding: 0; border-left: 2px solid #21262d; }
-        #toc a { display: block; padding: 5px 0 5px 20px; color: #8b949e; text-decoration: none; font-size: 0.9rem; border-left: 2px solid transparent; margin-left: -2px; transition: 0.2s; }
-        #toc a:hover, #toc a.active { color: var(--course-accent); border-left-color: var(--course-accent); }
-        
+        /* ── Sidebar TOC ── */
+        .course-sidebar { position: sticky; top: 80px; height: fit-content; }
+        .toc-header {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--text-main);
+            font-size: 0.8rem;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            font-weight: bold;
+            opacity: 0.5;
+        }
+        #toc { list-style: none; padding: 0; border-left: 2px solid var(--border-color); }
+        #toc a {
+            display: block;
+            padding: 5px 0 5px 20px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-left: 2px solid transparent;
+            margin-left: -2px;
+            transition: 0.2s;
+            opacity: 0.6;
+        }
+        #toc a:hover, #toc a.active {
+            color: var(--course-accent) !important;
+            border-left-color: var(--course-accent) !important;
+            opacity: 1;
+        }
+
+        /* ── Responsive ── */
         @media (max-width: 900px) {
             .course-layout { grid-template-columns: 1fr; }
             .course-sidebar { display: none; }
@@ -280,11 +361,13 @@
 <body>
     <div class="container" style="padding-top: 2px; padding-bottom: 2px;">
         <header>
-            <a href="https://kaiversus.github.io/" class="logo" style="text-decoration: none;">KAIVERSUS BLOG</a>
+            <a href="https://kaiversus.github.io/" class="logo">KAIVERSUS BLOG</a>
             <nav>
                 <a href="/">Homepage</a>
-                <a href="/about/">About_me</a> 
+                <a href="/about/">About_me</a>
                 <a href="https://kaiversus.github.io/#writeups">Repository</a>
+                <!-- ② Same toggle button ID as default.html so theme.js wires it up -->
+                <button class="theme-toggle" id="theme-toggle" title="Toggle light/dark">☀</button>
             </nav>
         </header>
     </div>
@@ -293,10 +376,10 @@
         <main class="course-content">
             <div style="margin-bottom: 20px;">
                 <a href="/courses/" onclick="history.back(); return false;" style="
-                    color: var(--course-accent); 
-                    font-family: 'JetBrains Mono', monospace; 
-                    text-decoration: none; 
-                    font-size: 0.9rem; 
+                    color: var(--course-accent);
+                    font-family: 'JetBrains Mono', monospace;
+                    text-decoration: none;
+                    font-size: 0.9rem;
                     opacity: 0.7;
                     transition: 0.3s;
                     display: inline-block;
@@ -305,17 +388,17 @@
                 </a>
             </div>
 
-            <div style="margin-bottom: 30px; border-bottom: 1px dashed #333; padding-bottom: 20px;">
+            <div style="margin-bottom: 30px; border-bottom: 1px dashed var(--border-color); padding-bottom: 20px;">
                 <h1 style="margin: 0;">{{ page.title }}</h1>
-                <div style="margin-top: 10px; color: #888; font-family: monospace;">
+                <div style="margin-top: 10px; color: var(--text-main); opacity: 0.5; font-family: monospace;">
                     {% if page.date %}
-                    <span>UPDATED: {{ page.date | date: "%Y-%m-%d" }}</span> | 
+                    <span>UPDATED: {{ page.date | date: "%Y-%m-%d" }}</span> |
                     {% endif %}
-                    <span style="color: var(--course-accent);">LEVEL: {{ page.difficulty | default: "All Levels" }}</span> |
+                    <span style="color: var(--course-accent); opacity: 1;">LEVEL: {{ page.difficulty | default: "All Levels" }}</span> |
                     <span>AUTHOR: {{ page.author | default: "Kaiversus" }}</span>
                 </div>
             </div>
-            
+
             {{ content }}
         </main>
 
@@ -327,8 +410,7 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            /* 1. AUTO WRAP TABLE (FIXED) */
-            // Tự động thêm thanh cuộn cho bảng
+            /* AUTO WRAP TABLES */
             const tables = document.querySelectorAll('.course-content table');
             tables.forEach(table => {
                 if (!table.parentElement.classList.contains('table-responsive')) {
@@ -338,18 +420,17 @@
                     wrapper.appendChild(table);
                 }
             });
-            /* TẠO MỤC LỤC & COPY BUTTON */
+
+            /* BUILD TABLE OF CONTENTS */
             const toc = document.getElementById('toc');
             const headers = document.querySelectorAll('.course-content h2, .course-content h3');
-            const tocLinks = []; // Mảng lưu link để dùng cho logic cuối trang
-            
-            // Xử lý ẩn sidebar nếu bài không có tiêu đề
-            if(headers.length === 0) { 
+            const tocLinks = [];
+
+            if (headers.length === 0) {
                 const sidebar = document.querySelector('.course-sidebar');
-                if(sidebar) sidebar.style.display = 'none'; 
+                if (sidebar) sidebar.style.display = 'none';
             }
-            
-            // 1. Vòng lặp tạo HTML cho mục lục
+
             headers.forEach(header => {
                 const id = header.id || header.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
                 header.id = id;
@@ -357,54 +438,38 @@
                 const a = document.createElement('a');
                 a.href = `#${id}`;
                 a.textContent = header.textContent;
-                
-                // UPDATE 1: Tăng độ thụt đầu dòng cho thẻ H3 (giống Writeup)
-                if(header.tagName === 'H3') a.style.paddingLeft = "40px"; 
-                
-                a.classList.add('toc-link'); 
-                tocLinks.push(a); // Lưu link vào mảng
-                
+                if (header.tagName === 'H3') a.style.paddingLeft = "40px";
+                a.classList.add('toc-link');
+                tocLinks.push(a);
                 li.appendChild(a);
                 toc.appendChild(li);
             });
-            
-            // 2. Cấu hình Intersection Observer (Scroll Spy)
-            const observerOptions = {
-                root: null,
-                // UPDATE 2: Đổi vùng nhận diện thành -50% (trước là -60%) để bắt nhạy hơn
-                rootMargin: '0px 0px -50% 0px', 
-                threshold: 0
-            };
-            
+
+            /* SCROLL SPY */
             const observer = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        document.querySelectorAll('.toc-link').forEach(link => link.classList.remove('active'));
-                        const id = entry.target.getAttribute('id');
-                        const activeLink = document.querySelector(`.toc-link[href="#${id}"]`);
-                        if (activeLink) activeLink.classList.add('active');
+                        document.querySelectorAll('.toc-link').forEach(l => l.classList.remove('active'));
+                        const active = document.querySelector(`.toc-link[href="#${entry.target.id}"]`);
+                        if (active) active.classList.add('active');
                     }
                 });
-            }, observerOptions);
-            
-            headers.forEach(header => observer.observe(header));
-            
-            // 3. UPDATE 3 (MỚI): Logic bắt buộc sáng mục cuối khi cuộn hết trang
+            }, { root: null, rootMargin: '0px 0px -50% 0px', threshold: 0 });
+
+            headers.forEach(h => observer.observe(h));
+
+            /* Highlight last item when scrolled to bottom */
             window.addEventListener('scroll', () => {
                 if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
-                    document.querySelectorAll('.toc-link').forEach(link => link.classList.remove('active'));
-                    if (tocLinks.length > 0) {
-                        tocLinks[tocLinks.length - 1].classList.add('active');
-                    }
+                    document.querySelectorAll('.toc-link').forEach(l => l.classList.remove('active'));
+                    if (tocLinks.length > 0) tocLinks[tocLinks.length - 1].classList.add('active');
                 }
             });
 
-            // Copy Code Button
+            /* COPY CODE BUTTONS */
             document.querySelectorAll('.course-content pre').forEach(pre => {
                 if (!pre.querySelector('code')) return;
                 const wrapper = pre.closest('div.highlighter-rouge') || pre.parentElement;
-                
-                // Tránh thêm nút copy 2 lần nếu thẻ pre không có wrapper chuẩn
                 if (wrapper.querySelector('.copy-btn')) return;
 
                 const btn = document.createElement('button');
@@ -415,13 +480,9 @@
                     btn.textContent = 'Copied!';
                     btn.style.background = 'var(--course-accent)';
                     btn.style.color = '#000';
-                    setTimeout(() => { btn.textContent = 'Copy'; btn.style = ''; }, 2000);
+                    setTimeout(() => { btn.textContent = 'Copy'; btn.style.background = ''; btn.style.color = ''; }, 2000);
                 };
-                
-                // Style cho wrapper để nút copy định vị đúng
-                if (getComputedStyle(wrapper).position === 'static') {
-                    wrapper.style.position = 'relative';
-                }
+                if (getComputedStyle(wrapper).position === 'static') wrapper.style.position = 'relative';
                 wrapper.appendChild(btn);
             });
         });
