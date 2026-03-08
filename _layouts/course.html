@@ -1,491 +1,624 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} | Kaiversus</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik+Glitch&family=Oxanium:wght@700;800&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ page.title }} — kaiversus</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
+<!-- Theme manager: prevent flash -->
+<script src="{{ "/assets/js/theme.js" | relative_url }}"></script>
+<style>
+/* =============================================
+   COURSE ARTICLE LAYOUT
+   - Matches main nav style exactly
+   - Sidebar TOC + content column
+   - Full light/dark theme awareness
+============================================= */
+:root {
+  --co-bg:        #0d1117;
+  --co-surface:   #111820;
+  --co-border:    #1e2830;
+  --co-text:      #c9d1d9;
+  --co-muted:     #556070;
+  --co-accent:    #ffaa00;
+  --co-green:     #3fb950;
+  --co-sidebar:   #0a1018;
+  --co-toc-act:   #ffaa00;
+  --co-h2:        #ffaa00;
+  --co-h3:        #e0e0e0;
+  --co-code-bg:   #161c24;
+  --co-code-bdr:  #1e2830;
+}
+html.light {
+  --co-bg:        #faf6ee;
+  --co-surface:   #f0e9d8;
+  --co-border:    #d0c8b4;
+  --co-text:      #2a2520;
+  --co-muted:     #8a7a60;
+  --co-accent:    #cc7700;
+  --co-green:     #1e6e28;
+  --co-sidebar:   #e8e0cc;
+  --co-toc-act:   #cc7700;
+  --co-h2:        #cc7700;
+  --co-h3:        #2a2520;
+  --co-code-bg:   #e4dcc8;
+  --co-code-bdr:  #c8bfaa;
+}
 
-    <!-- ① Theme manager: MUST be in <head> to apply saved theme before render -->
-    <script src="{{ "/assets/js/theme.js" | relative_url }}"></script>
+/* ── Reset / base ── */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--co-bg);
+  color: var(--co-text);
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 15px;
+  line-height: 1.7;
+  transition: background 0.3s, color 0.3s;
+}
 
-    <script type="text/javascript" async
-      src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-    </script>
-    
-    <style>
-        /* =============================================
-           DARK MODE (default) — Orange accent
-        ============================================= */
-        :root {
-            --bg-page:        #050a14;
-            --text-main:      #c9d1d9;
-            --border-color:   #30363d;
-            --code-bg:        #161b22;
-            --course-accent:  #ffaa00;
-            --header-bg:      rgba(5, 10, 20, 0.95);
-            --header-border:  rgba(255, 170, 0, 0.18);
-            --nav-text:       rgba(255,255,255,0.85);
-            --nav-logo-color: #ffaa00;
-            --table-head-bg:  #21262d;
-            --row-hover:      rgba(255,255,255,0.03);
-        }
+/* ── Nav — identical to default.html ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 0 24px;
+  height: 52px;
+  background: var(--co-bg);
+  border-bottom: 1px solid var(--co-border);
+  transition: background 0.3s, border-color 0.3s;
+}
 
-        /* =============================================
-           LIGHT MODE — warm parchment palette
-        ============================================= */
-        html.light {
-            --bg-page:        #faf6ee;
-            --text-main:      #2a2520;
-            --border-color:   #c8bfaa;
-            --code-bg:        #f0e9d8;
-            --course-accent:  #cc7700;
-            --header-bg:      rgba(245, 240, 232, 0.97);
-            --header-border:  rgba(180, 130, 40, 0.25);
-            --nav-text:       #2a2520;
-            --nav-logo-color: #cc7700;
-            --table-head-bg:  #e8dfc8;
-            --row-hover:      rgba(0,0,0,0.03);
-        }
+.nav-logo {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.nav-logo-user { color: #58a6ff; }
+.nav-logo-at   { color: var(--co-muted); }
+.nav-logo-host { color: var(--co-green); }
+.nav-logo-sym  { color: var(--co-muted); }
 
-        /* ── Base ── */
-        body {
-            background-color: var(--bg-page) !important;
-            color: var(--text-main) !important;
-            font-family: 'Inter', sans-serif !important;
-            overflow-x: hidden;
-            transition: background-color 0.3s, color 0.3s;
-        }
+.nav-sep { flex: 1; }
 
-        canvas#cyber-matrix { display: none !important; }
+.nav-links {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; gap: 28px;
+}
+.nav-links a {
+  font-size: 0.85rem;
+  color: var(--co-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--co-text); }
+.nav-links .slash { color: var(--co-green); }
 
-        /* ── Header / Nav ── */
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 200;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 32px;
-            height: 60px;
-            background: var(--header-bg) !important;
-            border-bottom: 1px solid var(--header-border);
-            backdrop-filter: blur(20px);
-            transition: background 0.3s, border-color 0.3s;
-        }
+.nav-right {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 0.8rem; color: var(--co-muted);
+}
+.status-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--co-green);
+  box-shadow: 0 0 6px var(--co-green);
+}
 
-        .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
-            font-weight: 900;
-            color: var(--nav-logo-color) !important;
-            text-decoration: none;
-            letter-spacing: 2px;
-            transition: color 0.3s;
-        }
+/* Theme toggle — matches default.html */
+.theme-toggle {
+  width: 34px; height: 34px;
+  background: transparent;
+  border: 1px solid var(--co-border);
+  border-radius: 4px;
+  color: var(--co-muted);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.2s, color 0.2s;
+}
+.theme-toggle:hover { border-color: var(--co-accent); color: var(--co-accent); }
 
-        nav { display: flex; align-items: center; gap: 8px; }
+/* ── Page shell ── */
+.course-shell {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  grid-template-areas: "content toc";
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  gap: 40px;
+  min-height: calc(100vh - 52px);
+}
 
-        nav a {
-            color: var(--nav-text) !important;
-            text-decoration: none;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            padding: 6px 14px;
-            border-radius: 4px;
-            transition: color 0.2s, background 0.2s;
-        }
-        nav a:hover {
-            color: var(--course-accent) !important;
-            background: rgba(128,128,128,0.08);
-        }
+/* ── Main content ── */
+.course-content {
+  grid-area: content;
+  padding: 48px 0 96px;
+  max-width: 760px;
+}
 
-        /* ── Theme toggle button ── */
-        .theme-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 34px;
-            height: 34px;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
-            background: transparent;
-            cursor: pointer;
-            color: var(--text-main);
-            font-size: 15px;
-            transition: border-color 0.2s, color 0.2s, background 0.2s;
-            margin-left: 8px;
-        }
-        .theme-toggle:hover {
-            border-color: var(--course-accent);
-            color: var(--course-accent);
-            background: rgba(255,170,0,0.08);
-        }
+/* Breadcrumb */
+.course-breadcrumb {
+  font-size: 0.75rem;
+  color: var(--co-muted);
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 6px;
+}
+.course-breadcrumb a { color: var(--co-accent); text-decoration: none; transition: opacity 0.2s; }
+.course-breadcrumb a:hover { opacity: 0.75; }
+.course-breadcrumb .sep { opacity: 0.4; }
 
-        /* ── TOC active state ── */
-        #toc a.active {
-            color: var(--course-accent) !important;
-            border-left-color: var(--course-accent) !important;
-            text-shadow: 0 0 10px rgba(255,170,0,0.3);
-            padding-left: 25px;
-            font-weight: bold;
-        }
+/* Article title */
+.course-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 900;
+  color: var(--co-text);
+  line-height: 1.25;
+  margin: 0 0 16px;
+  letter-spacing: 0.01em;
+}
 
-        /* ── Layout ── */
-        .course-layout {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 250px;
-            gap: 50px;
-            padding: 40px 10px 100px 10px;
-        }
+/* Meta row */
+.course-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-size: 0.72rem;
+  color: var(--co-muted);
+  padding-bottom: 20px;
+  border-bottom: 1px dashed var(--co-border);
+  margin-bottom: 40px;
+  letter-spacing: 0.05em;
+}
+.course-meta span { display: flex; align-items: center; gap: 6px; }
+.course-meta .level { color: var(--co-accent); font-weight: 700; }
 
-        .course-content {
-            min-width: 0;
-            font-family: 'JetBrains Mono', 'Consolas', monospace !important;
-            font-size: 0.95rem;
-        }
+/* ── Article typography ── */
+.course-body h2 {
+  color: var(--co-h2);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 48px 0 16px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--co-border);
+}
 
-        /* ── Images ── */
-        .course-content img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-            margin: 20px auto;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            transition: border-color 0.3s;
-        }
+.course-body h3 {
+  color: var(--co-h3);
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 32px 0 12px;
+  padding-left: 14px;
+  border-left: 3px solid var(--co-accent);
+}
 
-        /* ── Scrollable table wrapper ── */
-        .table-responsive {
-            overflow-x: auto;
-            margin: 25px 0;
-            border-radius: 8px;
-            background: var(--code-bg);
-            scrollbar-width: thin;
-            scrollbar-color: var(--border-color) transparent;
-            transition: background 0.3s;
-        }
-        .table-responsive::-webkit-scrollbar { height: 6px; }
-        .table-responsive::-webkit-scrollbar-track { background: transparent; }
-        .table-responsive::-webkit-scrollbar-thumb { background-color: var(--border-color); border-radius: 10px; }
-        .table-responsive::-webkit-scrollbar-thumb:hover { background-color: var(--course-accent); }
+.course-body h4 {
+  color: var(--co-accent);
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin: 24px 0 8px;
+  letter-spacing: 0.06em;
+}
 
-        /* ── Tables ── */
-        .course-content table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 0;
-            font-size: 0.9rem;
-            min-width: 600px;
-            table-layout: auto;
-        }
-        .course-content th {
-            background-color: var(--table-head-bg);
-            color: var(--course-accent);
-            font-weight: 700;
-            padding: 10px 15px;
-            text-align: left;
-            border-bottom: 2px solid var(--border-color);
-            white-space: normal !important;
-            max-width: 150px;
-            vertical-align: middle !important;
-            transition: background-color 0.3s;
-        }
-        .course-content td {
-            padding: 10px 15px;
-            border-bottom: 1px solid var(--border-color);
-            border-right: 1px dashed rgba(128,128,128,0.2);
-            color: var(--text-main);
-            vertical-align: top;
-            line-height: 1.5;
-            word-break: break-word;
-        }
-        .course-content td:first-child { font-weight: 600; color: var(--text-main); }
-        .course-content td:last-child { border-right: none; width: auto; }
-        .course-content tr:last-child td { border-bottom: none; }
-        .course-content tr:hover td { background: var(--row-hover); }
+.course-body p {
+  color: var(--co-text);
+  margin: 0 0 16px;
+  line-height: 1.8;
+}
 
-        /* ── Headings ── */
-        .course-content h1 {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--text-main) !important;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(255,170,0,0.15);
-            line-height: 1.2;
-        }
-        .course-content h2 {
-            margin-top: 3rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
-            font-family: 'Oxanium', sans-serif;
-            color: var(--course-accent) !important;
-            font-size: 1.8rem;
-        }
-        .course-content h3 {
-            color: var(--text-main) !important;
-            margin-top: 2rem;
-            font-family: 'Orbitron', sans-serif;
-        }
+.course-body ul, .course-body ol {
+  color: var(--co-text);
+  padding-left: 24px;
+  margin: 0 0 16px;
+  line-height: 1.75;
+}
 
-        /* ── Body text ── */
-        .course-content p, .course-content li {
-            font-family: 'JetBrains Mono', 'Consolas', monospace !important;
-            font-size: 0.95rem;
-            line-height: 1.8;
-            color: var(--text-main);
-            margin-bottom: 15px;
-        }
-        .course-content strong, .course-content b {
-            color: var(--course-accent) !important;
-            font-weight: 700;
-        }
+.course-body li { margin-bottom: 6px; }
 
-        /* ── Code blocks ── */
-        div.highlighter-rouge {
-            background-color: var(--code-bg) !important;
-            border-radius: 8px;
-            margin: 25px 0;
-            position: relative;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-            border: none !important;
-            transition: background-color 0.3s;
-        }
-        div.highlighter-rouge div.highlight {
-            background: transparent !important;
-            border: none !important;
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-        div.highlighter-rouge pre.highlight,
-        pre.highlight {
-            background: transparent !important;
-            border: none !important;
-            margin: 0 !important;
-            padding: 20px !important;
-            overflow-x: auto;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem !important;
-            line-height: 1.6;
-        }
-        code {
-            color: var(--text-main) !important;
-            text-shadow: none;
-            padding: 0;
-        }
+.course-body a {
+  color: var(--co-accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+.course-body a:hover { border-bottom-color: var(--co-accent); }
 
-        /* Inline code */
-        p > code, li > code, td > code {
-            background: rgba(128,128,128,0.15);
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: var(--course-accent) !important;
-            font-size: 0.9em;
-            font-family: 'JetBrains Mono', monospace;
-        }
+/* Code */
+.course-body code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+  background: rgba(255,170,0,0.08);
+  color: var(--co-accent);
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+html.light .course-body code {
+  background: rgba(200,120,0,0.09);
+  color: #8a5800;
+}
 
-        /* Light mode code text override */
-        html.light code { color: #2a2520 !important; }
-        html.light p > code, html.light li > code, html.light td > code {
-            color: var(--course-accent) !important;
-            background: rgba(0,0,0,0.07);
-        }
+.course-body pre {
+  background: var(--co-code-bg);
+  border: 1px solid var(--co-code-bdr);
+  border-radius: 4px;
+  padding: 20px;
+  overflow-x: auto;
+  margin: 0 0 20px;
+  position: relative;
+}
+.course-body pre code {
+  background: none;
+  color: var(--co-text);
+  padding: 0;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
 
-        /* ── Copy button ── */
-        .copy-btn {
-            position: absolute; top: 10px; right: 10px;
-            background: rgba(128,128,128,0.15);
-            border: 1px solid var(--border-color); border-radius: 4px;
-            color: var(--text-main); padding: 4px 10px; cursor: pointer;
-            font-family: 'Inter', sans-serif; font-size: 0.75rem;
-            transition: all 0.2s; z-index: 100;
-            opacity: 0.7;
-        }
-        .copy-btn:hover {
-            background: var(--course-accent);
-            color: #000;
-            border-color: var(--course-accent);
-            font-weight: bold;
-            opacity: 1;
-        }
+.course-body div.highlight {
+  background: var(--co-code-bg);
+  border: 1px solid var(--co-code-bdr);
+  border-radius: 4px;
+  margin: 0 0 20px;
+  overflow: hidden;
+  position: relative;
+}
+.course-body div.highlight pre {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  margin: 0;
+}
 
-        /* ── Sidebar TOC ── */
-        .course-sidebar { position: sticky; top: 80px; height: fit-content; }
-        .toc-header {
-            font-family: 'Orbitron', sans-serif;
-            color: var(--text-main);
-            font-size: 0.8rem;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-            font-weight: bold;
-            opacity: 0.5;
-        }
-        #toc { list-style: none; padding: 0; border-left: 2px solid var(--border-color); }
-        #toc a {
-            display: block;
-            padding: 5px 0 5px 20px;
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 0.9rem;
-            border-left: 2px solid transparent;
-            margin-left: -2px;
-            transition: 0.2s;
-            opacity: 0.6;
-        }
-        #toc a:hover, #toc a.active {
-            color: var(--course-accent) !important;
-            border-left-color: var(--course-accent) !important;
-            opacity: 1;
-        }
+/* Copy button */
+.copy-btn {
+  position: absolute;
+  top: 10px; right: 10px;
+  padding: 3px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  background: transparent;
+  border: 1px solid var(--co-border);
+  color: var(--co-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 3px;
+}
+.copy-btn:hover { border-color: var(--co-accent); color: var(--co-accent); }
 
-        /* ── Responsive ── */
-        @media (max-width: 900px) {
-            .course-layout { grid-template-columns: 1fr; }
-            .course-sidebar { display: none; }
-            header { flex-direction: column; gap: 10px; padding: 15px !important; height: auto !important; }
-            .course-content h1 { font-size: 1.8rem; }
-        }
-    </style>
+/* Blockquote */
+.course-body blockquote {
+  border-left: 3px solid var(--co-accent);
+  margin: 0 0 20px;
+  padding: 12px 18px;
+  background: var(--co-surface);
+  color: var(--co-muted);
+  font-style: italic;
+}
+
+/* Tables */
+.course-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 24px;
+  font-size: 0.85rem;
+  background: var(--co-surface);
+}
+.course-body th {
+  background: rgba(255,170,0,0.1);
+  color: var(--co-accent);
+  font-weight: 700;
+  text-align: left;
+  padding: 10px 14px;
+  border: 1px solid var(--co-border);
+  letter-spacing: 0.05em;
+}
+html.light .course-body th { background: #ddd8c4; color: var(--co-accent); }
+.course-body td {
+  padding: 10px 14px;
+  border: 1px solid var(--co-border);
+  color: var(--co-text);
+}
+.course-body tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+html.light .course-body tr:nth-child(even) td { background: rgba(0,0,0,0.03); }
+
+/* Images */
+.course-body img {
+  max-width: 100%;
+  border: 1px solid var(--co-border);
+  border-radius: 4px;
+  display: block;
+  margin: 16px 0;
+}
+
+/* ── TOC Sidebar ── */
+.course-toc {
+  grid-area: toc;
+  padding-top: 48px;
+}
+
+.toc-inner {
+  position: sticky;
+  top: 72px;
+  background: var(--co-sidebar);
+  border: 1px solid var(--co-border);
+  border-radius: 4px;
+  padding: 20px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.toc-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  color: var(--co-muted);
+  text-transform: uppercase;
+  margin: 0 0 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.toc-label::before { content: '//'; color: var(--co-accent); }
+
+#toc-list { list-style: none; margin: 0; padding: 0; }
+#toc-list li { margin: 0; }
+
+.toc-link {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--co-muted);
+  text-decoration: none;
+  padding: 4px 0 4px 0;
+  border-left: 2px solid transparent;
+  padding-left: 10px;
+  margin-left: -10px;
+  line-height: 1.4;
+  transition: color 0.18s, border-color 0.18s;
+}
+.toc-link:hover { color: var(--co-text); }
+.toc-link.active { color: var(--co-toc-act); border-left-color: var(--co-toc-act); }
+.toc-link.h3 { padding-left: 22px; margin-left: -10px; font-size: 0.67rem; }
+
+/* ── Prev/Next nav ── */
+.course-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 64px;
+  padding-top: 32px;
+  border-top: 1px solid var(--co-border);
+}
+
+.course-nav-btn {
+  display: block;
+  padding: 16px 20px;
+  border: 1px solid var(--co-border);
+  text-decoration: none;
+  color: var(--co-text);
+  transition: border-color 0.2s, transform 0.2s;
+  border-radius: 4px;
+}
+.course-nav-btn:hover {
+  border-color: var(--co-accent);
+  transform: translateY(-2px);
+  color: var(--co-text);
+}
+.course-nav-btn.next { text-align: right; }
+.nav-dir {
+  font-size: 0.65rem;
+  color: var(--co-muted);
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+  display: block;
+}
+.nav-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--co-accent);
+}
+
+/* ── Footer ── */
+footer {
+  border-top: 1px solid var(--co-border);
+  padding: 28px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: var(--co-muted);
+}
+.footer-brand strong { color: var(--co-green); }
+.footer-links { display: flex; gap: 20px; }
+.footer-links a { color: var(--co-muted); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--co-text); }
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .course-shell { grid-template-columns: 1fr; grid-template-areas: "content"; }
+  .course-toc { display: none; }
+}
+@media (max-width: 600px) {
+  .nav-links { display: none; }
+  .course-nav { grid-template-columns: 1fr; }
+}
+</style>
 </head>
-
 <body>
-    <div class="container" style="padding-top: 2px; padding-bottom: 2px;">
-        <header>
-            <a href="https://kaiversus.github.io/" class="logo">KAIVERSUS BLOG</a>
-            <nav>
-                <a href="/">Homepage</a>
-                <a href="/about/">About_me</a>
-                <a href="https://kaiversus.github.io/#writeups">Repository</a>
-                <!-- ② Same toggle button ID as default.html so theme.js wires it up -->
-                <button class="theme-toggle" id="theme-toggle" title="Toggle light/dark">☀</button>
-            </nav>
-        </header>
+
+<!-- ── Nav — identical structure to default.html ── -->
+<nav>
+  <a href="{{ "/" | relative_url }}" class="nav-logo">
+    <span class="nav-logo-user">kaiversus</span><span class="nav-logo-at">@</span><span class="nav-logo-host">blog</span><span class="nav-logo-sym">:~$</span>
+  </a>
+  <div class="nav-sep"></div>
+  <ul class="nav-links">
+    <li><a href="{{ "/" | relative_url }}"><span class="slash">~/</span>home</a></li>
+    <li><a href="{{ "/writeups/" | relative_url }}"><span class="slash">~/</span>writeups</a></li>
+    <li><a href="{{ "/projects/" | relative_url }}"><span class="slash">~/</span>projects</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="status-dot"></span>
+    <span>online</span>
+    <button class="theme-toggle" id="theme-toggle" title="Toggle theme">☀</button>
+  </div>
+</nav>
+
+<!-- ── Page layout ── -->
+<div class="course-shell">
+
+  <!-- Main article -->
+  <main class="course-content">
+
+    <!-- Breadcrumb -->
+    <div class="course-breadcrumb">
+      <a href="{{ "/courses/" | relative_url }}">ACADEMY</a>
+      <span class="sep">/</span>
+      {% if page.category %}
+      <a href="{{ "/courses/" | relative_url }}">{{ page.category | upcase }}</a>
+      <span class="sep">/</span>
+      {% endif %}
+      <span>{{ page.title | truncate: 40 }}</span>
     </div>
 
-    <div class="course-layout">
-        <main class="course-content">
-            <div style="margin-bottom: 20px;">
-                <a href="/courses/" onclick="history.back(); return false;" style="
-                    color: var(--course-accent);
-                    font-family: 'JetBrains Mono', monospace;
-                    text-decoration: none;
-                    font-size: 0.9rem;
-                    opacity: 0.7;
-                    transition: 0.3s;
-                    display: inline-block;
-                " onmouseover="this.style.opacity='1'; this.style.letterSpacing='1px'" onmouseout="this.style.opacity='0.7'; this.style.letterSpacing='0'">
-                    [ Users:~$ cd .. ]
-                </a>
-            </div>
+    <!-- Title -->
+    <h1 class="course-title">{{ page.title }}</h1>
 
-            <div style="margin-bottom: 30px; border-bottom: 1px dashed var(--border-color); padding-bottom: 20px;">
-                <h1 style="margin: 0;">{{ page.title }}</h1>
-                <div style="margin-top: 10px; color: var(--text-main); opacity: 0.5; font-family: monospace;">
-                    {% if page.date %}
-                    <span>UPDATED: {{ page.date | date: "%Y-%m-%d" }}</span> |
-                    {% endif %}
-                    <span style="color: var(--course-accent); opacity: 1;">LEVEL: {{ page.difficulty | default: "All Levels" }}</span> |
-                    <span>AUTHOR: {{ page.author | default: "Kaiversus" }}</span>
-                </div>
-            </div>
-
-            {{ content }}
-        </main>
-
-        <aside class="course-sidebar">
-            <div class="toc-header">// COURSE_CURRICULUM</div>
-            <ul id="toc"></ul>
-        </aside>
+    <!-- Meta -->
+    <div class="course-meta">
+      <span>UPDATED: {{ page.date | date: "%Y-%m-%d" }}</span>
+      {% if page.difficulty %}
+      <span>LEVEL: <span class="level">{{ page.difficulty | capitalize }}</span></span>
+      {% endif %}
+      {% if page.author %}
+      <span>AUTHOR: {{ page.author }}</span>
+      {% endif %}
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            /* AUTO WRAP TABLES */
-            const tables = document.querySelectorAll('.course-content table');
-            tables.forEach(table => {
-                if (!table.parentElement.classList.contains('table-responsive')) {
-                    const wrapper = document.createElement('div');
-                    wrapper.className = 'table-responsive';
-                    table.parentNode.insertBefore(wrapper, table);
-                    wrapper.appendChild(table);
-                }
-            });
+    <!-- Body content -->
+    <div class="course-body">
+      {{ content }}
+    </div>
 
-            /* BUILD TABLE OF CONTENTS */
-            const toc = document.getElementById('toc');
-            const headers = document.querySelectorAll('.course-content h2, .course-content h3');
-            const tocLinks = [];
+    <!-- Prev/Next navigation (optional — uses Jekyll site.courses) -->
+    {% assign all_courses = site.courses | sort: "date" %}
+    {% for c in all_courses %}
+      {% if c.url == page.url %}
+        {% assign cur_idx = forloop.index0 %}
+      {% endif %}
+    {% endfor %}
 
-            if (headers.length === 0) {
-                const sidebar = document.querySelector('.course-sidebar');
-                if (sidebar) sidebar.style.display = 'none';
-            }
+    {% if cur_idx %}
+      {% assign prev_idx = cur_idx | minus: 1 %}
+      {% assign next_idx = cur_idx | plus: 1 %}
+    {% endif %}
 
-            headers.forEach(header => {
-                const id = header.id || header.textContent.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-');
-                header.id = id;
-                const li = document.createElement('li');
-                const a = document.createElement('a');
-                a.href = `#${id}`;
-                a.textContent = header.textContent;
-                if (header.tagName === 'H3') a.style.paddingLeft = "40px";
-                a.classList.add('toc-link');
-                tocLinks.push(a);
-                li.appendChild(a);
-                toc.appendChild(li);
-            });
+    <div class="course-nav">
+      {% if prev_idx >= 0 %}
+        {% assign prev_post = all_courses[prev_idx] %}
+        {% if prev_post %}
+        <a href="{{ prev_post.url }}" class="course-nav-btn prev">
+          <span class="nav-dir">← PREVIOUS</span>
+          <span class="nav-title">{{ prev_post.title | truncate: 50 }}</span>
+        </a>
+        {% else %}<div></div>{% endif %}
+      {% else %}<div></div>{% endif %}
 
-            /* SCROLL SPY */
-            const observer = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        document.querySelectorAll('.toc-link').forEach(l => l.classList.remove('active'));
-                        const active = document.querySelector(`.toc-link[href="#${entry.target.id}"]`);
-                        if (active) active.classList.add('active');
-                    }
-                });
-            }, { root: null, rootMargin: '0px 0px -50% 0px', threshold: 0 });
+      {% assign next_post = all_courses[next_idx] %}
+      {% if next_post %}
+      <a href="{{ next_post.url }}" class="course-nav-btn next">
+        <span class="nav-dir">NEXT →</span>
+        <span class="nav-title">{{ next_post.title | truncate: 50 }}</span>
+      </a>
+      {% endif %}
+    </div>
 
-            headers.forEach(h => observer.observe(h));
+  </main>
 
-            /* Highlight last item when scrolled to bottom */
-            window.addEventListener('scroll', () => {
-                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
-                    document.querySelectorAll('.toc-link').forEach(l => l.classList.remove('active'));
-                    if (tocLinks.length > 0) tocLinks[tocLinks.length - 1].classList.add('active');
-                }
-            });
+  <!-- TOC Sidebar -->
+  <aside class="course-toc">
+    <div class="toc-inner">
+      <p class="toc-label">COURSE_CURRICULUM</p>
+      <ul id="toc-list"></ul>
+    </div>
+  </aside>
 
-            /* COPY CODE BUTTONS */
-            document.querySelectorAll('.course-content pre').forEach(pre => {
-                if (!pre.querySelector('code')) return;
-                const wrapper = pre.closest('div.highlighter-rouge') || pre.parentElement;
-                if (wrapper.querySelector('.copy-btn')) return;
+</div>
 
-                const btn = document.createElement('button');
-                btn.className = 'copy-btn';
-                btn.textContent = 'Copy';
-                btn.onclick = () => {
-                    navigator.clipboard.writeText(pre.innerText);
-                    btn.textContent = 'Copied!';
-                    btn.style.background = 'var(--course-accent)';
-                    btn.style.color = '#000';
-                    setTimeout(() => { btn.textContent = 'Copy'; btn.style.background = ''; btn.style.color = ''; }, 2000);
-                };
-                if (getComputedStyle(wrapper).position === 'static') wrapper.style.position = 'relative';
-                wrapper.appendChild(btn);
-            });
-        });
-    </script>
+<!-- Footer -->
+<footer>
+  <div class="footer-brand">
+    <strong>kaiversus</strong>
+    <span style="opacity:0.4"> — </span>
+    <span>Dinh Thien Bao · 52Hz</span>
+  </div>
+  <div class="footer-links">
+    <a href="#">GitHub</a>
+    <a href="#">CTFtime</a>
+    <a href="#">Twitter</a>
+    <a href="#">RSS</a>
+  </div>
+</footer>
+
+<script>
+// ── Build TOC from headings ──
+(function() {
+  const body = document.querySelector('.course-body');
+  const list = document.getElementById('toc-list');
+  if (!body || !list) return;
+
+  const headings = body.querySelectorAll('h2, h3');
+  if (headings.length === 0) return;
+
+  headings.forEach((h, i) => {
+    if (!h.id) h.id = 'heading-' + i;
+    const li = document.createElement('li');
+    const a  = document.createElement('a');
+    a.href = '#' + h.id;
+    a.textContent = h.textContent;
+    a.className = 'toc-link ' + h.tagName.toLowerCase();
+    li.appendChild(a);
+    list.appendChild(li);
+  });
+
+  // Scroll spy
+  const links = list.querySelectorAll('.toc-link');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const active = list.querySelector(`[href="#${e.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-10% 0px -80% 0px' });
+
+  headings.forEach(h => obs.observe(h));
+})();
+
+// ── Copy buttons for code blocks ──
+document.querySelectorAll('.course-body div.highlight, .course-body pre').forEach(block => {
+  const btn = document.createElement('button');
+  btn.className = 'copy-btn';
+  btn.textContent = 'COPY';
+  block.style.position = 'relative';
+  block.appendChild(btn);
+  btn.addEventListener('click', () => {
+    const code = block.querySelector('code') || block;
+    navigator.clipboard.writeText(code.textContent).then(() => {
+      btn.textContent = 'COPIED';
+      setTimeout(() => btn.textContent = 'COPY', 1800);
+    });
+  });
+});
+</script>
 </body>
 </html>
