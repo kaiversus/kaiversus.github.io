@@ -4,12 +4,31 @@ title: Courses Library
 permalink: /courses/
 ---
 <style>
-    /* --- CSS THEME MÀU CAM --- */
     :root {
-        --course-theme: #ffaa00; /* Màu Cam Neon */
+        --course-theme:    #ffaa00;
+        --cat-row-bg:      rgba(10, 10, 10, 0.6);
+        --cat-row-border:  #333;
+        --cat-row-text:    #fff;
+        --module-bg:       rgba(0, 0, 0, 0.4);
+        --module-border:   #333;
+        --module-title:    #ddd;
+        --module-desc:     #888;
+        --section-bg:      rgba(5, 12, 20, 0.85);
     }
 
-    /* 1. GIAO DIỆN DANH SÁCH DỌC (CATEGORY LIST) */
+    /* Light mode overrides */
+    html.light {
+        --course-theme:    #cc7700;
+        --cat-row-bg:      rgba(220, 210, 190, 0.6);
+        --cat-row-border:  #c8bfaa;
+        --cat-row-text:    #2a2520;
+        --module-bg:       rgba(240, 233, 220, 0.8);
+        --module-border:   #c8bfaa;
+        --module-title:    #2a2520;
+        --module-desc:     #6a6050;
+        --section-bg:      rgba(240, 233, 220, 0.8);
+    }
+
     .category-list {
         display: flex;
         flex-direction: column;
@@ -22,17 +41,17 @@ permalink: /courses/
         justify-content: space-between;
         align-items: center;
         padding: 20px;
-        border: 1px solid #333;
-        background: rgba(10, 10, 10, 0.6);
+        border: 1px solid var(--cat-row-border);
+        background: var(--cat-row-bg);
         cursor: pointer;
-        transition: 0.3s;
+        transition: background 0.3s, border-color 0.3s, transform 0.3s;
         font-family: 'Rajdhani', sans-serif;
     }
 
     .cat-row:hover {
         border-color: var(--course-theme);
-        background: rgba(255, 170, 0, 0.05);
-        transform: translateX(10px); /* Hiệu ứng đẩy sang phải */
+        background: rgba(255, 170, 0, 0.08);
+        transform: translateX(10px);
     }
 
     .cat-id {
@@ -42,12 +61,15 @@ permalink: /courses/
         font-size: 0.9rem;
     }
 
+    html.light .cat-id { color: #9a8a70; }
+
     .cat-name {
         font-family: 'Orbitron', sans-serif;
         font-size: 1.2rem;
-        color: #fff;
+        color: var(--cat-row-text);
         flex-grow: 1;
         letter-spacing: 1px;
+        transition: color 0.2s;
     }
 
     .cat-abbr {
@@ -55,14 +77,15 @@ permalink: /courses/
         font-family: monospace;
         font-size: 0.9rem;
         opacity: 0.7;
+        transition: opacity 0.2s, letter-spacing 0.2s;
     }
 
     .cat-row:hover .cat-name { color: var(--course-theme); }
     .cat-row:hover .cat-abbr { opacity: 1; letter-spacing: 2px; }
 
-    /* 2. GIAO DIỆN CHI TIẾT (MODULE LIST) - Mặc định ẩn */
+    /* Detail view */
     .course-detail-view {
-        display: none; /* Ẩn đi chờ kích hoạt */
+        display: none;
         animation: fadeIn 0.5s ease;
     }
 
@@ -74,31 +97,50 @@ permalink: /courses/
     }
 
     .module-card {
-        background: rgba(0, 0, 0, 0.4);
-        border: 1px solid #333;
-        border-left: 3px solid #444; /* Viền trái xám */
+        background: var(--module-bg);
+        border: 1px solid var(--module-border);
+        border-left: 3px solid #444;
         padding: 20px;
         cursor: pointer;
-        transition: 0.3s;
+        transition: border-color 0.3s, background 0.3s, transform 0.3s;
     }
 
     .module-card:hover {
-        border-left-color: var(--course-theme); /* Hover thành cam */
-        background: rgba(255, 170, 0, 0.05);
+        border-left-color: var(--course-theme);
+        background: rgba(255, 170, 0, 0.06);
         transform: translateY(-5px);
     }
 
+    html.light .module-card:hover {
+        background: rgba(200, 130, 0, 0.06);
+    }
+
     .module-title {
-        color: #ddd;
+        color: var(--module-title);
         font-family: 'Rajdhani', sans-serif;
         font-weight: 700;
         font-size: 1.2rem;
         margin-bottom: 10px;
+        transition: color 0.2s;
     }
 
     .module-card:hover .module-title { color: var(--course-theme); }
 
-    /* Nút Back */
+    .module-meta {
+        font-size: 0.8rem;
+        color: var(--module-desc);
+        font-family: monospace;
+        margin-bottom: 5px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .module-desc {
+        color: var(--module-desc);
+        font-size: 0.9rem;
+        margin: 0;
+    }
+
     .back-nav {
         display: inline-flex;
         align-items: center;
@@ -107,53 +149,43 @@ permalink: /courses/
         font-family: monospace;
         margin-bottom: 20px;
         border-bottom: 1px solid transparent;
+        transition: color 0.2s, border-color 0.2s;
     }
     .back-nav:hover { color: var(--course-theme); border-bottom-color: var(--course-theme); }
+    html.light .back-nav { color: #9a8a70; }
 
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
+        to   { opacity: 1; transform: translateY(0); }
     }
 </style>
 
 <section class="container" style="margin-top: 50px;">
-    
-    <div style="display: flex; justify-content: space-between; align-items: end; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px;">
+
+    <div style="display: flex; justify-content: space-between; align-items: end; border-bottom: 1px solid var(--border, #333); padding-bottom: 10px; margin-bottom: 20px;">
         <h1 style="color: var(--course-theme); margin: 0;">// ACADEMY_DATABASE</h1>
         <span style="font-family: monospace; color: #666;">SYS_STATUS: ONLINE</span>
     </div>
     <a href="/" class="btn-cyber secondary" style="font-size: 0.8rem;"><< BACK_TO_ROOT</a>
+
     <div id="category-view" class="category-list">
-        
+
         <div class="cat-row" onclick="openCourse('Malware')">
             <span class="cat-id">[ 0x01 ]</span>
             <span class="cat-name">MALWARE ANALYSIS</span>
             <span class="cat-abbr">&lt;DIR_MLW&gt;</span>
         </div>
-        
+
         <div class="cat-row" onclick="openCourse('TryHackMe')">
             <span class="cat-id">[ 0x02 ]</span>
             <span class="cat-name">TRYHACKME</span>
             <span class="cat-abbr">&lt;DIR_CRY&gt;</span>
         </div>
-        <!--
-        <div class="cat-row" onclick="openCourse('Web')">
-            <span class="cat-id">[ 0x03 ]</span>
-            <span class="cat-name">WEB EXPLOITATION</span>
-            <span class="cat-abbr">&lt;DIR_WEB&gt;</span>
-        </div>
-
-        <div class="cat-row" onclick="openCourse('Reverse')">
-            <span class="cat-id">[ 0x04 ]</span>
-            <span class="cat-name">REVERSE ENGINEERING</span>
-            <span class="cat-abbr">&lt;DIR_REV&gt;</span>
-        </div>
-        -->
 
     </div>
 
     <div id="detail-view" class="course-detail-view">
-        
+
         <div class="back-nav" onclick="closeCourse()">
             <span>&lt;&lt; CD .. (RETURN)</span>
         </div>
@@ -161,22 +193,22 @@ permalink: /courses/
         <h2 id="course-title-display" style="color: var(--course-theme); font-family: 'Orbitron'; margin-bottom: 5px;">
             // LOADING...
         </h2>
-        <p style="color: #666; font-family: monospace; margin-bottom: 30px;">> List of available modules in this directory:</p>
+        <p style="font-family: monospace; margin-bottom: 30px; opacity: 0.5;">> List of available modules in this directory:</p>
 
         <div class="module-grid">
             {% assign sorted_courses = site.courses | sort: 'title' %}
             {% for post in sorted_courses %}
-            <article class="module-card filter-item" 
-                     data-cat="{{ post.category | default: 'General' }}" 
+            <article class="module-card filter-item"
+                     data-cat="{{ post.category | default: 'General' }}"
                      onclick="window.location.href='{{ post.url }}'">
-                
-                <div style="font-size: 0.8rem; color: #555; font-family: monospace; margin-bottom: 5px; display: flex; justify-content: space-between;">
+
+                <div class="module-meta">
                     <span>{{ post.date | date: "%Y-%m-%d" }}</span>
                     <span>[{{ post.difficulty | default: 'UNK' | upcase }}]</span>
                 </div>
-                
+
                 <h4 class="module-title">{{ post.title }}</h4>
-                <p style="color: #888; font-size: 0.9rem; margin: 0;">{{ post.description | truncate: 100 }}</p>
+                <p class="module-desc">{{ post.description | truncate: 100 }}</p>
             </article>
             {% endfor %}
         </div>
@@ -186,41 +218,23 @@ permalink: /courses/
 
 <script>
     function openCourse(category) {
-        // 1. Ẩn danh sách chính
         document.getElementById('category-view').style.display = 'none';
-        
-        // 2. Hiện view chi tiết
         let detailView = document.getElementById('detail-view');
         detailView.style.display = 'block';
-        
-        // 3. Cập nhật tiêu đề
         document.getElementById('course-title-display').innerText = `// DIRECTORY: ${category.toUpperCase()}`;
 
-        // 4. Lọc bài viết
         let items = document.getElementsByClassName('filter-item');
-        let count = 0;
-
         for (let i = 0; i < items.length; i++) {
             let item = items[i];
-            let itemCats = item.getAttribute('data-cat'); 
-            
-            // Logic lọc
-            if (itemCats.includes(category)) {
-                item.style.display = "block";
-                count++;
-            } else {
-                item.style.display = "none";
-            }
+            item.style.display = item.getAttribute('data-cat').includes(category) ? "block" : "none";
         }
-
-        // Scroll lên đầu nhẹ nhàng
         window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
     function closeCourse() {
-        // Quay lại view danh sách
         document.getElementById('detail-view').style.display = 'none';
-        document.getElementById('category-view').style.display = 'flex';
-        document.getElementById('category-view').style.animation = 'fadeIn 0.3s ease';
+        let catView = document.getElementById('category-view');
+        catView.style.display = 'flex';
+        catView.style.animation = 'fadeIn 0.3s ease';
     }
 </script>
