@@ -599,87 +599,15 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
 .highlight .m, .highlight .mi, .highlight .mf, .highlight .mh { color: #d19a66; } /* Number - Cam đất */
 .highlight .o, .highlight .ow { color: #56b6c2; } /* Operator - Xanh lơ */
 
-/* --- CỘT MỤC LỤC BÊN PHẢI (FIX NẰM DỌC) --- */
+/* --- TOC Sidebar (cleaned) --- */
 .writeup-sidebar {
-    width: 280px;
-    position: sticky;
-    top: 100px; 
-    flex-shrink: 0;
+  width: 280px;
+  flex-shrink: 0;
 }
-
-.toc-wrapper {
-    padding-left: 20px;
-    text-align: left !important; /* Ép căn trái toàn bộ */
-}
-
-.toc-title {
-    color: #fff;
-    font-size: 0.9rem;
-    font-weight: bold;
-    margin-bottom: 25px;
-    letter-spacing: 2px;
-    font-family: 'Orbitron', sans-serif;
-    text-transform: uppercase;
-}
-
-/* Định dạng thẻ bọc Mục lục để bắt buộc xếp dọc */
-#custom-toc {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: flex-start;
-}
-
-/* Định dạng từng dòng mục lục */
-#custom-toc .toc-link {
-    /* Xóa sạch mọi định dạng mặc định từ theme gốc */
-    all: unset; 
-    
-    /* Thiết lập lại từ đầu */
-    display: block !important;
-    width: 100%;
-    cursor: pointer;
-    color: #888 !important;
-    font-size: 0.95rem;
-    font-family: 'Courier New', monospace;
-    line-height: 2; /* Tăng khoảng cách dòng cho thoáng */
-    transition: all 0.2s ease;
-    
-    /* KHÔNG CHO PHÉP BẤT KỲ ĐƯỜNG KẺ NÀO XUẤT HIỆN */
-    text-decoration: none !important;
-    border: none !important;
-    border-bottom: 0 !important;
-    box-shadow: none !important; /* Quan trọng: Xóa đổ bóng giả đường kẻ */
-    outline: none !important;
-}
-
-/* Hiệu ứng khi di chuột vào mục lục */
-#custom-toc .toc-link:hover {
-    color: #4ade80 !important; /* Màu xanh mint của bạn */
-    padding-left: 8px; /* Hiệu ứng trượt nhẹ sang phải */
-    background: transparent !important;
-    text-decoration: none !important;
-    border: none !important;
-    box-shadow: none !important;
-}
-
-/* Phân cấp rõ H2 và H3 trong mục lục */
-.toc-link.h2 {
-    color: #aaa;
-    font-weight: bold;
-    margin-top: 5px;
-}
-/* Thụt lề cho mục nhỏ (H3) */
-#custom-toc .toc-link.h3 {
-    padding-left: 20px;
-    font-size: 0.85rem;
-    opacity: 0.8;
-}
-.toc-link.h3:hover::before { color: var(--primary); }
 
 @media (max-width: 900px) {
-    .writeup-container { flex-direction: column; }
-    .writeup-sidebar { display: none; }
+  .writeup-container { flex-direction: column; }
+  .writeup-sidebar { display: none; }
 }
 
 /* ============================================================
@@ -807,23 +735,17 @@ html.light .toc-link.active{ color: #1e6e28 !important; }
    3. TABLES — compact, both themes
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 
-/* Wrap for horizontal scroll without clipping */
+/* Tables — horizontal scroll, không mất cột */
 .writeup-content table {
-  display: table !important;        /* NOT block — prevents cell clipping */
+  display: block !important;
   width: 100% !important;
   max-width: 100% !important;
   border-collapse: collapse !important;
   font-size: 0.8rem !important;
   line-height: 1.45 !important;
-  overflow: visible !important;     /* let parent handle overflow */
-}
-
-/* Wrap tables to enable horizontal scroll */
-.writeup-content table {
-  display: block !important;
   overflow-x: auto !important;
   -webkit-overflow-scrolling: touch;
-  white-space: nowrap;              /* force scroll, prevent wrap-clips */
+  scrollbar-width: thin;
 }
 /* But allow cells to wrap internally */
 .writeup-content th,
