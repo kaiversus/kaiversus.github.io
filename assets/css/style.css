@@ -293,17 +293,14 @@ footer { max-width: 900px; margin: 0 auto; padding: var(--space-xl) var(--space-
 }
 
 /* =========================================
-   LÀM NỔI BẬT THANH ĐIỀU HƯỚNG (NAV BAR)
+   NAV BAR
    ========================================= */
-
-/* 1. Chế độ Tối (Dark Mode) */
 .nav-logo-at   { color: rgba(255,255,255,0.7) !important; }
 .nav-logo-host { color: #ffffff !important; }
 .nav-links a   { color: rgba(255,255,255,0.85) !important; font-weight: 600; }
 .nav-links a .slash { color: var(--green) !important; font-weight: 700; }
 .nav-right     { color: rgba(255,255,255,0.85) !important; font-weight: 600; }
 
-/* 2. Chế độ Sáng (Light Mode) */
 html.light .nav-logo-at   { color: rgba(0,0,0,0.6) !important; }
 html.light .nav-logo-host { color: #1c1a14 !important; font-weight: 800; }
 html.light .nav-links a   { color: #1c1a14 !important; font-weight: 700; }
@@ -311,512 +308,337 @@ html.light .nav-links a .slash { color: #1e6e28 !important; font-weight: 800; }
 html.light .nav-right     { color: #1c1a14 !important; font-weight: 700; }
 html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,0.4) !important; }
 
+/* =========================================
+   SYS-READER (legacy, unused but kept)
+   ========================================= */
+.sys-reader-body { font-family: 'Rajdhani', sans-serif; color: #ccc; font-size: 1.15rem; line-height: 1.7; }
+.sys-reader-body h1, .sys-reader-body h2, .sys-reader-body h3 { font-family: 'Orbitron', sans-serif; color: var(--primary); margin-top: 35px; margin-bottom: 15px; letter-spacing: 1px; }
+.sys-reader-body h2 { border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+.sys-reader-body h3 { color: #fff; }
+.sys-reader-body a { color: var(--accent); text-decoration: none; border-bottom: 1px dashed var(--accent); transition: 0.3s; }
+.sys-reader-body a:hover { color: #fff; border-bottom-style: solid; }
+.sys-reader-body code { font-family: 'Courier New', monospace; background: #000; color: var(--accent); padding: 2px 6px; border-radius: 4px; font-size: 0.95rem; border: 1px solid rgba(255,255,255,0.05); }
+.sys-reader-body pre { background: var(--bg-dark) !important; border: 1px solid rgba(255,255,255,0.1); border-left: 3px solid var(--primary); padding: 20px; border-radius: 5px; overflow-x: auto; margin: 20px 0; }
+.sys-reader-body pre code { background: transparent; color: #00ff41; padding: 0; border: none; }
+.sys-reader-body table { width: 100%; border-collapse: collapse; margin: 25px 0; font-size: 1rem; }
+.sys-reader-body th, .sys-reader-body td { border: 1px solid rgba(255,255,255,0.1); padding: 12px; }
+.sys-reader-body th { background: rgba(0,255,65,0.05); color: var(--primary); font-family: 'Orbitron', sans-serif; text-align: left; }
+.sys-reader-body blockquote { border-left: 3px solid #555; margin: 20px 0; padding: 10px 20px; color: #888; background: rgba(255,255,255,0.02); }
 
 /* =========================================
-   HỆ THỐNG ĐỌC FILE (MARKDOWN CONTENT)
+   WRITEUP / COURSE LAYOUT
    ========================================= */
-.sys-reader-body {
-    font-family: 'Rajdhani', sans-serif;
-    color: #ccc;
-    font-size: 1.15rem;
-    line-height: 1.7;
-}
-
-.sys-reader-body h1, 
-.sys-reader-body h2, 
-.sys-reader-body h3 {
-    font-family: 'Orbitron', sans-serif;
-    color: var(--primary);
-    margin-top: 35px;
-    margin-bottom: 15px;
-    letter-spacing: 1px;
-}
-
-.sys-reader-body h2 {
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 10px;
-}
-
-.sys-reader-body h3 {
-    color: #fff;
-}
-
-.sys-reader-body a {
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px dashed var(--accent);
-    transition: 0.3s;
-}
-
-.sys-reader-body a:hover {
-    color: #fff;
-    border-bottom-style: solid;
-}
-
-/* Code block & Inline code */
-.sys-reader-body code {
-    font-family: 'Courier New', monospace;
-    background: #000;
-    color: var(--accent);
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 0.95rem;
-    border: 1px solid rgba(255,255,255,0.05);
-}
-
-.sys-reader-body pre {
-    background: var(--bg-dark) !important;
-    border: 1px solid rgba(255,255,255,0.1);
-    border-left: 3px solid var(--primary);
-    padding: 20px;
-    border-radius: 5px;
-    overflow-x: auto;
-    margin: 20px 0;
-}
-
-.sys-reader-body pre code {
-    background: transparent;
-    color: #00ff41; /* Màu Terminal mặc định */
-    padding: 0;
-    border: none;
-}
-
-/* Bảng biểu (Tables) */
-.sys-reader-body table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 1rem;
-}
-
-.sys-reader-body th, .sys-reader-body td {
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 12px;
-}
-
-.sys-reader-body th {
-    background: rgba(0, 255, 65, 0.05);
-    color: var(--primary);
-    font-family: 'Orbitron', sans-serif;
-    text-align: left;
-}
-
-/* Trích dẫn (Blockquote) */
-.sys-reader-body blockquote {
-    border-left: 3px solid #555;
-    margin: 20px 0;
-    padding: 10px 20px;
-    color: #888;
-    background: rgba(255,255,255,0.02);
-}
-
-/* =========================================
-   GIAO DIỆN WRITEUP - SYSTEM TERMINAL THEME
-   ========================================= */
-
 .writeup-container {
-    display: flex;
-    max-width: 1150px;
-    margin: 60px auto;
-    padding: 0 20px;
-    gap: 60px;
-    align-items: flex-start;
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  max-width: 1160px;
+  margin: 60px auto;
+  padding: 0 32px;
 }
 
-/* --- CỘT NỘI DUNG CHÍNH --- */
 .writeup-content {
-    flex: 1;
-    min-width: 0; 
-    max-width: 900px;
-    color: #d1d5db; /* Màu xám trắng sáng hơn, rất dễ đọc */
-    font-family: 'Rajdhani', 'Courier New', monospace; /* Đồng bộ font với trang chủ */
-    font-size: 0.9rem;
-    line-height: 1.8;
+  flex: 1 1 0;
+  min-width: 0;
+  color: #d1d5db;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.8;
 }
 
-.writeup-header {
-    margin-bottom: 50px;
-    border-bottom: 1px dashed rgba(255,255,255,0.15);
-    padding-bottom: 25px;
-}
-
-.terminal-prompt {
-    color: #888;
-    font-family: 'Courier New', monospace;
-    font-size: 0.95rem;
-    margin-bottom: 15px;
-}
-
-.writeup-header h1 {
-    color: #fff;
-    font-size: 2.6rem;
-    margin: 0 0 10px 0;
-    font-family: 'Orbitron', sans-serif; /* Font Cyberpunk của bạn */
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-}
-
-/* --- PHÂN CẤP HEADING (H2, H3) RÕ RÀNG --- */
-.writeup-content h2, .writeup-content h3 {
-    font-family: 'Orbitron', sans-serif;
-    text-transform: uppercase;
-    margin-top: 2.5em;
-    margin-bottom: 1em;
-    letter-spacing: 1px;
-}
-
-/* H2: Có đường gạch chân và ký tự // phía trước */
-.writeup-content h2 {
-    color: #4ade80 !important; /* Màu xanh lá mint chuẩn của chữ SYSTEM */
-    font-size: 1.6rem;
-    padding-bottom: 10px;
-    display: flex;
-    align-items: center;
-}
-
-/* H3: Có vạch nhấn màu đỏ/hồng bên trái */
-.writeup-content h3 {
-    color: #fff;
-    font-size: 1.3rem;
-    border-left: 3px solid var(--accent);
-    padding-left: 15px;
-}
-
-.writeup-content a { color: var(--primary); text-decoration: none; border-bottom: 1px dashed var(--primary); }
-.writeup-content a:hover { color: #fff; background: rgba(0, 255, 65, 0.1); }
-
-/* --- BẢNG BIỂU (TABLES) --- */
-.writeup-content table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 2em 0;
-    font-family: 'Courier New', monospace;
-    font-size: 0.95rem;
-    background: rgba(5, 10, 20, 0.5); /* Trùng với màu kính trang chủ */
-}
-.writeup-content th, .writeup-content td {
-    border: 1px solid rgba(255,255,255,0.05);
-    padding: 15px;
-    text-align: left;
-}
-.writeup-content th {
-    background: rgba(0, 255, 65, 0.05);
-    color: var(--primary);
-}
-
-/* --- CODE BLOCKS & INLINE CODE --- */
-/* Code nội dòng (Inline Code) */
-.writeup-content p code, .writeup-content li code {
-    background: rgba(255,255,255,0.08);
-    color: #e5c07b; /* Vàng nhạt dịu mắt */
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 0.9em;
-    font-family: 'Courier New', monospace;
-}
-
-/* KHỐI CODE LỚN (Loại bỏ viền thừa) */
-.writeup-content div.highlight {
-    background: #161b22; /* Đen nhám dịu mắt như Github Dark */
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 8px;
-    margin: 2em 0;
-    position: relative; /* Dùng để neo nút Copy */
-    font-size: 0.9em;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-/* Đảm bảo thẻ pre bên trong không đè màu khác lên */
-.writeup-content div.highlight pre {
-    background: transparent !important;
-    padding: 20px;
-}
-
-/* Xóa bỏ mọi padding/margin/background của thẻ pre bên trong để không bị hộp lồng hộp */
-.writeup-content div.highlight pre {
-    margin: 0;
-    padding: 20px;
-    background: transparent !important;
-    border: none;
-    box-shadow: none;
-    overflow-x: auto;
-}
-/* Nếu có inline code (mã trong dòng văn bản), cũng nên cho sáng lên tương ứng */
-.writeup-content p code, .writeup-content li code {
-    background: #21262d; /* Sáng hơn nền block code một chút */
-    color: #4ade80; /* Màu xanh terminal bạn thích */
-    padding: 3px 6px;
-    border-radius: 4px;
-}
-
-/* Trường hợp mã Markdown sinh ra thẻ pre đứng một mình không có div bọc */
-.writeup-content > pre {
-    background: #0d1117 !important;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 8px;
-    padding: 20px;
-    margin: 2em 0;
-    overflow-x: auto;
-    position: relative;
-}
-
-.writeup-content pre code {
-    color: #abb2bf; /* Xám nhạt chuẩn One Dark - rất dịu mắt */
-    font-family: 'Courier New', monospace;
-    font-size: 0.9rem;
-    line-height: 1.6;
-}
-
-/* --- Tinh chỉnh Nút Copy --- */
-.copy-btn {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: transparent;
-    color: #5c6370;
-    border: 1px solid #5c6370;
-    border-radius: 4px;
-    padding: 4px 12px;
-    font-size: 0.75rem;
-    font-family: 'Courier New', monospace;
-    cursor: pointer;
-    transition: 0.2s;
-    z-index: 10;
-}
-.copy-btn:hover { 
-    background: rgba(255,255,255,0.1); 
-    color: #abb2bf; 
-    border-color: #abb2bf;
-}
-
-/* --- SYNTAX HIGHLIGHTING (Theme: One Dark - Dịu mắt, Pastel) --- */
-.highlight .c, .highlight .cm, .highlight .c1 { color: #5c6370; font-style: italic; } /* Comment - Xám chìm */
-.highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr { color: #c678dd; } /* Keyword - Tím nhạt */
-.highlight .s, .highlight .s1, .highlight .s2, .highlight .sa, .highlight .sb, .highlight .dl { color: #98c379; } /* String - Xanh lá mạ */
-.highlight .n, .highlight .nx { color: #abb2bf; } /* Variable/Text - Xám nhạt */
-.highlight .nf, .highlight .fm { color: #61afef; } /* Function - Xanh dương nhạt */
-.highlight .m, .highlight .mi, .highlight .mf, .highlight .mh { color: #d19a66; } /* Number - Cam đất */
-.highlight .o, .highlight .ow { color: #56b6c2; } /* Operator - Xanh lơ */
-
-/* --- TOC Sidebar (cleaned) --- */
-.writeup-sidebar {
-  width: 280px;
-  flex-shrink: 0;
-}
-
-@media (max-width: 900px) {
-  .writeup-container { flex-direction: column; }
-  .writeup-sidebar { display: none; }
-}
-
-/* ============================================================
-   FINAL PATCH — Dán vào CUỐI assets/css/style.css
-   Xóa toàn bộ "GLOBAL PATCH" cũ trước khi paste cái này
-   ============================================================ */
-
-/* ── 1. Layout ── */
-.writeup-container {
-  display: flex !important;
-  align-items: flex-start !important;
-  gap: 40px !important;
-  max-width: 1160px !important;
-  margin: 60px auto !important;
-  padding: 0 32px !important;
-}
-.writeup-content {
-  flex: 1 1 0 !important;
-  min-width: 0 !important;
-}
 .writeup-content img {
-  max-width: 100% !important;
-  height: auto !important;
+  max-width: 100%;
+  height: auto;
   display: block;
 }
 
-/* ── 2. Sidebar wrapper ── */
-.writeup-sidebar {
-  width: 200px !important;
-  min-width: 200px !important;
-  max-width: 200px !important;
-  flex-shrink: 0 !important;
+.writeup-header {
+  margin-bottom: 50px;
+  border-bottom: 1px dashed rgba(255,255,255,0.15);
+  padding-bottom: 25px;
 }
-.toc-wrapper {
-  position: sticky !important;
-  top: 72px !important;
-  max-height: calc(100vh - 100px) !important;
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-  scrollbar-width: none !important;
+
+.terminal-prompt {
+  color: #888;
+  font-family: 'Courier New', monospace;
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+}
+
+.writeup-header h1 {
+  color: #fff;
+  font-size: 2.6rem;
+  margin: 0 0 10px 0;
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 0 15px rgba(255,255,255,0.1);
+}
+
+.writeup-content h2, .writeup-content h3 {
+  font-family: 'Orbitron', sans-serif;
+  text-transform: uppercase;
+  margin-top: 2.5em;
+  margin-bottom: 1em;
+  letter-spacing: 1px;
+}
+
+.writeup-content h2 {
+  color: #4ade80;
+  font-size: 1.6rem;
+  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.writeup-content h3 {
+  color: #fff;
+  font-size: 1.3rem;
+  border-left: 3px solid #e8002a;
+  padding-left: 15px;
+}
+
+.writeup-content a {
+  color: #4ade80;
+  text-decoration: none;
+  border-bottom: 1px dashed #4ade80;
+}
+.writeup-content a:hover {
+  color: #fff;
+  background: rgba(0,255,65,0.1);
+}
+
+/* ── TABLES — single source of truth ── */
+.writeup-content table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  border-collapse: collapse;
+  margin: 2em 0;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  background: rgba(5,10,20,0.5);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.writeup-content th,
+.writeup-content td {
+  border: 1px solid #30363d;
+  padding: 10px 14px;
+  text-align: left;
+  vertical-align: top;
+  white-space: normal;
+  word-break: break-word;
+  min-width: 80px;
+}
+
+.writeup-content th {
+  background: rgba(63,185,80,0.08);
+  color: #3fb950;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.writeup-content table::-webkit-scrollbar { height: 4px; }
+.writeup-content table::-webkit-scrollbar-track { background: transparent; }
+.writeup-content table::-webkit-scrollbar-thumb { background: #2a3a4a; border-radius: 2px; }
+
+/* ── CODE ── */
+.writeup-content p code, .writeup-content li code, .writeup-content td code {
+  background: #21262d;
+  color: #4ade80;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: 'Courier New', monospace;
+}
+
+.writeup-content div.highlight {
+  background: #161b22;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  margin: 2em 0;
+  position: relative;
+  font-size: 0.9em;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.writeup-content div.highlight pre {
+  margin: 0;
+  padding: 20px;
   background: transparent !important;
-  border: none !important;
-  padding: 0 !important;
+  border: none;
+  box-shadow: none;
+  overflow-x: auto;
 }
-.toc-wrapper::-webkit-scrollbar { display: none !important; }
 
-/* ── 3. TOC title ── */
+.writeup-content > pre {
+  background: #0d1117 !important;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 20px;
+  margin: 2em 0;
+  overflow-x: auto;
+  position: relative;
+}
+
+.writeup-content pre code {
+  color: #abb2bf;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  background: transparent;
+  padding: 0;
+}
+
+/* ── COPY BUTTON ── */
+.copy-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  color: #5c6370;
+  border: 1px solid #5c6370;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  font-family: 'Courier New', monospace;
+  cursor: pointer;
+  transition: 0.2s;
+  z-index: 10;
+}
+.copy-btn:hover { background: rgba(255,255,255,0.1); color: #abb2bf; border-color: #abb2bf; }
+
+/* ── SYNTAX HIGHLIGHT ── */
+.highlight .c, .highlight .cm, .highlight .c1 { color: #5c6370; font-style: italic; }
+.highlight .k, .highlight .kd, .highlight .kn, .highlight .kp, .highlight .kr { color: #c678dd; }
+.highlight .s, .highlight .s1, .highlight .s2, .highlight .sa, .highlight .sb, .highlight .dl { color: #98c379; }
+.highlight .n, .highlight .nx { color: #abb2bf; }
+.highlight .nf, .highlight .fm { color: #61afef; }
+.highlight .m, .highlight .mi, .highlight .mf, .highlight .mh { color: #d19a66; }
+.highlight .o, .highlight .ow { color: #56b6c2; }
+
+/* ── SIDEBAR ── */
+.writeup-sidebar {
+  width: 200px;
+  min-width: 200px;
+  max-width: 200px;
+  flex-shrink: 0;
+}
+
+.toc-wrapper {
+  position: sticky;
+  top: 72px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+.toc-wrapper::-webkit-scrollbar { display: none; }
+
 .toc-title {
-  font-family: 'JetBrains Mono', monospace !important;
-  font-size: 0.62rem !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.16em !important;
-  color: #4a5a70 !important;
-  text-transform: uppercase !important;
-  margin: 0 0 14px !important;
-  padding: 0 !important;
-  border: none !important;
-  background: none !important;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: #4a5a70;
+  text-transform: uppercase;
+  margin: 0 0 14px;
+  padding: 0;
+  border: none;
+  background: none;
 }
-html.light .toc-title { color: #8a7a60 !important; }
+html.light .toc-title { color: #8a7a60; }
 
-/* ── 4. TOC nav container ── */
 #custom-toc {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 0 !important;
-  border-left: 1px solid #1e2d3d !important;
-  padding-left: 12px !important;
-  margin: 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-left: 1px solid #1e2d3d;
+  padding-left: 12px;
+  margin: 0;
 }
-html.light #custom-toc { border-left-color: #c8bfaa !important; }
+html.light #custom-toc { border-left-color: #c8bfaa; }
 
-/* ── 5. TOC links — dùng #custom-toc để specificity cao hơn mọi rule cũ ──
-   KHÔNG dùng all:unset hay all:revert để tránh browser default màu tím     */
 #custom-toc a,
 #custom-toc a:link,
 #custom-toc a:visited {
-  display: block !important;
-  font-family: 'JetBrains Mono', monospace !important;
-  font-size: 0.67rem !important;
-  font-weight: 400 !important;
-  line-height: 1.5 !important;
-  padding: 4px 0 !important;
-  margin: 0 !important;
-  /* Màu chữ — override browser default purple */
-  color: #3a4d5e !important;
-  /* Xóa underline và border của link */
-  text-decoration: none !important;
-  border: none !important;
-  border-bottom: none !important;
-  background: none !important;
-  box-shadow: none !important;
-  outline: none !important;
-  /* Cho chữ xuống dòng thay vì bị cắt */
-  white-space: normal !important;
-  word-break: break-word !important;
-  overflow-wrap: break-word !important;
-  overflow: visible !important;
-  max-width: 100% !important;
-  width: 100% !important;
-  transition: color 0.18s !important;
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.67rem;
+  font-weight: 400;
+  line-height: 1.5;
+  padding: 4px 0;
+  margin: 0;
+  color: #3a4d5e;
+  text-decoration: none;
+  border: none;
+  border-bottom: none;
+  background: none;
+  box-shadow: none;
+  outline: none;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow: visible;
+  max-width: 100%;
+  width: 100%;
+  transition: color 0.18s;
 }
 
 #custom-toc a:hover,
 #custom-toc a:focus {
-  color: #c8cdd6 !important;
-  background: none !important;
-  text-decoration: none !important;
-  border: none !important;
+  color: #c8cdd6;
+  background: none;
+  text-decoration: none;
+  border: none;
 }
 
-/* H2 links */
-#custom-toc a.h2,
-#custom-toc a.toc-link.h2 {
-  color: #4a6070 !important;
-  font-weight: 700 !important;
-  margin-top: 6px !important;
-}
+#custom-toc a.h2 { color: #4a6070; font-weight: 700; margin-top: 6px; }
+#custom-toc a.h3 { padding-left: 10px; font-size: 0.62rem; color: #334455; }
+#custom-toc a.active { color: #3fb950; }
 
-/* H3 links — thụt vào */
-#custom-toc a.h3,
-#custom-toc a.toc-link.h3 {
-  padding-left: 10px !important;
-  font-size: 0.62rem !important;
-  color: #334455 !important;
-}
-
-/* Active state */
-#custom-toc a.active { color: #3fb950 !important; }
-
-/* Light mode TOC */
 html.light #custom-toc a,
 html.light #custom-toc a:link,
-html.light #custom-toc a:visited      { color: #9a8a70 !important; }
-html.light #custom-toc a:hover        { color: #2a2520 !important; }
-html.light #custom-toc a.h2           { color: #8a7a60 !important; }
-html.light #custom-toc a.h3           { color: #aa9a80 !important; }
-html.light #custom-toc a.active       { color: #1e6e28 !important; }
+html.light #custom-toc a:visited { color: #9a8a70; }
+html.light #custom-toc a:hover   { color: #2a2520; }
+html.light #custom-toc a.h2      { color: #8a7a60; }
+html.light #custom-toc a.h3      { color: #aa9a80; }
+html.light #custom-toc a.active  { color: #1e6e28; }
 
 @media (max-width: 900px) {
-  .writeup-container { flex-direction: column !important; }
-  .writeup-sidebar   { display: none !important; }
+  .writeup-container { flex-direction: column; }
+  .writeup-sidebar   { display: none; }
 }
 
-/* ── 6. Table — 1 rule duy nhất ── */
-.writeup-content table {
-  display: block !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  border-collapse: collapse !important;
-  font-size: 0.8rem !important;
-  line-height: 1.45 !important;
-  overflow-x: auto !important;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
-  margin: 2em 0 !important;
-}
-.writeup-content th,
-.writeup-content td {
-  padding: 8px 12px !important;
-  vertical-align: top !important;
-  white-space: normal !important;
-  word-break: break-word !important;
-  min-width: 80px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-  font-size: 0.8rem !important;
-  line-height: 1.5 !important;
-  border: 1px solid #30363d !important;
-}
-.writeup-content th {
-  font-family: 'JetBrains Mono', monospace !important;
-  font-size: 0.7rem !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.05em !important;
-  white-space: nowrap !important;
-  vertical-align: middle !important;
-  background: rgba(0,255,65,0.05) !important;
-  color: #3fb950 !important;
-}
-.writeup-content table::-webkit-scrollbar       { height: 4px; }
-.writeup-content table::-webkit-scrollbar-track { background: transparent; }
-.writeup-content table::-webkit-scrollbar-thumb { background: #2a3a4a; border-radius: 2px; }
+/* ── LIGHT MODE ── */
+html.light .writeup-content          { color: #2a2520; }
+html.light .writeup-header h1        { color: #1c1a14; text-shadow: none; }
+html.light .writeup-content h2       { color: #1e6e28; }
+html.light .writeup-content h3       { color: #1c1a14; border-left-color: #9e001c; }
+html.light .terminal-prompt          { color: #7a6a50; }
+html.light .writeup-meta             { color: #7a6a50; }
+
+html.light .writeup-content table    { background: #f0e9d8; }
+html.light .writeup-content th       { background: #ddd8c4; color: #1e6e28; border-color: #c8bfaa; }
+html.light .writeup-content td       { color: #2a2520; border-color: #c8bfaa; }
+html.light .writeup-content tr:nth-child(even) td { background: rgba(0,0,0,0.03); }
 html.light .writeup-content table::-webkit-scrollbar-thumb { background: #c8bfaa; }
 
-/* ── 7. Light mode — tables ── */
-html.light .writeup-content table    { background: #f0e9d8 !important; }
-html.light .writeup-content th       { background: #ddd8c4 !important; color: #1e6e28 !important; border-color: #c8bfaa !important; }
-html.light .writeup-content td       { color: #2a2520 !important; border-color: #c8bfaa !important; }
-html.light .writeup-content tr:nth-child(even) td { background: rgba(0,0,0,0.03) !important; }
-
-/* ── 8. Light mode — text & headings ── */
-html.light .writeup-content            { color: #2a2520; }
-html.light .writeup-header h1          { color: #1c1a14; text-shadow: none; }
-html.light .writeup-content h2         { color: #1e6e28 !important; }
-html.light .writeup-content h3         { color: #1c1a14; border-left-color: #9e001c !important; }
-html.light .terminal-prompt            { color: #7a6a50; }
-html.light .writeup-meta               { color: #7a6a50; }
-
-/* ── 9. Light mode — code ── */
 html.light .writeup-content div.highlight,
-html.light .writeup-content > pre      { background: #e8e0cc !important; border: 1px solid #c8bfaa !important; }
+html.light .writeup-content > pre    { background: #e8e0cc; border: 1px solid #c8bfaa; }
 html.light .writeup-content div.highlight pre { background: transparent !important; }
-html.light .writeup-content pre code   { color: #2a2520 !important; }
+html.light .writeup-content pre code { color: #2a2520; }
 html.light .writeup-content p code,
 html.light .writeup-content li code,
-html.light .writeup-content td code    { background: rgba(0,0,0,0.07) !important; color: #8a5800 !important; }
+html.light .writeup-content td code  { background: rgba(0,0,0,0.07); color: #8a5800; }
 
-/* ── 10. Light mode — links & copy btn ── */
-html.light .writeup-content a          { color: #1e6e28; }
-html.light .writeup-content a:hover    { background: rgba(30,110,40,0.08); color: #0a3a10; }
-html.light .writeup-content .copy-btn        { background: rgba(0,0,0,0.06); border-color: #c8bfaa; color: #6a6050; }
-html.light .writeup-content .copy-btn:hover  { background: #1e6e28; color: #fff; border-color: #1e6e28; }
+html.light .writeup-content a        { color: #1e6e28; border-bottom-color: #1e6e28; }
+html.light .writeup-content a:hover  { background: rgba(30,110,40,0.08); color: #0a3a10; }
+html.light .writeup-content .copy-btn       { background: rgba(0,0,0,0.06); border-color: #c8bfaa; color: #6a6050; }
+html.light .writeup-content .copy-btn:hover { background: #1e6e28; color: #fff; border-color: #1e6e28; }
