@@ -534,7 +534,7 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
 }
 
 .toc-wrapper {
-  position: sticky;
+  position: absolute;
   top: 72px;
   max-height: calc(100vh - 100px);
   overflow-y: auto;
