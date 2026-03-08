@@ -6,331 +6,310 @@
 <title>{{ page.title }} — kaiversus</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
-<!-- Theme manager: prevent flash -->
 <script src="{{ "/assets/js/theme.js" | relative_url }}"></script>
 <style>
 /* =============================================
-   COURSE ARTICLE LAYOUT
-   - Matches main nav style exactly
-   - Sidebar TOC + content column
-   - Full light/dark theme awareness
+   COURSE ARTICLE — writeup-style, amber theme
+   Dark: matches homepage #050a14
+   Light: warm parchment
 ============================================= */
 :root {
-  --co-bg:        #0d1117;
-  --co-surface:   #111820;
-  --co-border:    #1e2830;
-  --co-text:      #c9d1d9;
-  --co-muted:     #556070;
-  --co-accent:    #ffaa00;
-  --co-green:     #3fb950;
-  --co-sidebar:   #0a1018;
-  --co-toc-act:   #ffaa00;
-  --co-h2:        #ffaa00;
-  --co-h3:        #e0e0e0;
-  --co-code-bg:   #161c24;
-  --co-code-bdr:  #1e2830;
+  --co-bg:       #050a14;
+  --co-surface:  #0a1020;
+  --co-border:   #1a2535;
+  --co-text:     #c8cdd6;
+  --co-muted:    #4a5a70;
+  --co-ac:       #cc8800;
+  --co-ac-hi:    #ffaa00;
+  --co-green:    #3fb950;
+  --co-prompt:   #2ea04d;
+  --co-h2:       #ffaa00;
+  --co-h3:       #ddc070;
+  --co-h4:       #cc8800;
+  --co-code-bg:  #0a1020;
+  --co-code-bdr: #1a2535;
+  --co-sidebar:  #080e1a;
 }
 html.light {
-  --co-bg:        #faf6ee;
-  --co-surface:   #f0e9d8;
-  --co-border:    #d0c8b4;
-  --co-text:      #2a2520;
-  --co-muted:     #8a7a60;
-  --co-accent:    #cc7700;
-  --co-green:     #1e6e28;
-  --co-sidebar:   #e8e0cc;
-  --co-toc-act:   #cc7700;
-  --co-h2:        #cc7700;
-  --co-h3:        #2a2520;
-  --co-code-bg:   #e4dcc8;
-  --co-code-bdr:  #c8bfaa;
+  --co-bg:       #faf6ee;
+  --co-surface:  #f0e9d8;
+  --co-border:   #d0c8b4;
+  --co-text:     #2a2520;
+  --co-muted:    #8a7a60;
+  --co-ac:       #996600;
+  --co-ac-hi:    #cc7700;
+  --co-green:    #1e6e28;
+  --co-prompt:   #1e6e28;
+  --co-h2:       #cc7700;
+  --co-h3:       #2a2520;
+  --co-h4:       #996600;
+  --co-code-bg:  #e8e0cc;
+  --co-code-bdr: #c8bfaa;
+  --co-sidebar:  #ede6d4;
 }
 
-/* ── Reset / base ── */
 *, *::before, *::after { box-sizing: border-box; }
+
 body {
   margin: 0;
   background: var(--co-bg);
   color: var(--co-text);
   font-family: 'JetBrains Mono', 'Courier New', monospace;
   font-size: 15px;
-  line-height: 1.7;
+  line-height: 1.75;
   transition: background 0.3s, color 0.3s;
 }
 
-/* ── Nav — identical to default.html ── */
+/* ── Nav — exact match to default.html ── */
 nav {
   position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 0 24px;
-  height: 52px;
+  top: 0; z-index: 100;
+  display: flex; align-items: center; gap: 16px;
+  padding: 0 24px; height: 52px;
   background: var(--co-bg);
   border-bottom: 1px solid var(--co-border);
   transition: background 0.3s, border-color 0.3s;
 }
-
-.nav-logo {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.9rem;
-  font-weight: 700;
-  text-decoration: none;
-  white-space: nowrap;
-}
+.nav-logo { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; font-weight: 700; text-decoration: none; white-space: nowrap; }
 .nav-logo-user { color: #58a6ff; }
 .nav-logo-at   { color: var(--co-muted); }
 .nav-logo-host { color: var(--co-green); }
 .nav-logo-sym  { color: var(--co-muted); }
-
 .nav-sep { flex: 1; }
-
-.nav-links {
-  list-style: none; margin: 0; padding: 0;
-  display: flex; gap: 28px;
-}
-.nav-links a {
-  font-size: 0.85rem;
-  color: var(--co-muted);
-  text-decoration: none;
-  transition: color 0.2s;
-}
+.nav-links { list-style: none; margin: 0; padding: 0; display: flex; gap: 28px; }
+.nav-links a { font-size: 0.85rem; color: var(--co-muted); text-decoration: none; transition: color 0.2s; }
 .nav-links a:hover { color: var(--co-text); }
 .nav-links .slash { color: var(--co-green); }
-
-.nav-right {
-  display: flex; align-items: center; gap: 10px;
-  font-size: 0.8rem; color: var(--co-muted);
-}
-.status-dot {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--co-green);
-  box-shadow: 0 0 6px var(--co-green);
-}
-
-/* Theme toggle — matches default.html */
+.nav-right { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; color: var(--co-muted); }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--co-green); box-shadow: 0 0 6px var(--co-green); }
 .theme-toggle {
   width: 34px; height: 34px;
-  background: transparent;
-  border: 1px solid var(--co-border);
-  border-radius: 4px;
-  color: var(--co-muted);
-  font-size: 1rem;
-  cursor: pointer;
+  background: transparent; border: 1px solid var(--co-border); border-radius: 4px;
+  color: var(--co-muted); font-size: 1rem; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   transition: border-color 0.2s, color 0.2s;
 }
-.theme-toggle:hover { border-color: var(--co-accent); color: var(--co-accent); }
+.theme-toggle:hover { border-color: var(--co-ac-hi); color: var(--co-ac-hi); }
 
-/* ── Page shell ── */
+/* ── Two-column shell ── */
 .course-shell {
   display: grid;
-  grid-template-columns: 1fr 260px;
+  grid-template-columns: 1fr 240px;
   grid-template-areas: "content toc";
-  max-width: 1200px;
+  max-width: 1160px;
   margin: 0 auto;
   padding: 0 24px;
-  gap: 40px;
-  min-height: calc(100vh - 52px);
+  gap: 48px;
 }
 
-/* ── Main content ── */
+/* ── Main content area ── */
 .course-content {
   grid-area: content;
-  padding: 48px 0 96px;
-  max-width: 760px;
+  padding: 40px 0 96px;
+  min-width: 0;
 }
 
-/* Breadcrumb */
-.course-breadcrumb {
-  font-size: 0.75rem;
-  color: var(--co-muted);
+/* Terminal prompt — like writeup pages */
+.course-prompt {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--co-prompt);
   margin-bottom: 20px;
-  display: flex; align-items: center; gap: 6px;
+  opacity: 0.85;
 }
-.course-breadcrumb a { color: var(--co-accent); text-decoration: none; transition: opacity 0.2s; }
-.course-breadcrumb a:hover { opacity: 0.75; }
-.course-breadcrumb .sep { opacity: 0.4; }
+.course-prompt .prompt-sym { color: var(--co-muted); }
+.course-prompt .prompt-cmd { color: var(--co-text); }
 
-/* Article title */
+/* Title — large like writeup */
 .course-title {
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
   font-weight: 900;
   color: var(--co-text);
-  line-height: 1.25;
-  margin: 0 0 16px;
-  letter-spacing: 0.01em;
+  line-height: 1.2;
+  margin: 0 0 20px;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 40px rgba(255,170,0,0.08);
 }
+html.light .course-title { text-shadow: none; }
 
-/* Meta row */
+/* Meta row — like writeup */
 .course-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 18px;
+  align-items: center;
+  gap: 16px;
   font-size: 0.72rem;
   color: var(--co-muted);
+  letter-spacing: 0.08em;
   padding-bottom: 20px;
   border-bottom: 1px dashed var(--co-border);
-  margin-bottom: 40px;
-  letter-spacing: 0.05em;
+  margin-bottom: 44px;
 }
-.course-meta span { display: flex; align-items: center; gap: 6px; }
-.course-meta .level { color: var(--co-accent); font-weight: 700; }
-
-/* ── Article typography ── */
-.course-body h2 {
-  color: var(--co-h2);
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.05rem;
+.meta-sep { opacity: 0.3; }
+.meta-level {
+  color: var(--co-ac-hi);
   font-weight: 700;
-  margin: 48px 0 16px;
-  letter-spacing: 0.05em;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+}
+
+/* ── Content typography — writeup style ── */
+.course-body {
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: var(--co-text);
+}
+
+.course-body h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--co-h2);
   text-transform: uppercase;
-  padding-bottom: 8px;
+  letter-spacing: 0.08em;
+  margin: 52px 0 18px;
+  padding-bottom: 10px;
   border-bottom: 1px solid var(--co-border);
 }
 
 .course-body h3 {
-  color: var(--co-h3);
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 700;
-  margin: 32px 0 12px;
+  color: var(--co-h3);
+  margin: 36px 0 14px;
   padding-left: 14px;
-  border-left: 3px solid var(--co-accent);
+  border-left: 3px solid var(--co-ac);
 }
+html.light .course-body h3 { color: #3a3020; }
 
 .course-body h4 {
-  color: var(--co-accent);
+  font-family: 'JetBrains Mono', monospace;
   font-size: 0.85rem;
   font-weight: 700;
-  margin: 24px 0 8px;
+  color: var(--co-h4);
+  margin: 28px 0 10px;
   letter-spacing: 0.06em;
 }
 
 .course-body p {
-  color: var(--co-text);
-  margin: 0 0 16px;
-  line-height: 1.8;
+  margin: 0 0 18px;
+  line-height: 1.85;
 }
 
 .course-body ul, .course-body ol {
-  color: var(--co-text);
   padding-left: 24px;
-  margin: 0 0 16px;
-  line-height: 1.75;
+  margin: 0 0 18px;
 }
+.course-body li { margin-bottom: 8px; line-height: 1.75; }
 
-.course-body li { margin-bottom: 6px; }
-
-.course-body a {
-  color: var(--co-accent);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.2s;
-}
-.course-body a:hover { border-bottom-color: var(--co-accent); }
-
-/* Code */
-.course-body code {
+/* Inline code */
+.course-body p code,
+.course-body li code,
+.course-body td code {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.85em;
-  background: rgba(255,170,0,0.08);
-  color: var(--co-accent);
+  font-size: 0.82em;
+  background: rgba(255,170,0,0.09);
+  color: var(--co-ac-hi);
   padding: 1px 6px;
   border-radius: 3px;
+  border: 1px solid rgba(255,170,0,0.15);
 }
-html.light .course-body code {
-  background: rgba(200,120,0,0.09);
-  color: #8a5800;
+html.light .course-body p code,
+html.light .course-body li code,
+html.light .course-body td code {
+  background: rgba(180,100,0,0.08);
+  color: #885500;
+  border-color: rgba(180,100,0,0.2);
 }
 
+/* Code blocks */
+.course-body div.highlight,
 .course-body pre {
-  background: var(--co-code-bg);
+  background: var(--co-code-bg) !important;
   border: 1px solid var(--co-code-bdr);
+  border-left: 3px solid var(--co-ac);
   border-radius: 4px;
-  padding: 20px;
+  padding: 18px 20px;
   overflow-x: auto;
-  margin: 0 0 20px;
-  position: relative;
-}
-.course-body pre code {
-  background: none;
-  color: var(--co-text);
-  padding: 0;
-  font-size: 0.85rem;
-  line-height: 1.6;
-}
-
-.course-body div.highlight {
-  background: var(--co-code-bg);
-  border: 1px solid var(--co-code-bdr);
-  border-radius: 4px;
-  margin: 0 0 20px;
-  overflow: hidden;
+  margin: 0 0 22px;
   position: relative;
 }
 .course-body div.highlight pre {
-  background: transparent;
-  border: none;
-  border-radius: 0;
+  background: transparent !important;
+  border: none !important;
+  padding: 0;
   margin: 0;
+}
+.course-body pre code {
+  background: none !important;
+  color: var(--co-text);
+  font-size: 0.84rem;
+  line-height: 1.6;
+  padding: 0;
+  border: none;
 }
 
 /* Copy button */
 .copy-btn {
-  position: absolute;
-  top: 10px; right: 10px;
+  position: absolute; top: 10px; right: 10px;
   padding: 3px 10px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.08em;
+  font-size: 0.62rem; letter-spacing: 0.1em;
   background: transparent;
   border: 1px solid var(--co-border);
   color: var(--co-muted);
-  cursor: pointer;
+  cursor: pointer; border-radius: 2px;
   transition: all 0.2s;
-  border-radius: 3px;
 }
-.copy-btn:hover { border-color: var(--co-accent); color: var(--co-accent); }
+.copy-btn:hover { border-color: var(--co-ac-hi); color: var(--co-ac-hi); }
 
 /* Blockquote */
 .course-body blockquote {
-  border-left: 3px solid var(--co-accent);
-  margin: 0 0 20px;
-  padding: 12px 18px;
-  background: var(--co-surface);
+  border-left: 3px solid var(--co-ac);
+  margin: 0 0 22px;
+  padding: 14px 20px;
+  background: rgba(255,170,0,0.04);
   color: var(--co-muted);
   font-style: italic;
 }
+html.light .course-body blockquote { background: rgba(180,100,0,0.05); }
 
 /* Tables */
 .course-body table {
   width: 100%;
   border-collapse: collapse;
-  margin: 0 0 24px;
+  margin: 0 0 28px;
   font-size: 0.85rem;
   background: var(--co-surface);
 }
 .course-body th {
   background: rgba(255,170,0,0.1);
-  color: var(--co-accent);
+  color: var(--co-ac-hi);
   font-weight: 700;
   text-align: left;
   padding: 10px 14px;
   border: 1px solid var(--co-border);
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
 }
-html.light .course-body th { background: #ddd8c4; color: var(--co-accent); }
+html.light .course-body th { background: #ddd8c4; color: var(--co-ac); }
 .course-body td {
   padding: 10px 14px;
   border: 1px solid var(--co-border);
-  color: var(--co-text);
 }
 .course-body tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
 html.light .course-body tr:nth-child(even) td { background: rgba(0,0,0,0.03); }
+
+/* Links */
+.course-body a {
+  color: var(--co-ac-hi);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s, color 0.2s;
+}
+.course-body a:hover { border-bottom-color: var(--co-ac-hi); }
+html.light .course-body a { color: var(--co-ac); }
 
 /* Images */
 .course-body img {
@@ -338,57 +317,10 @@ html.light .course-body tr:nth-child(even) td { background: rgba(0,0,0,0.03); }
   border: 1px solid var(--co-border);
   border-radius: 4px;
   display: block;
-  margin: 16px 0;
+  margin: 20px 0;
 }
 
-/* ── TOC Sidebar ── */
-.course-toc {
-  grid-area: toc;
-  padding-top: 48px;
-}
-
-.toc-inner {
-  position: sticky;
-  top: 72px;
-  background: var(--co-sidebar);
-  border: 1px solid var(--co-border);
-  border-radius: 4px;
-  padding: 20px;
-  max-height: calc(100vh - 100px);
-  overflow-y: auto;
-  transition: background 0.3s, border-color 0.3s;
-}
-
-.toc-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.14em;
-  color: var(--co-muted);
-  text-transform: uppercase;
-  margin: 0 0 16px;
-  display: flex; align-items: center; gap: 8px;
-}
-.toc-label::before { content: '//'; color: var(--co-accent); }
-
-#toc-list { list-style: none; margin: 0; padding: 0; }
-#toc-list li { margin: 0; }
-
-.toc-link {
-  display: block;
-  font-size: 0.72rem;
-  color: var(--co-muted);
-  text-decoration: none;
-  padding: 4px 0 4px 0;
-  border-left: 2px solid transparent;
-  padding-left: 10px;
-  margin-left: -10px;
-  line-height: 1.4;
-  transition: color 0.18s, border-color 0.18s;
-}
-.toc-link:hover { color: var(--co-text); }
-.toc-link.active { color: var(--co-toc-act); border-left-color: var(--co-toc-act); }
-.toc-link.h3 { padding-left: 22px; margin-left: -10px; font-size: 0.67rem; }
-
-/* ── Prev/Next nav ── */
+/* Prev/Next nav */
 .course-nav {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -397,44 +329,69 @@ html.light .course-body tr:nth-child(even) td { background: rgba(0,0,0,0.03); }
   padding-top: 32px;
   border-top: 1px solid var(--co-border);
 }
-
 .course-nav-btn {
   display: block;
   padding: 16px 20px;
   border: 1px solid var(--co-border);
   text-decoration: none;
   color: var(--co-text);
-  transition: border-color 0.2s, transform 0.2s;
   border-radius: 4px;
+  transition: border-color 0.2s, transform 0.2s;
 }
-.course-nav-btn:hover {
-  border-color: var(--co-accent);
-  transform: translateY(-2px);
-  color: var(--co-text);
-}
+.course-nav-btn:hover { border-color: rgba(255,170,0,0.4); transform: translateY(-2px); }
 .course-nav-btn.next { text-align: right; }
-.nav-dir {
-  font-size: 0.65rem;
-  color: var(--co-muted);
-  letter-spacing: 0.1em;
-  margin-bottom: 4px;
+.nav-dir { font-size: 0.62rem; color: var(--co-muted); letter-spacing: 0.1em; margin-bottom: 4px; display: block; }
+.nav-title { font-size: 0.8rem; font-weight: 700; color: var(--co-ac-hi); }
+html.light .nav-title { color: var(--co-ac); }
+
+/* ── TOC Sidebar — like writeup ── */
+.course-toc {
+  grid-area: toc;
+  padding-top: 40px;
+}
+.toc-inner {
+  position: sticky;
+  top: 72px;
+  background: var(--co-sidebar);
+  border: 1px solid var(--co-border);
+  border-top: 2px solid var(--co-ac);
+  border-radius: 0 0 4px 4px;
+  padding: 18px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  transition: background 0.3s, border-color 0.3s;
+}
+.toc-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  color: var(--co-ac-hi);
+  margin: 0 0 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+html.light .toc-label { color: var(--co-ac); }
+#toc-list { list-style: none; margin: 0; padding: 0; }
+.toc-link {
   display: block;
+  font-size: 0.7rem;
+  color: var(--co-muted);
+  text-decoration: none;
+  padding: 4px 0 4px 12px;
+  margin-left: -12px;
+  border-left: 2px solid transparent;
+  line-height: 1.5;
+  transition: color 0.18s, border-color 0.18s;
 }
-.nav-title {
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--co-accent);
-}
+.toc-link:hover { color: var(--co-text); }
+.toc-link.active { color: var(--co-ac-hi); border-left-color: var(--co-ac-hi); }
+html.light .toc-link.active { color: var(--co-ac); border-left-color: var(--co-ac); }
+.toc-link.h3 { padding-left: 24px; font-size: 0.65rem; }
 
 /* ── Footer ── */
 footer {
   border-top: 1px solid var(--co-border);
   padding: 28px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 0.78rem;
-  color: var(--co-muted);
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 0.78rem; color: var(--co-muted);
 }
 .footer-brand strong { color: var(--co-green); }
 .footer-links { display: flex; gap: 20px; }
@@ -454,7 +411,7 @@ footer {
 </head>
 <body>
 
-<!-- ── Nav — identical structure to default.html ── -->
+<!-- Nav — same as default.html -->
 <nav>
   <a href="{{ "/" | relative_url }}" class="nav-logo">
     <span class="nav-logo-user">kaiversus</span><span class="nav-logo-at">@</span><span class="nav-logo-host">blog</span><span class="nav-logo-sym">:~$</span>
@@ -472,88 +429,74 @@ footer {
   </div>
 </nav>
 
-<!-- ── Page layout ── -->
 <div class="course-shell">
 
   <!-- Main article -->
   <main class="course-content">
 
-    <!-- Breadcrumb -->
-    <div class="course-breadcrumb">
-      <a href="{{ "/courses/" | relative_url }}">ACADEMY</a>
-      <span class="sep">/</span>
-      {% if page.category %}
-      <a href="{{ "/courses/" | relative_url }}">{{ page.category | upcase }}</a>
-      <span class="sep">/</span>
-      {% endif %}
-      <span>{{ page.title | truncate: 40 }}</span>
+    <!-- Terminal prompt — like writeup pages -->
+    <div class="course-prompt">
+      <span class="prompt-sym">root@kaiversus:</span><span style="color:var(--co-ac)">~/courses</span><span class="prompt-sym">$</span>
+      <span class="prompt-cmd"> cat {{ page.title | slugify }}.md</span>
     </div>
 
-    <!-- Title -->
     <h1 class="course-title">{{ page.title }}</h1>
 
-    <!-- Meta -->
     <div class="course-meta">
-      <span>UPDATED: {{ page.date | date: "%Y-%m-%d" }}</span>
+      <span>[ DATE: {{ page.date | date: "%Y-%m-%d" }} ]</span>
       {% if page.difficulty %}
-      <span>LEVEL: <span class="level">{{ page.difficulty | capitalize }}</span></span>
+        <span class="meta-sep">|</span>
+        <span>LEVEL: <span class="meta-level">{{ page.difficulty | upcase }}</span></span>
       {% endif %}
       {% if page.author %}
-      <span>AUTHOR: {{ page.author }}</span>
+        <span class="meta-sep">|</span>
+        <span>AUTHOR: {{ page.author }}</span>
+      {% endif %}
+      {% if page.category %}
+        <span class="meta-sep">|</span>
+        <span>DIR: <a href="{{ "/courses/" | relative_url }}" style="color:var(--co-ac-hi);text-decoration:none;">{{ page.category | upcase }}</a></span>
       {% endif %}
     </div>
 
-    <!-- Body content -->
     <div class="course-body">
       {{ content }}
     </div>
 
-    <!-- Prev/Next navigation (optional — uses Jekyll site.courses) -->
+    <!-- Prev/Next -->
     {% assign all_courses = site.courses | sort: "date" %}
-    {% for c in all_courses %}
-      {% if c.url == page.url %}
-        {% assign cur_idx = forloop.index0 %}
-      {% endif %}
-    {% endfor %}
-
-    {% if cur_idx %}
-      {% assign prev_idx = cur_idx | minus: 1 %}
-      {% assign next_idx = cur_idx | plus: 1 %}
-    {% endif %}
+    {% for c in all_courses %}{% if c.url == page.url %}{% assign cur_idx = forloop.index0 %}{% endif %}{% endfor %}
+    {% assign prev_idx = cur_idx | minus: 1 %}
+    {% assign next_idx = cur_idx | plus: 1 %}
 
     <div class="course-nav">
-      {% if prev_idx >= 0 %}
-        {% assign prev_post = all_courses[prev_idx] %}
-        {% if prev_post %}
-        <a href="{{ prev_post.url }}" class="course-nav-btn prev">
-          <span class="nav-dir">← PREVIOUS</span>
-          <span class="nav-title">{{ prev_post.title | truncate: 50 }}</span>
-        </a>
-        {% else %}<div></div>{% endif %}
-      {% else %}<div></div>{% endif %}
+      {% if prev_idx >= 0 %}{% assign prev_p = all_courses[prev_idx] %}{% if prev_p %}
+      <a href="{{ prev_p.url }}" class="course-nav-btn prev">
+        <span class="nav-dir">← PREVIOUS MODULE</span>
+        <span class="nav-title">{{ prev_p.title | truncate: 55 }}</span>
+      </a>
+      {% else %}<div></div>{% endif %}{% else %}<div></div>{% endif %}
 
-      {% assign next_post = all_courses[next_idx] %}
-      {% if next_post %}
-      <a href="{{ next_post.url }}" class="course-nav-btn next">
-        <span class="nav-dir">NEXT →</span>
-        <span class="nav-title">{{ next_post.title | truncate: 50 }}</span>
+      {% assign next_p = all_courses[next_idx] %}
+      {% if next_p %}
+      <a href="{{ next_p.url }}" class="course-nav-btn next">
+        <span class="nav-dir">NEXT MODULE →</span>
+        <span class="nav-title">{{ next_p.title | truncate: 55 }}</span>
       </a>
       {% endif %}
     </div>
 
   </main>
 
-  <!-- TOC Sidebar -->
+  <!-- TOC -->
   <aside class="course-toc">
     <div class="toc-inner">
-      <p class="toc-label">COURSE_CURRICULUM</p>
+      <p class="toc-label">// COURSE_CURRICULUM</p>
       <ul id="toc-list"></ul>
     </div>
   </aside>
 
 </div>
 
-<!-- Footer -->
 <footer>
   <div class="footer-brand">
     <strong>kaiversus</strong>
@@ -569,17 +512,15 @@ footer {
 </footer>
 
 <script>
-// ── Build TOC from headings ──
+// Build TOC
 (function() {
   const body = document.querySelector('.course-body');
   const list = document.getElementById('toc-list');
   if (!body || !list) return;
 
   const headings = body.querySelectorAll('h2, h3');
-  if (headings.length === 0) return;
-
   headings.forEach((h, i) => {
-    if (!h.id) h.id = 'heading-' + i;
+    if (!h.id) h.id = 'h-' + i;
     const li = document.createElement('li');
     const a  = document.createElement('a');
     a.href = '#' + h.id;
@@ -595,17 +536,17 @@ footer {
     entries.forEach(e => {
       if (e.isIntersecting) {
         links.forEach(l => l.classList.remove('active'));
-        const active = list.querySelector(`[href="#${e.target.id}"]`);
-        if (active) active.classList.add('active');
+        const a = list.querySelector(`[href="#${e.target.id}"]`);
+        if (a) a.classList.add('active');
       }
     });
-  }, { rootMargin: '-10% 0px -80% 0px' });
-
+  }, { rootMargin: '-8% 0px -80% 0px' });
   headings.forEach(h => obs.observe(h));
 })();
 
-// ── Copy buttons for code blocks ──
+// Copy buttons
 document.querySelectorAll('.course-body div.highlight, .course-body pre').forEach(block => {
+  if (block.closest('div.highlight') && block.tagName === 'PRE') return;
   const btn = document.createElement('button');
   btn.className = 'copy-btn';
   btn.textContent = 'COPY';
@@ -613,8 +554,8 @@ document.querySelectorAll('.course-body div.highlight, .course-body pre').forEac
   block.appendChild(btn);
   btn.addEventListener('click', () => {
     const code = block.querySelector('code') || block;
-    navigator.clipboard.writeText(code.textContent).then(() => {
-      btn.textContent = 'COPIED';
+    navigator.clipboard.writeText(code.innerText).then(() => {
+      btn.textContent = 'COPIED ✓';
       setTimeout(() => btn.textContent = 'COPY', 1800);
     });
   });
