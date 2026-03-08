@@ -1,410 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{ page.title }} — kaiversus</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
-<script src="{{ "/assets/js/theme.js" | relative_url }}"></script>
+---
+layout: default
+---
 <style>
-/* ── Course-specific only — nav comes from style.css ── */
-:root {
-  --co-bg:       #0a0e17;
-  --co-surface:  #0d1520;
-  --co-border:   #1a2535;
-  --co-text:     #c8cdd6;
-  --co-muted:    #4a5a70;
-  --co-green:    #3fb950;
-  --co-green-dim:rgba(46,160,67,0.12);
-  --co-prompt:   #2ea04d;
-  --co-h2:       #ffaa00;
-  --co-h3:       #ddc070;
-  --co-code-bg:  #0d1520;
-  --co-code-bdr: #1a2535;
-  --co-tbl-head: rgba(20,60,25,0.7);
-}
-html.light {
-  --co-bg:       #faf6ee;
-  --co-surface:  #f0e9d8;
-  --co-border:   #d0c8b4;
-  --co-text:     #2a2520;
-  --co-muted:    #8a7a60;
-  --co-green:    #1e6e28;
-  --co-green-dim:rgba(30,110,40,0.08);
-  --co-prompt:   #1e6e28;
-  --co-h2:       #cc7700;
-  --co-h3:       #3a3020;
-  --co-code-bg:  #e4dcc8;
-  --co-code-bdr: #c8bfaa;
-  --co-tbl-head: rgba(190,210,185,0.6);
-}
-
-/* ── Page layout ── */
-.course-wrap {
-  display: grid;
-  grid-template-columns: 1fr 240px;
-  max-width: 1160px;
-  margin: 0 auto;
-  padding: 0 32px;
-  gap: 60px;
-  align-items: start;
-}
-
-.course-main {
-  padding: 44px 0 96px;
-  min-width: 0;
-}
-
-/* ── Terminal prompt ── */
-.course-prompt {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.82rem;
-  margin-bottom: 22px;
-}
-.course-prompt .cp-host { color: var(--co-prompt); }
-.course-prompt .cp-sym  { color: var(--co-muted); }
-.course-prompt .cp-cmd  { color: var(--co-text); }
-
-/* ── Title — big white Orbitron ── */
-.course-title {
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-  font-weight: 900;
-  color: var(--co-text);
-  line-height: 1.2;
-  margin: 0 0 22px;
-  letter-spacing: 0.01em;
-}
-
-/* ── Meta ── */
-.course-meta {
-  font-size: 0.78rem;
-  color: var(--co-muted);
-  letter-spacing: 0.08em;
-  padding-bottom: 20px;
-  border-bottom: 1px dashed var(--co-border);
-  margin-bottom: 44px;
-}
-.course-meta .meta-level { color: var(--co-h2); font-weight: 700; }
-
-/* ── Body typography ── */
-.course-body { font-size: 0.95rem; line-height: 1.85; color: var(--co-text); }
-
-.course-body h2 {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--co-h2);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin: 52px 0 16px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--co-border);
-}
-
-.course-body h3 {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--co-h3);
-  margin: 36px 0 12px;
-  padding-left: 14px;
-  border-left: 3px solid var(--co-h2);
-}
-
-.course-body h4 {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--co-h2);
-  margin: 24px 0 8px;
-  letter-spacing: 0.05em;
-}
-
-.course-body p { margin: 0 0 18px; }
-.course-body ul, .course-body ol { padding-left: 24px; margin: 0 0 18px; }
-.course-body li { margin-bottom: 8px; line-height: 1.75; }
-
-/* Inline code */
-.course-body :not(pre) > code {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.82em;
-  background: var(--co-green-dim);
-  color: var(--co-green);
-  padding: 1px 6px;
-  border-radius: 3px;
-}
-
-/* Code blocks */
-.course-body div.highlight,
-.course-body pre {
-  background: var(--co-code-bg) !important;
-  border: 1px solid var(--co-code-bdr) !important;
-  border-left: 3px solid var(--co-green) !important;
-  border-radius: 4px;
-  padding: 18px 20px;
-  overflow-x: auto;
-  margin: 0 0 22px;
-  position: relative;
-}
-.course-body div.highlight pre {
-  background: transparent !important;
-  border: none !important;
-  padding: 0; margin: 0;
-}
-.course-body pre code {
-  background: none !important;
-  color: var(--co-text) !important;
-  font-size: 0.84rem;
-  line-height: 1.6;
-  padding: 0 !important;
-}
-
-/* Copy btn */
-.co-copy {
-  position: absolute; top: 10px; right: 10px;
-  padding: 3px 10px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.62rem; letter-spacing: 0.1em;
-  background: transparent;
-  border: 1px solid var(--co-border);
-  color: var(--co-muted);
-  cursor: pointer; border-radius: 2px;
-  transition: all 0.2s;
-}
-.co-copy:hover { border-color: var(--co-green); color: var(--co-green); }
-
-/* Blockquote */
-.course-body blockquote {
-  border-left: 3px solid var(--co-green);
-  margin: 0 0 22px;
-  padding: 14px 20px;
-  background: var(--co-green-dim);
-  color: var(--co-muted);
-  font-style: italic;
-}
-
-/* Tables — dark green header like writeup */
-.course-body table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 0 0 28px;
-  font-size: 0.87rem;
-  background: var(--co-surface);
-}
-.course-body th {
-  background: var(--co-tbl-head);
-  color: var(--co-green);
-  font-weight: 700;
-  text-align: left;
-  padding: 11px 16px;
-  border: 1px solid var(--co-border);
-  letter-spacing: 0.06em;
-}
-.course-body td {
-  padding: 11px 16px;
-  border: 1px solid var(--co-border);
-  color: var(--co-text);
-}
-.course-body tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
-html.light .course-body tr:nth-child(even) td { background: rgba(0,0,0,0.03); }
-
-/* Links */
-.course-body a { color: var(--co-green); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
-.course-body a:hover { border-bottom-color: var(--co-green); }
-
-/* Images */
-.course-body img { max-width: 100%; border: 1px solid var(--co-border); border-radius: 4px; display: block; margin: 20px 0; }
-
-/* Prev/Next */
-.course-nav {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-  margin-top: 64px; padding-top: 32px;
-  border-top: 1px solid var(--co-border);
-}
-.co-nav-btn {
-  display: block; padding: 16px 20px;
-  border: 1px solid var(--co-border);
-  text-decoration: none; color: var(--co-text);
-  border-radius: 4px;
-  transition: border-color 0.2s, transform 0.2s;
-}
-.co-nav-btn:hover { border-color: rgba(63,185,80,0.4); transform: translateY(-2px); }
-.co-nav-btn.next { text-align: right; }
-.co-nav-dir { font-size: 0.62rem; color: var(--co-muted); letter-spacing: 0.1em; margin-bottom: 4px; display: block; }
-.co-nav-title { font-size: 0.8rem; font-weight: 700; color: var(--co-green); }
-
-/* ── TOC Sidebar ── */
-.course-toc { padding-top: 44px; }
-.toc-sticky {
-  position: sticky; top: 72px;
-  padding-left: 20px;
-  border-left: 1px solid var(--co-border);
-  max-height: calc(100vh - 100px);
-  overflow-y: auto;
-}
-.toc-heading {
-  font-size: 0.68rem;
-  letter-spacing: 0.16em;
-  color: var(--co-text);
-  font-weight: 700;
-  margin: 0 0 16px;
-  text-transform: uppercase;
-}
-.toc-list { list-style: none; margin: 0; padding: 0; }
-.toc-link {
-  display: block;
-  font-size: 0.72rem;
-  color: var(--co-muted);
-  text-decoration: none;
-  padding: 5px 0;
-  line-height: 1.4;
-  transition: color 0.18s;
-}
-.toc-link:hover { color: var(--co-text); }
-.toc-link.active { color: var(--co-green); }
-.toc-link.h3 { padding-left: 14px; font-size: 0.67rem; }
-
-/* ── Responsive ── */
-@media (max-width: 900px) {
-  .course-wrap { grid-template-columns: 1fr; }
-  .course-toc { display: none; }
-}
-@media (max-width: 600px) {
-  .course-wrap { padding: 0 16px; }
-  .course-nav { grid-template-columns: 1fr; }
-}
+/* Amber overrides on top of writeup styles */
+.writeup-content h2 { color: #ffaa00 !important; }
+.writeup-content h3 { border-left-color: #ffaa00 !important; }
+html.light .writeup-content h2 { color: #cc7700 !important; }
+html.light .writeup-content h3 { border-left-color: #cc7700 !important; }
 </style>
-</head>
-<body>
 
-<!-- ── Nav: exact same HTML + classes as default.html ── -->
-<nav>
-  <a href="{{ "/" | relative_url }}" class="nav-logo">
-    <span class="nav-logo-user">kaiversus</span><span class="nav-logo-at">@</span><span class="nav-logo-host">blog</span><span class="nav-logo-sym">:~$</span>
-  </a>
-  <div class="nav-sep"></div>
-  <ul class="nav-links">
-    <li><a href="{{ "/" | relative_url }}"><span class="slash">~/</span>home</a></li>
-    <li><a href="{{ "/writeups/" | relative_url }}"><span class="slash">~/</span>writeups</a></li>
-    <li><a href="{{ "/projects/" | relative_url }}"><span class="slash">~/</span>projects</a></li>
-  </ul>
-  <div class="nav-right">
-    <span class="status-dot"></span>
-    <span>online</span>
-    <button class="theme-toggle" id="theme-toggle" title="Toggle theme">☀</button>
-  </div>
-</nav>
+<div class="writeup-container">
 
-<!-- ── Content grid ── -->
-<div class="course-wrap">
-
-  <main class="course-main">
-
-    <div class="course-prompt">
-      <span class="cp-host">root@kaiversus:~/courses</span><span class="cp-sym">$</span>
-      <span class="cp-cmd"> cat {{ page.title | slugify }}.md</span>
+  <article class="writeup-content">
+    <div class="writeup-header">
+      <div class="terminal-prompt">
+        <span style="color: #4ade80;">root@kaiversus:~/courses$</span> cat {{ page.title | slugify }}.md
+      </div>
+      <h1>{{ page.title }}</h1>
+      <div class="writeup-meta">
+        [ DATE: {{ page.date | date: "%Y-%m-%d" }} ]
+        {% if page.difficulty %} | LEVEL: <span style="color:#ffaa00;font-weight:700;">{{ page.difficulty | capitalize }}</span>{% endif %}
+        {% if page.author %} | AUTHOR: {{ page.author }}{% endif %}
+      </div>
     </div>
 
-    <h1 class="course-title">{{ page.title }}</h1>
+    {{ content }}
 
-    <div class="course-meta">
-      [ DATE: {{ page.date | date: "%Y-%m-%d" }} ]{% if page.difficulty %} | LEVEL: <span class="meta-level">{{ page.difficulty | capitalize }}</span>{% endif %}{% if page.author %} | AUTHOR: {{ page.author }}{% endif %}
+    <div style="margin-top: 50px; border-top: 1px dashed #30363d; padding-top: 20px; display:flex; justify-content:space-between; align-items:center;">
+      <a href="/courses/" style="color: #8b949e; text-decoration: none;">[ cd .. ] Back to Courses</a>
+      {% assign all_courses = site.courses | sort: "date" %}
+      {% for c in all_courses %}{% if c.url == page.url %}{% assign cur_idx = forloop.index0 %}{% endif %}{% endfor %}
+      {% assign prev_idx = cur_idx | minus: 1 %}
+      {% assign next_idx = cur_idx | plus: 1 %}
+      <div style="display:flex;gap:16px;">
+        {% if prev_idx >= 0 %}{% assign prev_p = all_courses[prev_idx] %}{% if prev_p %}
+        <a href="{{ prev_p.url }}" style="color:#ffaa00;text-decoration:none;font-size:0.8rem;">← {{ prev_p.title | truncate: 40 }}</a>
+        {% endif %}{% endif %}
+        {% assign next_p = all_courses[next_idx] %}{% if next_p %}
+        <a href="{{ next_p.url }}" style="color:#ffaa00;text-decoration:none;font-size:0.8rem;">{{ next_p.title | truncate: 40 }} →</a>
+        {% endif %}
+      </div>
     </div>
+  </article>
 
-    <div class="course-body">
-      {{ content }}
-    </div>
-
-    <!-- Prev / Next -->
-    {% assign all_courses = site.courses | sort: "date" %}
-    {% for c in all_courses %}{% if c.url == page.url %}{% assign cur_idx = forloop.index0 %}{% endif %}{% endfor %}
-    {% assign prev_idx = cur_idx | minus: 1 %}
-    {% assign next_idx = cur_idx | plus: 1 %}
-    <div class="course-nav">
-      {% if prev_idx >= 0 %}{% assign prev_p = all_courses[prev_idx] %}{% if prev_p %}
-      <a href="{{ prev_p.url }}" class="co-nav-btn prev">
-        <span class="co-nav-dir">← PREVIOUS MODULE</span>
-        <span class="co-nav-title">{{ prev_p.title | truncate: 55 }}</span>
-      </a>
-      {% else %}<div></div>{% endif %}{% else %}<div></div>{% endif %}
-      {% assign next_p = all_courses[next_idx] %}
-      {% if next_p %}
-      <a href="{{ next_p.url }}" class="co-nav-btn next">
-        <span class="co-nav-dir">NEXT MODULE →</span>
-        <span class="co-nav-title">{{ next_p.title | truncate: 55 }}</span>
-      </a>
-      {% endif %}
-    </div>
-
-  </main>
-
-  <!-- TOC -->
-  <aside class="course-toc">
-    <div class="toc-sticky">
-      <p class="toc-heading">ON THIS PAGE</p>
-      <ul class="toc-list" id="toc-list"></ul>
+  <aside class="writeup-sidebar">
+    <div class="toc-wrapper">
+      <div class="toc-title">ON THIS PAGE</div>
+      <nav id="custom-toc"></nav>
     </div>
   </aside>
 
 </div>
 
-<!-- Footer: same as default.html -->
-<footer>
-  <div class="footer-brand">
-    <strong>kaiversus</strong>
-    <span style="opacity:0.4"> — </span>
-    <span>Dinh Thien Bao · 52Hz</span>
-  </div>
-  <div class="footer-links">
-    <a href="#">GitHub</a>
-    <a href="#">CTFtime</a>
-    <a href="#">Twitter</a>
-    <a href="#">RSS</a>
-  </div>
-</footer>
-
 <script>
-// TOC builder + scroll spy
-(function() {
-  const body = document.querySelector('.course-body');
-  const list = document.getElementById('toc-list');
-  if (!body || !list) return;
-  const hs = body.querySelectorAll('h2, h3');
-  hs.forEach((h, i) => {
-    if (!h.id) h.id = 'h-' + i;
-    const li = document.createElement('li');
-    const a  = document.createElement('a');
+document.addEventListener("DOMContentLoaded", function() {
+  // TOC
+  const toc = document.getElementById('custom-toc');
+  const headings = document.querySelectorAll('.writeup-content h2, .writeup-content h3');
+  toc.style.display = 'flex';
+  toc.style.flexDirection = 'column';
+  toc.style.gap = '10px';
+  headings.forEach(h => {
+    if (!h.id) h.id = h.innerText.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    const a = document.createElement('a');
     a.href = '#' + h.id;
-    a.textContent = h.textContent;
+    a.textContent = h.innerText;
     a.className = 'toc-link ' + h.tagName.toLowerCase();
-    li.appendChild(a); list.appendChild(li);
+    toc.appendChild(a);
   });
-  const links = list.querySelectorAll('.toc-link');
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      links.forEach(l => l.classList.remove('active'));
-      const a = list.querySelector(`[href="#${e.target.id}"]`);
-      if (a) a.classList.add('active');
-    });
-  }, { rootMargin: '-8% 0px -80% 0px' });
-  hs.forEach(h => obs.observe(h));
-})();
 
-// Copy buttons
-document.querySelectorAll('.course-body div.highlight, .course-body pre').forEach(block => {
-  if (block.closest('div.highlight') && block.tagName === 'PRE') return;
-  const btn = document.createElement('button');
-  btn.className = 'co-copy'; btn.textContent = 'COPY';
-  block.appendChild(btn);
-  btn.addEventListener('click', () => {
-    const code = block.querySelector('code') || block;
-    navigator.clipboard.writeText(code.innerText).then(() => {
-      btn.textContent = 'COPIED ✓';
-      setTimeout(() => btn.textContent = 'COPY', 1800);
+  // Copy buttons
+  document.querySelectorAll('div.highlight, pre').forEach(block => {
+    if (block.tagName.toLowerCase() === 'pre' && block.parentNode.classList.contains('highlight')) return;
+    block.style.position = 'relative';
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.innerHTML = 'Copy';
+    block.appendChild(btn);
+    btn.addEventListener('click', () => {
+      const code = block.querySelector('code') ? block.querySelector('code').innerText : block.innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        btn.innerHTML = 'Copied!';
+        btn.style.color = '#00ff41';
+        setTimeout(() => { btn.innerHTML = 'Copy'; btn.style.color = '#8b949e'; }, 2000);
+      });
     });
   });
 });
 </script>
-</body>
-</html>
