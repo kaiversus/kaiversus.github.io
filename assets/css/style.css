@@ -682,40 +682,92 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
     .writeup-sidebar { display: none; }
 }
 
-/* ================================================
-   LIGHT MODE — Code blocks inside writeup pages
-   Add these rules to the END of assets/css/style.css
-   ================================================ */
+/* ============================================================
+   LIGHT MODE PATCH — paste this at the VERY END of style.css
+   Covers: writeup article page (tables, code, text, headings)
+   ============================================================ */
 
-/* Code block wrapper */
-html.light .writeup-content div.highlight,
-html.light .writeup-content > pre {
-    background: #eee8d8 !important;
-    border-color: #c8bfaa !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+/* ── Writeup page body text ── */
+html.light .writeup-content {
+    color: #2a2520;
 }
 
-/* Code text inside blocks */
+/* ── Headings ── */
+html.light .writeup-header h1 {
+    color: #1c1a14;
+    text-shadow: none;
+}
+html.light .writeup-content h2 {
+    color: #1e6e28 !important;
+}
+html.light .writeup-content h3 {
+    color: #1c1a14;
+    border-left-color: #9e001c !important;
+}
+
+/* ── Terminal prompt line ── */
+html.light .terminal-prompt {
+    color: #7a6a50;
+}
+html.light .writeup-meta {
+    color: #7a6a50;
+}
+
+/* ── Tables — override the hardcoded dark background ── */
+html.light .writeup-content table {
+    background: #f0e9d8 !important;
+}
+html.light .writeup-content th {
+    background: #ddd8c4 !important;
+    color: #1e6e28 !important;
+    border-color: #c8bfaa !important;
+}
+html.light .writeup-content td {
+    color: #2a2520 !important;
+    border-color: #c8bfaa !important;
+    background: transparent;
+}
+html.light .writeup-content tr:nth-child(even) td {
+    background: rgba(0,0,0,0.03);
+}
+
+/* ── Code blocks ── */
+html.light .writeup-content div.highlight,
+html.light .writeup-content > pre {
+    background: #e8e0cc !important;
+    border: 1px solid #c8bfaa !important;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+}
+html.light .writeup-content div.highlight pre {
+    background: transparent !important;
+}
 html.light .writeup-content pre code {
     color: #2a2520 !important;
 }
 
-/* Syntax highlight overrides for light bg (One Light palette) */
+/* ── Syntax highlight (One Light palette) ── */
 html.light .writeup-content .highlight .c,
 html.light .writeup-content .highlight .cm,
-html.light .writeup-content .highlight .c1  { color: #888070 !important; } /* comment  */
+html.light .writeup-content .highlight .c1  { color: #888070 !important; font-style: italic; }
 html.light .writeup-content .highlight .k,
 html.light .writeup-content .highlight .kd,
-html.light .writeup-content .highlight .kn  { color: #7c4590 !important; } /* keyword  */
+html.light .writeup-content .highlight .kn,
+html.light .writeup-content .highlight .kr  { color: #7c3aad !important; }
 html.light .writeup-content .highlight .s,
 html.light .writeup-content .highlight .s1,
-html.light .writeup-content .highlight .s2  { color: #3a7a30 !important; } /* string   */
-html.light .writeup-content .highlight .nf  { color: #1a5ea0 !important; } /* function */
+html.light .writeup-content .highlight .s2,
+html.light .writeup-content .highlight .sa  { color: #3a7a30 !important; }
+html.light .writeup-content .highlight .nf,
+html.light .writeup-content .highlight .fm  { color: #1a5ea0 !important; }
 html.light .writeup-content .highlight .m,
-html.light .writeup-content .highlight .mi  { color: #a05020 !important; } /* number   */
-html.light .writeup-content .highlight .o   { color: #1a7a7a !important; } /* operator */
+html.light .writeup-content .highlight .mi,
+html.light .writeup-content .highlight .mf  { color: #a05020 !important; }
+html.light .writeup-content .highlight .o,
+html.light .writeup-content .highlight .ow  { color: #1a7a7a !important; }
+html.light .writeup-content .highlight .n,
+html.light .writeup-content .highlight .nx  { color: #2a2520 !important; }
 
-/* Inline code */
+/* ── Inline code ── */
 html.light .writeup-content p code,
 html.light .writeup-content li code,
 html.light .writeup-content td code {
@@ -723,7 +775,7 @@ html.light .writeup-content td code {
     color: #8a5800 !important;
 }
 
-/* Copy button on light bg */
+/* ── Copy button ── */
 html.light .writeup-content .copy-btn {
     background: rgba(0,0,0,0.06);
     border-color: #c8bfaa;
@@ -735,16 +787,23 @@ html.light .writeup-content .copy-btn:hover {
     border-color: #1e6e28;
 }
 
-/* Writeup table header on light bg */
-html.light .writeup-content th {
-    background: #ddd8c4 !important;
-    color: #1e6e28 !important;
+/* ── Links ── */
+html.light .writeup-content a {
+    color: #1e6e28;
+    border-bottom-color: #1e6e28;
 }
-html.light .writeup-content td {
-    border-color: #c8bfaa !important;
+html.light .writeup-content a:hover {
+    background: rgba(30,110,40,0.08);
+    color: #0a3a10;
 }
 
-/* Writeup h3 border on light bg */
-html.light .writeup-content h3 {
-    border-left-color: #9e001c !important;
+/* ── TOC sidebar ── */
+html.light .toc-title { color: #2a2520; }
+html.light #custom-toc .toc-link {
+    color: #7a6a50 !important;
+    border: none !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
 }
+html.light #custom-toc .toc-link:hover { color: #1e6e28 !important; }
+html.light .toc-link.h2 { color: #3a3020; }
