@@ -534,8 +534,8 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
 }
 
 .toc-wrapper {
-  position: absolute;
-  top: 72px;
+  position: sticky; /* Thay vì absolute */
+  top: 80px;        /* Cách mép trên màn hình 80px khi cuộn */
   max-height: calc(100vh - 100px);
   overflow-y: auto;
   overflow-x: visible;
