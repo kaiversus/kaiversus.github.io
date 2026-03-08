@@ -329,7 +329,6 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
    WRITEUP / COURSE LAYOUT
    ========================================= */
 .writeup-container {
-  overflow-x: hidden;
   display: flex;
   align-items: flex-start;
   gap: 40px;
@@ -531,6 +530,8 @@ html.light .theme-toggle  { color: #1c1a14 !important; border-color: rgba(0,0,0,
   max-width: 200px;
   flex-shrink: 0;
   align-self: flex-start; 
+  position: sticky;
+  top: 80px;
 }
 
 .toc-wrapper {
