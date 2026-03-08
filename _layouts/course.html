@@ -8,27 +8,21 @@
 <link rel="stylesheet" href="{{ "/assets/css/style.css" | relative_url }}">
 <script src="{{ "/assets/js/theme.js" | relative_url }}"></script>
 <style>
-/* =============================================
-   COURSE ARTICLE — writeup-style, amber theme
-   Dark: matches homepage #050a14
-   Light: warm parchment
-============================================= */
+/* ── Course-specific only — nav comes from style.css ── */
 :root {
-  --co-bg:       #050a14;
-  --co-surface:  #0a1020;
+  --co-bg:       #0a0e17;
+  --co-surface:  #0d1520;
   --co-border:   #1a2535;
   --co-text:     #c8cdd6;
   --co-muted:    #4a5a70;
-  --co-ac:       #cc8800;
-  --co-ac-hi:    #ffaa00;
   --co-green:    #3fb950;
+  --co-green-dim:rgba(46,160,67,0.12);
   --co-prompt:   #2ea04d;
   --co-h2:       #ffaa00;
   --co-h3:       #ddc070;
-  --co-h4:       #cc8800;
-  --co-code-bg:  #0a1020;
+  --co-code-bg:  #0d1520;
   --co-code-bdr: #1a2535;
-  --co-sidebar:  #080e1a;
+  --co-tbl-head: rgba(20,60,25,0.7);
 }
 html.light {
   --co-bg:       #faf6ee;
@@ -36,200 +30,116 @@ html.light {
   --co-border:   #d0c8b4;
   --co-text:     #2a2520;
   --co-muted:    #8a7a60;
-  --co-ac:       #996600;
-  --co-ac-hi:    #cc7700;
   --co-green:    #1e6e28;
+  --co-green-dim:rgba(30,110,40,0.08);
   --co-prompt:   #1e6e28;
   --co-h2:       #cc7700;
-  --co-h3:       #2a2520;
-  --co-h4:       #996600;
-  --co-code-bg:  #e8e0cc;
+  --co-h3:       #3a3020;
+  --co-code-bg:  #e4dcc8;
   --co-code-bdr: #c8bfaa;
-  --co-sidebar:  #ede6d4;
+  --co-tbl-head: rgba(190,210,185,0.6);
 }
 
-*, *::before, *::after { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  background: var(--co-bg);
-  color: var(--co-text);
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-  font-size: 15px;
-  line-height: 1.75;
-  transition: background 0.3s, color 0.3s;
-}
-
-/* ── Nav — exact match to default.html ── */
-nav {
-  position: sticky;
-  top: 0; z-index: 100;
-  display: flex; align-items: center; gap: 16px;
-  padding: 0 24px; height: 52px;
-  background: var(--co-bg);
-  border-bottom: 1px solid var(--co-border);
-  transition: background 0.3s, border-color 0.3s;
-}
-.nav-logo { font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; font-weight: 700; text-decoration: none; white-space: nowrap; }
-.nav-logo-user { color: #58a6ff; }
-.nav-logo-at   { color: var(--co-muted); }
-.nav-logo-host { color: var(--co-green); }
-.nav-logo-sym  { color: var(--co-muted); }
-.nav-sep { flex: 1; }
-.nav-links { list-style: none; margin: 0; padding: 0; display: flex; gap: 28px; }
-.nav-links a { font-size: 0.85rem; color: var(--co-muted); text-decoration: none; transition: color 0.2s; }
-.nav-links a:hover { color: var(--co-text); }
-.nav-links .slash { color: var(--co-green); }
-.nav-right { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; color: var(--co-muted); }
-.status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--co-green); box-shadow: 0 0 6px var(--co-green); }
-.theme-toggle {
-  width: 34px; height: 34px;
-  background: transparent; border: 1px solid var(--co-border); border-radius: 4px;
-  color: var(--co-muted); font-size: 1rem; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: border-color 0.2s, color 0.2s;
-}
-.theme-toggle:hover { border-color: var(--co-ac-hi); color: var(--co-ac-hi); }
-
-/* ── Two-column shell ── */
-.course-shell {
+/* ── Page layout ── */
+.course-wrap {
   display: grid;
   grid-template-columns: 1fr 240px;
-  grid-template-areas: "content toc";
   max-width: 1160px;
   margin: 0 auto;
-  padding: 0 24px;
-  gap: 48px;
+  padding: 0 32px;
+  gap: 60px;
+  align-items: start;
 }
 
-/* ── Main content area ── */
-.course-content {
-  grid-area: content;
-  padding: 40px 0 96px;
+.course-main {
+  padding: 44px 0 96px;
   min-width: 0;
 }
 
-/* Terminal prompt — like writeup pages */
+/* ── Terminal prompt ── */
 .course-prompt {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.8rem;
-  color: var(--co-prompt);
-  margin-bottom: 20px;
-  opacity: 0.85;
+  font-size: 0.82rem;
+  margin-bottom: 22px;
 }
-.course-prompt .prompt-sym { color: var(--co-muted); }
-.course-prompt .prompt-cmd { color: var(--co-text); }
+.course-prompt .cp-host { color: var(--co-prompt); }
+.course-prompt .cp-sym  { color: var(--co-muted); }
+.course-prompt .cp-cmd  { color: var(--co-text); }
 
-/* Title — large like writeup */
+/* ── Title — big white Orbitron ── */
 .course-title {
   font-family: 'Orbitron', sans-serif;
-  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
   font-weight: 900;
   color: var(--co-text);
   line-height: 1.2;
-  margin: 0 0 20px;
-  letter-spacing: 0.02em;
-  text-shadow: 0 0 40px rgba(255,170,0,0.08);
+  margin: 0 0 22px;
+  letter-spacing: 0.01em;
 }
-html.light .course-title { text-shadow: none; }
 
-/* Meta row — like writeup */
+/* ── Meta ── */
 .course-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 16px;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   color: var(--co-muted);
   letter-spacing: 0.08em;
   padding-bottom: 20px;
   border-bottom: 1px dashed var(--co-border);
   margin-bottom: 44px;
 }
-.meta-sep { opacity: 0.3; }
-.meta-level {
-  color: var(--co-ac-hi);
-  font-weight: 700;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-}
+.course-meta .meta-level { color: var(--co-h2); font-weight: 700; }
 
-/* ── Content typography — writeup style ── */
-.course-body {
-  font-size: 0.95rem;
-  line-height: 1.85;
-  color: var(--co-text);
-}
+/* ── Body typography ── */
+.course-body { font-size: 0.95rem; line-height: 1.85; color: var(--co-text); }
 
 .course-body h2 {
   font-family: 'Orbitron', sans-serif;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
   color: var(--co-h2);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  margin: 52px 0 18px;
-  padding-bottom: 10px;
+  margin: 52px 0 16px;
+  padding-bottom: 8px;
   border-bottom: 1px solid var(--co-border);
 }
 
 .course-body h3 {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--co-h3);
-  margin: 36px 0 14px;
+  margin: 36px 0 12px;
   padding-left: 14px;
-  border-left: 3px solid var(--co-ac);
+  border-left: 3px solid var(--co-h2);
 }
-html.light .course-body h3 { color: #3a3020; }
 
 .course-body h4 {
-  font-family: 'JetBrains Mono', monospace;
   font-size: 0.85rem;
   font-weight: 700;
-  color: var(--co-h4);
-  margin: 28px 0 10px;
-  letter-spacing: 0.06em;
+  color: var(--co-h2);
+  margin: 24px 0 8px;
+  letter-spacing: 0.05em;
 }
 
-.course-body p {
-  margin: 0 0 18px;
-  line-height: 1.85;
-}
-
-.course-body ul, .course-body ol {
-  padding-left: 24px;
-  margin: 0 0 18px;
-}
+.course-body p { margin: 0 0 18px; }
+.course-body ul, .course-body ol { padding-left: 24px; margin: 0 0 18px; }
 .course-body li { margin-bottom: 8px; line-height: 1.75; }
 
 /* Inline code */
-.course-body p code,
-.course-body li code,
-.course-body td code {
+.course-body :not(pre) > code {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.82em;
-  background: rgba(255,170,0,0.09);
-  color: var(--co-ac-hi);
+  background: var(--co-green-dim);
+  color: var(--co-green);
   padding: 1px 6px;
   border-radius: 3px;
-  border: 1px solid rgba(255,170,0,0.15);
-}
-html.light .course-body p code,
-html.light .course-body li code,
-html.light .course-body td code {
-  background: rgba(180,100,0,0.08);
-  color: #885500;
-  border-color: rgba(180,100,0,0.2);
 }
 
 /* Code blocks */
 .course-body div.highlight,
 .course-body pre {
   background: var(--co-code-bg) !important;
-  border: 1px solid var(--co-code-bdr);
-  border-left: 3px solid var(--co-ac);
+  border: 1px solid var(--co-code-bdr) !important;
+  border-left: 3px solid var(--co-green) !important;
   border-radius: 4px;
   padding: 18px 20px;
   overflow-x: auto;
@@ -239,20 +149,18 @@ html.light .course-body td code {
 .course-body div.highlight pre {
   background: transparent !important;
   border: none !important;
-  padding: 0;
-  margin: 0;
+  padding: 0; margin: 0;
 }
 .course-body pre code {
   background: none !important;
-  color: var(--co-text);
+  color: var(--co-text) !important;
   font-size: 0.84rem;
   line-height: 1.6;
-  padding: 0;
-  border: none;
+  padding: 0 !important;
 }
 
-/* Copy button */
-.copy-btn {
+/* Copy btn */
+.co-copy {
   position: absolute; top: 10px; right: 10px;
   padding: 3px 10px;
   font-family: 'JetBrains Mono', monospace;
@@ -263,155 +171,113 @@ html.light .course-body td code {
   cursor: pointer; border-radius: 2px;
   transition: all 0.2s;
 }
-.copy-btn:hover { border-color: var(--co-ac-hi); color: var(--co-ac-hi); }
+.co-copy:hover { border-color: var(--co-green); color: var(--co-green); }
 
 /* Blockquote */
 .course-body blockquote {
-  border-left: 3px solid var(--co-ac);
+  border-left: 3px solid var(--co-green);
   margin: 0 0 22px;
   padding: 14px 20px;
-  background: rgba(255,170,0,0.04);
+  background: var(--co-green-dim);
   color: var(--co-muted);
   font-style: italic;
 }
-html.light .course-body blockquote { background: rgba(180,100,0,0.05); }
 
-/* Tables */
+/* Tables — dark green header like writeup */
 .course-body table {
   width: 100%;
   border-collapse: collapse;
   margin: 0 0 28px;
-  font-size: 0.85rem;
+  font-size: 0.87rem;
   background: var(--co-surface);
 }
 .course-body th {
-  background: rgba(255,170,0,0.1);
-  color: var(--co-ac-hi);
+  background: var(--co-tbl-head);
+  color: var(--co-green);
   font-weight: 700;
   text-align: left;
-  padding: 10px 14px;
+  padding: 11px 16px;
   border: 1px solid var(--co-border);
   letter-spacing: 0.06em;
 }
-html.light .course-body th { background: #ddd8c4; color: var(--co-ac); }
 .course-body td {
-  padding: 10px 14px;
+  padding: 11px 16px;
   border: 1px solid var(--co-border);
+  color: var(--co-text);
 }
 .course-body tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
 html.light .course-body tr:nth-child(even) td { background: rgba(0,0,0,0.03); }
 
 /* Links */
-.course-body a {
-  color: var(--co-ac-hi);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.2s, color 0.2s;
-}
-.course-body a:hover { border-bottom-color: var(--co-ac-hi); }
-html.light .course-body a { color: var(--co-ac); }
+.course-body a { color: var(--co-green); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+.course-body a:hover { border-bottom-color: var(--co-green); }
 
 /* Images */
-.course-body img {
-  max-width: 100%;
-  border: 1px solid var(--co-border);
-  border-radius: 4px;
-  display: block;
-  margin: 20px 0;
-}
+.course-body img { max-width: 100%; border: 1px solid var(--co-border); border-radius: 4px; display: block; margin: 20px 0; }
 
-/* Prev/Next nav */
+/* Prev/Next */
 .course-nav {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-top: 64px;
-  padding-top: 32px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  margin-top: 64px; padding-top: 32px;
   border-top: 1px solid var(--co-border);
 }
-.course-nav-btn {
-  display: block;
-  padding: 16px 20px;
+.co-nav-btn {
+  display: block; padding: 16px 20px;
   border: 1px solid var(--co-border);
-  text-decoration: none;
-  color: var(--co-text);
+  text-decoration: none; color: var(--co-text);
   border-radius: 4px;
   transition: border-color 0.2s, transform 0.2s;
 }
-.course-nav-btn:hover { border-color: rgba(255,170,0,0.4); transform: translateY(-2px); }
-.course-nav-btn.next { text-align: right; }
-.nav-dir { font-size: 0.62rem; color: var(--co-muted); letter-spacing: 0.1em; margin-bottom: 4px; display: block; }
-.nav-title { font-size: 0.8rem; font-weight: 700; color: var(--co-ac-hi); }
-html.light .nav-title { color: var(--co-ac); }
+.co-nav-btn:hover { border-color: rgba(63,185,80,0.4); transform: translateY(-2px); }
+.co-nav-btn.next { text-align: right; }
+.co-nav-dir { font-size: 0.62rem; color: var(--co-muted); letter-spacing: 0.1em; margin-bottom: 4px; display: block; }
+.co-nav-title { font-size: 0.8rem; font-weight: 700; color: var(--co-green); }
 
-/* ── TOC Sidebar — like writeup ── */
-.course-toc {
-  grid-area: toc;
-  padding-top: 40px;
-}
-.toc-inner {
-  position: sticky;
-  top: 72px;
-  background: var(--co-sidebar);
-  border: 1px solid var(--co-border);
-  border-top: 2px solid var(--co-ac);
-  border-radius: 0 0 4px 4px;
-  padding: 18px;
+/* ── TOC Sidebar ── */
+.course-toc { padding-top: 44px; }
+.toc-sticky {
+  position: sticky; top: 72px;
+  padding-left: 20px;
+  border-left: 1px solid var(--co-border);
   max-height: calc(100vh - 100px);
   overflow-y: auto;
-  transition: background 0.3s, border-color 0.3s;
 }
-.toc-label {
-  font-size: 0.62rem;
+.toc-heading {
+  font-size: 0.68rem;
   letter-spacing: 0.16em;
-  color: var(--co-ac-hi);
-  margin: 0 0 14px;
-  display: flex; align-items: center; gap: 8px;
+  color: var(--co-text);
+  font-weight: 700;
+  margin: 0 0 16px;
+  text-transform: uppercase;
 }
-html.light .toc-label { color: var(--co-ac); }
-#toc-list { list-style: none; margin: 0; padding: 0; }
+.toc-list { list-style: none; margin: 0; padding: 0; }
 .toc-link {
   display: block;
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   color: var(--co-muted);
   text-decoration: none;
-  padding: 4px 0 4px 12px;
-  margin-left: -12px;
-  border-left: 2px solid transparent;
-  line-height: 1.5;
-  transition: color 0.18s, border-color 0.18s;
+  padding: 5px 0;
+  line-height: 1.4;
+  transition: color 0.18s;
 }
 .toc-link:hover { color: var(--co-text); }
-.toc-link.active { color: var(--co-ac-hi); border-left-color: var(--co-ac-hi); }
-html.light .toc-link.active { color: var(--co-ac); border-left-color: var(--co-ac); }
-.toc-link.h3 { padding-left: 24px; font-size: 0.65rem; }
-
-/* ── Footer ── */
-footer {
-  border-top: 1px solid var(--co-border);
-  padding: 28px 24px;
-  display: flex; align-items: center; justify-content: space-between;
-  font-size: 0.78rem; color: var(--co-muted);
-}
-.footer-brand strong { color: var(--co-green); }
-.footer-links { display: flex; gap: 20px; }
-.footer-links a { color: var(--co-muted); text-decoration: none; transition: color 0.2s; }
-.footer-links a:hover { color: var(--co-text); }
+.toc-link.active { color: var(--co-green); }
+.toc-link.h3 { padding-left: 14px; font-size: 0.67rem; }
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
-  .course-shell { grid-template-columns: 1fr; grid-template-areas: "content"; }
+  .course-wrap { grid-template-columns: 1fr; }
   .course-toc { display: none; }
 }
 @media (max-width: 600px) {
-  .nav-links { display: none; }
+  .course-wrap { padding: 0 16px; }
   .course-nav { grid-template-columns: 1fr; }
 }
 </style>
 </head>
 <body>
 
-<!-- Nav — same as default.html -->
+<!-- ── Nav: exact same HTML + classes as default.html ── -->
 <nav>
   <a href="{{ "/" | relative_url }}" class="nav-logo">
     <span class="nav-logo-user">kaiversus</span><span class="nav-logo-at">@</span><span class="nav-logo-host">blog</span><span class="nav-logo-sym">:~$</span>
@@ -429,58 +295,43 @@ footer {
   </div>
 </nav>
 
-<div class="course-shell">
+<!-- ── Content grid ── -->
+<div class="course-wrap">
 
-  <!-- Main article -->
-  <main class="course-content">
+  <main class="course-main">
 
-    <!-- Terminal prompt — like writeup pages -->
     <div class="course-prompt">
-      <span class="prompt-sym">root@kaiversus:</span><span style="color:var(--co-ac)">~/courses</span><span class="prompt-sym">$</span>
-      <span class="prompt-cmd"> cat {{ page.title | slugify }}.md</span>
+      <span class="cp-host">root@kaiversus:~/courses</span><span class="cp-sym">$</span>
+      <span class="cp-cmd"> cat {{ page.title | slugify }}.md</span>
     </div>
 
     <h1 class="course-title">{{ page.title }}</h1>
 
     <div class="course-meta">
-      <span>[ DATE: {{ page.date | date: "%Y-%m-%d" }} ]</span>
-      {% if page.difficulty %}
-        <span class="meta-sep">|</span>
-        <span>LEVEL: <span class="meta-level">{{ page.difficulty | upcase }}</span></span>
-      {% endif %}
-      {% if page.author %}
-        <span class="meta-sep">|</span>
-        <span>AUTHOR: {{ page.author }}</span>
-      {% endif %}
-      {% if page.category %}
-        <span class="meta-sep">|</span>
-        <span>DIR: <a href="{{ "/courses/" | relative_url }}" style="color:var(--co-ac-hi);text-decoration:none;">{{ page.category | upcase }}</a></span>
-      {% endif %}
+      [ DATE: {{ page.date | date: "%Y-%m-%d" }} ]{% if page.difficulty %} | LEVEL: <span class="meta-level">{{ page.difficulty | capitalize }}</span>{% endif %}{% if page.author %} | AUTHOR: {{ page.author }}{% endif %}
     </div>
 
     <div class="course-body">
       {{ content }}
     </div>
 
-    <!-- Prev/Next -->
+    <!-- Prev / Next -->
     {% assign all_courses = site.courses | sort: "date" %}
     {% for c in all_courses %}{% if c.url == page.url %}{% assign cur_idx = forloop.index0 %}{% endif %}{% endfor %}
     {% assign prev_idx = cur_idx | minus: 1 %}
     {% assign next_idx = cur_idx | plus: 1 %}
-
     <div class="course-nav">
       {% if prev_idx >= 0 %}{% assign prev_p = all_courses[prev_idx] %}{% if prev_p %}
-      <a href="{{ prev_p.url }}" class="course-nav-btn prev">
-        <span class="nav-dir">← PREVIOUS MODULE</span>
-        <span class="nav-title">{{ prev_p.title | truncate: 55 }}</span>
+      <a href="{{ prev_p.url }}" class="co-nav-btn prev">
+        <span class="co-nav-dir">← PREVIOUS MODULE</span>
+        <span class="co-nav-title">{{ prev_p.title | truncate: 55 }}</span>
       </a>
       {% else %}<div></div>{% endif %}{% else %}<div></div>{% endif %}
-
       {% assign next_p = all_courses[next_idx] %}
       {% if next_p %}
-      <a href="{{ next_p.url }}" class="course-nav-btn next">
-        <span class="nav-dir">NEXT MODULE →</span>
-        <span class="nav-title">{{ next_p.title | truncate: 55 }}</span>
+      <a href="{{ next_p.url }}" class="co-nav-btn next">
+        <span class="co-nav-dir">NEXT MODULE →</span>
+        <span class="co-nav-title">{{ next_p.title | truncate: 55 }}</span>
       </a>
       {% endif %}
     </div>
@@ -489,14 +340,15 @@ footer {
 
   <!-- TOC -->
   <aside class="course-toc">
-    <div class="toc-inner">
-      <p class="toc-label">// COURSE_CURRICULUM</p>
-      <ul id="toc-list"></ul>
+    <div class="toc-sticky">
+      <p class="toc-heading">ON THIS PAGE</p>
+      <ul class="toc-list" id="toc-list"></ul>
     </div>
   </aside>
 
 </div>
 
+<!-- Footer: same as default.html -->
 <footer>
   <div class="footer-brand">
     <strong>kaiversus</strong>
@@ -512,45 +364,38 @@ footer {
 </footer>
 
 <script>
-// Build TOC
+// TOC builder + scroll spy
 (function() {
   const body = document.querySelector('.course-body');
   const list = document.getElementById('toc-list');
   if (!body || !list) return;
-
-  const headings = body.querySelectorAll('h2, h3');
-  headings.forEach((h, i) => {
+  const hs = body.querySelectorAll('h2, h3');
+  hs.forEach((h, i) => {
     if (!h.id) h.id = 'h-' + i;
     const li = document.createElement('li');
     const a  = document.createElement('a');
     a.href = '#' + h.id;
     a.textContent = h.textContent;
     a.className = 'toc-link ' + h.tagName.toLowerCase();
-    li.appendChild(a);
-    list.appendChild(li);
+    li.appendChild(a); list.appendChild(li);
   });
-
-  // Scroll spy
   const links = list.querySelectorAll('.toc-link');
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        links.forEach(l => l.classList.remove('active'));
-        const a = list.querySelector(`[href="#${e.target.id}"]`);
-        if (a) a.classList.add('active');
-      }
+      if (!e.isIntersecting) return;
+      links.forEach(l => l.classList.remove('active'));
+      const a = list.querySelector(`[href="#${e.target.id}"]`);
+      if (a) a.classList.add('active');
     });
   }, { rootMargin: '-8% 0px -80% 0px' });
-  headings.forEach(h => obs.observe(h));
+  hs.forEach(h => obs.observe(h));
 })();
 
 // Copy buttons
 document.querySelectorAll('.course-body div.highlight, .course-body pre').forEach(block => {
   if (block.closest('div.highlight') && block.tagName === 'PRE') return;
   const btn = document.createElement('button');
-  btn.className = 'copy-btn';
-  btn.textContent = 'COPY';
-  block.style.position = 'relative';
+  btn.className = 'co-copy'; btn.textContent = 'COPY';
   block.appendChild(btn);
   btn.addEventListener('click', () => {
     const code = block.querySelector('code') || block;
