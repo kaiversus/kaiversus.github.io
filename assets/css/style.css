@@ -1122,3 +1122,14 @@ html.light .copy-btn:hover {
   color: #fff;
   border-color: #1e6e28;
 }
+/* ── CODE BLOCK — wrap long lines ── */
+.writeup-content pre {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.writeup-content pre code {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-all;
+}
