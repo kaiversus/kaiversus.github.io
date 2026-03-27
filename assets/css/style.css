@@ -648,3 +648,200 @@ html.light .writeup-content a        { color: #1e6e28; border-bottom-color: #1e6
 html.light .writeup-content a:hover  { background: rgba(30,110,40,0.08); color: #0a3a10; }
 html.light .writeup-content .copy-btn       { background: rgba(0,0,0,0.06); border-color: #c8bfaa; color: #6a6050; }
 html.light .writeup-content .copy-btn:hover { background: #1e6e28; color: #fff; border-color: #1e6e28; }
+
+/* =========================================
+   BOLD TEXT — Thicker weight + themed color
+   ========================================= */
+
+/* Base bold in writeup/course content */
+.writeup-content strong,
+.writeup-content b {
+  font-weight: 800;
+  color: #e6edf3;
+}
+
+html.light .writeup-content strong,
+html.light .writeup-content b {
+  color: #1c1a14;
+}
+
+/* =========================================
+   HEADINGS — Better contrast in light mode
+   ========================================= */
+
+/* Light mode heading fixes */
+html.light .writeup-content h2 {
+  color: #1e6e28;
+}
+
+html.light .writeup-content h3 {
+  color: #2a2520;
+  border-left-color: #c0003c;
+}
+
+html.light .writeup-content h4,
+html.light .writeup-content h5,
+html.light .writeup-content h6 {
+  color: #2a2520;
+}
+
+/* =========================================
+   INLINE CODE — Light theme readability
+   ========================================= */
+
+html.light .writeup-content p code,
+html.light .writeup-content li code,
+html.light .writeup-content td code,
+html.light .writeup-content h2 code,
+html.light .writeup-content h3 code,
+html.light .writeup-content h4 code {
+  background: rgba(0, 0, 0, 0.08);
+  color: #7c3000;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+/* =========================================
+   CODE BLOCKS — Light theme
+   ========================================= */
+
+html.light .writeup-content div.highlight {
+  background: #e8e0cc;
+  border: 1px solid #c8bfaa;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+html.light .writeup-content div.highlight pre {
+  background: transparent !important;
+}
+
+html.light .writeup-content > pre {
+  background: #e8e0cc !important;
+  border: 1px solid #c8bfaa;
+}
+
+html.light .writeup-content pre code {
+  color: #2a2520;
+}
+
+/* Light-mode syntax highlighting */
+html.light .highlight .c,
+html.light .highlight .cm,
+html.light .highlight .c1   { color: #7a6a50; font-style: italic; }
+html.light .highlight .k,
+html.light .highlight .kd,
+html.light .highlight .kn,
+html.light .highlight .kp,
+html.light .highlight .kr   { color: #7c3abf; }
+html.light .highlight .s,
+html.light .highlight .s1,
+html.light .highlight .s2,
+html.light .highlight .sa,
+html.light .highlight .sb,
+html.light .highlight .dl   { color: #1e6e28; }
+html.light .highlight .n,
+html.light .highlight .nx   { color: #2a2520; }
+html.light .highlight .nf,
+html.light .highlight .fm   { color: #0055aa; }
+html.light .highlight .m,
+html.light .highlight .mi,
+html.light .highlight .mf,
+html.light .highlight .mh   { color: #a04000; }
+html.light .highlight .o,
+html.light .highlight .ow   { color: #006677; }
+html.light .highlight .nb   { color: #7c3abf; }
+html.light .highlight .nc   { color: #b8860b; }
+html.light .highlight .nn   { color: #0055aa; }
+html.light .highlight .bp   { color: #7c3abf; }
+html.light .highlight .p    { color: #2a2520; }
+
+/* Light-mode copy button */
+html.light .copy-btn {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: #c8bfaa;
+  color: #7a6a50;
+}
+html.light .copy-btn:hover {
+  background: #1e6e28;
+  color: #fff;
+  border-color: #1e6e28;
+}
+
+/* =========================================
+   TABLE — Light theme
+   ========================================= */
+
+html.light .writeup-content table {
+  background: #f0e9d8;
+}
+html.light .writeup-content th {
+  background: #e0d8c0;
+  color: #1e6e28;
+  border-color: #c8bfaa;
+}
+html.light .writeup-content td {
+  color: #2a2520;
+  border-color: #c8bfaa;
+}
+html.light .writeup-content tr:nth-child(even) td {
+  background: rgba(0, 0, 0, 0.025);
+}
+
+/* =========================================
+   LINKS — Light theme
+   ========================================= */
+
+html.light .writeup-content a {
+  color: #1e6e28;
+  border-bottom-color: rgba(30, 110, 40, 0.4);
+}
+html.light .writeup-content a:hover {
+  color: #0a3a10;
+  background: rgba(30, 110, 40, 0.08);
+}
+
+/* =========================================
+   SECTION-SPECIFIC THEMING (via layout CSS)
+
+   Writeup  = green  (#3fb950 / #1e6e28)
+   Course   = amber  (#ffaa00 / #cc7700)
+   Project  = red    (#e8002a / #9e001c)
+   ========================================= */
+
+/* ----- WRITEUP bold accent ----- */
+/* Already green by default via h2 color, bold stays neutral white/dark */
+
+/* ----- COURSE overrides (set in course.html layout) ----- */
+/* These are applied via the <style> block in _layouts/course.html */
+
+/* ----- BLOCKQUOTE — Light mode ----- */
+html.light .writeup-content blockquote {
+  border-left-color: #c8bfaa;
+  background: rgba(0, 0, 0, 0.025);
+  color: #5a5040;
+}
+
+/* =========================================
+   LIST MARKERS — Light mode
+   ========================================= */
+
+html.light .writeup-content ul li::marker {
+  color: #8a7a60;
+}
+html.light .writeup-content ol li::marker {
+  color: #8a7a60;
+}
+
+/* =========================================
+   HORIZONTAL RULES — Light mode
+   ========================================= */
+html.light .writeup-content hr {
+  border-color: #d0c8b4;
+}
+
+/* =========================================
+   IMAGES — Light mode subtle border
+   ========================================= */
+html.light .writeup-content img {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+}
