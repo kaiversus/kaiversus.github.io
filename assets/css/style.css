@@ -1133,3 +1133,17 @@ html.light .copy-btn:hover {
   word-wrap: break-word;
   word-break: break-all;
 }
+/* ── Reset code inside code blocks — no amber/green tint ── */
+.writeup-content pre code,
+.writeup-content div.highlight code {
+  background: transparent !important;
+  color: #abb2bf !important;
+  border: none !important;
+  padding: 0 !important;
+  font-size: 0.9rem !important;
+}
+
+html.light .writeup-content pre code,
+html.light .writeup-content div.highlight code {
+  color: #2a2520 !important;
+}
