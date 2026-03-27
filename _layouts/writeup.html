@@ -1,6 +1,50 @@
 ---
 layout: default
 ---
+<style>
+/* ── Writeup green overrides ── */
+
+/* Bold — green accent */
+.writeup-content strong,
+.writeup-content b {
+  font-weight: 800;
+  color: #7ee787;
+}
+
+html.light .writeup-content strong,
+html.light .writeup-content b {
+  color: #1a5c22;
+}
+
+/* Inline code — green tinted */
+.writeup-content p code,
+.writeup-content li code,
+.writeup-content td code {
+  background: rgba(63, 185, 80, 0.08);
+  color: #7ee787;
+  border: 1px solid rgba(63, 185, 80, 0.15);
+}
+
+html.light .writeup-content p code,
+html.light .writeup-content li code,
+html.light .writeup-content td code {
+  background: rgba(30, 110, 40, 0.07);
+  color: #1a5c22;
+  border: 1px solid rgba(30, 110, 40, 0.12);
+}
+
+/* Table header — green */
+.writeup-content th {
+  background: rgba(63, 185, 80, 0.08) !important;
+  color: #3fb950 !important;
+}
+
+html.light .writeup-content th {
+  background: rgba(30, 110, 40, 0.07) !important;
+  color: #1e6e28 !important;
+}
+</style>
+
 <div class="writeup-container">
     
     <article class="writeup-content">
@@ -36,7 +80,6 @@ layout: default
         const toc = document.getElementById('custom-toc');
         const headings = document.querySelectorAll('.writeup-content h2, .writeup-content h3');
         
-        // Ép ToC thành cột dọc
         toc.style.display = 'flex';
         toc.style.flexDirection = 'column';
         toc.style.gap = '10px';
@@ -52,12 +95,21 @@ layout: default
             toc.appendChild(a);
         });
 
-        // 2. TẠO NÚT COPY CODE CHUẨN CHO JEKYLL
-        // Jekyll thường bọc code trong div.highlight
+        // 2. WRAP TABLES
+        document.querySelectorAll('.writeup-content table').forEach(t => {
+            if (t.parentElement.classList.contains('table-wrapper')) return;
+            const wrap = document.createElement('div');
+            wrap.className = 'table-wrapper';
+            wrap.style.cssText = 'display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:2em 0;max-width:100%;';
+            t.parentNode.insertBefore(wrap, t);
+            wrap.appendChild(t);
+            t.style.margin = '0';
+        });
+
+        // 3. NÚT COPY CODE
         const codeBlocks = document.querySelectorAll('div.highlight, pre'); 
         
         codeBlocks.forEach(block => {
-            // Tránh thêm nút 2 lần nếu div.highlight đã chứa pre
             if(block.tagName.toLowerCase() === 'pre' && block.parentNode.classList.contains('highlight')) return;
 
             block.style.position = 'relative';
