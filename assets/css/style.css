@@ -800,48 +800,325 @@ html.light .writeup-content a:hover {
 }
 
 /* =========================================
-   SECTION-SPECIFIC THEMING (via layout CSS)
-
-   Writeup  = green  (#3fb950 / #1e6e28)
-   Course   = amber  (#ffaa00 / #cc7700)
-   Project  = red    (#e8002a / #9e001c)
+   CONTENT READABILITY OVERHAUL
+   For .writeup-content (courses, writeups)
    ========================================= */
 
-/* ----- WRITEUP bold accent ----- */
-/* Already green by default via h2 color, bold stays neutral white/dark */
+/* ── PARAGRAPHS — breathing room ── */
+.writeup-content p {
+  margin: 1.2em 0;
+}
 
-/* ----- COURSE overrides (set in course.html layout) ----- */
-/* These are applied via the <style> block in _layouts/course.html */
+/* ── BOLD TEXT — heavier + themed color ── */
+.writeup-content strong,
+.writeup-content b {
+  font-weight: 800;
+  color: #e6edf3;
+  letter-spacing: 0.01em;
+}
 
-/* ----- BLOCKQUOTE — Light mode ----- */
-html.light .writeup-content blockquote {
-  border-left-color: #c8bfaa;
-  background: rgba(0, 0, 0, 0.025);
+html.light .writeup-content strong,
+html.light .writeup-content b {
+  color: #1c1a14;
+}
+
+/* ── ITALIC TEXT — distinct visual style ── */
+/* Author's notes/summaries are typically italic */
+.writeup-content em,
+.writeup-content i {
+  color: #a8b3bf;
+  font-style: italic;
+}
+
+html.light .writeup-content em,
+html.light .writeup-content i {
   color: #5a5040;
 }
 
-/* =========================================
-   LIST MARKERS — Light mode
-   ========================================= */
+/* When italic is inside a list (sub-note pattern) → special styling */
+.writeup-content li > em,
+.writeup-content li > i,
+.writeup-content li > p > em {
+  display: inline;
+  color: #8b949e;
+  font-size: 0.92em;
+  line-height: 1.7;
+}
 
-html.light .writeup-content ul li::marker {
+html.light .writeup-content li > em,
+html.light .writeup-content li > i,
+html.light .writeup-content li > p > em {
+  color: #6a5a44;
+}
+
+/* Nested list italic items — the "author note" pattern */
+.writeup-content ul ul li,
+.writeup-content ol ul li {
+  position: relative;
+  border-left: 2px solid rgba(255, 170, 0, 0.2);
+  padding-left: 14px;
+  margin-left: 4px;
+  color: #8b949e;
+  font-size: 0.92em;
+}
+
+html.light .writeup-content ul ul li,
+html.light .writeup-content ol ul li {
+  border-left-color: rgba(180, 100, 0, 0.25);
+  color: #6a5a44;
+}
+
+/* Remove default bullet for nested sub-notes */
+.writeup-content ul ul {
+  list-style: none;
+  padding-left: 12px;
+  margin: 6px 0 10px 0;
+}
+
+.writeup-content ul ul li::before {
+  content: '→';
+  position: absolute;
+  left: -16px;
+  color: rgba(255, 170, 0, 0.4);
+  font-size: 0.8em;
+}
+
+html.light .writeup-content ul ul li::before {
+  color: rgba(180, 100, 0, 0.4);
+}
+
+/* ── LISTS — better spacing & hierarchy ── */
+.writeup-content ul,
+.writeup-content ol {
+  padding-left: 24px;
+  margin: 1em 0;
+}
+
+.writeup-content li {
+  margin-bottom: 8px;
+  line-height: 1.8;
+}
+
+/* Top-level bullet styling */
+.writeup-content > ul > li,
+.writeup-content > ol > li {
+  margin-bottom: 12px;
+  padding-left: 4px;
+}
+
+/* Custom bullet color */
+.writeup-content ul > li::marker {
+  color: #545d68;
+}
+
+html.light .writeup-content ul > li::marker {
   color: #8a7a60;
 }
-html.light .writeup-content ol li::marker {
-  color: #8a7a60;
+
+/* ── BOLD AS INLINE HEADING ── */
+/* Pattern: a <p> or <li> that starts with <strong> 
+   acts like a mini section header */
+.writeup-content li > strong:first-child,
+.writeup-content p > strong:only-child,
+.writeup-content p > strong:first-child {
+  font-weight: 800;
+  letter-spacing: 0.02em;
 }
 
-/* =========================================
-   HORIZONTAL RULES — Light mode
-   ========================================= */
-html.light .writeup-content hr {
-  border-color: #d0c8b4;
+/* ── HEADINGS — Tighter & Cleaner ── */
+.writeup-content h4 {
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #e6edf3;
+  margin-top: 2em;
+  margin-bottom: 0.8em;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
 }
 
-/* =========================================
-   IMAGES — Light mode subtle border
-   ========================================= */
-html.light .writeup-content img {
-  border: 1px solid rgba(0, 0, 0, 0.08);
+html.light .writeup-content h4 {
+  color: #2a2520;
+  border-bottom-color: rgba(0, 0, 0, 0.06);
+}
+
+.writeup-content h5 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #c9d1d9;
+  margin-top: 1.6em;
+  margin-bottom: 0.6em;
+}
+
+html.light .writeup-content h5 {
+  color: #3d3828;
+}
+
+/* ── INLINE CODE — better contrast ── */
+.writeup-content p code,
+.writeup-content li code,
+.writeup-content td code {
+  background: #21262d;
+  color: #79c0ff;
+  padding: 2px 7px;
   border-radius: 4px;
+  font-size: 0.88em;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  white-space: nowrap;
+}
+
+html.light .writeup-content p code,
+html.light .writeup-content li code,
+html.light .writeup-content td code {
+  background: rgba(0, 0, 0, 0.06);
+  color: #7c3000;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Code inside headings */
+.writeup-content h2 code,
+.writeup-content h3 code,
+.writeup-content h4 code {
+  font-size: 0.9em;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 2px 8px;
+  border-radius: 3px;
+}
+
+html.light .writeup-content h2 code,
+html.light .writeup-content h3 code,
+html.light .writeup-content h4 code {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* ── CODE BLOCKS — Light mode ── */
+html.light .writeup-content div.highlight {
+  background: #e8e0cc;
+  border: 1px solid #c8bfaa;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+html.light .writeup-content div.highlight pre {
+  background: transparent !important;
+}
+
+html.light .writeup-content > pre {
+  background: #e8e0cc !important;
+  border: 1px solid #c8bfaa;
+}
+
+html.light .writeup-content pre code {
+  color: #2a2520;
+}
+
+/* Light-mode syntax highlighting */
+html.light .highlight .c,
+html.light .highlight .cm,
+html.light .highlight .c1   { color: #7a6a50; font-style: italic; }
+html.light .highlight .k,
+html.light .highlight .kd,
+html.light .highlight .kn,
+html.light .highlight .kp,
+html.light .highlight .kr   { color: #7c3abf; }
+html.light .highlight .s,
+html.light .highlight .s1,
+html.light .highlight .s2,
+html.light .highlight .sa,
+html.light .highlight .sb,
+html.light .highlight .dl   { color: #1e6e28; }
+html.light .highlight .n,
+html.light .highlight .nx   { color: #2a2520; }
+html.light .highlight .nf,
+html.light .highlight .fm   { color: #0055aa; }
+html.light .highlight .m,
+html.light .highlight .mi,
+html.light .highlight .mf,
+html.light .highlight .mh   { color: #a04000; }
+html.light .highlight .o,
+html.light .highlight .ow   { color: #006677; }
+html.light .highlight .nb   { color: #7c3abf; }
+html.light .highlight .nc   { color: #b8860b; }
+html.light .highlight .nn   { color: #0055aa; }
+html.light .highlight .p    { color: #2a2520; }
+
+/* ── TABLES — Light mode ── */
+html.light .writeup-content table {
+  background: #f0e9d8;
+}
+html.light .writeup-content th {
+  background: #e0d8c0;
+  color: #1e6e28;
+  border-color: #c8bfaa;
+}
+html.light .writeup-content td {
+  color: #2a2520;
+  border-color: #c8bfaa;
+}
+html.light .writeup-content tr:nth-child(even) td {
+  background: rgba(0, 0, 0, 0.025);
+}
+
+/* ── LINKS — Light mode ── */
+html.light .writeup-content a {
+  color: #1e6e28;
+  border-bottom-color: rgba(30, 110, 40, 0.4);
+}
+html.light .writeup-content a:hover {
+  color: #0a3a10;
+  background: rgba(30, 110, 40, 0.08);
+}
+
+/* ── BLOCKQUOTE ── */
+.writeup-content blockquote {
+  border-left: 3px solid rgba(255, 255, 255, 0.1);
+  margin: 1.5em 0;
+  padding: 12px 20px;
+  color: #8b949e;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 0 4px 4px 0;
+}
+
+html.light .writeup-content blockquote {
+  border-left-color: #c8bfaa;
+  background: rgba(0, 0, 0, 0.02);
+  color: #5a5040;
+}
+
+/* ── HORIZONTAL RULES ── */
+.writeup-content hr {
+  border: none;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 2.5em 0;
+}
+
+html.light .writeup-content hr {
+  background: #d0c8b4;
+}
+
+/* ── IMAGES — subtle frame ── */
+.writeup-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5em 0;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+html.light .writeup-content img {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* ── COPY BUTTON — Light mode ── */
+html.light .copy-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: #c8bfaa;
+  color: #7a6a50;
+}
+html.light .copy-btn:hover {
+  background: #1e6e28;
+  color: #fff;
+  border-color: #1e6e28;
 }
