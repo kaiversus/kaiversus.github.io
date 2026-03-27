@@ -2,11 +2,76 @@
 layout: default
 ---
 <style>
-/* Amber overrides on top of writeup styles */
+/* ── Course amber overrides ── */
+
+/* Headings */
 .writeup-content h2 { color: #ffaa00 !important; }
 .writeup-content h3 { border-left-color: #ffaa00 !important; }
+.writeup-content h4 { color: #e6edf3; }
+
+/* Bold */
+.writeup-content strong,
+.writeup-content b {
+  font-weight: 800;
+  color: #ffd060;
+}
+
+/* Light mode */
 html.light .writeup-content h2 { color: #cc7700 !important; }
 html.light .writeup-content h3 { border-left-color: #cc7700 !important; }
+html.light .writeup-content h4 { color: #2a2520; }
+
+html.light .writeup-content strong,
+html.light .writeup-content b {
+  color: #8a5800;
+}
+
+/* Course inline code — amber tinted */
+.writeup-content p code,
+.writeup-content li code,
+.writeup-content td code {
+  background: rgba(255, 170, 0, 0.08);
+  color: #ffc866;
+  border: 1px solid rgba(255, 170, 0, 0.15);
+}
+
+html.light .writeup-content p code,
+html.light .writeup-content li code,
+html.light .writeup-content td code {
+  background: rgba(180, 100, 0, 0.08);
+  color: #7c3000;
+  border: 1px solid rgba(180, 100, 0, 0.12);
+}
+
+/* Course table header — amber */
+.writeup-content th {
+  background: rgba(255, 170, 0, 0.08) !important;
+  color: #ffaa00 !important;
+}
+
+html.light .writeup-content th {
+  background: rgba(180, 100, 0, 0.08) !important;
+  color: #8a5800 !important;
+}
+
+/* Course links */
+.writeup-content a {
+  color: #ffaa00;
+  border-bottom-color: rgba(255, 170, 0, 0.4);
+}
+.writeup-content a:hover {
+  color: #ffd060;
+  background: rgba(255, 170, 0, 0.06);
+}
+
+html.light .writeup-content a {
+  color: #8a5800;
+  border-bottom-color: rgba(138, 88, 0, 0.4);
+}
+html.light .writeup-content a:hover {
+  color: #5a3800;
+  background: rgba(138, 88, 0, 0.06);
+}
 </style>
 
 <div class="writeup-container">
@@ -67,10 +132,8 @@ document.addEventListener("DOMContentLoaded", function() {
     toc.style.gap = '10px';
     
     headings.forEach(h => {
-      // Dùng textContent thay vì innerText để luôn lấy được text
       let headingText = h.textContent.trim();
       
-      // Tạo ID nếu thẻ chưa có ID
       if (!h.id) {
         h.id = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-');
       }
@@ -84,10 +147,9 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // ==========================================
-  // 2. WRAP TABLES (Thêm thanh cuộn ngang cho bảng)
+  // 2. WRAP TABLES
   // ==========================================
   document.querySelectorAll('.writeup-content table').forEach(t => {
-    // Ngăn chặn việc bọc bảng nhiều lần nếu script chạy lại
     if (t.parentElement.classList.contains('table-wrapper')) return;
     
     const wrap = document.createElement('div');
@@ -96,14 +158,13 @@ document.addEventListener("DOMContentLoaded", function() {
     
     t.parentNode.insertBefore(wrap, t);
     wrap.appendChild(t);
-    t.style.margin = '0'; // Xóa margin gốc của bảng
+    t.style.margin = '0';
   });
 
   // ==========================================
   // 3. NÚT COPY CODE
   // ==========================================
   document.querySelectorAll('div.highlight, pre').forEach(block => {
-    // Bỏ qua thẻ pre nếu nó đã nằm trong div.highlight để không tạo 2 nút
     if (block.tagName.toLowerCase() === 'pre' && block.parentNode.classList.contains('highlight')) return;
     
     block.style.position = 'relative';
@@ -124,8 +185,5 @@ document.addEventListener("DOMContentLoaded", function() {
       });
     });
   });
-
-  // Lưu ý: Đã xóa đoạn Javascript làm TOC trượt theo màn hình 
-  // vì đã thay bằng thuộc tính 'position: sticky;' trong CSS.
 });
 </script>
