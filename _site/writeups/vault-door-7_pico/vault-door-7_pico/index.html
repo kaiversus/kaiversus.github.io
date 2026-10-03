@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VaultDoor7 - PicoCTF</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Newsreader:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<!-- Theme manager: loaded in <head> to apply saved theme before render (no flash) -->
+<script src="/assets/js/theme.js"></script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <span class="nav-logo-user">kaiversus</span><span class="nav-logo-at">@</span><span class="nav-logo-host">blog</span><span class="nav-logo-sym">:~$</span>
+  </a>
+  <div class="nav-sep"></div>
+  <ul class="nav-links">
+    <li><a href="/"><span class="slash">~/</span>home</a></li>
+    <li><a href="/writeups/"><span class="slash">~/</span>writeups</a></li>
+    <li><a href="/projects/"><span class="slash">~/</span>projects</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="status-dot"></span>
+    <span>online</span>
+    <button class="theme-toggle" id="theme-toggle" title="Toggle light/dark">☀</button>
+  </div>
+</nav>
+
+<style>
+/* ── Writeup green overrides ── */
+
+/* Bold — green accent */
+.writeup-content strong,
+.writeup-content b {
+  font-weight: 800;
+  color: #7ee787;
+}
+
+html.light .writeup-content strong,
+html.light .writeup-content b {
+  color: #1a5c22;
+}
+
+/* Inline code — green tinted */
+.writeup-content p code,
+.writeup-content li code,
+.writeup-content td code {
+  background: rgba(63, 185, 80, 0.08);
+  color: #7ee787;
+  border: 1px solid rgba(63, 185, 80, 0.15);
+}
+
+html.light .writeup-content p code,
+html.light .writeup-content li code,
+html.light .writeup-content td code {
+  background: rgba(30, 110, 40, 0.07);
+  color: #1a5c22;
+  border: 1px solid rgba(30, 110, 40, 0.12);
+}
+
+/* Table header — green */
+.writeup-content th {
+  background: rgba(63, 185, 80, 0.08) !important;
+  color: #3fb950 !important;
+}
+
+html.light .writeup-content th {
+  background: rgba(30, 110, 40, 0.07) !important;
+  color: #1e6e28 !important;
+}
+</style>
+
+<div class="writeup-container">
+    
+    <article class="writeup-content">
+        <div class="writeup-header">
+            <div class="terminal-prompt">
+                <span style="color: #4ade80;">root@kaiversus:~/writeups$</span> cat vaultdoor7-picoctf.md
+            </div>
+            <h1>VaultDoor7 - PicoCTF</h1>
+            <div class="writeup-meta">
+                [ DATE: 2026-01-10 ]
+            </div>
+        </div>
+
+        <h2 id="challenge-information">Challenge Information</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Challenge Name</strong></td>
+      <td>VaultDoor7</td>
+    </tr>
+    <tr>
+      <td><strong>Category</strong></td>
+      <td>Reverse</td>
+    </tr>
+    <tr>
+      <td><strong>Difficulty</strong></td>
+      <td>Medium</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="description">Description</h2>
+<p>Author: Author: Mark E. Haase</p>
+
+<p>This vault uses bit shifts to convert a password string into an array of integers. Hurry, agent, we are running out of time to stop Dr. Evil’s nefarious plans!</p>
+
+<h3 id="hints">Hints</h3>
+<ul>
+  <li>Use a decimal/hexadecimal converter such as this one: https://www.mathsisfun.com/binary-decimal-hexadecimal-converter.html</li>
+  <li>You will also need to consult an ASCII table such as this one: https://www.asciitable.com/</li>
+</ul>
+
+<p><strong>Files provided:</strong></p>
+<ul>
+    <li>
+        <a href="/_writeups/vault-door-7_pico/VaultDoor7.java" download="">
+            [Download] VaultDoor7.java
+        </a>
+    </li>
+</ul>
+
+<p><strong>Connection info:</strong></p>
+
+<p><a href="https://play.picoctf.org/practice/challenge/65?page=1&amp;search=vault">https://play.picoctf.org/practice/challenge/65?page=1&amp;search=vault</a></p>
+
+<h2 id="reconnaissance">Reconnaissance</h2>
+
+<h4 id="initial-observations">Initial Observations</h4>
+
+<p><strong>Source code of VaultDoor7.java</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.crypto.Cipher</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.crypto.spec.SecretKeySpec</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.security.*</span><span class="o">;</span>
+
+<span class="kd">class</span> <span class="nc">VaultDoor7</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span> <span class="n">args</span><span class="o">[])</span> <span class="o">{</span>
+        <span class="nc">VaultDoor7</span> <span class="n">vaultDoor</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">VaultDoor7</span><span class="o">();</span>
+        <span class="nc">Scanner</span> <span class="n">scanner</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"Enter vault password: "</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">userInput</span> <span class="o">=</span> <span class="n">scanner</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+	<span class="nc">String</span> <span class="n">input</span> <span class="o">=</span> <span class="n">userInput</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="s">"picoCTF{"</span><span class="o">.</span><span class="na">length</span><span class="o">(),</span><span class="n">userInput</span><span class="o">.</span><span class="na">length</span><span class="o">()-</span><span class="mi">1</span><span class="o">);</span>
+	<span class="k">if</span> <span class="o">(</span><span class="n">vaultDoor</span><span class="o">.</span><span class="na">checkPassword</span><span class="o">(</span><span class="n">input</span><span class="o">))</span> <span class="o">{</span>
+	    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Access granted."</span><span class="o">);</span>
+	<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+	    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Access denied!"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Each character can be represented as a byte value using its</span>
+    <span class="c1">// ASCII encoding. Each byte contains 8 bits, and an int contains</span>
+    <span class="c1">// 32 bits, so we can "pack" 4 bytes into a single int. Here's an</span>
+    <span class="c1">// example: if the hex string is "01ab", then those can be</span>
+    <span class="c1">// represented as the bytes {0x30, 0x31, 0x61, 0x62}. When those</span>
+    <span class="c1">// bytes are represented as binary, they are:</span>
+    <span class="c1">//</span>
+    <span class="c1">// 0x30: 00110000</span>
+    <span class="c1">// 0x31: 00110001</span>
+    <span class="c1">// 0x61: 01100001</span>
+    <span class="c1">// 0x62: 01100010</span>
+    <span class="c1">//</span>
+    <span class="c1">// If we put those 4 binary numbers end to end, we end up with 32</span>
+    <span class="c1">// bits that can be interpreted as an int.</span>
+    <span class="c1">//</span>
+    <span class="c1">// 00110000001100010110000101100010 -&gt; 808542562</span>
+    <span class="c1">//</span>
+    <span class="c1">// Since 4 chars can be represented as 1 int, the 32 character password can</span>
+    <span class="c1">// be represented as an array of 8 ints.</span>
+    <span class="c1">//</span>
+    <span class="c1">// - Minion #7816</span>
+    <span class="kd">public</span> <span class="kt">int</span><span class="o">[]</span> <span class="nf">passwordToIntArray</span><span class="o">(</span><span class="nc">String</span> <span class="n">hex</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">x</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">8</span><span class="o">];</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">hexBytes</span> <span class="o">=</span> <span class="n">hex</span><span class="o">.</span><span class="na">getBytes</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">8</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">x</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">hexBytes</span><span class="o">[</span><span class="n">i</span><span class="o">*</span><span class="mi">4</span><span class="o">]</span>   <span class="o">&lt;&lt;</span> <span class="mi">24</span>
+                 <span class="o">|</span> <span class="n">hexBytes</span><span class="o">[</span><span class="n">i</span><span class="o">*</span><span class="mi">4</span><span class="o">+</span><span class="mi">1</span><span class="o">]</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span>
+                 <span class="o">|</span> <span class="n">hexBytes</span><span class="o">[</span><span class="n">i</span><span class="o">*</span><span class="mi">4</span><span class="o">+</span><span class="mi">2</span><span class="o">]</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span>
+                 <span class="o">|</span> <span class="n">hexBytes</span><span class="o">[</span><span class="n">i</span><span class="o">*</span><span class="mi">4</span><span class="o">+</span><span class="mi">3</span><span class="o">];</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">checkPassword</span><span class="o">(</span><span class="nc">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">password</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">!=</span> <span class="mi">32</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span><span class="o">[]</span> <span class="n">x</span> <span class="o">=</span> <span class="n">passwordToIntArray</span><span class="o">(</span><span class="n">password</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">==</span> <span class="mi">1096770097</span>
+            <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">==</span> <span class="mi">1952395366</span>
+            <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">==</span> <span class="mi">1600270708</span>
+            <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span> <span class="o">==</span> <span class="mi">1601398833</span>
+            <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="o">[</span><span class="mi">4</span><span class="o">]</span> <span class="o">==</span> <span class="mi">1716808014</span>
+            <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="o">[</span><span class="mi">5</span><span class="o">]</span> <span class="o">==</span> <span class="mi">1734305378</span>
+            <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="o">[</span><span class="mi">6</span><span class="o">]</span> <span class="o">==</span> <span class="mi">825374004</span>
+            <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="o">[</span><span class="mi">7</span><span class="o">]</span> <span class="o">==</span> <span class="mi">912340068</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>As you can see, the code already contains a piece of explian text:</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">// Each character can be represented as a byte value using its</span>
+    <span class="c1">// ASCII encoding. Each byte contains 8 bits, and an int contains</span>
+    <span class="c1">// 32 bits, so we can "pack" 4 bytes into a single int. Here's an</span>
+    <span class="c1">// example: if the hex string is "01ab", then those can be</span>
+    <span class="c1">// represented as the bytes {0x30, 0x31, 0x61, 0x62}. When those</span>
+    <span class="c1">// bytes are represented as binary, they are:</span>
+    <span class="c1">//</span>
+    <span class="c1">// 0x30: 00110000</span>
+    <span class="c1">// 0x31: 00110001</span>
+    <span class="c1">// 0x61: 01100001</span>
+    <span class="c1">// 0x62: 01100010</span>
+    <span class="c1">//</span>
+    <span class="c1">// If we put those 4 binary numbers end to end, we end up with 32</span>
+    <span class="c1">// bits that can be interpreted as an int.</span>
+    <span class="c1">//</span>
+    <span class="c1">// 00110000001100010110000101100010 -&gt; 808542562</span>
+    <span class="c1">//</span>
+    <span class="c1">// Since 4 chars can be represented as 1 int, the 32 character password can</span>
+    <span class="c1">// be represented as an array of 8 ints.</span>
+    <span class="c1">//</span>
+    <span class="c1">// - Minion #7816</span>
+</code></pre></div></div>
+<p>Simply put, the logic of this challenge is based on the fact that a single ASCII character has 8 bits, while an integer has 32 bits. The author uses this to encode the flag. So, the flag string is converted to binary, and then the binary data is converted into integers.</p>
+
+<h3 id="source-code-analysis">Source Code Analysis</h3>
+<p>We will reuse the data of the <code class="language-plaintext highlighter-rouge">checkPassword()</code> function:</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">checkPassword</span><span class="o">(</span><span class="nc">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">password</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">!=</span> <span class="mi">32</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kt">int</span><span class="o">[]</span> <span class="n">x</span> <span class="o">=</span> <span class="n">passwordToIntArray</span><span class="o">(</span><span class="n">password</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">==</span> <span class="mi">1096770097</span> <span class="c1">//The data we will reuse</span>
+        <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">==</span> <span class="mi">1952395366</span>
+        <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">==</span> <span class="mi">1600270708</span>
+        <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span> <span class="o">==</span> <span class="mi">1601398833</span>
+        <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="o">[</span><span class="mi">4</span><span class="o">]</span> <span class="o">==</span> <span class="mi">1716808014</span>
+        <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="o">[</span><span class="mi">5</span><span class="o">]</span> <span class="o">==</span> <span class="mi">1734305378</span>
+        <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="o">[</span><span class="mi">6</span><span class="o">]</span> <span class="o">==</span> <span class="mi">825374004</span>
+        <span class="o">&amp;&amp;</span> <span class="n">x</span><span class="o">[</span><span class="mi">7</span><span class="o">]</span> <span class="o">==</span> <span class="mi">912340068</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="solution">Solution</h3>
+<p>To reverse the data, we just reverse the encoding logic:
+Convert the integer numbers back to binary, then use that binary data to recover the ASCII characters (8 bits per character).</p>
+
+<p>This is the reverse code with Python:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">printPassword</span><span class="p">():</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">8</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1096770097</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1952395366</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1600270708</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1601398833</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1716808014</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1734305378</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">=</span> <span class="mi">825374004</span>
+    <span class="n">x</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="mi">912340068</span>
+
+    <span class="n">binary_data</span> <span class="o">=</span> <span class="s">''</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="s">''</span>
+    <span class="k">for</span> <span class="n">number</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+        <span class="n">password</span> <span class="o">+=</span> <span class="n">number</span><span class="p">.</span><span class="n">to_bytes</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">byteorder</span><span class="o">=</span><span class="s">'little'</span><span class="p">).</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
+
+<span class="n">printPassword</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>In my source code, I use the <code class="language-plaintext highlighter-rouge">to_byte()</code> and <code class="language-plaintext highlighter-rouge">decode()</code> functions. They are very convenient for decoding things related to the numeral system.</p>
+
+<h4 id="the-result-after-run-code">The result after run code:</h4>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1b_Af0_tt1b_1hs_NiTfbf_g4521d4a6
+</code></pre></div></div>
+
+<h2 id="flag">Flag</h2>
+<p>So, the flag is:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>picoCTF{1b_Af0_tt1b_1hs_NiTfbf_g4521d4a6}
+</code></pre></div></div>
+
+        
+        <div style="margin-top: 50px; border-top: 1px dashed #30363d; padding-top: 20px;">
+            <a href="/writeups/" style="color: #8b949e; text-decoration: none;">[ cd .. ] Back to Archive</a>
+        </div>
+    </article>
+
+    <aside class="writeup-sidebar">
+        <div class="toc-wrapper">
+            <div class="toc-title">ON THIS PAGE</div>
+            <nav id="custom-toc"></nav>
+        </div>
+    </aside>
+
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 1. TẠO MỤC LỤC (TOC) DỌC
+        const toc = document.getElementById('custom-toc');
+        const headings = document.querySelectorAll('.writeup-content h2, .writeup-content h3');
+        
+        toc.style.display = 'flex';
+        toc.style.flexDirection = 'column';
+        toc.style.gap = '10px';
+
+        headings.forEach(h => {
+            if (!h.id) {
+                h.id = h.innerText.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+            }
+            const a = document.createElement('a');
+            a.href = '#' + h.id;
+            a.textContent = h.innerText;
+            a.className = 'toc-link ' + h.tagName.toLowerCase();
+            toc.appendChild(a);
+        });
+
+        // 2. WRAP TABLES
+        document.querySelectorAll('.writeup-content table').forEach(t => {
+            if (t.parentElement.classList.contains('table-wrapper')) return;
+            const wrap = document.createElement('div');
+            wrap.className = 'table-wrapper';
+            wrap.style.cssText = 'display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:2em 0;max-width:100%;';
+            t.parentNode.insertBefore(wrap, t);
+            wrap.appendChild(t);
+            t.style.margin = '0';
+        });
+
+        // 3. NÚT COPY CODE
+        const codeBlocks = document.querySelectorAll('div.highlight, pre'); 
+        
+        codeBlocks.forEach(block => {
+            if(block.tagName.toLowerCase() === 'pre' && block.parentNode.classList.contains('highlight')) return;
+
+            block.style.position = 'relative';
+
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn';
+            copyBtn.innerHTML = 'Copy';
+            block.appendChild(copyBtn);
+
+            copyBtn.addEventListener('click', () => {
+                const code = block.querySelector('code') ? block.querySelector('code').innerText : block.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    copyBtn.innerHTML = 'Copied!';
+                    copyBtn.style.color = '#00ff41';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = 'Copy';
+                        copyBtn.style.color = '#8b949e';
+                    }, 2000);
+                });
+            });
+        });
+    });
+</script>
+
+
+<footer>
+  <div class="footer-brand">
+    <strong>kaiversus</strong>
+    <span style="color:var(--text-faint)">—</span>
+    <span>Dinh Thien Bao · 52Hz</span>
+  </div>
+  <div class="footer-links">
+    <a href="#">GitHub</a>
+    <a href="#">CTFtime</a>
+    <a href="#">Twitter</a>
+    <a href="#">RSS</a>
+  </div>
+</footer>
+
+<script src="/assets/js/cyber-bg.js"></script>
+</body>
+</html>

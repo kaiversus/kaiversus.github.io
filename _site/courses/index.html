@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Courses Library</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Newsreader:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css">
+<!-- Theme manager: loaded in <head> to apply saved theme before render (no flash) -->
+<script src="/assets/js/theme.js"></script>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <span class="nav-logo-user">kaiversus</span><span class="nav-logo-at">@</span><span class="nav-logo-host">blog</span><span class="nav-logo-sym">:~$</span>
+  </a>
+  <div class="nav-sep"></div>
+  <ul class="nav-links">
+    <li><a href="/"><span class="slash">~/</span>home</a></li>
+    <li><a href="/writeups/"><span class="slash">~/</span>writeups</a></li>
+    <li><a href="/projects/"><span class="slash">~/</span>projects</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="status-dot"></span>
+    <span>online</span>
+    <button class="theme-toggle" id="theme-toggle" title="Toggle light/dark">☀</button>
+  </div>
+</nav>
+
+<style>
+:root {
+  --ac:           #ffaa00;
+  --ac-dim:       rgba(255,170,0,0.08);
+  --ac-border:    rgba(255,170,0,0.3);
+  --row-bg:       rgba(10,10,10,0.5);
+  --row-border:   #1e2830;
+  --card-bg:      #111820;
+  --card-border:  #1e2830;
+  --text:         #c9d1d9;
+  --muted:        #556070;
+  --divider:      #1e2830;
+  --diff-basic:   #3fb950;
+  --diff-inter:   #ffaa00;
+  --diff-adv:     #ff4060;
+}
+html.light {
+  --ac:           #cc7700;
+  --ac-dim:       rgba(200,120,0,0.07);
+  --ac-border:    rgba(180,100,0,0.3);
+  --row-bg:       rgba(230,220,200,0.5);
+  --row-border:   #d0c8b4;
+  --card-bg:      #f0e9d8;
+  --card-border:  #d0c8b4;
+  --text:         #2a2520;
+  --muted:        #8a7a60;
+  --divider:      #d0c8b4;
+  --diff-basic:   #1e6e28;
+  --diff-inter:   #cc7700;
+  --diff-adv:     #9e001c;
+}
+
+.ac-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 24px 96px;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+}
+
+/* ── Header ── */
+.ac-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--divider);
+  margin-bottom: 40px;
+}
+.ac-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  font-weight: 900;
+  color: var(--ac);
+  margin: 0;
+  letter-spacing: 0.04em;
+}
+.ac-title .slash { color: var(--text); opacity: 0.4; }
+.ac-status {
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+.ac-back {
+  display: block;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  margin-bottom: 36px;
+  transition: color 0.2s;
+}
+.ac-back:hover { color: var(--ac); }
+
+/* ── Category rows ── */
+.cat-list { display: flex; flex-direction: column; gap: 2px; }
+.cat-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 24px;
+  background: var(--row-bg);
+  border: 1px solid var(--row-border);
+  cursor: pointer;
+  transition: background 0.25s, border-color 0.25s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.cat-row::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--ac);
+  transform: scaleY(0);
+  transition: transform 0.2s;
+}
+.cat-row:hover {
+  border-color: var(--ac-border);
+  background: var(--ac-dim);
+  transform: translateX(4px);
+}
+.cat-row:hover::before { transform: scaleY(1); }
+
+.cat-hex {
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  min-width: 60px;
+}
+.cat-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  flex: 1;
+  letter-spacing: 0.06em;
+  transition: color 0.2s;
+}
+.cat-row:hover .cat-name { color: var(--ac); }
+.cat-count {
+  font-size: 0.7rem;
+  color: var(--muted);
+  padding: 2px 8px;
+  border: 1px solid var(--row-border);
+  border-radius: 12px;
+}
+.cat-arrow {
+  color: var(--ac);
+  font-size: 0.85rem;
+  opacity: 0.5;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.cat-row:hover .cat-arrow { opacity: 1; transform: translateX(4px); }
+
+/* ── Detail view ── */
+.detail-view { display: none; }
+.detail-view.active {
+  display: block;
+  animation: fadeUp 0.3s ease;
+}
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(8px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+.detail-header {
+  margin-bottom: 28px;
+}
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin-bottom: 16px;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: inherit;
+  transition: color 0.2s;
+}
+.back-btn:hover { color: var(--ac); }
+
+.detail-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.4rem;
+  color: var(--ac);
+  margin: 0 0 4px;
+}
+.detail-sub {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+/* ── Module grid ── */
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.module-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-top: 2px solid var(--card-border);
+  padding: 20px;
+  cursor: pointer;
+  text-decoration: none;
+  display: block;
+  color: var(--text);
+  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+  border-radius: 4px;
+}
+.module-card:hover {
+  border-color: var(--ac-border);
+  border-top-color: var(--ac);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+html.light .module-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.1); }
+
+.module-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.68rem;
+  color: var(--muted);
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+}
+
+.diff-badge {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 1px 7px;
+  border: 1px solid;
+  border-radius: 2px;
+  font-size: 0.62rem;
+}
+.diff-badge.basic    { color: var(--diff-basic); border-color: var(--diff-basic); background: rgba(63,185,80,0.07); }
+.diff-badge.intermediate { color: var(--diff-inter); border-color: var(--diff-inter); background: rgba(255,170,0,0.07); }
+.diff-badge.advanced { color: var(--diff-adv); border-color: var(--diff-adv); background: rgba(255,64,96,0.07); }
+
+.module-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0 0 8px;
+  line-height: 1.4;
+  transition: color 0.2s;
+}
+.module-card:hover .module-title { color: var(--ac); }
+
+.module-desc {
+  font-size: 0.75rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .module-grid { grid-template-columns: 1fr; }
+  .cat-hex { display: none; }
+}
+</style>
+
+<div class="ac-page">
+
+  <!-- Header -->
+  <div class="ac-header">
+    <h1 class="ac-title"><span class="slash">// </span>ACADEMY_DATABASE</h1>
+    <span class="ac-status">SYS_STATUS: ONLINE</span>
+  </div>
+  <a href="/" class="ac-back">← BACK_TO_ROOT</a>
+
+  <!-- Category list -->
+  <div id="category-view" class="cat-list">
+
+    
+    
+    
+      
+      
+      
+      <div class="cat-row" onclick="openCourse('TryHackMe')">
+        <span class="cat-hex">[ 0x01 ]</span>
+        <span class="cat-name">TRYHACKME</span>
+        <span class="cat-count">1 modules</span>
+        <span class="cat-arrow">›</span>
+      </div>
+    
+      
+      
+      
+      <div class="cat-row" onclick="openCourse('Malware')">
+        <span class="cat-hex">[ 0x02 ]</span>
+        <span class="cat-name">MALWARE</span>
+        <span class="cat-count">5 modules</span>
+        <span class="cat-arrow">›</span>
+      </div>
+    
+      
+      
+      
+      <div class="cat-row" onclick="openCourse('Malware, Anti-Analysis, Debugger Detection, Reversing')">
+        <span class="cat-hex">[ 0x03 ]</span>
+        <span class="cat-name">MALWARE, ANTI-ANALYSIS, DEBUGGER DETECTION, REVERSING</span>
+        <span class="cat-count">1 modules</span>
+        <span class="cat-arrow">›</span>
+      </div>
+    
+
+    <!-- Fallback: manual categories if no front-matter -->
+    
+
+  </div>
+
+  <!-- Detail view -->
+  <div id="detail-view" class="detail-view">
+    <div class="detail-header">
+      <button class="back-btn" onclick="closeCourse()">
+        ← cd .. (RETURN)
+      </button>
+      <h2 class="detail-title" id="course-title-display">// LOADING...</h2>
+      <p class="detail-sub">&gt; List of available modules in this directory:</p>
+    </div>
+
+    <div class="module-grid">
+      
+      
+      <a class="module-card filter-item" href="/courses/malware/chapter_1/" data-cat="Malware">
+
+        <div class="module-meta">
+          <span>2026-01-25</span>
+          
+          <span class="diff-badge basic">BASIC</span>
+        </div>
+
+        <h4 class="module-title">Chapter 1: Malware Analysis Primer</h4>
+        <p class="module-desc">Goals of Malware Analysis Primer, techniques, types of malware</p>
+      </a>
+      
+      <a class="module-card filter-item" href="/courses/malware/chapter_2a/" data-cat="Malware">
+
+        <div class="module-meta">
+          <span>2026-02-01</span>
+          
+          <span class="diff-badge intermediate">INTERMEDIATE</span>
+        </div>
+
+        <h4 class="module-title">Chapter 2: PE file part 1: PE Headers — The File Metadata</h4>
+        <p class="module-desc">Analyze the DOS Header, Rich Header, and NT Headers to uncover build environment fingerprints, timestamp anomalies, and obfuscation tricks before a file even executes.</p>
+      </a>
+      
+      <a class="module-card filter-item" href="/courses/malware/chapter_2b/" data-cat="Malware">
+
+        <div class="module-meta">
+          <span>2026-02-01</span>
+          
+          <span class="diff-badge intermediate">INTERMEDIATE</span>
+        </div>
+
+        <h4 class="module-title">Chapter 2: PE file part 2: PE Sections — Where Malicious Code Lives</h4>
+        <p class="module-desc">Examine section structure, permission flags, size ratios, and entropy to detect packers, shellcode hiding spots, and runtime unpacking behavior.</p>
+      </a>
+      
+      <a class="module-card filter-item" href="/courses/malware/chapter_2c/" data-cat="Malware">
+
+        <div class="module-meta">
+          <span>2026-02-01</span>
+          
+          <span class="diff-badge intermediate">INTERMEDIATE</span>
+        </div>
+
+        <h4 class="module-title">Chapter 2: PE file part 3: IAT, EAT &amp; Analysis Workflow</h4>
+        <p class="module-desc">Fingerprint malware behavior through import and export tables, identify API hiding techniques, and apply a structured triage checklist to reach a fast analytical verdict.</p>
+      </a>
+      
+      <a class="module-card filter-item" href="/courses/malware/chapter_2d/" data-cat="Malware">
+
+        <div class="module-meta">
+          <span>2026-02-01</span>
+          
+          <span class="diff-badge intermediate">INTERMEDIATE</span>
+        </div>
+
+        <h4 class="module-title">Chapter 2: PE file part 4: PE Training Lab</h4>
+        <p class="module-desc">Interactive exercises to test your PE analysis skills — quizzes, simulated PE analysis, and CTF-style challenges based on Chapters 2a-2c.</p>
+      </a>
+      
+      <a class="module-card filter-item" href="/courses/malware/chapter_3/" data-cat="Malware, Anti-Analysis, Debugger Detection, Reversing">
+
+        <div class="module-meta">
+          <span>2026-10-02</span>
+          
+          <span class="diff-badge intermediate">INTERMEDIATE</span>
+        </div>
+
+        <h4 class="module-title">Chapter 3a: Malware Anti-Analysis Techniques - Debugger Detection using Windows API Calls (HTB)</h4>
+        <p class="module-desc">Trình bày một số kỹ thuật Anti-Analysis được sử dụng bởi Malware để phát hiện môi trường phân tích và cách bypass chúng.</p>
+      </a>
+      
+      <a class="module-card filter-item" href="/courses/TryHackMe/Wifi_Hacking_101/README/" data-cat="TryHackMe">
+
+        <div class="module-meta">
+          <span>2026-01-01</span>
+          
+          <span class="diff-badge basic">BASIC</span>
+        </div>
+
+        <h4 class="module-title">Wifi Hacking 101</h4>
+        <p class="module-desc"></p>
+      </a>
+      
+    </div>
+  </div>
+
+</div>
+
+<script>
+function openCourse(category) {
+  document.getElementById('category-view').style.display = 'none';
+  const dv = document.getElementById('detail-view');
+  dv.classList.add('active');
+  document.getElementById('course-title-display').textContent = `// DIRECTORY: ${category.toUpperCase()}`;
+
+  document.querySelectorAll('.filter-item').forEach(el => {
+    el.style.display = el.dataset.cat.includes(category) ? 'block' : 'none';
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function closeCourse() {
+  document.getElementById('detail-view').classList.remove('active');
+  document.getElementById('detail-view').style.display = '';
+  const cv = document.getElementById('category-view');
+  cv.style.display = 'flex';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+
+
+<footer>
+  <div class="footer-brand">
+    <strong>kaiversus</strong>
+    <span style="color:var(--text-faint)">—</span>
+    <span>Dinh Thien Bao · 52Hz</span>
+  </div>
+  <div class="footer-links">
+    <a href="#">GitHub</a>
+    <a href="#">CTFtime</a>
+    <a href="#">Twitter</a>
+    <a href="#">RSS</a>
+  </div>
+</footer>
+
+<script src="/assets/js/cyber-bg.js"></script>
+</body>
+</html>

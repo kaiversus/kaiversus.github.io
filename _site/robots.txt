@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /admin-secret-login/
+
+# Chỉ định vị trí sitemap
+Sitemap: https://kaiversus.github.io/sitemap.xml

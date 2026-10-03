@@ -1,0 +1,11 @@
+source 'https://rubygems.org'
+
+gem 'jekyll', '~> 3.9.3'
+gem 'jekyll-sitemap'
+gem 'jekyll-seo-tag'
+gem 'csv'
+gem 'webrick'
+gem 'bigdecimal'
+gem 'base64'
+gem 'liquid', '>= 4.0.4'
+gem 'kramdown-parser-gfm'

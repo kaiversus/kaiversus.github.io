@@ -4,6 +4,7 @@ title: "Wifi Hacking 101"
 category: TryHackMe
 description: ""
 author: Kaiversus
+date: 2026-01-01 00:00:00
 difficulty: Basic
 ---
 
