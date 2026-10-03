@@ -155,7 +155,7 @@ html.light .writeup-content a:hover {
 
 <p>Sau khi load file vào x32dbg, ta có thể định vị được <code class="language-plaintext highlighter-rouge">IsDebuggerPresent</code> bằng cách chuột phải vào câu lệnh Assembly bất kỳ và tìm Intermodular Calls của nó, trong trường hợp này, ta chọn All Module vì thực sự chưa có dữ liệu rằng block nào sẽ gọi nó.</p>
 
-<p><img src="/assets/images/courses/malware/chapter3/9cde1c69-23cc-4e10-b310-548c62756e25.png" alt="Intermodular Calls" /></p>
+<p><img src="/assets/images/courses/htb/anti_analysis/9cde1c69-23cc-4e10-b310-548c62756e25.png" alt="Intermodular Calls" /></p>
 
 <p>Sau đó, x32dbg sẽ chuyển ta đến tab References và hiện ra rất nhiều kết quả khác nhau, ta có thể search từ khóa Debugger để tìm nhanh, trong ảnh xuất hiện <code class="language-plaintext highlighter-rouge">IsDebuggerPresent</code> ngay dòng đầu tiên.</p>
 
@@ -189,7 +189,7 @@ html.light .writeup-content a:hover {
 
 <p>Khi phân tích các lệnh API call cho thấy chương trình đầu tiên sử dụng hàm <code class="language-plaintext highlighter-rouge">GetCurrentProcess</code> để lấy một handle cho tiến trình của nó, sau đó handle này được truyền vào hàm <code class="language-plaintext highlighter-rouge">CheckRemoteDebuggerPresent</code>làm argument đầu tiên.</p>
 
-<p><img src="/assets/images/courses/malware/chapter3/checkremotedebuggerpresent_1.png" alt="" /></p>
+<p><img src="/assets/images/courses/htb/anti_analysis/checkremotedebuggerpresent_1.png" alt="" /></p>
 
 <p>Argument thứ hai của hàm <code class="language-plaintext highlighter-rouge">CheckRemoteDebuggerPresent</code> là một con trỏ đến một biến boolean, nơi mà kết quả kiểm tra sẽ được lưu trữ. Kết quả trả về của hàm này được lưu trữ trong một biến boolean True/False. Tương đương với việc thanh ghi EAX sẽ nhận giá trị 1 nếu đang Debug và 0 nếu không Debug.</p>
 

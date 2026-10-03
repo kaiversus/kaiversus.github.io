@@ -1,7 +1,7 @@
 ---
 layout: course
 title: "Chapter 3a: Malware Anti-Analysis Techniques - Debugger Detection using Windows API Calls (HTB)"
-category: Malware
+category: HackTheBox
 description: "Trình bày một số kỹ thuật Anti-Analysis được sử dụng bởi Malware để phát hiện môi trường phân tích và cách bypass chúng."
 date: 2026-10-02 00:00:00
 author: Kaiversus
@@ -42,7 +42,7 @@ File được phân tích trong mục này có tên là `DebuggerDetectionAPIs.e
 
 Sau khi load file vào x32dbg, ta có thể định vị được `IsDebuggerPresent` bằng cách chuột phải vào câu lệnh Assembly bất kỳ và tìm Intermodular Calls của nó, trong trường hợp này, ta chọn All Module vì thực sự chưa có dữ liệu rằng block nào sẽ gọi nó.
 
-![Intermodular Calls](/assets/images/courses/malware/chapter3/9cde1c69-23cc-4e10-b310-548c62756e25.png)
+![Intermodular Calls](/assets/images/courses/htb/anti_analysis/9cde1c69-23cc-4e10-b310-548c62756e25.png)
 
 Sau đó, x32dbg sẽ chuyển ta đến tab References và hiện ra rất nhiều kết quả khác nhau, ta có thể search từ khóa Debugger để tìm nhanh, trong ảnh xuất hiện `IsDebuggerPresent` ngay dòng đầu tiên. 
 
@@ -77,7 +77,7 @@ BOOL CheckRemoteDebuggerPresent(
 
 Khi phân tích các lệnh API call cho thấy chương trình đầu tiên sử dụng hàm `GetCurrentProcess` để lấy một handle cho tiến trình của nó, sau đó handle này được truyền vào hàm `CheckRemoteDebuggerPresent`làm argument đầu tiên. 
 
-![](/assets/images/courses/malware/chapter3/checkremotedebuggerpresent_1.png)
+![](/assets/images/courses/htb/anti_analysis/checkremotedebuggerpresent_1.png)
 
 Argument thứ hai của hàm `CheckRemoteDebuggerPresent` là một con trỏ đến một biến boolean, nơi mà kết quả kiểm tra sẽ được lưu trữ. Kết quả trả về của hàm này được lưu trữ trong một biến boolean True/False. Tương đương với việc thanh ghi EAX sẽ nhận giá trị 1 nếu đang Debug và 0 nếu không Debug.
 
