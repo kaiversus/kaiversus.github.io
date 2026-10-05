@@ -17,6 +17,12 @@ collections:
   projects:
     output: true
     permalink: /projects/:path/
+  cheatsheet:
+    output: true
+    permalink: /cheatsheet/:path/
+  reports:
+    output: true
+    permalink: /reports/:path/
 # --- Dán đoạn này vào cuối file _config.yml ---
 
 plugins:

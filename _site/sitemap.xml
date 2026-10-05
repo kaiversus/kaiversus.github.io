@@ -37,6 +37,10 @@
 <lastmod>2026-10-04T07:00:00+07:00</lastmod>
 </url>
 <url>
+<loc>http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_3/</loc>
+<lastmod>2026-10-05T07:00:00+07:00</lastmod>
+</url>
+<url>
 <loc>http://localhost:4000/projects/quiz_wep/</loc>
 <lastmod>2026-01-24T00:00:00+07:00</lastmod>
 </url>
@@ -56,6 +60,9 @@
 <loc>http://localhost:4000/about/</loc>
 </url>
 <url>
+<loc>http://localhost:4000/cheatsheet/</loc>
+</url>
+<url>
 <loc>http://localhost:4000/courses/</loc>
 </url>
 <url>
@@ -63,6 +70,9 @@
 </url>
 <url>
 <loc>http://localhost:4000/projects/</loc>
+</url>
+<url>
+<loc>http://localhost:4000/reports/</loc>
 </url>
 <url>
 <loc>http://localhost:4000/test_dates.html</loc>

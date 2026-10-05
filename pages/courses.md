@@ -298,10 +298,39 @@ html.light .module-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.1); }
 
   </div>
 
+  <!-- Subcategory list -->
+  <div id="subcategory-view" class="cat-list" style="display: none;">
+    <div class="detail-header" style="margin-bottom: 28px;">
+      <button class="back-btn" onclick="backToCategories()">
+        ← cd .. (RETURN)
+      </button>
+      <h2 class="detail-title" id="subcat-title-display">// LOADING...</h2>
+      <p class="detail-sub">> List of available courses in this directory:</p>
+    </div>
+
+    {% assign all_cats = site.courses | map: "category" | compact | uniq %}
+    {% for cat in all_cats %}
+      {% assign cat_courses = site.courses | where: "category", cat %}
+      {% assign subcats = cat_courses | map: "subcategory" | compact | uniq %}
+      {% assign idx = 0 %}
+      {% for sub in subcats %}
+        {% assign sub_count = cat_courses | where: "subcategory", sub | size %}
+        {% assign idx = idx | plus: 1 %}
+        {% assign hex = idx | prepend: "0x0" %}
+        <div class="cat-row subcat-item" data-parent-cat="{{ cat | escape }}" onclick="openSubcategory('{{ cat | escape }}', '{{ sub | escape }}')">
+          <span class="cat-hex">[ {{ hex }} ]</span>
+          <span class="cat-name">{{ sub | upcase }}</span>
+          <span class="cat-count">{{ sub_count }} modules</span>
+          <span class="cat-arrow">›</span>
+        </div>
+      {% endfor %}
+    {% endfor %}
+  </div>
+
   <!-- Detail view -->
   <div id="detail-view" class="detail-view">
     <div class="detail-header">
-      <button class="back-btn" onclick="closeCourse()">
+      <button class="back-btn" id="detail-back-btn" onclick="closeCourse()">
         ← cd .. (RETURN)
       </button>
       <h2 class="detail-title" id="course-title-display">// LOADING...</h2>
@@ -313,7 +342,8 @@ html.light .module-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.1); }
       {% for post in sorted_courses %}
       <a class="module-card filter-item"
          href="{{ post.url }}"
-         data-cat="{{ post.category | default: 'General' }}">
+         data-cat="{{ post.category | default: 'General' }}"
+         data-subcat="{{ post.subcategory | default: '' }}">
 
         <div class="module-meta">
           <span>{{ post.date | date: "%Y-%m-%d" }}</span>
@@ -332,20 +362,88 @@ html.light .module-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.1); }
 
 <script>
 function openCourse(category) {
-  document.getElementById('category-view').style.display = 'none';
+  // Check if this category has subcategories
+  const subcatItems = document.querySelectorAll(`.subcat-item[data-parent-cat="${category}"]`);
+  
+  if (subcatItems.length > 0) {
+    document.getElementById('category-view').style.display = 'none';
+    document.getElementById('detail-view').classList.remove('active');
+    document.getElementById('detail-view').style.display = 'none';
+    
+    const sv = document.getElementById('subcategory-view');
+    sv.style.display = 'block'; // Make sure to use block, cat-list behaves weirdly if we mess up its display. Actually cat-list is flex column in CSS. Let's use 'flex'.
+    sv.classList.add('active'); // Reusing detail-view fade animation if we want. Wait, cat-list doesn't have animation. That's fine.
+    
+    // Set flex for the container
+    sv.style.display = 'flex';
+    document.getElementById('subcat-title-display').textContent = `// DIRECTORY: ${category.toUpperCase()}`;
+    
+    document.querySelectorAll('.subcat-item').forEach(el => {
+      if (el.getAttribute('data-parent-cat') === category) {
+        el.style.display = 'flex';
+      } else {
+        el.style.display = 'none';
+      }
+    });
+  } else {
+    // Open modules directly if no subcategory
+    document.getElementById('category-view').style.display = 'none';
+    document.getElementById('subcategory-view').style.display = 'none';
+    
+    const dv = document.getElementById('detail-view');
+    dv.style.display = 'block';
+    dv.classList.add('active');
+    
+    document.getElementById('detail-back-btn').onclick = closeCourse;
+    document.getElementById('course-title-display').textContent = `// DIRECTORY: ${category.toUpperCase()}`;
+
+    document.querySelectorAll('.filter-item').forEach(el => {
+      // Only show items for this category that don't have a subcategory
+      el.style.display = (el.dataset.cat === category && el.dataset.subcat === '') ? 'block' : 'none';
+    });
+  }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function openSubcategory(category, subcategory) {
+  document.getElementById('subcategory-view').style.display = 'none';
   const dv = document.getElementById('detail-view');
+  dv.style.display = 'block';
   dv.classList.add('active');
-  document.getElementById('course-title-display').textContent = `// DIRECTORY: ${category.toUpperCase()}`;
+  
+  document.getElementById('detail-back-btn').onclick = function() {
+    closeDetailToSubcategory(category);
+  };
+  
+  document.getElementById('course-title-display').textContent = `// DIRECTORY: ${category.toUpperCase()} / ${subcategory.toUpperCase()}`;
 
   document.querySelectorAll('.filter-item').forEach(el => {
-    el.style.display = el.dataset.cat.includes(category) ? 'block' : 'none';
+    el.style.display = (el.dataset.cat === category && el.dataset.subcat === subcategory) ? 'block' : 'none';
   });
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function closeCourse() {
   document.getElementById('detail-view').classList.remove('active');
-  document.getElementById('detail-view').style.display = '';
+  document.getElementById('detail-view').style.display = 'none';
+  document.getElementById('subcategory-view').style.display = 'none';
+  
+  const cv = document.getElementById('category-view');
+  cv.style.display = 'flex';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function closeDetailToSubcategory(category) {
+  document.getElementById('detail-view').classList.remove('active');
+  document.getElementById('detail-view').style.display = 'none';
+  
+  const sv = document.getElementById('subcategory-view');
+  sv.style.display = 'flex';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function backToCategories() {
+  document.getElementById('subcategory-view').style.display = 'none';
   const cv = document.getElementById('category-view');
   cv.style.display = 'flex';
   window.scrollTo({ top: 0, behavior: 'smooth' });

@@ -124,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function() {
   // 1. TẠO MỤC LỤC (TOC) TỰ ĐỘNG
   // ==========================================
   const toc = document.getElementById('custom-toc');
-  const headings = document.querySelectorAll('.writeup-content h2, .writeup-content h3');
+  const headings = document.querySelectorAll('.writeup-content h2, .writeup-content h3, .writeup-content h4');
   
   if (toc && headings.length > 0) {
     toc.style.display = 'flex';

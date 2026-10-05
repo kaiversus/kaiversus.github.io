@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tap Into Hash - PicoCTF</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Newsreader:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/style.css?v=3">
 <!-- Theme manager: loaded in <head> to apply saved theme before render (no flash) -->
 <script src="/assets/js/theme.js"></script>
 </head>
@@ -482,7 +482,7 @@ Encrypted Blockchain: b'x\xa9\xcaR^\'J\x86\xdd\xb7\x00]\x07\xd3\xb4ip\xf8\x9b\x0
     document.addEventListener("DOMContentLoaded", function() {
         // 1. TẠO MỤC LỤC (TOC) DỌC
         const toc = document.getElementById('custom-toc');
-        const headings = document.querySelectorAll('.writeup-content h2, .writeup-content h3');
+        const headings = document.querySelectorAll('.writeup-content h2, .writeup-content h3, .writeup-content h4');
         
         toc.style.display = 'flex';
         toc.style.flexDirection = 'column';
