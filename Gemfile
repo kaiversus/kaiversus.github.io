@@ -9,3 +9,6 @@ gem 'bigdecimal'
 gem 'base64'
 gem 'liquid', '>= 4.0.4'
 gem 'kramdown-parser-gfm'
+
+gem 'tzinfo'
+gem 'tzinfo-data'

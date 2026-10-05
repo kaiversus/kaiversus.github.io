@@ -3,6 +3,8 @@ title: Dinh Thien Bao (Kaiversus)
 description: "Portfolio of Dinh Thien Bao (Kaiversus) - Security Researcher and CTF Player."
 url: "https://kaiversus.github.io"
 baseurl: ""
+timezone: "Asia/Ho_Chi_Minh"
+future: true
 
 # Định nghĩa 3 kho dữ liệu riêng biệt
 collections:
