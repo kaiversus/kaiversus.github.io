@@ -23,6 +23,9 @@ collections:
   reports:
     output: true
     permalink: /reports/:path/
+  blogs:
+    output: true
+    permalink: /blogs/:path/
 # --- Dán đoạn này vào cuối file _config.yml ---
 
 plugins:
