@@ -6,6 +6,7 @@
 <title>{{ page.title | default: site.title }}</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Newsreader:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{ "/assets/css/style.css?v=4" | relative_url }}">
+<link rel="stylesheet" href="{{ "/assets/css/web-term.css?v=2" | relative_url }}">
 <!-- Theme manager: loaded in <head> to apply saved theme before render (no flash) -->
 <script src="{{ "/assets/js/theme.js" | relative_url }}"></script>
 </head>
@@ -44,6 +45,101 @@
   </div>
 </footer>
 
-<script src="{{ "/assets/js/cyber-bg.js" | relative_url }}"></script>
+<!-- Web Terminal -->
+<button id="web-term-toggle" class="web-term-toggle" title="Open Terminal">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+</button>
+
+<div id="web-term-window" class="web-term-window" style="display: none;">
+  <div class="web-term-header">
+    <div class="web-term-title">kaiversus@blog: ~</div>
+    <button id="web-term-close">✖</button>
+  </div>
+  <div class="web-term-body" id="web-term-body">
+    <div class="web-term-output" id="web-term-output"></div>
+    <div class="web-term-input-line">
+       <span class="web-term-prompt" id="web-term-prompt-txt">kaiversus@blog:~$</span>
+       <input type="text" id="web-term-input" autocomplete="off" spellcheck="false" />
+    </div>
+  </div>
+</div>
+
+<script>
+  window.FS_DATA = {
+    'home': {
+      'kai': {
+        'writeups': {
+          {% for post in site.writeups limit:10 %}
+          {% assign fname = post.title | slugify | default: 'post' | append: '.txt' %}
+          {% capture fcontent %}Title: {{ post.title }}
+Date: {{ post.date | date: '%Y-%m-%d' }}
+URL: {{ site.url }}{{ post.url }}
+
+{{ post.description | strip_html }}{% endcapture %}
+          {{ fname | jsonify }}: {{ fcontent | jsonify }},
+          {% endfor %}
+          "info.txt": "Use 'cat <filename>' to read. Type 'ls' to list posts."
+        },
+        'courses': {
+          {% for post in site.courses limit:10 %}
+          {% assign fname = post.title | slugify | default: 'course' | append: '.txt' %}
+          {% capture fcontent %}Title: {{ post.title }}
+Date: {{ post.date | date: '%Y-%m-%d' }}
+URL: {{ site.url }}{{ post.url }}
+
+{{ post.description | strip_html }}{% endcapture %}
+          {{ fname | jsonify }}: {{ fcontent | jsonify }},
+          {% endfor %}
+          "info.txt": "Use 'cat <filename>' to read."
+        },
+        'projects': {
+          {% for project in site.projects limit:10 %}
+          {% assign fname = project.title | slugify | default: 'project' | append: '.md' %}
+          {% capture fcontent %}Title: {{ project.title }}
+URL: {{ site.url }}{{ project.url }}
+
+{{ project.description | strip_html }}{% endcapture %}
+          {{ fname | jsonify }}: {{ fcontent | jsonify }},
+          {% endfor %}
+          "repo.txt": "Check out github.com/kaiversus"
+        },
+        'blogs': {
+          {% for blog in site.blogs limit:10 %}
+          {% assign fname = blog.title | slugify | default: 'blog' | append: '.md' %}
+          {% capture fcontent %}Title: {{ blog.title }}
+Date: {{ blog.date | date: '%Y-%m-%d' }}
+URL: {{ site.url }}{{ blog.url }}
+
+{{ blog.description | strip_html }}{% endcapture %}
+          {{ fname | jsonify }}: {{ fcontent | jsonify }},
+          {% endfor %}
+          "info.txt": "Use 'cat <filename>' to read."
+        },
+        'cheatsheet': {
+          {% for sheet in site.cheatsheet limit:10 %}
+          {% assign fname = sheet.title | slugify | default: 'cheatsheet' | append: '.md' %}
+          {% capture fcontent %}Title: {{ sheet.title }}
+URL: {{ site.url }}{{ sheet.url }}{% endcapture %}
+          {{ fname | jsonify }}: {{ fcontent | jsonify }},
+          {% endfor %}
+          "info.txt": "Quick references."
+        },
+        'reports': {
+          {% for report in site.reports limit:10 %}
+          {% assign fname = report.title | slugify | default: 'report' | append: '.md' %}
+          {% capture fcontent %}Title: {{ report.title }}
+URL: {{ site.url }}{{ report.url }}{% endcapture %}
+          {{ fname | jsonify }}: {{ fcontent | jsonify }},
+          {% endfor %}
+          "info.txt": "Vulnerability reports."
+        },
+        'focus.txt': 'Reverse Engineering · Binary Exploitation · Malware Analysis',
+        'README.txt': 'Welcome to my blog terminal. Type "kai --help" to see available commands.'
+      }
+    }
+  };
+</script>
+<script src="{{ "/assets/js/cyber-bg.js?v=6" | relative_url }}"></script>
+<script src="{{ "/assets/js/web-term.js?v=4" | relative_url }}"></script>
 </body>
 </html>

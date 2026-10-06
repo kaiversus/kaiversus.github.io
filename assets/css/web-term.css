@@ -1,0 +1,121 @@
+.web-term-toggle {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: var(--green, #3fb950);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+}
+.web-term-toggle:hover {
+  background: rgba(30, 30, 30, 0.9);
+  transform: scale(1.05);
+  border-color: var(--green, #3fb950);
+}
+
+.web-term-window {
+  position: fixed;
+  bottom: 84px;
+  left: 24px;
+  width: 500px;
+  max-width: calc(100vw - 48px);
+  height: 350px;
+  background: rgba(13, 17, 23, 0.95);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  z-index: 9998;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+  backdrop-filter: blur(10px);
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  overflow: hidden;
+  animation: slide-up 0.2s ease-out;
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.web-term-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.web-term-title {
+  font-size: 11px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 0.05em;
+}
+
+#web-term-close {
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.5);
+  cursor: pointer;
+  font-size: 12px;
+}
+#web-term-close:hover {
+  color: #ff5f56;
+}
+
+.web-term-body {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+  font-size: 13px;
+  color: rgba(200,215,200,0.8);
+  line-height: 1.6;
+  white-space: pre-wrap;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.web-term-output {
+  margin-bottom: 4px;
+}
+
+.web-term-input-line {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.web-term-prompt {
+  color: var(--green, #3fb950);
+  white-space: nowrap;
+}
+
+#web-term-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+
+/* Custom scrollbar for terminal */
+.web-term-body::-webkit-scrollbar { width: 6px; }
+.web-term-body::-webkit-scrollbar-track { background: transparent; }
+.web-term-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
