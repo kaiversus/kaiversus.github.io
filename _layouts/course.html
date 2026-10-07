@@ -91,18 +91,18 @@ html.light .writeup-content a:hover {
 
     {{ content }}
 
-    <div style="margin-top: 50px; border-top: 1px dashed #30363d; padding-top: 20px; display:flex; justify-content:space-between; align-items:center;">
-      <a href="/courses/" style="color: #8b949e; text-decoration: none;">[ cd .. ] Back to Courses</a>
+    <div class="post-nav-footer">
+      <a href="/courses/" class="post-nav-back">[ cd .. ] Back to Courses</a>
       {% assign all_courses = site.courses | sort: "date" %}
       {% for c in all_courses %}{% if c.url == page.url %}{% assign cur_idx = forloop.index0 %}{% endif %}{% endfor %}
       {% assign prev_idx = cur_idx | minus: 1 %}
       {% assign next_idx = cur_idx | plus: 1 %}
-      <div style="display:flex;gap:16px;">
+      <div class="post-nav-links">
         {% if prev_idx >= 0 %}{% assign prev_p = all_courses[prev_idx] %}{% if prev_p %}
-        <a href="{{ prev_p.url }}" style="color:#ffaa00;text-decoration:none;font-size:0.8rem;">← {{ prev_p.title | truncate: 40 }}</a>
+        <a href="{{ prev_p.url }}" class="post-nav-prev">← {{ prev_p.title | truncate: 35 }}</a>
         {% endif %}{% endif %}
         {% assign next_p = all_courses[next_idx] %}{% if next_p %}
-        <a href="{{ next_p.url }}" style="color:#ffaa00;text-decoration:none;font-size:0.8rem;">{{ next_p.title | truncate: 40 }} →</a>
+        <a href="{{ next_p.url }}" class="post-nav-next">{{ next_p.title | truncate: 35 }} →</a>
         {% endif %}
       </div>
     </div>
@@ -111,10 +111,26 @@ html.light .writeup-content a:hover {
   <aside class="writeup-sidebar">
     <div class="toc-wrapper">
       <div class="toc-title">ON THIS PAGE</div>
-      <nav id="custom-toc"></nav>
+      <div id="custom-toc"></div>
     </div>
   </aside>
 
+</div>
+
+<!-- Floating Mobile TOC Toggle & Drawer -->
+<button id="mobile-toc-toggle" class="mobile-toc-toggle" title="Table of Contents" aria-label="Table of Contents">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="4" y1="6" x2="20" y2="6"></line>
+    <line x1="4" y1="12" x2="14" y2="12"></line>
+    <line x1="4" y1="18" x2="18" y2="18"></line>
+  </svg>
+</button>
+
+<div id="mobile-toc-overlay" class="mobile-toc-overlay"></div>
+
+<div id="mobile-toc-drawer" class="mobile-toc-drawer">
+  <div class="mobile-toc-label">ON THIS PAGE</div>
+  <div id="mobile-toc-content"></div>
 </div>
 
 <script>
@@ -124,26 +140,101 @@ document.addEventListener("DOMContentLoaded", function() {
   // 1. TẠO MỤC LỤC (TOC) TỰ ĐỘNG
   // ==========================================
   const toc = document.getElementById('custom-toc');
+  const mobileToc = document.getElementById('mobile-toc-content');
+  const mobileToggle = document.getElementById('mobile-toc-toggle');
+  const mobileDrawer = document.getElementById('mobile-toc-drawer');
+  const mobileOverlay = document.getElementById('mobile-toc-overlay');
+  const mobileClose = document.getElementById('mobile-toc-close');
   const headings = document.querySelectorAll('.writeup-content h2, .writeup-content h3, .writeup-content h4');
   
-  if (toc && headings.length > 0) {
-    toc.style.display = 'flex';
-    toc.style.flexDirection = 'column';
-    toc.style.gap = '10px';
+  if (headings.length > 0) {
+    if (toc) {
+      toc.style.display = 'flex';
+      toc.style.flexDirection = 'column';
+      toc.style.gap = '10px';
+    }
     
     headings.forEach(h => {
-      let headingText = h.textContent.trim();
+      let headingText = (h.innerText || h.textContent).trim();
       
       if (!h.id) {
         h.id = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-');
       }
       
-      const a = document.createElement('a');
-      a.href = '#' + h.id;
-      a.textContent = headingText;
-      a.className = 'toc-link ' + h.tagName.toLowerCase();
-      toc.appendChild(a);
+      if (toc) {
+        const a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = headingText;
+        a.className = 'toc-link ' + h.tagName.toLowerCase();
+        toc.appendChild(a);
+      }
+
+      if (mobileToc) {
+        const ma = document.createElement('a');
+        ma.href = '#' + h.id;
+        ma.textContent = headingText;
+        ma.className = 'mobile-toc-link ' + h.tagName.toLowerCase();
+        ma.addEventListener('click', () => {
+          if (mobileDrawer) mobileDrawer.classList.remove('active');
+          if (mobileOverlay) mobileOverlay.classList.remove('active');
+        });
+        mobileToc.appendChild(ma);
+      }
     });
+
+    if (mobileToggle) {
+      mobileToggle.addEventListener('click', () => {
+        const isOpen = mobileDrawer && mobileDrawer.classList.contains('active');
+        if (isOpen) {
+          mobileDrawer.classList.remove('active');
+          if (mobileOverlay) mobileOverlay.classList.remove('active');
+        } else {
+          if (mobileDrawer) mobileDrawer.classList.add('active');
+          if (mobileOverlay) mobileOverlay.classList.add('active');
+        }
+      });
+    }
+
+    if (mobileClose) {
+      mobileClose.addEventListener('click', () => {
+        if (mobileDrawer) mobileDrawer.classList.remove('active');
+        if (mobileOverlay) mobileOverlay.classList.remove('active');
+      });
+    }
+
+    if (mobileOverlay) {
+      mobileOverlay.addEventListener('click', () => {
+        if (mobileDrawer) mobileDrawer.classList.remove('active');
+        if (mobileOverlay) mobileOverlay.classList.remove('active');
+      });
+    }
+
+    // ==========================================
+    // SCROLL SPY: SÁNG MỤC LỤC KHI CUỘN
+    // ==========================================
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px 0px -65% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          document.querySelectorAll('#custom-toc a, #mobile-toc-content a').forEach(link => {
+            link.classList.remove('active');
+          });
+          const activeLinks = document.querySelectorAll(`#custom-toc a[href="#${id}"], #mobile-toc-content a[href="#${id}"]`);
+          activeLinks.forEach(link => link.classList.add('active'));
+        }
+      });
+    }, observerOptions);
+
+    headings.forEach(h => observer.observe(h));
+
+  } else {
+    if (mobileToggle) mobileToggle.style.display = 'none';
   }
 
   // ==========================================
