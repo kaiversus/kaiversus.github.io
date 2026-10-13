@@ -1,0 +1,348 @@
+---
+layout: default
+---
+<style>
+/* ── Blog white/silver overrides (matching .dir-card.white menu concept) ── */
+
+/* Headings */
+.writeup-content h2 { color: #e0e0e0 !important; }
+.writeup-content h3 { border-left-color: #e0e0e0 !important; }
+.writeup-content h4 { color: #e6edf3; }
+
+/* Bold — bright white accent */
+.writeup-content strong,
+.writeup-content b {
+  font-weight: 800;
+  color: #ffffff;
+}
+
+/* Light mode headings & bold */
+html.light .writeup-content h2 { color: #505050 !important; }
+html.light .writeup-content h3 { border-left-color: #505050 !important; }
+html.light .writeup-content h4 { color: #2a2520; }
+
+html.light .writeup-content strong,
+html.light .writeup-content b {
+  color: #1c1a14;
+}
+
+/* Inline code — white/silver tinted */
+.writeup-content p code,
+.writeup-content li code,
+.writeup-content td code {
+  background: rgba(224, 224, 224, 0.08);
+  color: #e0e0e0;
+  border: 1px solid rgba(224, 224, 224, 0.18);
+}
+
+html.light .writeup-content p code,
+html.light .writeup-content li code,
+html.light .writeup-content td code {
+  background: rgba(80, 80, 80, 0.08);
+  color: #3d3828;
+  border: 1px solid rgba(80, 80, 80, 0.15);
+}
+
+/* Table header — white/silver */
+.writeup-content th {
+  background: rgba(224, 224, 224, 0.08) !important;
+  color: #e0e0e0 !important;
+}
+
+html.light .writeup-content th {
+  background: rgba(80, 80, 80, 0.08) !important;
+  color: #505050 !important;
+}
+
+/* Links */
+.writeup-content a {
+  color: #e0e0e0;
+  border-bottom-color: rgba(224, 224, 224, 0.4);
+}
+.writeup-content a:hover {
+  color: #ffffff;
+  background: rgba(224, 224, 224, 0.08);
+}
+
+html.light .writeup-content a {
+  color: #505050;
+  border-bottom-color: rgba(80, 80, 80, 0.4);
+}
+html.light .writeup-content a:hover {
+  color: #1c1a14;
+  background: rgba(80, 80, 80, 0.08);
+}
+
+/* Nested list sub-notes */
+.writeup-content ul ul li,
+.writeup-content ol ul li {
+  border-left-color: rgba(224, 224, 224, 0.25);
+}
+.writeup-content ul ul li::before {
+  color: rgba(224, 224, 224, 0.45);
+}
+html.light .writeup-content ul ul li,
+html.light .writeup-content ol ul li {
+  border-left-color: rgba(80, 80, 80, 0.25);
+}
+html.light .writeup-content ul ul li::before {
+  color: rgba(80, 80, 80, 0.45);
+}
+
+/* Prompt & Meta accents */
+.blog-prompt-host {
+  color: #e0e0e0;
+  font-weight: 700;
+}
+html.light .blog-prompt-host {
+  color: #505050;
+}
+.blog-meta-accent {
+  color: #e0e0e0;
+  font-weight: 700;
+}
+html.light .blog-meta-accent {
+  color: #505050;
+}
+
+/* TOC & Navigation overrides */
+#custom-toc a.active,
+#mobile-toc-content a.active {
+  color: #e0e0e0 !important;
+}
+html.light #custom-toc a.active,
+html.light #mobile-toc-content a.active {
+  color: #505050 !important;
+}
+
+.mobile-toc-toggle {
+  border-color: rgba(224, 224, 224, 0.4);
+  color: #e0e0e0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 10px rgba(224, 224, 224, 0.15);
+}
+.mobile-toc-toggle:hover {
+  border-color: #e0e0e0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 15px rgba(224, 224, 224, 0.3);
+}
+html.light .mobile-toc-toggle {
+  border-color: rgba(80, 80, 80, 0.35);
+  color: #505050;
+}
+
+.post-nav-back:hover {
+  color: #e0e0e0;
+}
+.post-nav-prev,
+.post-nav-next {
+  color: #e0e0e0;
+}
+.post-nav-prev:hover,
+.post-nav-next:hover {
+  color: #ffffff;
+}
+html.light .post-nav-back:hover,
+html.light .post-nav-prev,
+html.light .post-nav-next {
+  color: #505050;
+}
+html.light .post-nav-prev:hover,
+html.light .post-nav-next:hover {
+  color: #1c1a14;
+}
+</style>
+
+<div class="writeup-container">
+    
+    <article class="writeup-content">
+        <div class="writeup-header">
+            <div class="terminal-prompt">
+                <span class="blog-prompt-host">root@kaiversus:~/blogs$</span> cat {{ page.title | slugify }}.md
+            </div>
+            <h1>{{ page.title }}</h1>
+            <div class="writeup-meta">
+                [ DATE: {{ page.date | date: "%Y-%m-%d" }} ]
+                {% if page.difficulty %} | LEVEL: <span class="blog-meta-accent">{{ page.difficulty | capitalize }}</span>{% endif %}
+                {% if page.author %} | AUTHOR: {{ page.author }}{% endif %}
+            </div>
+        </div>
+
+        {{ content }}
+        
+        <div class="post-nav-footer">
+            <a href="/blogs/" class="post-nav-back">[ cd .. ] Back to Blogs</a>
+            {% assign all_blogs = site.blogs | sort: "date" %}
+            {% for b in all_blogs %}{% if b.url == page.url %}{% assign cur_idx = forloop.index0 %}{% endif %}{% endfor %}
+            {% assign prev_idx = cur_idx | minus: 1 %}
+            {% assign next_idx = cur_idx | plus: 1 %}
+            <div class="post-nav-links">
+                {% if prev_idx >= 0 %}{% assign prev_p = all_blogs[prev_idx] %}{% if prev_p %}
+                <a href="{{ prev_p.url }}" class="post-nav-prev">← {{ prev_p.title | truncate: 35 }}</a>
+                {% endif %}{% endif %}
+                {% assign next_p = all_blogs[next_idx] %}{% if next_p %}
+                <a href="{{ next_p.url }}" class="post-nav-next">{{ next_p.title | truncate: 35 }} →</a>
+                {% endif %}
+            </div>
+        </div>
+    </article>
+
+    <aside class="writeup-sidebar">
+        <div class="toc-wrapper">
+            <div class="toc-title">ON THIS PAGE</div>
+            <div id="custom-toc"></div>
+        </div>
+    </aside>
+
+</div>
+
+<!-- Floating Mobile TOC Toggle & Drawer -->
+<button id="mobile-toc-toggle" class="mobile-toc-toggle" title="Table of Contents" aria-label="Table of Contents">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="4" y1="6" x2="20" y2="6"></line>
+    <line x1="4" y1="12" x2="14" y2="12"></line>
+    <line x1="4" y1="18" x2="18" y2="18"></line>
+  </svg>
+</button>
+
+<div id="mobile-toc-overlay" class="mobile-toc-overlay"></div>
+
+<div id="mobile-toc-drawer" class="mobile-toc-drawer">
+  <div class="mobile-toc-label">ON THIS PAGE</div>
+  <div id="mobile-toc-content"></div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 1. TẠO MỤC LỤC (TOC) DỌC
+        const toc = document.getElementById('custom-toc');
+        const mobileToc = document.getElementById('mobile-toc-content');
+        const mobileToggle = document.getElementById('mobile-toc-toggle');
+        const mobileDrawer = document.getElementById('mobile-toc-drawer');
+        const mobileOverlay = document.getElementById('mobile-toc-overlay');
+        const mobileClose = document.getElementById('mobile-toc-close');
+        const headings = document.querySelectorAll('.writeup-content h2, .writeup-content h3, .writeup-content h4');
+        
+        if (headings.length > 0) {
+            if (toc) {
+                toc.style.display = 'flex';
+                toc.style.flexDirection = 'column';
+                toc.style.gap = '10px';
+            }
+
+            headings.forEach(h => {
+                let headingText = (h.innerText || h.textContent).trim();
+                if (!h.id) {
+                    h.id = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                }
+                if (toc) {
+                    const a = document.createElement('a');
+                    a.href = '#' + h.id;
+                    a.textContent = headingText;
+                    a.className = 'toc-link ' + h.tagName.toLowerCase();
+                    toc.appendChild(a);
+                }
+                if (mobileToc) {
+                    const ma = document.createElement('a');
+                    ma.href = '#' + h.id;
+                    ma.textContent = headingText;
+                    ma.className = 'mobile-toc-link ' + h.tagName.toLowerCase();
+                    ma.addEventListener('click', () => {
+                        if (mobileDrawer) mobileDrawer.classList.remove('active');
+                        if (mobileOverlay) mobileOverlay.classList.remove('active');
+                    });
+                    mobileToc.appendChild(ma);
+                }
+            });
+
+            if (mobileToggle) {
+                mobileToggle.addEventListener('click', () => {
+                    const isOpen = mobileDrawer && mobileDrawer.classList.contains('active');
+                    if (isOpen) {
+                        mobileDrawer.classList.remove('active');
+                        if (mobileOverlay) mobileOverlay.classList.remove('active');
+                    } else {
+                        if (mobileDrawer) mobileDrawer.classList.add('active');
+                        if (mobileOverlay) mobileOverlay.classList.add('active');
+                    }
+                });
+            }
+
+            if (mobileClose) {
+                mobileClose.addEventListener('click', () => {
+                    if (mobileDrawer) mobileDrawer.classList.remove('active');
+                    if (mobileOverlay) mobileOverlay.classList.remove('active');
+                });
+            }
+
+            if (mobileOverlay) {
+                mobileOverlay.addEventListener('click', () => {
+                    if (mobileDrawer) mobileDrawer.classList.remove('active');
+                    if (mobileOverlay) mobileOverlay.classList.remove('active');
+                });
+            }
+
+            // ==========================================
+            // SCROLL SPY: SÁNG MỤC LỤC KHI CUỘN
+            // ==========================================
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -65% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        document.querySelectorAll('#custom-toc a, #mobile-toc-content a').forEach(link => {
+                            link.classList.remove('active');
+                        });
+                        const activeLinks = document.querySelectorAll(`#custom-toc a[href="#${id}"], #mobile-toc-content a[href="#${id}"]`);
+                        activeLinks.forEach(link => link.classList.add('active'));
+                    }
+                });
+            }, observerOptions);
+
+            headings.forEach(h => observer.observe(h));
+
+        } else {
+            if (mobileToggle) mobileToggle.style.display = 'none';
+        }
+
+        // 2. WRAP TABLES
+        document.querySelectorAll('.writeup-content table').forEach(t => {
+            if (t.parentElement.classList.contains('table-wrapper')) return;
+            const wrap = document.createElement('div');
+            wrap.className = 'table-wrapper';
+            wrap.style.cssText = 'display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:2em 0;max-width:100%;';
+            t.parentNode.insertBefore(wrap, t);
+            wrap.appendChild(t);
+            t.style.margin = '0';
+        });
+
+        // 3. NÚT COPY CODE
+        const codeBlocks = document.querySelectorAll('div.highlight, pre'); 
+        
+        codeBlocks.forEach(block => {
+            if(block.tagName.toLowerCase() === 'pre' && block.parentNode.classList.contains('highlight')) return;
+
+            block.style.position = 'relative';
+
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn';
+            copyBtn.innerHTML = 'Copy';
+            block.appendChild(copyBtn);
+
+            copyBtn.addEventListener('click', () => {
+                const code = block.querySelector('code') ? block.querySelector('code').innerText : block.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    copyBtn.innerHTML = 'Copied!';
+                    copyBtn.style.color = '#e0e0e0';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = 'Copy';
+                        copyBtn.style.color = '#8b949e';
+                    }, 2000);
+                });
+            });
+        });
+    });
+</script>

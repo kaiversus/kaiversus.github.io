@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>pefile 101</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Newsreader:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css?v=7">
+<link rel="stylesheet" href="/assets/css/web-term.css?v=2">
+<!-- Theme manager: loaded in <head> to apply saved theme before render (no flash) -->
+<script src="/assets/js/theme.js"></script>
+</head>
+<body>
+
+<nav class="site-nav">
+  <a href="/" class="nav-logo">
+    <span class="nav-logo-user">kaiversus</span><span class="nav-logo-at">@</span><span class="nav-logo-host">blog</span><span class="nav-logo-sym">:~$</span>
+  </a>
+  <div class="nav-sep"></div>
+  <ul class="nav-links">
+    <li><a href="/"><span class="slash">~/</span>home</a></li>
+    <li><a href="/writeups/"><span class="slash">~/</span>writeups</a></li>
+    <li><a href="/projects/"><span class="slash">~/</span>projects</a></li>
+  </ul>
+  <div class="nav-right">
+    <span class="status-dot"></span>
+    <span class="status-text">online</span>
+    <button class="theme-toggle" id="theme-toggle" title="Toggle light/dark">☀</button>
+  </div>
+</nav>
+
+<style>
+/* ── Blog white/silver overrides (matching .dir-card.white menu concept) ── */
+
+/* Headings */
+.writeup-content h2 { color: #e0e0e0 !important; }
+.writeup-content h3 { border-left-color: #e0e0e0 !important; }
+.writeup-content h4 { color: #e6edf3; }
+
+/* Bold — bright white accent */
+.writeup-content strong,
+.writeup-content b {
+  font-weight: 800;
+  color: #ffffff;
+}
+
+/* Light mode headings & bold */
+html.light .writeup-content h2 { color: #505050 !important; }
+html.light .writeup-content h3 { border-left-color: #505050 !important; }
+html.light .writeup-content h4 { color: #2a2520; }
+
+html.light .writeup-content strong,
+html.light .writeup-content b {
+  color: #1c1a14;
+}
+
+/* Inline code — white/silver tinted */
+.writeup-content p code,
+.writeup-content li code,
+.writeup-content td code {
+  background: rgba(224, 224, 224, 0.08);
+  color: #e0e0e0;
+  border: 1px solid rgba(224, 224, 224, 0.18);
+}
+
+html.light .writeup-content p code,
+html.light .writeup-content li code,
+html.light .writeup-content td code {
+  background: rgba(80, 80, 80, 0.08);
+  color: #3d3828;
+  border: 1px solid rgba(80, 80, 80, 0.15);
+}
+
+/* Table header — white/silver */
+.writeup-content th {
+  background: rgba(224, 224, 224, 0.08) !important;
+  color: #e0e0e0 !important;
+}
+
+html.light .writeup-content th {
+  background: rgba(80, 80, 80, 0.08) !important;
+  color: #505050 !important;
+}
+
+/* Links */
+.writeup-content a {
+  color: #e0e0e0;
+  border-bottom-color: rgba(224, 224, 224, 0.4);
+}
+.writeup-content a:hover {
+  color: #ffffff;
+  background: rgba(224, 224, 224, 0.08);
+}
+
+html.light .writeup-content a {
+  color: #505050;
+  border-bottom-color: rgba(80, 80, 80, 0.4);
+}
+html.light .writeup-content a:hover {
+  color: #1c1a14;
+  background: rgba(80, 80, 80, 0.08);
+}
+
+/* Nested list sub-notes */
+.writeup-content ul ul li,
+.writeup-content ol ul li {
+  border-left-color: rgba(224, 224, 224, 0.25);
+}
+.writeup-content ul ul li::before {
+  color: rgba(224, 224, 224, 0.45);
+}
+html.light .writeup-content ul ul li,
+html.light .writeup-content ol ul li {
+  border-left-color: rgba(80, 80, 80, 0.25);
+}
+html.light .writeup-content ul ul li::before {
+  color: rgba(80, 80, 80, 0.45);
+}
+
+/* Prompt & Meta accents */
+.blog-prompt-host {
+  color: #e0e0e0;
+  font-weight: 700;
+}
+html.light .blog-prompt-host {
+  color: #505050;
+}
+.blog-meta-accent {
+  color: #e0e0e0;
+  font-weight: 700;
+}
+html.light .blog-meta-accent {
+  color: #505050;
+}
+
+/* TOC & Navigation overrides */
+#custom-toc a.active,
+#mobile-toc-content a.active {
+  color: #e0e0e0 !important;
+}
+html.light #custom-toc a.active,
+html.light #mobile-toc-content a.active {
+  color: #505050 !important;
+}
+
+.mobile-toc-toggle {
+  border-color: rgba(224, 224, 224, 0.4);
+  color: #e0e0e0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6), 0 0 10px rgba(224, 224, 224, 0.15);
+}
+.mobile-toc-toggle:hover {
+  border-color: #e0e0e0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 15px rgba(224, 224, 224, 0.3);
+}
+html.light .mobile-toc-toggle {
+  border-color: rgba(80, 80, 80, 0.35);
+  color: #505050;
+}
+
+.post-nav-back:hover {
+  color: #e0e0e0;
+}
+.post-nav-prev,
+.post-nav-next {
+  color: #e0e0e0;
+}
+.post-nav-prev:hover,
+.post-nav-next:hover {
+  color: #ffffff;
+}
+html.light .post-nav-back:hover,
+html.light .post-nav-prev,
+html.light .post-nav-next {
+  color: #505050;
+}
+html.light .post-nav-prev:hover,
+html.light .post-nav-next:hover {
+  color: #1c1a14;
+}
+</style>
+
+<div class="writeup-container">
+    
+    <article class="writeup-content">
+        <div class="writeup-header">
+            <div class="terminal-prompt">
+                <span class="blog-prompt-host">root@kaiversus:~/blogs$</span> cat pefile-101.md
+            </div>
+            <h1>pefile 101</h1>
+            <div class="writeup-meta">
+                [ DATE: 2026-10-11 ]
+                 | LEVEL: <span class="blog-meta-accent">Intermediate</span>
+                 | AUTHOR: Kaiversus
+            </div>
+        </div>
+
+        <h2 id="tổng-quan-về-pefile">Tổng quan về pefile</h2>
+
+<p><code class="language-plaintext highlighter-rouge">pefile</code> là một thư viện Python dùng để phân tích, truy xuất và thao tác với tệp định dạng PE trên Windows.</p>
+
+<p>Khả năng xử lý edge cases: <code class="language-plaintext highlighter-rouge">pefile</code> đã được kiểm thử với các file malware cũng như các file corrupted và malformed.</p>
+
+<p>Quy tắc đặt tên thuộc tính:</p>
+<ul>
+  <li>Các cấu trúc cơ bản của PE file được truy cập dưới dạng uppercase attribute và cùng tên với định nghĩa gốc (vd: DOS_HEADER,…).</li>
+  <li>Các processed elements như Import Table, Export Table sử dụng lowercase để phân biệt (vd: sections,…)</li>
+</ul>
+
+<h2 id="module--core-classes">Module &amp; Core Classes</h2>
+
+<h3 id="module-pefile">Module <code class="language-plaintext highlighter-rouge">pefile</code></h3>
+
+<h4 id="khởi-tạo-và-điều-khiển-trung-tâm">Khởi tạo và điều khiển trung tâm</h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">PE(name=None, data=None, fast_load=None, max_symbol_exports=8192)</code>: class trung tâm đại diện cho toàn bộ PE
+    <ul>
+      <li>Nhận path của file <code class="language-plaintext highlighter-rouge">name</code> hoặc raw bytes <code class="language-plaintext highlighter-rouge">data</code></li>
+      <li>Tham số <code class="language-plaintext highlighter-rouge">fast_load=None</code> biểu thị hành động tải nhanh các cấu trúc cơ bản mà không parse sâu bảng import/export</li>
+      <li>Giới hạn parse export thông qua tham số <code class="language-plaintext highlighter-rouge">max_symbol_exports</code></li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">PEFormatError</code>: exception văng ra mỗi khi file đưa vào bị lỗi hoặc sai cấu trúc chuẩn của file PE</li>
+</ul>
+
+<h4 id="hai-data-class-cốt-lõi">Hai data class cốt lõi</h4>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">Structure</code>: Lớp nền tảng ánh xạ cấu trúc nhị phân của PE thành đối tượng Python.</p>
+
+    <p><em>Trích xuất thông tin:</em></p>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">dump()</code>: trả về struct dưới dạng chuỗi văn bản có căn lề</li>
+      <li><code class="language-plaintext highlighter-rouge">dump_dict()</code>: trả về struct dưới dạng Dictionary</li>
+      <li><code class="language-plaintext highlighter-rouge">sizeof()</code>: kích thước của struct theo byte</li>
+    </ul>
+
+    <p><em>Tra cứu vị trí và kiểm tr:</em></p>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">get_field_absolute_offset(field_name)</code> / <code class="language-plaintext highlighter-rouge">get_field_relative_offset(field_name)</code>: xác định vị trí offset tuyệt đối trong file và tương đối trong struct</li>
+      <li><code class="language-plaintext highlighter-rouge">all_zeroes()</code>: kiểm tra xem toàn bộ data của struct có phải toàn bằng byte <code class="language-plaintext highlighter-rouge">0x00</code> hay không</li>
+    </ul>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">SectionStructure</code>: class chuyên quản lý cho từng Section</p>
+
+    <p><em>Kiểm tra địa chỉ:</em></p>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">contains_rva(rva)</code> / <code class="language-plaintext highlighter-rouge">contains_offset(offset)</code>: xác định một địa chỉ RVA hoặc file offset có thuộc section này hay không</li>
+    </ul>
+
+    <p><em>Hashing và phát hiện mã độc</em></p>
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">get_entropy()</code> / <code class="language-plaintext highlighter-rouge">entropy_H(data)</code>: Tính toán <strong>entropy</strong> của dữ liệu section</li>
+      <li><code class="language-plaintext highlighter-rouge">get_hash_md5()</code>, <code class="language-plaintext highlighter-rouge">get_hash_sha1()</code>, <code class="language-plaintext highlighter-rouge">get_hash_sha256()</code>, <code class="language-plaintext highlighter-rouge">get_hash_sha512()</code>: lấy hash code của section</li>
+      <li><code class="language-plaintext highlighter-rouge">get_data(start=None, length=None)</code>: cắt và đọc chuỗi byte từ section theo địa chỉ ảo</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="các-data-containers">Các <code class="language-plaintext highlighter-rouge">Data Containers</code></h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Thành phần PE</th>
+      <th>Container lớp cha</th>
+      <th>Container chi tiết từng mục</th>
+      <th>Dữ liệu tiêu biểu</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Imports</td>
+      <td><code class="language-plaintext highlighter-rouge">ImportDescData</code></td>
+      <td><code class="language-plaintext highlighter-rouge">ImportData</code></td>
+      <td>DLL name, API function name, Ordinal, Address</td>
+    </tr>
+    <tr>
+      <td>Exports</td>
+      <td><code class="language-plaintext highlighter-rouge">ExportDirData</code></td>
+      <td><code class="language-plaintext highlighter-rouge">ExportData</code></td>
+      <td>Exported symbol, Function Address, Ordinal, Forwarder</td>
+    </tr>
+    <tr>
+      <td>Resources</td>
+      <td><code class="language-plaintext highlighter-rouge">ResourceDirData</code></td>
+      <td><code class="language-plaintext highlighter-rouge">ResourceDirEntryData</code> / <code class="language-plaintext highlighter-rouge">ResourceDataEntryData</code></td>
+      <td>Cây thư mục tài nguyên (icon, string, version info)</td>
+    </tr>
+    <tr>
+      <td>Relocations</td>
+      <td><code class="language-plaintext highlighter-rouge">BaseRelocationData</code></td>
+      <td><code class="language-plaintext highlighter-rouge">RelocationData</code></td>
+      <td>Bảng địa chỉ nạp lại (RVA, relocation type)</td>
+    </tr>
+    <tr>
+      <td>Khác</td>
+      <td><code class="language-plaintext highlighter-rouge">DebugData</code>, <code class="language-plaintext highlighter-rouge">TlsData</code>, <code class="language-plaintext highlighter-rouge">LoadConfigData</code>, <code class="language-plaintext highlighter-rouge">BoundImportDescData</code></td>
+      <td>—</td>
+      <td>Thông tin gỡ lỗi, bộ nhớ luồng (TLS), cấu hình nạp</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="utilities">Utilities</h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Dump</code>: bộ gom và định dạng chuỗi để in ra console/log file
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">add()</code>, <code class="language-plaintext highlighter-rouge">add_header()</code>, <code class="language-plaintext highlighter-rouge">add_line()</code>, <code class="language-plaintext highlighter-rouge">get_text()</code></li>
+    </ul>
+  </li>
+  <li><code class="language-plaintext highlighter-rouge">UnicodeStringWrapperPostProcessor</code>: xử lý và giải mã chuỗi ký tự đặc biệt trong binary</li>
+</ul>
+
+<h3 id="module-peutils">Module <code class="language-plaintext highlighter-rouge">peutils</code></h3>
+
+<h4 id="nhận-diện-chữ-ký">Nhận diện chữ ký</h4>
+
+<p><code class="language-plaintext highlighter-rouge">SignatureDatabase(filename=None, data=None)</code>: tải và quản lý cơ sở dữ liệu mẫu nhận diện của PEiD</p>
+
+<h4 id="các-hàm-kiểm-tra-heuristic-và-dấu-hiệu-nghi-vấn">Các hàm kiểm tra heuristic và dấu hiệu nghi vấn</h4>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">peutils.is_probably_packed(pe)</code>: kiểm tra tệp có bị nén hay mã hóa hay không</li>
+  <li><code class="language-plaintext highlighter-rouge">peutils.is_suspicious(pe)</code>: kiểm tra tệp có hành vi cấu trúc đáng ngờ thường thấy ở malware không</li>
+  <li><code class="language-plaintext highlighter-rouge">peutils.is_valid(pe)</code>: kiểm  tra cấu trúc PE cơ bản có toàn vẹn và hợp lệ hay không</li>
+</ul>
+
+<h2 id="khởi-tạo-và-nạp-pe-file">Khởi tạo và Nạp PE file</h2>
+
+<p><strong>Cú pháp tổng quát:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pefile</span>
+
+<span class="n">pe</span> <span class="o">=</span> <span class="n">pefile</span><span class="p">.</span><span class="n">PE</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="n">data</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="n">fast_load</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="n">max_symbol_exports</span><span class="o">=</span><span class="mi">8192</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="3-cách-nạp-dữ-liệu-vào-pefile">3 cách nạp dữ liệu vào pefile</h3>
+
+<p>Truyền path trực tiếp:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pe</span> <span class="o">=</span> <span class="n">pefile</span><span class="p">.</span><span class="n">PE</span><span class="p">(</span><span class="s">'/path/to/pefile.exe'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Chỉ định rõ qua parameter <code class="language-plaintext highlighter-rouge">name</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pe</span> <span class="o">=</span> <span class="n">pefile</span><span class="p">.</span><span class="n">PE</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">'module.dll'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Nạp từ Memory Buffer/ Raw Bytes:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pe</span> <span class="o">=</span> <span class="n">pefile</span><span class="p">.</span><span class="n">PE</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">raw_pe_bytes</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="cơ-chế-fast_load">Cơ chế <code class="language-plaintext highlighter-rouge">fast_load</code></h3>
+
+<p>Ở chế độ mặc định, pefile sẽ phân tích toàn bộ file PE:</p>
+<ul>
+  <li><strong>Cách bật</strong>: đặt tham số <code class="language-plaintext highlighter-rouge">fast_load=True</code> khi khởi tạo hoặc gán flag toàn cục <code class="language-plaintext highlighter-rouge">pefile.fast_load = True</code></li>
+  <li><strong>Cơ chế hoạt động</strong>: thư viện chỉ parse phần Header cở bản từ DOS $\rightarrow$ NT và bỏ qua Data Directories</li>
+  <li><strong>Mục đích</strong>: tăng tốc độ xử lý khi chỉ cần load nhanh header cơ bản</li>
+  <li>Cách nạp bù data sau khi fast_load:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">pe.full_load()</code>: Nạp lại toàn bộ các cấu trúc còn lại</li>
+      <li><code class="language-plaintext highlighter-rouge">pe.parse_data_directories()</code>: Nạp có chọn lọc các thư mục dữ liệu cụ thể</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="phân-tích-từng-data-directories-parse_data_directories">Phân tích từng Data Directories (<code class="language-plaintext highlighter-rouge">parse_data_directories</code>)</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pe</span><span class="p">.</span><span class="n">parse_data_directories</span><span class="p">(</span>
+    <span class="n">directories</span><span class="o">=</span><span class="p">[</span>
+        <span class="n">pefile</span><span class="p">.</span><span class="n">DIRECTORY_ENTRY</span><span class="p">[</span><span class="s">'IMAGE_DIRECTORY_ENTRY_IMPORT'</span><span class="p">],</span>
+        <span class="n">pefile</span><span class="p">.</span><span class="n">DIRECTORY_ENTRY</span><span class="p">[</span><span class="s">'IMAGE_DIRECTORY_ENTRY_EXPORT'</span><span class="p">],</span>
+    <span class="p">],</span>
+    <span class="n">forwarded_exports_only</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+    <span class="n">import_dllnames_only</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">directories</code>: Danh sách các Data Directory cần phân tích</li>
+  <li><code class="language-plaintext highlighter-rouge">forwarded_exports_only=True</code>: Chỉ parse các hàm export dạng chuyển tiếp</li>
+  <li><code class="language-plaintext highlighter-rouge">import_dllnames_only=True</code>: Chỉ trích xuất tên các tệp DLL được import, bỏ qua việc phân tích từng symbols/APIs để tiết kiệm thời gian.</li>
+</ul>
+
+<h2 id="truy-cập-headers-sections--directories-trong-pefile">Truy cập Headers, Sections &amp; Directories trong <code class="language-plaintext highlighter-rouge">pefile</code></h2>
+
+<h3 id="basic-headers">Basic Headers</h3>
+
+<p>Mọi field trong cấu trúc gốc được định nghĩa trong file <code class="language-plaintext highlighter-rouge">WINNT.H</code> của Windows SDK đều được pefile ánh xạ hoàn toàn thành các thuộc tính python:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pe.DOS_HEADER</code>( <code class="language-plaintext highlighter-rouge">pe.DOS_HEADER.e_magic</code>,…)</li>
+  <li><code class="language-plaintext highlighter-rouge">pe.NT_HEADERS</code></li>
+  <li><code class="language-plaintext highlighter-rouge">pe.FILE_HEADER</code> (<code class="language-plaintext highlighter-rouge">pe.FILE_HEADER.NumberOfSections</code>,…)</li>
+  <li><code class="language-plaintext highlighter-rouge">pe.OPTIONAL_HEADER</code> (<code class="language-plaintext highlighter-rouge">pe.OPTIONAL_HEADER.AddressOfEntryPoint</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">pe.header</code>: thuộc tính lưu trữ chuỗi raw byte tính từ byte đầu tiên của tệp (<code class="language-plaintext highlighter-rouge">offset 0</code>) cho đến vị trí bắt đầu của Section đầu tiên</li>
+</ul>
+
+<h3 id="sections">Sections</h3>
+
+<p>Tập hợp các section được lưu trong danh sách pe.sections. Mỗi phần tử đại diện cho Section Header:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">section</span> <span class="ow">in</span> <span class="n">pe</span><span class="p">.</span><span class="n">sections</span><span class="p">:</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">section</span><span class="p">.</span><span class="n">Name</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s">'ignore'</span><span class="p">).</span><span class="n">rstrip</span><span class="p">(</span><span class="s">'</span><span class="se">\x00</span><span class="s">'</span><span class="p">)</span>
+    
+    <span class="k">print</span><span class="p">(</span>
+        <span class="n">name</span><span class="p">,</span>
+        <span class="nb">hex</span><span class="p">(</span><span class="n">section</span><span class="p">.</span><span class="n">VirtualAddress</span><span class="p">),</span>    
+        <span class="nb">hex</span><span class="p">(</span><span class="n">section</span><span class="p">.</span><span class="n">Misc_VirtualSize</span><span class="p">),</span>    
+        <span class="n">section</span><span class="p">.</span><span class="n">SizeOfRawData</span>          
+    <span class="p">)</span>
+</code></pre></div></div>
+<p><em>Cơ chế Section Characteristics</em></p>
+
+<p><code class="language-plaintext highlighter-rouge">pefile</code> tự động parse và gán các cờ chuẩn trong <code class="language-plaintext highlighter-rouge">WINNT.H</code>(ex: <code class="language-plaintext highlighter-rouge">IMAGE_SCN_MEM_EXECUTE</code>) thành thuộc tính boolean trực tiếp trên instance của section bằng các lược bỏ tiền tố <code class="language-plaintext highlighter-rouge">IMAGE_SCN_</code></p>
+
+<h3 id="constant-mapping-directories">Constant Mapping Directories</h3>
+
+<p>Trong <code class="language-plaintext highlighter-rouge">pefile</code>, các cấu trúc tra cứu hằng số bản chất là các <strong>bi-directional dictionaries</strong>, giúp map trực tiếp các raw field trong struct(DWORD/WORD) sang định danh chuẩn trong <code class="language-plaintext highlighter-rouge">WINNT.H</code></p>
+
+<h4 id="file-structure--header-flags">File Structure &amp; Header Flags</h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pefile.DIRECTORY_ENTRY</code>: Ánh xạ index của <code class="language-plaintext highlighter-rouge">IMAGE_DATA_DIRECTORY</code> (Export, Import, TLS…).</li>
+  <li><code class="language-plaintext highlighter-rouge">pefile.IMAGE_CHARACTERISTICS</code>: Ánh xạ các characteristic bitflags trong <code class="language-plaintext highlighter-rouge">IMAGE_FILE_HEADER</code> (<code class="language-plaintext highlighter-rouge">IMAGE_FILE_DLL</code>, <code class="language-plaintext highlighter-rouge">IMAGE_FILE_32BIT_MACHINE</code>…).</li>
+  <li><code class="language-plaintext highlighter-rouge">pefile.SECTION_CHARACTERISTICS</code>: Ánh xạ memory permissions và section flags (<code class="language-plaintext highlighter-rouge">IMAGE_SCN_MEM_EXECUTE</code>, <code class="language-plaintext highlighter-rouge">IMAGE_SCN_CNT_CODE</code>…).</li>
+</ul>
+
+<h4 id="architecture--runtime-context">Architecture &amp; Runtime Context</h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pefile.MACHINE_TYPE</code>: Tra cứu target CPU architecture (<code class="language-plaintext highlighter-rouge">IMAGE_FILE_MACHINE_I386</code>, <code class="language-plaintext highlighter-rouge">IMAGE_FILE_MACHINE_AMD64</code>…).</li>
+  <li><code class="language-plaintext highlighter-rouge">pefile.SUBSYSTEM_TYPE</code>: Tra cứu Windows subsystem thực thi (<code class="language-plaintext highlighter-rouge">IMAGE_SUBSYSTEM_NATIVE</code>, <code class="language-plaintext highlighter-rouge">IMAGE_SUBSYSTEM_WINDOWS_GUI</code>…).</li>
+  <li><code class="language-plaintext highlighter-rouge">pefile.DEBUG_TYPE</code>: Tra cứu format của debug symbols (<code class="language-plaintext highlighter-rouge">IMAGE_DEBUG_TYPE_CODEVIEW</code>…).</li>
+  <li><code class="language-plaintext highlighter-rouge">pefile.RELOCATION_TYPE</code>: Kiểu base relocation entries dùng cho memory rebasing (<code class="language-plaintext highlighter-rouge">IMAGE_REL_BASED_HIGHLOW</code>…).</li>
+</ul>
+
+<h4 id="resource-directory--localization">Resource Directory &amp; Localization</h4>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pefile.RESOURCE_TYPE</code>: Resource type IDs trong .rsrc directory tree (<code class="language-plaintext highlighter-rouge">RT_ICON</code>, <code class="language-plaintext highlighter-rouge">RT_STRING</code>, <code class="language-plaintext highlighter-rouge">RT_MANIFEST</code>…).</li>
+  <li><code class="language-plaintext highlighter-rouge">pefile.LANG</code> &amp; <code class="language-plaintext highlighter-rouge">pefile.SUBLANG</code>: Ánh xạ <code class="language-plaintext highlighter-rouge">LCID</code> và Sublanguage ID.</li>
+</ul>
+
+<h3 id="các-hàm-kiểm-tra-loại-tệp-nhanh">Các hàm kiểm tra loại tệp nhanh</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pe.is_exe()</code>: trả về <code class="language-plaintext highlighter-rouge">True</code> nếu có cờ <code class="language-plaintext highlighter-rouge">IMAGE_FILE_EXECUTABLE_IMAGE</code></li>
+  <li><code class="language-plaintext highlighter-rouge">pe.is_dll()</code>: trả về <code class="language-plaintext highlighter-rouge">True</code> nếu file manh cờ <code class="language-plaintext highlighter-rouge">IMAGE_FILE_DLL</code></li>
+  <li><code class="language-plaintext highlighter-rouge">pe.is_driver()</code>: trả về <code class="language-plaintext highlighter-rouge">True</code> nếu trường Subsystem là <code class="language-plaintext highlighter-rouge">IMAGE_SUBSYSTEM_NATIVE</code>hoặc các tiêu chí cấu trúc xác nhận tệp là Windows kernel driver <code class="language-plaintext highlighter-rouge">.sys</code></li>
+  <li><code class="language-plaintext highlighter-rouge">pe.has_relocs()</code>: Trả về <code class="language-plaintext highlighter-rouge">True</code> nếu tệp có chứa thư mục <code class="language-plaintext highlighter-rouge">Base Relocation Directory</code></li>
+</ul>
+
+<h3 id="data-directories">Data Directories</h3>
+
+<h4 id="import-directory-directory_entry_import">Import Directory <code class="language-plaintext highlighter-rouge">DIRECTORY_ENTRY_IMPORT</code></h4>
+
+<p>Lưu trữ danh sách các DLL và hàm ngoại vi mà file PE sử dụng, biểu diễn qua danh sách các đối tượng <code class="language-plaintext highlighter-rouge">ImportDescData</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">entry</span> <span class="ow">in</span> <span class="n">pe</span><span class="p">.</span><span class="n">DIRECTORY_ENTRY_IMPORT</span><span class="p">:</span>
+    <span class="c1"># Tên thư viện DLL
+</span>    <span class="k">print</span><span class="p">(</span><span class="s">'DLL:'</span><span class="p">,</span> <span class="n">entry</span><span class="p">.</span><span class="n">dll</span><span class="p">.</span><span class="n">decode</span><span class="p">(</span><span class="s">'utf-8'</span><span class="p">))</span>
+    
+    <span class="c1"># Danh sách các hàm được import từ DLL này
+</span>    <span class="k">for</span> <span class="n">imp</span> <span class="ow">in</span> <span class="n">entry</span><span class="p">.</span><span class="n">imports</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'</span><span class="se">\t</span><span class="s">Address:'</span><span class="p">,</span> <span class="nb">hex</span><span class="p">(</span><span class="n">imp</span><span class="p">.</span><span class="n">address</span><span class="p">),</span> <span class="s">'Name:'</span><span class="p">,</span> <span class="n">imp</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="s">'Ordinal:'</span><span class="p">,</span> <span class="n">imp</span><span class="p">.</span><span class="n">ordinal</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="export-directory-directory_entry_export">Export Directory <code class="language-plaintext highlighter-rouge">DIRECTORY_ENTRY_EXPORT</code></h4>
+
+<p>Chứa danh sách các hàm mà file PE cung cấp cho các module khác, biểu diễn qua đối tượng <code class="language-plaintext highlighter-rouge">ExportDirData</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">exp</span> <span class="ow">in</span> <span class="n">pe</span><span class="p">.</span><span class="n">DIRECTORY_ENTRY_EXPORT</span><span class="p">.</span><span class="n">symbols</span><span class="p">:</span>
+    <span class="c1"># Tính địa chỉ thực tế (RVA + ImageBase)
+</span>    <span class="n">address</span> <span class="o">=</span> <span class="n">pe</span><span class="p">.</span><span class="n">OPTIONAL_HEADER</span><span class="p">.</span><span class="n">ImageBase</span> <span class="o">+</span> <span class="n">exp</span><span class="p">.</span><span class="n">address</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">'Address:'</span><span class="p">,</span> <span class="nb">hex</span><span class="p">(</span><span class="n">address</span><span class="p">),</span> <span class="s">'Name:'</span><span class="p">,</span> <span class="n">exp</span><span class="p">.</span><span class="n">name</span><span class="p">,</span> <span class="s">'Ordinal:'</span><span class="p">,</span> <span class="n">exp</span><span class="p">.</span><span class="n">ordinal</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="resource-directory-directory_entry_resource">Resource Directory <code class="language-plaintext highlighter-rouge">DIRECTORY_ENTRY_RESOURCE</code></h4>
+
+<p>Dữ liệu tài nguyên được phân cấp theo mô hình cây 3 tầng:</p>
+
+<ol>
+  <li>
+    <p><strong>Root Level</strong>: cấu trúc <code class="language-plaintext highlighter-rouge">IMAGE_RESOURCE_DIRECTORY</code> quản lý danh sách các entry tài nguyên tổng thể</p>
+  </li>
+  <li>
+    <p><strong>Level 2</strong>: phân nhánh và trỏ tới danh sách tài nguyên dựa theo <code class="language-plaintext highlighter-rouge">type</code> hoặc định danh (ID)</p>
+  </li>
+  <li>
+    <p>Level 3: cấu trúc <code class="language-plaintext highlighter-rouge">IMAGE_RESOURCE_DATA_ENTRY</code> trỏ trực tiếp đến vùng dữ liệu thực tế của tài nguyên trong file</p>
+  </li>
+</ol>
+
+<h4 id="đọc-resource-string-rt_string---type-6">Đọc Resource String <code class="language-plaintext highlighter-rouge">RT_STRING</code> - Type 6</h4>
+
+<p>Cấu trúc lưu trữ: String Table chia thành từng block, mỗi khối chứa 16 chuỗi theo định dạng Pascal-style (bắt đầu tiền tố 2-byte <code class="language-plaintext highlighter-rouge">WORD</code> chỉ định độ dài chuỗi Unicode)</p>
+
+<p>Phương thức trích xuất:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">Automation</code>: Dùng hàm tích hợp sẵn <code class="language-plaintext highlighter-rouge">pe.get_resources_strings()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">Manual</code>: duyệt cây thư mục <code class="language-plaintext highlighter-rouge">DIRECTORY_ENTRY_RESOURCE</code> và lọc entry có ID là <code class="language-plaintext highlighter-rouge">RT_STRING</code> (giá trị số nguyên = 6)</li>
+</ul>
+
+<h4 id="version-information-parse_version_information">Version Information <code class="language-plaintext highlighter-rouge">parse_version_information</code></h4>
+
+<p>Hàm bóc tách metadata phiên bản và gán trực tiếp vào các thuộc tính của đối tượng PE:</p>
+
+<p><code class="language-plaintext highlighter-rouge">VS_VERSIONINFO</code>: Cấu trúc tiêu đề phiên bản, gồm các trường:
+    -<code class="language-plaintext highlighter-rouge">Length</code>: Kích thước toàn bộ cấu trúc phiên bản.
+    - <code class="language-plaintext highlighter-rouge">ValueLength</code>: Độ dài dữ liệu đi kèm.
+    - <code class="language-plaintext highlighter-rouge">Type</code>: Kiểu dữ liệu (văn bản hoặc nhị phân).</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">VS_FIXEDFILEINFO</code>: Chứa thông số kỹ thuật cốt lõi của file:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">Signature</code>, <code class="language-plaintext highlighter-rouge">FileOS</code>, <code class="language-plaintext highlighter-rouge">FileType</code>, <code class="language-plaintext highlighter-rouge">FileFlags</code>.</li>
+      <li><strong>Phiên bản file</strong>: FileVersionMS, FileVersionLS.</li>
+      <li><strong>Phiên bản sản phẩm</strong>: ProductVersionMS, ProductVersionLS.
+<code class="language-plaintext highlighter-rouge">FileInfo</code>: Chứa thông tin mô tả chi tiết:</li>
+      <li><code class="language-plaintext highlighter-rouge">StringFileInfo</code>: Chứa các StringTable (dạng dictionary) lưu thông tin bản quyền, mô tả công ty, tên sản phẩm…</li>
+      <li><code class="language-plaintext highlighter-rouge">VarFileInfo</code>: Chứa thông tin về ngôn ngữ và bảng mã (Translation).</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="rich-header-parse_rich_header">Rich Header <code class="language-plaintext highlighter-rouge">parse_rich_header</code></h4>
+
+<p>Bóc tách cấu trúc Rich Signature:</p>
+<ul>
+  <li>Chứa chữ ký giải mã <code class="language-plaintext highlighter-rouge">DanS</code> / <code class="language-plaintext highlighter-rouge">Rich</code></li>
+  <li>Lưu thông tin về các phiên bản compiler, linker và build tools cụ thể tạo ra file nhị phân</li>
+</ul>
+
+<h2 id="quản-lý-địa-chỉ-memory-mapping-và-overlay-data">Quản lý Địa chỉ, Memory Mapping và Overlay Data</h2>
+
+<h3 id="chuyển-đổi-địa-chỉ-giữa-rva-và-file-offset">Chuyển đổi Địa chỉ giữa RVA và File Offset</h3>
+
+<p>Chuyển đổi RVA &lt;-&gt; File Offset:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pe.get_offset_from_rva(rva)</code>: chuyển đổi từ RVA sang File Offset</li>
+  <li><code class="language-plaintext highlighter-rouge">pe.get_rva_from_offset(offset)</code>: chuyển đổi ngược laị từ File Offset sang RVA</li>
+  <li><code class="language-plaintext highlighter-rouge">pe.get_physical_by_rva(rva)</code>: lấy file offset trong file PE từ RVA</li>
+</ul>
+
+<p>Xác định Section chứa địa chỉ</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pe.get_section_by_rva(rva)</code>: tìm và trả về object Section bao bọc địa chỉ RVA đó</li>
+  <li><code class="language-plaintext highlighter-rouge">pe.get_section_by_offset(offset)</code>: tìm và trả về object Section bao bọc vị trí File Offset đó</li>
+</ul>
+
+<h3 id="đọc-dữ-liệu-theo-kiểu-dữ-liệu">Đọc dữ liệu theo kiểu dữ liệu</h3>
+
+<ol>
+  <li>Đọc Raw Bytes</li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">pe.get_data(rva=0, length=None)</code>: trích xuất mảng byte tại vị trí <code class="language-plaintext highlighter-rouge">rva</code> với độ dài <code class="language-plaintext highlighter-rouge">length</code>. Hàm đọc dữ liệu mà không phụ thuộc ranh giới các Sections</p>
+
+<ol>
+  <li>Đọc giá trị số nguyên với định dạng <code class="language-plaintext highlighter-rouge">Little-Endian</code></li>
+</ol>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kích thước</th>
+      <th>Đọc theo RVA</th>
+      <th>Đọc theo File Offset</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>2 bytes (WORD)</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">pe.get_word_at_rva(rva)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">pe.get_word_from_offset(offset)</code></td>
+    </tr>
+    <tr>
+      <td><strong>4 bytes (DWORD)</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">pe.get_dword_at_rva(rva)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">pe.get_dword_from_offset(offset)</code></td>
+    </tr>
+    <tr>
+      <td><strong>8 bytes (QWORD)</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">pe.get_qword_at_rva(rva)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">pe.get_qword_from_offset(offset)</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<ol>
+  <li>Đọc chuỗi ký tự</li>
+</ol>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pe.get_string_at_rva(rva)</code>: đọc chuỗi ký tự <code class="language-plaintext highlighter-rouge">ASCII</code> bắt đầu từ RVA, tự động dừng lại khi gặp ký tự kết thúc <code class="language-plaintext highlighter-rouge">NULL</code> (<code class="language-plaintext highlighter-rouge">\x00</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">pe.get_string_u_at_rva(rva)</code>: Đọc chuỗi ký tự <code class="language-plaintext highlighter-rouge">Unicode</code> (UTF-16) bắt đầu từ RVA, tự động dừng lại khi gặp ký tự kết thúc <code class="language-plaintext highlighter-rouge">NULL</code></li>
+</ul>
+
+<h3 id="memory-mapped-image--relocations">Memory Mapped Image &amp; Relocations</h3>
+
+<p>Mô phỏng hành vi của Window Loader khi load file từ đĩa lên RAM và xử lý tái định vị địa chỉ cơ sở</p>
+
+<p>Tái tạo ảnh bộ nhớ</p>
+<ul>
+  <li><strong>Cú pháp</strong>: <code class="language-plaintext highlighter-rouge">pe.get_memory_mapped_image(max_virtual_address=268435456, ImageBase=None)</code></li>
+  <li><strong>Chức năng</strong>: trả về khối byte biểu diễn cấu trúc của tệp PE khi đã được nạp hoàn chỉnh vào RAM</li>
+  <li><strong>Tham số <code class="language-plaintext highlighter-rouge">max_virtual_address</code></strong>: mặc định là <code class="language-plaintext highlighter-rouge">268435456</code> bytes (256 MB)</li>
+  <li><strong>Tham số <code class="language-plaintext highlighter-rouge">ImageBase</code></strong>: địa chỉ cơ sở nạp file ảo</li>
+</ul>
+
+<p>Áp dụng Relocation <code class="language-plaintext highlighter-rouge">pe.relocate_image</code></p>
+<ul>
+  <li><strong>Cú pháp</strong>: <code class="language-plaintext highlighter-rouge">pe.relocate_image(new_ImageBase)</code></li>
+  <li><strong>Chức năng</strong>: duyệt bảng Base Relocation Directory và áp dụng Direct Pointer Patching lên ảnh dữ liệu PE theo địa chỉ <code class="language-plaintext highlighter-rouge">new_ImageBase</code> mới chỉ định</li>
+</ul>
+
+<h3 id="xử-lý-overlay-data">Xử lý Overlay Data</h3>
+
+<p><code class="language-plaintext highlighter-rouge">Overlay</code> là phần dữ liệu đính kèm nằm ngoài phạm vi định nghĩa của các PE Headers (thường xuất hiện ở cuối file sau section cuối cùng, hay dùng để giấu mã độc, chứa installer payload hoặc chữ ký số Authenticode)</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pe.get_overlay()</code>: Bóc tách và trả về toàn bộ mảng byte của phần dữ liệu overlay.</li>
+  <li><code class="language-plaintext highlighter-rouge">pe.get_overlay_data_start_offset()</code>: Trả về vị trí File Offset chính xác nơi bắt đầu xuất hiện dữ liệu overlay trong file.</li>
+  <li><code class="language-plaintext highlighter-rouge">pe.trim()</code>: Cắt bỏ hoàn toàn phần overlay thừa ở cuối tệp, chỉ giữ lại đúng khối lượng dữ liệu chuẩn được định nghĩa bởi cấu trúc PE Headers.</li>
+</ul>
+
+<h2 id="phân-tích-chữ-ký-peid--malware-analysis-với-peutils">Phân tích Chữ ký PEiD &amp; Malware Analysis với <code class="language-plaintext highlighter-rouge">peutils</code></h2>
+
+<h3 id="nạp-cơ-sở-dữ-liệu-chữ-ký-signaturedatabase">Nạp cơ sở dữ liệu chữ ký <code class="language-plaintext highlighter-rouge">SignatureDatabase</code></h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">peutils</span>
+
+<span class="c1"># 1. Nạp từ tệp văn bản trên ổ đĩa
+</span><span class="n">signatures</span> <span class="o">=</span> <span class="n">peutils</span><span class="p">.</span><span class="n">SignatureDatabase</span><span class="p">(</span><span class="s">'/path/to/signature.txt'</span><span class="p">)</span>
+
+<span class="c1"># 2. Tải và nạp trực tiếp từ URL
+</span><span class="n">signatures</span> <span class="o">=</span> <span class="n">peutils</span><span class="p">.</span><span class="n">SignatureDatabase</span><span class="p">(</span><span class="s">'http://url.to/signature.txt'</span><span class="p">)</span>
+
+<span class="c1"># 3. Nạp bổ sung thêm các chữ ký khác vào database hiện có
+</span><span class="n">signatures</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="s">'/path/to/extra-signatures.txt'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="signature-matching">Signature Matching</h3>
+
+<p>So khớp cấu trúc nhị phân của file với database chữ ký đã nạp:
+<code class="language-plaintext highlighter-rouge">signatures.match(pe, ep_only=True, section_start_only=False)</code>: Duyệt tìm và trả về duy nhất một chữ ký khớp chính xác nhất.</p>
+
+<p><code class="language-plaintext highlighter-rouge">signatures.match_all(pe, ep_only=True, section_start_only=False)</code>: Duyệt toàn bộ cây tìm kiếm và trả về danh sách tất cả các chữ ký trùng khớp.</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ep_only=True</code>: Chỉ quét tại vị trí Entry Point.</li>
+  <li><code class="language-plaintext highlighter-rouge">section_start_only=False</code>: Không giới hạn việc chỉ kiểm tra ở điểm bắt đầu mỗi section</li>
+</ul>
+
+<h3 id="signature-generation">Signature Generation</h3>
+
+<p>Tạo chuỗi nhận dạng cho các file nhị phân mới:</p>
+
+<p><code class="language-plaintext highlighter-rouge">generate_ep_signature(pe, name, sig_length=512)</code>: Trích xuất chuỗi byte tại Entry Point với độ dài chỉ định (sig_length, mặc định là 512 bytes) để tạo chữ ký mang tên <code class="language-plaintext highlighter-rouge">name</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">generate_section_signatures(pe, name, sig_length=512)</code>: Quét và tự động sinh chữ ký cho toàn bộ các section chứa dữ liệu hợp lệ trong file.</p>
+
+<h3 id="hàm-phân-tích-heuristic--nhận-diện-packer">Hàm Phân tích Heuristic &amp; Nhận diện Packer</h3>
+
+<p><code class="language-plaintext highlighter-rouge">peutils.is_probably_packed(pe)</code>: Trả về True nếu dữ liệu có dấu hiệu nén/mã hóa trong các section chiếm trên 20% tổng dung lượng file (dựa trên mức độ hỗn loạn/entropy dữ liệu).</p>
+
+<p><code class="language-plaintext highlighter-rouge">peutils.is_suspicious(pe)</code>: Trả về True khi phát hiện các đặc điểm bất thường điển hình của mã độc:</p>
+
+<ul>
+  <li>
+    <p>Bảng Import Table nằm ở vị trí kỳ lạ (ngoài các section thông thường).</p>
+  </li>
+  <li>
+    <p>Tên section không hợp lệ hoặc chứa ký tự đặc biệt.</p>
+  </li>
+  <li>
+    <p>Xuất hiện các chuỗi ký tự ASCII dài bất thường ở những vị trí không quy chuẩn.</p>
+  </li>
+</ul>
+
+<h2 id="modifying--writing-pe-files">Modifying &amp; Writing PE Files</h2>
+
+<h3 id="thay-đổi-giá-trị-header--dữ-liệu">Thay đổi Giá trị Header &amp; Dữ liệu</h3>
+
+<h4 id="gán-thuộc-tính-trực-tiếp-trên-header">Gán thuộc tính trực tiếp trên Header</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pe</span><span class="p">.</span><span class="n">OPTIONAL_HEADER</span><span class="p">.</span><span class="n">AddressOfEntryPoint</span> <span class="o">=</span> <span class="mh">0xDEADBEEF</span>
+</code></pre></div></div>
+
+<h4 id="ghi-đè-raw-bytes">Ghi đè Raw Bytes</h4>
+
+<p><code class="language-plaintext highlighter-rouge">pe.set_bytes_at_rva(rva, data)</code>: Ghi đè chuỗi byte data vào vị trí tương ứng với địa chỉ ảo RVA.</p>
+
+<p><code class="language-plaintext highlighter-rouge">pe.set_bytes_at_offset(offset, data)</code>: Ghi đè chuỗi byte data trực tiếp vào vị trí File Offset vật lý.</p>
+
+<h4 id="ghi-giá-trị-số-nguyên-theo-kích-thước">Ghi giá trị số nguyên theo kích thước</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Thao tác ghi</th>
+      <th>Theo địa chỉ RVA</th>
+      <th>Theo File Offset</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Ghi 2 bytes (WORD)</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">pe.set_word_at_rva(rva, val)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">pe.set_word_at_offset(offset, val)</code></td>
+    </tr>
+    <tr>
+      <td><strong>Ghi 4 bytes (DWORD)</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">pe.set_dword_at_rva(rva, val)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">pe.set_dword_at_offset(offset, val)</code></td>
+    </tr>
+    <tr>
+      <td><strong>Ghi 8 bytes (QWORD)</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">pe.set_qword_at_rva(rva, val)</code></td>
+      <td><code class="language-plaintext highlighter-rouge">pe.set_qword_at_offset(offset, val)</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="đồng-bộ-dữ-liệu-section">Đồng bộ dữ liệu Section</h4>
+
+<p><code class="language-plaintext highlighter-rouge">pe.merge_modified_section_data()</code>: Cập nhật và đồng bộ lại toàn bộ dữ liệu của PE image sau khi đã can thiệp/chỉnh sửa nội dung của từng section riêng lẻ.</p>
+
+<h3 id="xuất-file-ra-disk">Xuất file ra disk</h3>
+
+<p>Lưu ra file mới <code class="language-plaintext highlighter-rouge">pe.write(filename='modified_file.exe')</code></p>
+
+<p><strong>Xuất ra dữ liệu nhị phân</strong>: Nếu bỏ trống tham số filename (tức pe.write()), hàm sẽ trả về toàn bộ cấu trúc file PE đã sửa dưới dạng mảng byte (bytearray / bytes).</p>
+
+<h3 id="rules-of-thumb">Rules of Thumb</h3>
+
+<p><strong>In-place Overwrite</strong>: pefile ghi đè chuẩn xác các giá trị header hoặc byte dữ liệu sẵn có trong cấu trúc file hiện hữu.</p>
+
+<p><strong>Không dịch chuyển cấu trúc</strong>: Thư viện không tự động dời các section phía sau để mở rộng khoảng trống khi thêm section mới hoặc chèn cấu trúc vượt quá vùng trống liền kề.</p>
+
+<p><strong>Ứng dụng thực tế</strong>: Lý tưởng để vá header bị cố tình làm biến dạng (malformed headers), giúp các công cụ dịch ngược như IDA Pro hay Ghidra khôi phục khả năng phân tích bình thường.</p>
+
+
+        
+        <div class="post-nav-footer">
+            <a href="/blogs/" class="post-nav-back">[ cd .. ] Back to Blogs</a>
+            
+            
+            
+            
+            <div class="post-nav-links">
+                
+                
+            </div>
+        </div>
+    </article>
+
+    <aside class="writeup-sidebar">
+        <div class="toc-wrapper">
+            <div class="toc-title">ON THIS PAGE</div>
+            <div id="custom-toc"></div>
+        </div>
+    </aside>
+
+</div>
+
+<!-- Floating Mobile TOC Toggle & Drawer -->
+<button id="mobile-toc-toggle" class="mobile-toc-toggle" title="Table of Contents" aria-label="Table of Contents">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="4" y1="6" x2="20" y2="6"></line>
+    <line x1="4" y1="12" x2="14" y2="12"></line>
+    <line x1="4" y1="18" x2="18" y2="18"></line>
+  </svg>
+</button>
+
+<div id="mobile-toc-overlay" class="mobile-toc-overlay"></div>
+
+<div id="mobile-toc-drawer" class="mobile-toc-drawer">
+  <div class="mobile-toc-label">ON THIS PAGE</div>
+  <div id="mobile-toc-content"></div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // 1. TẠO MỤC LỤC (TOC) DỌC
+        const toc = document.getElementById('custom-toc');
+        const mobileToc = document.getElementById('mobile-toc-content');
+        const mobileToggle = document.getElementById('mobile-toc-toggle');
+        const mobileDrawer = document.getElementById('mobile-toc-drawer');
+        const mobileOverlay = document.getElementById('mobile-toc-overlay');
+        const mobileClose = document.getElementById('mobile-toc-close');
+        const headings = document.querySelectorAll('.writeup-content h2, .writeup-content h3, .writeup-content h4');
+        
+        if (headings.length > 0) {
+            if (toc) {
+                toc.style.display = 'flex';
+                toc.style.flexDirection = 'column';
+                toc.style.gap = '10px';
+            }
+
+            headings.forEach(h => {
+                let headingText = (h.innerText || h.textContent).trim();
+                if (!h.id) {
+                    h.id = headingText.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+                }
+                if (toc) {
+                    const a = document.createElement('a');
+                    a.href = '#' + h.id;
+                    a.textContent = headingText;
+                    a.className = 'toc-link ' + h.tagName.toLowerCase();
+                    toc.appendChild(a);
+                }
+                if (mobileToc) {
+                    const ma = document.createElement('a');
+                    ma.href = '#' + h.id;
+                    ma.textContent = headingText;
+                    ma.className = 'mobile-toc-link ' + h.tagName.toLowerCase();
+                    ma.addEventListener('click', () => {
+                        if (mobileDrawer) mobileDrawer.classList.remove('active');
+                        if (mobileOverlay) mobileOverlay.classList.remove('active');
+                    });
+                    mobileToc.appendChild(ma);
+                }
+            });
+
+            if (mobileToggle) {
+                mobileToggle.addEventListener('click', () => {
+                    const isOpen = mobileDrawer && mobileDrawer.classList.contains('active');
+                    if (isOpen) {
+                        mobileDrawer.classList.remove('active');
+                        if (mobileOverlay) mobileOverlay.classList.remove('active');
+                    } else {
+                        if (mobileDrawer) mobileDrawer.classList.add('active');
+                        if (mobileOverlay) mobileOverlay.classList.add('active');
+                    }
+                });
+            }
+
+            if (mobileClose) {
+                mobileClose.addEventListener('click', () => {
+                    if (mobileDrawer) mobileDrawer.classList.remove('active');
+                    if (mobileOverlay) mobileOverlay.classList.remove('active');
+                });
+            }
+
+            if (mobileOverlay) {
+                mobileOverlay.addEventListener('click', () => {
+                    if (mobileDrawer) mobileDrawer.classList.remove('active');
+                    if (mobileOverlay) mobileOverlay.classList.remove('active');
+                });
+            }
+
+            // ==========================================
+            // SCROLL SPY: SÁNG MỤC LỤC KHI CUỘN
+            // ==========================================
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -65% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        document.querySelectorAll('#custom-toc a, #mobile-toc-content a').forEach(link => {
+                            link.classList.remove('active');
+                        });
+                        const activeLinks = document.querySelectorAll(`#custom-toc a[href="#${id}"], #mobile-toc-content a[href="#${id}"]`);
+                        activeLinks.forEach(link => link.classList.add('active'));
+                    }
+                });
+            }, observerOptions);
+
+            headings.forEach(h => observer.observe(h));
+
+        } else {
+            if (mobileToggle) mobileToggle.style.display = 'none';
+        }
+
+        // 2. WRAP TABLES
+        document.querySelectorAll('.writeup-content table').forEach(t => {
+            if (t.parentElement.classList.contains('table-wrapper')) return;
+            const wrap = document.createElement('div');
+            wrap.className = 'table-wrapper';
+            wrap.style.cssText = 'display:block;overflow-x:auto;-webkit-overflow-scrolling:touch;margin:2em 0;max-width:100%;';
+            t.parentNode.insertBefore(wrap, t);
+            wrap.appendChild(t);
+            t.style.margin = '0';
+        });
+
+        // 3. NÚT COPY CODE
+        const codeBlocks = document.querySelectorAll('div.highlight, pre'); 
+        
+        codeBlocks.forEach(block => {
+            if(block.tagName.toLowerCase() === 'pre' && block.parentNode.classList.contains('highlight')) return;
+
+            block.style.position = 'relative';
+
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn';
+            copyBtn.innerHTML = 'Copy';
+            block.appendChild(copyBtn);
+
+            copyBtn.addEventListener('click', () => {
+                const code = block.querySelector('code') ? block.querySelector('code').innerText : block.innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    copyBtn.innerHTML = 'Copied!';
+                    copyBtn.style.color = '#e0e0e0';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = 'Copy';
+                        copyBtn.style.color = '#8b949e';
+                    }, 2000);
+                });
+            });
+        });
+    });
+</script>
+
+
+<footer>
+  <div class="footer-brand">
+    <strong>kaiversus</strong>
+    <span style="color:var(--text-faint)">—</span>
+    <span>Dinh Thien Bao · 52Hz</span>
+  </div>
+  <div class="footer-links">
+    <a href="#">GitHub</a>
+    <a href="#">CTFtime</a>
+    <a href="#">Twitter</a>
+    <a href="#">RSS</a>
+  </div>
+</footer>
+
+<!-- Web Terminal -->
+<button id="web-term-toggle" class="web-term-toggle" title="Open Terminal">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+</button>
+
+<div id="web-term-window" class="web-term-window" style="display: none;">
+  <div class="web-term-header">
+    <div class="web-term-title">kaiversus@blog: ~</div>
+    <button id="web-term-close">✖</button>
+  </div>
+  <div class="web-term-body" id="web-term-body">
+    <div class="web-term-output" id="web-term-output"></div>
+    <div class="web-term-input-line">
+       <span class="web-term-prompt" id="web-term-prompt-txt">kaiversus@blog:~$</span>
+       <input type="text" id="web-term-input" autocomplete="off" spellcheck="false" />
+    </div>
+  </div>
+</div>
+
+<script>
+  window.FS_DATA = {
+    'home': {
+      'kai': {
+        'writeups': {
+          
+          
+          
+          "tap-into-hash-picoctf.txt": "Title: Tap Into Hash - PicoCTF\nDate: 2026-01-01\nURL: http://localhost:4000/writeups/TapIntoHash_pico/picoCTF_TapIntoHash/\n\n",
+          
+          
+          
+          "vaultdoor7-picoctf.txt": "Title: VaultDoor7 - PicoCTF\nDate: 2026-01-10\nURL: http://localhost:4000/writeups/vault-door-7_pico/vault-door-7_pico/\n\n",
+          
+          
+          
+          "vaultdoor8-picoctf.txt": "Title: VaultDoor8 - PicoCTF\nDate: 2026-01-10\nURL: http://localhost:4000/writeups/vault-door-8_pico/vault-door-8/\n\n",
+          
+          "info.txt": "Use 'cat <filename>' to read. Type 'ls' to list posts."
+        },
+        'courses': {
+          
+          
+          
+          "wifi-hacking-101.txt": "Title: Wifi Hacking 101\nDate: 2026-01-01\nURL: http://localhost:4000/courses/TryHackMe/Wifi_Hacking_101/README/\n\n",
+          
+          
+          
+          "chương-1-nhập-môn-malware-analysis.txt": "Title: Chương 1: Nhập môn Malware Analysis\nDate: 2026-01-25\nURL: http://localhost:4000/courses/malware/chapter_1/\n\nMục tiêu của phần nhập môn Malware Analysis, các kỹ thuật và loại malware",
+          
+          
+          
+          "chương-2-pe-file-phần-1-pe-headers-metadata-của-file.txt": "Title: Chương 2: PE file phần 1: PE Headers — Metadata của file\nDate: 2026-02-01\nURL: http://localhost:4000/courses/malware/chapter_2a/\n\nPhân tích DOS Header, Rich Header và NT Headers để tìm dấu vết môi trường build, timestamp bất thường và các thủ thuật obfuscation trước cả khi file được thực thi.",
+          
+          
+          
+          "chương-2-pe-file-phần-2-pe-sections-nơi-chứa-mã-độc.txt": "Title: Chương 2: PE file phần 2: PE Sections — Nơi chứa mã độc\nDate: 2026-02-01\nURL: http://localhost:4000/courses/malware/chapter_2b/\n\nKiểm tra cấu trúc section, permission flag, tỷ lệ kích thước và entropy để phát hiện packer, nơi giấu shellcode và hành vi unpack tại runtime.",
+          
+          
+          
+          "chương-2-pe-file-phần-3-iat-eat-và-quy-trình-phân-tích.txt": "Title: Chương 2: PE file phần 3: IAT, EAT và quy trình phân tích\nDate: 2026-02-01\nURL: http://localhost:4000/courses/malware/chapter_2c/\n\nNhận diện hành vi malware thông qua import và export table, xác định kỹ thuật giấu API và áp dụng triage checklist có hệ thống để nhanh chóng đưa ra kết luận phân tích.",
+          
+          
+          
+          "chương-2-pe-file-phần-4-lab-thực-hành-pe.txt": "Title: Chương 2: PE file phần 4: Lab thực hành PE\nDate: 2026-02-01\nURL: http://localhost:4000/courses/malware/chapter_2d/\n\nBài tập tương tác để kiểm tra kỹ năng phân tích PE — trắc nghiệm, mô phỏng phân tích PE và thử thách kiểu CTF dựa trên các Chương 2a-2c.",
+          
+          
+          
+          "debugger-detection-using-windows-api-calls-htb.txt": "Title: Debugger Detection using Windows API Calls (HTB)\nDate: 2026-10-02\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_1/\n\nTrình bày một số kỹ thuật Anti-Analysis bằng Windows API để phát hiện môi trường phân tích và cách bypass chúng.",
+          
+          
+          
+          "manual-debugger-detection-htb.txt": "Title: Manual Debugger Detection (HTB)\nDate: 2026-10-04\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_2/\n\nTrình bày một số kỹ thuật Manual Anti-Analysis Detection được sử dụng bởi Malware để phát hiện môi trường phân tích và cách bypass chúng.",
+          
+          
+          
+          "chapter-1-basic-static-techniques.txt": "Title: Chapter 1 - Basic Static Techniques\nDate: 2026-10-04\nURL: http://localhost:4000/courses/Practical%20Malware%20Analysis/Basic-static-techniques/\n\n",
+          
+          
+          
+          "detecting-debuggers-with-process-analysis-htb.txt": "Title: Detecting Debuggers with Process Analysis (HTB)\nDate: 2026-10-05\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_3/\n\nTrình bày một số kỹ thuật Process Analysis được sử dụng bởi Malware để phát hiện môi trường phân tích và cách bypass chúng.",
+          
+          "info.txt": "Use 'cat <filename>' to read."
+        },
+        'projects': {
+          
+          
+          
+          "quiz-web.md": "Title: Quiz-web\nURL: http://localhost:4000/projects/quiz_wep/\n\nSomething here",
+          
+          "repo.txt": "Check out github.com/kaiversus"
+        },
+        'blogs': {
+          
+          
+          
+          "pefile-101.md": "Title: pefile 101\nDate: 2026-10-11\nURL: http://localhost:4000/blogs/pefile_101/\n\nGiới thiệu thư viện pefile và cách áp dụng nó vào tools phân tích tĩnh mã độc",
+          
+          "info.txt": "Use 'cat <filename>' to read."
+        },
+        'cheatsheet': {
+          
+          "info.txt": "Quick references."
+        },
+        'reports': {
+          
+          "info.txt": "Vulnerability reports."
+        },
+        'focus.txt': 'Reverse Engineering · Binary Exploitation · Malware Analysis',
+        'README.txt': 'Welcome to my blog terminal. Type "kai --help" to see available commands.'
+      }
+    }
+  };
+</script>
+<script src="/assets/js/cyber-bg.js?v=6"></script>
+<script src="/assets/js/web-term.js?v=4"></script>
+</body>
+</html>

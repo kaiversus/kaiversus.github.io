@@ -39,11 +39,15 @@ defaults:
       path: ""
       type: "writeups"
     values:
-      layout: "default"
-
-defaults:
+      layout: "writeup"
   - scope:
       path: ""
-      type: "scorses"
+      type: "courses"
     values:
-      layout: "scorse"
+      layout: "course"
+  - scope:
+      path: ""
+      type: "blogs"
+    values:
+      layout: "blog"
+

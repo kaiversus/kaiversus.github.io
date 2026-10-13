@@ -43,7 +43,8 @@ html.light {
   text-decoration: none;
   transition: color 0.2s;
 }
-.wu-page-header a:hover { color: #d0d0d0; }
+.wu-page-header a:hover { color: #e0e0e0; }
+html.light .wu-page-header a:hover { color: #505050; }
 
 .wu-title {
   color: var(--wu-title-color);
@@ -74,6 +75,12 @@ html.light {
 .wu-card:hover {
   transform: translateY(-3px);
 }
+.wu-card:hover .wu-card-cta {
+  color: #e0e0e0;
+}
+html.light .wu-card:hover .wu-card-cta {
+  color: #505050;
+}
 
 .wu-card-top {
   display: flex;
@@ -100,13 +107,13 @@ html.light {
 .wu-tag-crypto   { color: #ffaa00; border-color: #ffaa00; background: rgba(255,170,0,0.08); }
 .wu-tag-web      { color: #00aaff; border-color: #00aaff; background: rgba(0,170,255,0.08); }
 .wu-tag-forensic { color: #a855f7; border-color: #a855f7; background: rgba(168,85,247,0.08); }
-.wu-tag-default  { color: #00ff41; border-color: #00ff41; background: rgba(0,255,65,0.08); }
+.wu-tag-default  { color: #e0e0e0; border-color: rgba(224,224,224,0.6); background: rgba(224,224,224,0.08); }
 
 html.light .wu-tag-reverse  { color: #c0003c; border-color: #c0003c; }
 html.light .wu-tag-crypto   { color: #cc7700; border-color: #cc7700; }
 html.light .wu-tag-web      { color: #0077cc; border-color: #0077cc; }
 html.light .wu-tag-forensic { color: #7c3abf; border-color: #7c3abf; }
-html.light .wu-tag-default  { color: #1e6e28; border-color: #1e6e28; }
+html.light .wu-tag-default  { color: #505050; border-color: #505050; background: rgba(80,80,80,0.08); }
 
 .wu-date {
   color: var(--wu-meta-color);
@@ -163,7 +170,7 @@ html.light .wu-tag-default  { color: #1e6e28; border-color: #1e6e28; }
         {% assign tags = post.category | split: "," %}
         {% assign first_tag = tags[0] | strip | downcase %}
 
-        {% assign hover_color = '#00ff41' %}
+        {% assign hover_color = '#e0e0e0' %}
         {% if first_tag == 'reverse' %}{% assign hover_color = '#ff0055' %}
         {% elsif first_tag == 'crypto' %}{% assign hover_color = '#ffaa00' %}
         {% elsif first_tag == 'web' %}{% assign hover_color = '#00aaff' %}
