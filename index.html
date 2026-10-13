@@ -46,7 +46,7 @@ title: Home Base | Kaiversus
         </div>
         
         <div class="stat-inline">
-          <span class="stat-num">{{ site.courses.size }}</span>
+          <span class="stat-num">{{ site.courses.size | plus: site.blogs.size | plus: site.reports.size | plus: site.cheatsheet.size }}</span>
           <span class="stat-lbl">Posts</span>
         </div>
         
@@ -74,7 +74,7 @@ title: Home Base | Kaiversus
     <a href="#writeups" class="section-link">all posts</a>
   </div>
 <div class="writeup-list">
-    {% assign combined_posts = site.writeups | concat: site.courses | sort: "date" | reverse %}
+    {% assign combined_posts = site.writeups | concat: site.courses | concat: site.blogs | concat: site.reports | concat: site.cheatsheet | sort: "date" | reverse %}
     
     {% for post in combined_posts limit:3 %}
     <a href="{{ post.url | relative_url }}" class="writeup-item">
@@ -84,6 +84,12 @@ title: Home Base | Kaiversus
         <div class="wi-meta">
           {% if post.collection == "courses" %}
             <span class="tag tag-crypto">Course</span>
+          {% elsif post.collection == "blogs" %}
+            <span class="tag tag-blog">Blog</span>
+          {% elsif post.collection == "reports" %}
+            <span class="tag tag-report">Report</span>
+          {% elsif post.collection == "cheatsheet" %}
+            <span class="tag tag-ctf">Cheatsheet</span>
           {% else %}
             <span class="tag tag-re">Writeup</span>
           {% endif %}

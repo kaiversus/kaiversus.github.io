@@ -4,10 +4,10 @@ layout: default
 <style>
 /* ── Blog white/silver overrides (matching .dir-card.white menu concept) ── */
 
-/* Headings */
-.writeup-content h2 { color: #e0e0e0 !important; }
-.writeup-content h3 { border-left-color: #e0e0e0 !important; }
-.writeup-content h4 { color: #e6edf3; }
+/* Headings — light blue */
+.writeup-content h2 { color: #58a6ff !important; }
+.writeup-content h3 { color: #79c0ff !important; border-left-color: #58a6ff !important; }
+.writeup-content h4 { color: #a5d6ff !important; }
 
 /* Bold — bright white accent */
 .writeup-content strong,
@@ -17,9 +17,9 @@ layout: default
 }
 
 /* Light mode headings & bold */
-html.light .writeup-content h2 { color: #505050 !important; }
-html.light .writeup-content h3 { border-left-color: #505050 !important; }
-html.light .writeup-content h4 { color: #2a2520; }
+html.light .writeup-content h2 { color: #0284c7 !important; }
+html.light .writeup-content h3 { color: #0369a1 !important; border-left-color: #0284c7 !important; }
+html.light .writeup-content h4 { color: #075985 !important; }
 
 html.light .writeup-content strong,
 html.light .writeup-content b {
@@ -336,7 +336,7 @@ html.light .post-nav-next:hover {
                 const code = block.querySelector('code') ? block.querySelector('code').innerText : block.innerText;
                 navigator.clipboard.writeText(code).then(() => {
                     copyBtn.innerHTML = 'Copied!';
-                    copyBtn.style.color = '#e0e0e0';
+                    copyBtn.style.color = '#ffffff';
                     setTimeout(() => {
                         copyBtn.innerHTML = 'Copy';
                         copyBtn.style.color = '#8b949e';
