@@ -169,12 +169,36 @@ kbd {
 .page-head p { margin: 16px 0 0; color: var(--k-sub); max-width: 60ch; }
 .group { margin-top: 40px; }
 .group-head {
-  display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
-  font: 500 12px/1 var(--k-mono); color: var(--k-sub); text-transform: uppercase; letter-spacing: .08em;
+  display: flex; align-items: baseline; gap: 8px 16px; flex-wrap: wrap;
+  font: 500 12px/1.4 var(--k-mono); color: var(--k-sub); text-transform: uppercase; letter-spacing: .08em;
   padding-bottom: 12px; border-bottom: 1px solid var(--k-line-2);
 }
 .group-head span { color: var(--k-mute); text-transform: none; letter-spacing: 0; }
+.group-head span:last-child { margin-left: auto; }
+.group-head .sec-tag { color: var(--k-acc); margin: 0; }
 .group .rows { margin-bottom: 0; }
+/* Project cards */
+.cards { list-style: none; margin: 20px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.card { border: 1px solid var(--k-line-2); border-radius: 4px; overflow: hidden; display: flex; flex-direction: column; background: var(--k-bg); transition: border-color .18s var(--k-ease), background .18s var(--k-ease); }
+.card:hover, .card.is-sel { border-color: var(--k-acc); background: var(--k-bg-2); }
+.card-thumb { display: grid; place-items: center; aspect-ratio: 16 / 9; background: var(--k-bg-3); border-bottom: 1px solid var(--k-line); overflow: hidden; font: 400 12px var(--k-mono); color: var(--k-mute); text-decoration: none; }
+.card-thumb img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.35) brightness(.9); transition: filter .25s, transform .4s var(--k-ease); }
+.card:hover .card-thumb img, .card.is-sel .card-thumb img { filter: none; transform: scale(1.02); }
+.card-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.card-meta { font: 400 12px var(--k-mono); color: var(--k-mute); display: flex; gap: 10px; }
+.card-meta .row-idx { display: inline; }
+.row-link-plain { text-decoration: none; }
+.card .row-title { font: 600 18px/1.35 var(--k-sans); }
+.card-desc { margin: 0; color: var(--k-sub); font-size: 14.5px; line-height: 1.6; }
+.card-links { margin-top: auto; padding-top: 12px; display: flex; gap: 16px; font: 400 12.5px var(--k-mono); }
+.card-links a { color: var(--k-sub); text-decoration: none; transition: color .15s; }
+.card-links a:hover { color: var(--k-acc); }
+.post-cover { margin: 28px 0 0; max-width: 820px; border: 1px solid var(--k-line); border-radius: 4px; overflow: hidden; }
+.post-cover img { display: block; width: 100%; }
+.post-links { display: flex; gap: 18px; margin-top: 22px; font: 400 13px var(--k-mono); }
+.post-links a { color: var(--k-text); text-decoration: none; border: 1px solid var(--k-line-2); border-radius: 3px; padding: 7px 12px; transition: border-color .15s, color .15s; }
+.post-links a:hover { border-color: var(--k-acc); color: var(--k-acc); }
+
 .empty { font: 400 14px var(--k-mono); color: var(--k-mute); padding: 32px 0 96px; }
 
 /* ── Bài viết ─────────────────────────────────────── */
