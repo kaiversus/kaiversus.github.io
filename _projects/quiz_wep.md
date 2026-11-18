@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: post
 title: "Quiz-web"
 date: 2026-01-24
 description: "Something here"

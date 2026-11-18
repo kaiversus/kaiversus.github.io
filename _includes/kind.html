@@ -1,0 +1,10 @@
+{%- comment -%} Nhãn ngắn cho từng collection. Dùng: {% include kind.html c=post.collection %} {%- endcomment -%}
+{%- case include.c -%}
+{%- when 'writeups' -%}writeup
+{%- when 'courses' -%}course
+{%- when 'blogs' -%}blog
+{%- when 'projects' -%}project
+{%- when 'reports' -%}report
+{%- when 'cheatsheet' -%}cheatsheet
+{%- else -%}post
+{%- endcase -%}

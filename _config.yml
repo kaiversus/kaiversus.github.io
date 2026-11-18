@@ -1,6 +1,6 @@
 # _config.yml
-title: Dinh Thien Bao (Kaiversus)
-description: "Portfolio of Dinh Thien Bao (Kaiversus) - Security Researcher and CTF Player."
+title: kaiversus
+description: "kaiversus — malware development: writeups, courses, reports."
 url: "https://kaiversus.github.io"
 baseurl: ""
 timezone: "Asia/Ho_Chi_Minh"

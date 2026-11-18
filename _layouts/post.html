@@ -1,0 +1,59 @@
+---
+layout: default
+---
+{%- capture kind -%}{% include kind.html c=page.collection %}{%- endcapture -%}
+{%- assign segs = page.url | split: '/' -%}
+{%- assign words = content | strip_html | number_of_words -%}
+{%- assign mins = words | divided_by: 200 | at_least: 1 -%}
+
+{%- comment -%} Bài trước / sau trong cùng series (cùng collection + category) {%- endcomment -%}
+{%- if page.collection -%}
+  {%- assign series = site[page.collection] | where: 'category', page.category | sort: 'date' -%}
+  {%- for s in series -%}
+    {%- if s.url == page.url -%}
+      {%- assign pos = forloop.index -%}
+      {%- assign i0 = forloop.index0 | minus: 1 -%}
+      {%- assign i1 = forloop.index0 | plus: 1 -%}
+      {%- if i0 >= 0 -%}{%- assign prev_p = series[i0] -%}{%- endif -%}
+      {%- assign next_p = series[i1] -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
+
+<article class="wrap post">
+  <header class="post-head">
+    <nav class="crumbs" aria-label="Đường dẫn">
+      <a href="{{ '/' | relative_url }}">~</a>{% for s in segs offset:1 %}{% unless forloop.last %}<span>/</span>{% if forloop.first %}<a href="{{ '/' | append: s | append: '/' | relative_url }}">{{ s | url_decode }}</a>{% else %}{{ s | url_decode | downcase }}{% endif %}{% endunless %}{% endfor %}<span>/</span>
+    </nav>
+    <h1 class="post-title">{{ page.title }}</h1>
+    <dl class="post-meta">
+      <div><dt>type</dt><dd><span class="row-kind k-{{ kind }}">{{ kind }}</span></dd></div>
+      {%- if page.date -%}<div><dt>date</dt><dd><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%Y-%m-%d' }}</time></dd></div>{%- endif -%}
+      {%- if page.author -%}<div><dt>by</dt><dd>{{ page.author }}</dd></div>{%- endif -%}
+      <div><dt>read</dt><dd>~{{ mins }} min</dd></div>
+      {%- if page.difficulty -%}<div><dt>level</dt><dd class="d-{{ page.difficulty | downcase }}">{{ page.difficulty | downcase }}</dd></div>{%- endif -%}
+      {%- if page.category -%}<div><dt>{% if page.collection == 'courses' %}series{% else %}tags{% endif %}</dt><dd>{{ page.category | downcase }}{% if page.subcategory and page.subcategory != '' %} / {{ page.subcategory | downcase }}{% endif %}{% if pos and series.size > 1 %} <span class="mute">· {{ pos }}/{{ series.size }}</span>{% endif %}</dd></div>{%- endif -%}
+    </dl>
+    {%- if page.description and page.description != '' -%}<p class="post-lead">{{ page.description }}</p>{%- endif -%}
+  </header>
+
+  <div class="post-grid">
+    <div class="prose" id="prose">
+      {{ content }}
+    </div>
+    <aside class="toc" id="toc" aria-label="Mục lục">
+      <div class="toc-head">contents <kbd>t</kbd></div>
+      <ol id="toc-list"></ol>
+    </aside>
+  </div>
+
+  <footer class="post-foot">
+    {%- if prev_p or next_p -%}
+    <nav class="pn" aria-label="Bài trước và sau">
+      {%- if prev_p -%}<a class="pn-prev" href="{{ prev_p.url | relative_url }}"><span>&larr; prev</span>{{ prev_p.title }}</a>{%- else -%}<span></span>{%- endif -%}
+      {%- if next_p -%}<a class="pn-next" href="{{ next_p.url | relative_url }}"><span>next &rarr;</span>{{ next_p.title }}</a>{%- endif -%}
+    </nav>
+    {%- endif -%}
+    <a class="back" href="{{ '/' | append: page.collection | append: '/' | relative_url }}" data-back>cd ..</a>
+  </footer>
+</article>

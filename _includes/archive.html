@@ -1,0 +1,35 @@
+{%- comment -%}
+  Trang mục. Tham số: col (tên collection), title, lead, group (field để nhóm, tuỳ chọn)
+{%- endcomment -%}
+{%- assign docs = site[include.col] | sort: 'date' | reverse -%}
+<section class="wrap page-head">
+  <div class="page-path">~/home/kai/{{ include.col }} <span>[DIR]</span></div>
+  <h1>{{ include.title }}<em>.</em></h1>
+  {%- if include.lead -%}<p>{{ include.lead }}</p>{%- endif -%}
+</section>
+
+<section class="wrap">
+  {%- if docs.size == 0 -%}
+    <p class="empty">$ ls {{ include.col }}/<br>total 0 — chưa có bài nào.</p>
+  {%- else -%}
+    {% include filterbar.html %}
+    {%- if include.group and include.group != '' -%}
+      {%- assign groups = docs | group_by: include.group | sort: 'name' -%}
+      {%- for g in groups -%}
+        {%- assign items = g.items | sort: 'date' -%}
+        <div class="group">
+          <div class="group-head">{{ g.name | default: 'khác' }} <span>{{ items.size }} {% if items.size == 1 %}bài{% else %}bài{% endif %}</span></div>
+          <ol class="rows">
+            {%- for p in items -%}{% include post-row.html p=p hide_kind=true idx=forloop.index %}{%- endfor -%}
+          </ol>
+        </div>
+      {%- endfor -%}
+      <div style="height:80px"></div>
+    {%- else -%}
+      <ol class="rows">
+        {%- for p in docs -%}{%- assign idx = docs.size | minus: forloop.index0 -%}{% include post-row.html p=p hide_kind=true idx=idx %}{%- endfor -%}
+      </ol>
+    {%- endif -%}
+    <p class="rows-empty" id="rows-empty" hidden>grep: không có kết quả. <button type="button" class="linklike" data-clear>[esc] xoá lọc</button></p>
+  {%- endif -%}
+</section>

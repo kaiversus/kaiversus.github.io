@@ -1,378 +1,129 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0c0b">
 <!-- Begin Jekyll SEO tag v2.9.1 -->
-<title>Projects Archive | Dinh Thien Bao (Kaiversus)</title>
+<title>Projects | kaiversus</title>
 <meta name="generator" content="Jekyll v3.9.5" />
-<meta property="og:title" content="Projects Archive" />
+<meta property="og:title" content="Projects" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Portfolio of Dinh Thien Bao (Kaiversus) - Security Researcher and CTF Player." />
-<meta name="twitter:description" property="og:description" content="Portfolio of Dinh Thien Bao (Kaiversus) - Security Researcher and CTF Player." />
+<meta name="description" content="kaiversus — malware development: writeups, courses, reports." />
+<meta name="twitter:description" property="og:description" content="kaiversus — malware development: writeups, courses, reports." />
 <link rel="canonical" href="http://localhost:4000/projects/" />
 <meta property="og:url" content="http://localhost:4000/projects/" />
-<meta property="og:site_name" content="Dinh Thien Bao (Kaiversus)" />
+<meta property="og:site_name" content="kaiversus" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="Projects Archive" />
+<meta name="twitter:title" content="Projects" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"Portfolio of Dinh Thien Bao (Kaiversus) - Security Researcher and CTF Player.","headline":"Projects Archive","url":"http://localhost:4000/projects/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","description":"kaiversus — malware development: writeups, courses, reports.","headline":"Projects","url":"http://localhost:4000/projects/"}</script>
 <!-- End Jekyll SEO tag -->
 
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Newsreader:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/style.css?v=8">
-<link rel="stylesheet" href="/assets/css/web-term.css?v=2">
-<!-- Theme manager: loaded in <head> to apply saved theme before render (no flash) -->
-<script src="/assets/js/theme.js"></script>
+<link rel="icon" href="/assets/favicon.svg?v=2" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png?v=2" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css?v=20">
+<link rel="stylesheet" href="/assets/css/web-term.css?v=3">
 </head>
-<body>
+<body data-page="page">
 
-<nav class="site-nav">
-  <a href="/" class="nav-logo">
-    <span class="nav-logo-user">kaiversus</span><span class="nav-logo-at">@</span><span class="nav-logo-host">blog</span><span class="nav-logo-sym">:~$</span>
-  </a>
-  <div class="nav-sep"></div>
-  <ul class="nav-links">
-    <li><a href="/"><span class="slash">~/</span>home</a></li>
-    <li><a href="/writeups/"><span class="slash">~/</span>writeups</a></li>
-    <li><a href="/projects/"><span class="slash">~/</span>projects</a></li>
-  </ul>
-  <div class="nav-right">
-    <span class="status-dot"></span>
-    <span class="status-text">online</span>
-    <button class="theme-toggle" id="theme-toggle" title="Toggle light/dark">☀</button>
+<a class="skip" href="#main">Bỏ qua điều hướng</a>
+
+<header class="site-head">
+  <div class="wrap site-head-in">
+    <a href="/" class="brand" aria-label="Trang chủ"><span class="b-user">kaiversus</span><span class="b-at">@</span><span class="b-host">blog</span><span class="b-sym">:~$</span></a>
+    
+    
+    <nav class="site-nav" aria-label="Chính"><a href="/writeups/" ><span class="slash">~/</span>writeups</a><a href="/courses/" ><span class="slash">~/</span>courses</a><a href="/projects/" aria-current="page"><span class="slash">~/</span>projects</a><a href="/cheatsheet/" ><span class="slash">~/</span>cheatsheet</a><a href="/reports/" ><span class="slash">~/</span>reports</a><a href="/blogs/" ><span class="slash">~/</span>blogs</a><a href="/about/" ><span class="slash">~/</span>about</a><button class="key-hint" type="button" data-help aria-label="Phím tắt"><kbd>?</kbd></button>
+    </nav>
   </div>
-</nav>
+</header>
 
-<style>
-/* =============================================
-   PROJECTS PAGE — Redesigned card layout
-============================================= */
+<main id="main">
+<section class="wrap page-head">
+  <div class="page-path">~/home/kai/projects <span>[DIR]</span></div>
+  <h1>Projects<em>.</em></h1><p>Github repositories · coding tools · personal malware samples.</p></section>
 
-:root {
-  --proj-card:         #111820;
-  --proj-card-border:  #1e2830;
-  --proj-text:         #c9d1d9;
-  --proj-muted:        #556070;
-  --proj-thumb-bg:     #0a1018;
-  --proj-divider:      #1e2830;
-}
-
-html.light {
-  --proj-card:         #f0e9d8;
-  --proj-card-border:  #d0c8b4;
-  --proj-text:         #2a2520;
-  --proj-muted:        #8a7a60;
-  --proj-thumb-bg:     #e4dcc8;
-  --proj-divider:      #d0c8b4;
-}
-
-.proj-page {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 48px 24px 96px;
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-}
-
-.proj-page-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  margin-bottom: 48px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--proj-divider);
-}
-
-.proj-page-title {
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-  font-weight: 900;
-  color: var(--proj-text);
-  letter-spacing: 0.08em;
-  margin: 0;
-}
-.proj-page-title .slash { color: var(--green, #3fb950); }
-
-.proj-back {
-  font-size: 0.8rem;
-  color: var(--proj-muted);
-  text-decoration: none;
-  letter-spacing: 0.06em;
-  transition: color 0.2s;
-}
-.proj-back:hover { color: var(--green, #3fb950); }
-
-.proj-section { margin-bottom: 56px; }
-
-.proj-section-label {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 24px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--proj-divider);
-}
-
-.proj-section-tag {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  padding: 3px 10px;
-  border: 1px solid;
-  border-radius: 2px;
-}
-.proj-section-tag.green {
-  color: var(--green, #3fb950);
-  border-color: rgba(63,185,80,0.4);
-  background: rgba(63,185,80,0.06);
-}
-html.light .proj-section-tag.green { color: #1e6e28; border-color: rgba(30,110,40,0.35); }
-.proj-section-tag.red {
-  color: #ff4060;
-  border-color: rgba(255,64,96,0.4);
-  background: rgba(255,64,96,0.06);
-}
-html.light .proj-section-tag.red { color: #9e001c; border-color: rgba(158,0,28,0.35); }
-
-.proj-section-name {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--proj-text);
-  letter-spacing: 0.06em;
-}
-
-.proj-section-desc {
-  font-size: 0.75rem;
-  color: var(--proj-muted);
-  margin-left: auto;
-}
-
-/* Grid */
-.proj-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-/* Card */
-.proj-card {
-  background: var(--proj-card);
-  border: 1px solid var(--proj-card-border);
-  border-radius: 6px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  color: var(--proj-text);
-  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
-  position: relative;
-}
-
-.proj-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  transition: background 0.25s;
-}
-
-.proj-card:hover { transform: translateY(-4px); }
-.proj-card.green:hover { border-color: rgba(63,185,80,0.5); box-shadow: 0 8px 28px rgba(63,185,80,0.1); }
-.proj-card.green:hover::before { background: var(--green, #3fb950); }
-.proj-card.red:hover { border-color: rgba(255,64,96,0.5); box-shadow: 0 8px 28px rgba(255,64,96,0.1); }
-.proj-card.red:hover::before { background: #ff4060; }
-html.light .proj-card.green:hover { border-color: rgba(30,110,40,0.5); box-shadow: 0 8px 20px rgba(30,110,40,0.12); }
-html.light .proj-card.red:hover { border-color: rgba(158,0,28,0.5); box-shadow: 0 8px 20px rgba(158,0,28,0.12); }
-
-/* Thumbnail */
-.proj-thumb {
-  width: 100%;
-  aspect-ratio: 16 / 8;
-  overflow: hidden;
-  background: var(--proj-thumb-bg);
-  flex-shrink: 0;
-}
-.proj-thumb img {
-  width: 100%; height: 100%;
-  object-fit: cover; object-position: top;
-  display: block;
-  transition: transform 0.4s ease, opacity 0.3s;
-  opacity: 0.85;
-}
-.proj-card:hover .proj-thumb img { transform: scale(1.04); opacity: 1; }
-.proj-thumb-placeholder {
-  width: 100%; height: 100%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.65rem; letter-spacing: 0.15em;
-  color: var(--proj-muted); opacity: 0.4;
-}
-
-/* Card body */
-.proj-card-body {
-  padding: 16px 18px 14px;
-  display: flex; flex-direction: column; flex: 1; gap: 8px;
-}
-.proj-card-meta {
-  display: flex; align-items: center; justify-content: space-between;
-  font-size: 0.7rem; color: var(--proj-muted); letter-spacing: 0.06em;
-}
-.proj-card-type { font-weight: 700; letter-spacing: 0.1em; }
-.proj-card-type.green { color: rgba(63,185,80,0.7); }
-.proj-card-type.red   { color: rgba(255,64,96,0.7); }
-html.light .proj-card-type.green { color: #1e6e28; }
-html.light .proj-card-type.red   { color: #9e001c; }
-
-.proj-card-title {
-  font-size: 0.95rem; font-weight: 700;
-  color: var(--proj-text); line-height: 1.35;
-  margin: 0; transition: color 0.2s;
-}
-.proj-card.green:hover .proj-card-title { color: var(--green, #3fb950); }
-.proj-card.red:hover   .proj-card-title { color: #ff4060; }
-html.light .proj-card.green:hover .proj-card-title { color: #1e6e28; }
-html.light .proj-card.red:hover   .proj-card-title { color: #9e001c; }
-
-.proj-card-desc {
-  font-size: 0.78rem; color: var(--proj-muted);
-  line-height: 1.6; margin: 0; flex: 1;
-  display: -webkit-box;
-  -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
-}
-
-/* Footer buttons */
-.proj-card-footer {
-  display: flex; gap: 8px; flex-wrap: wrap;
-  padding: 10px 18px 14px;
-  border-top: 1px solid var(--proj-divider);
-}
-.proj-btn {
-  display: inline-flex; align-items: center; gap: 5px;
-  padding: 4px 11px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.68rem; font-weight: 700;
-  letter-spacing: 0.08em; text-decoration: none;
-  border: 1px solid; border-radius: 3px;
-  background: transparent; transition: all 0.18s; white-space: nowrap;
-}
-.proj-btn svg { width: 11px; height: 11px; fill: currentColor; flex-shrink: 0; }
-
-.proj-btn-primary.green { color: rgba(63,185,80,0.85); border-color: rgba(63,185,80,0.3); }
-.proj-btn-primary.green:hover { background: rgba(63,185,80,0.1); color: #3fb950; border-color: rgba(63,185,80,0.6); }
-html.light .proj-btn-primary.green { color: #1e6e28; border-color: rgba(30,110,40,0.35); }
-html.light .proj-btn-primary.green:hover { background: rgba(30,110,40,0.1); }
-
-.proj-btn-primary.red { color: rgba(255,64,96,0.85); border-color: rgba(255,64,96,0.3); }
-.proj-btn-primary.red:hover { background: rgba(255,64,96,0.1); color: #ff4060; border-color: rgba(255,64,96,0.6); }
-html.light .proj-btn-primary.red { color: #9e001c; border-color: rgba(158,0,28,0.35); }
-html.light .proj-btn-primary.red:hover { background: rgba(158,0,28,0.08); }
-
-.proj-btn-demo { color: #00c8d4; border-color: rgba(0,200,212,0.3); }
-.proj-btn-demo:hover { background: rgba(0,200,212,0.08); border-color: rgba(0,200,212,0.6); }
-html.light .proj-btn-demo { color: #006677; border-color: rgba(0,102,119,0.35); }
-
-.proj-btn-github { color: var(--proj-muted); border-color: var(--proj-card-border); }
-.proj-btn-github:hover { color: var(--proj-text); border-color: var(--proj-muted); background: rgba(128,128,128,0.06); }
-
-@media (max-width: 640px) {
-  .proj-grid { grid-template-columns: 1fr; }
-  .proj-section-desc { display: none; }
-}
-</style>
-
-<div class="proj-page">
-
-  <div class="proj-page-header">
-    <h1 class="proj-page-title"><span class="slash">// </span>PROJECTS_DIRECTORY</h1>
-    <a href="/" class="proj-back">← cd ~</a>
-  </div>
-
-  <!-- CAREER -->
-  <div class="proj-section">
-    <div class="proj-section-label">
-      <span class="proj-section-tag green">MAIN</span>
-      <span class="proj-section-name">CAREER_OPERATIONS</span>
-      <span class="proj-section-desc">Professional tools &amp; research artifacts</span>
-    </div>
-    <div class="proj-grid">
-      
-      
-    </div>
-  </div>
-
-  <!-- PERSONAL -->
-  <div class="proj-section">
-    <div class="proj-section-label">
-      <span class="proj-section-tag red">SIDE</span>
-      <span class="proj-section-name">PERSONAL_LAB</span>
-      <span class="proj-section-desc">Experiments, utilities &amp; fun stuff</span>
-    </div>
-    <div class="proj-grid">
-      
-      
-      <article class="proj-card red">
-        <div class="proj-thumb">
-          <img src="/assets/images/projects/client.png" alt="Quiz-web" loading="lazy" />
-          
-        </div>
-        <div class="proj-card-body">
-          <div class="proj-card-meta">
-            <span class="proj-card-type red">[EXP]</span>
-            <span>2026-01-24</span>
-          </div>
-          <h3 class="proj-card-title">Quiz-web</h3>
-          <p class="proj-card-desc">Something here</p>
-        </div>
-        <div class="proj-card-footer">
-          <a href="/projects/quiz_wep/" class="proj-btn proj-btn-primary red">
-            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg> INFO
-          </a>
-          <a href="https://quiz-web-kaiversus.vercel.app" target="_blank" rel="noopener" class="proj-btn proj-btn-demo">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /></svg> LIVE
-          </a>
-          <a href="https://github.com/kaiversus/Quiz-Web" target="_blank" rel="noopener" class="proj-btn proj-btn-github">
-            <svg viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.419-1.305.762-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg> REPO
-          </a>
-        </div>
-      </article>
-      
-    </div>
-  </div>
-
+<section class="wrap"><div class="filterbar" data-filterbar=""><label class="grep">
+    <span class="grep-ps" aria-hidden="true">/</span>
+    <input type="search" id="grep" placeholder="grep tên bài, tag…" autocomplete="off" spellcheck="false" aria-label="Tìm bài viết" />
+    <span class="grep-n" id="grep-n" aria-live="polite"></span>
+  </label>
 </div>
+<ol class="rows"><li class="row" data-kind="project" data-q="quiz-web personal  project">
+  <a class="row-link" href="/projects/quiz_wep/">
+    <span class="row-date"><span class="row-idx">0x01</span>2026-01-24</span>
+    <span class="row-title">Quiz-web</span>
+    <span class="row-meta"><span class="row-tag">personal</span></span>
+  </a>
+</li>
+</ol><p class="rows-empty" id="rows-empty" hidden="">grep: không có kết quả. <button type="button" class="linklike" data-clear="">[esc] xoá lọc</button></p></section>
 
 
-<footer>
-  <div class="footer-brand">
-    <strong>kaiversus</strong>
-    <span style="color:var(--text-faint)">—</span>
-    <span>Dinh Thien Bao · 52Hz</span>
-  </div>
-  <div class="footer-links">
-    <a href="#">GitHub</a>
-    <a href="#">CTFtime</a>
-    <a href="#">Twitter</a>
-    <a href="#">RSS</a>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap site-foot-in">
+    <span><b class="foot-brand">kaiversus</b> <span class="mute">—</span> malware development <span class="mute">· 52Hz</span></span>
+    <span class="foot-links">
+      <a href="https://github.com/kaiversus" rel="noopener">github</a>
+      <a href="/sitemap.xml">sitemap</a>
+      <button type="button" class="linklike" data-term>:terminal</button>
+    </span>
   </div>
 </footer>
 
-<!-- Web Terminal -->
-<button id="web-term-toggle" class="web-term-toggle" title="Open Terminal">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-</button>
+<!-- Statusline kiểu vim/less: chế độ, đường dẫn, mục hiện tại, offset -->
+<div class="statusline" id="statusline" aria-hidden="true">
+  <span class="sl-mode" id="sl-mode">NORMAL</span>
+  <span class="sl-path">~/projects/</span>
+  <span class="sl-sec" id="sl-sec"></span>
+  <span class="sl-msg" id="sl-msg"></span>
+  <span class="sl-right"><span id="sl-off">0x0000</span><span id="sl-pct">top</span></span>
+</div>
 
+<!-- Bảng phím tắt -->
+<div class="help" id="help" hidden>
+  <div class="help-box" role="dialog" aria-modal="true" aria-labelledby="help-title">
+    <div class="help-head"><span id="help-title">KEYS(1)</span><span class="mute">kaiversus manual</span><button type="button" class="linklike" data-help-close>[q] đóng</button></div>
+    <div class="help-cols">
+      <dl>
+        <dt>j / k</dt><dd>xuống / lên</dd>
+        <dt>enter</dt><dd>mở bài đang chọn</dd>
+        <dt>/</dt><dd>grep: lọc theo tên, tag</dd>
+        <dt>1 – 7</dt><dd>lọc theo mục</dd>
+        <dt>esc</dt><dd>xoá lọc / đóng</dd>
+      </dl>
+      <dl>
+        <dt>] / [</dt><dd>mục kế / mục trước</dd>
+        <dt>g g / G</dt><dd>đầu / cuối trang</dd>
+        <dt>d / u</dt><dd>nửa trang xuống / lên</dd>
+        <dt>t</dt><dd>bật/tắt mục lục</dd>
+        <dt>y</dt><dd>copy link đoạn đang đọc</dd>
+        <dt>h</dt><dd>quay về danh sách</dd>
+        <dt>:</dt><dd>mở terminal</dd>
+      </dl>
+    </div>
+  </div>
+</div>
+
+<!-- Web terminal (mở bằng phím ":" hoặc link ở footer) -->
+<button id="web-term-toggle" class="web-term-toggle" hidden aria-hidden="true" tabindex="-1"></button>
 <div id="web-term-window" class="web-term-window" style="display: none;">
   <div class="web-term-header">
     <div class="web-term-title">kaiversus@blog: ~</div>
-    <button id="web-term-close">✖</button>
+    <button id="web-term-close" aria-label="Đóng terminal">✕</button>
   </div>
   <div class="web-term-body" id="web-term-body">
     <div class="web-term-output" id="web-term-output"></div>
     <div class="web-term-input-line">
        <span class="web-term-prompt" id="web-term-prompt-txt">kaiversus@blog:~$</span>
-       <input type="text" id="web-term-input" autocomplete="off" spellcheck="false" />
+       <input type="text" id="web-term-input" autocomplete="off" spellcheck="false" aria-label="Lệnh terminal">
     </div>
   </div>
 </div>
@@ -439,6 +190,34 @@ html.light .proj-btn-demo { color: #006677; border-color: rgba(0,102,119,0.35); 
           
           "detecting-debuggers-with-process-analysis-htb.txt": "Title: Detecting Debuggers with Process Analysis (HTB)\nDate: 2026-10-05\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_3/\n\nTrình bày một số kỹ thuật Process Analysis được sử dụng bởi Malware để phát hiện môi trường phân tích và cách bypass chúng.",
           
+          
+          
+          "detecting-debuggers-through-timing-discrepancies-htb.txt": "Title: Detecting Debuggers Through Timing Discrepancies (HTB)\nDate: 2026-10-06\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_4/\n\nTrình bày và giải thích khái niệm Timing Discrepancies được sử dụng bởi Malware để phát hiện môi trường phân tích và cách bypass chúng.",
+          
+          
+          
+          "detecting-breakpoints-htb.txt": "Title: Detecting Breakpoints (HTB)\nDate: 2026-10-06\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_5/\n\nTrình bày một số kỹ thuật Anti-Analysis bằng Breakpoint Detection để phát hiện môi trường phân tích và cách bypass chúng.",
+          
+          
+          
+          "system-fingerprinting-htb.txt": "Title: System Fingerprinting (HTB)\nDate: 2026-10-07\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_6/\n\nTrình bày một số kỹ thuật Anti-Analysis bằng System Fingerprinting để phát hiện môi trường phân tích và cách bypass chúng.",
+          
+          
+          
+          "system-level-indicators-htb.txt": "Title: System-Level Indicators (HTB)\nDate: 2026-10-07\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_7/\n\nTrình bày và giải thích khái niệm System-Level Indicators được sử dụng bởi Malware để phát hiện môi trường phân tích và cách bypass chúng.",
+          
+          
+          
+          "detecting-analysis-environments-with-user-behavior-htb.txt": "Title: Detecting Analysis Environments with User Behavior (HTB)\nDate: 2026-10-07\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_8/\n\nTrình bày và giải thích cách mà hành vi người dùng được sử dụng bởi Malware để phát hiện môi trường phân tích và cách bypass chúng.",
+          
+          
+          
+          "anti-anti-analysis-techniques-htb.txt": "Title: Anti-Anti-Analysis Techniques (HTB)\nDate: 2026-10-09\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_9/\n\nTrình bày và giải thích khái niệm Anti-Anti-Analysis Techniques",
+          
+          
+          
+          "malware-development-introduction.txt": "Title: Malware Development Introduction\nDate: 2026-10-10\nURL: http://localhost:4000/courses/Malware%20Development%20for%20Ethical%20Hackers/chapter_1/\n\n",
+          
           "info.txt": "Use 'cat <filename>' to read."
         },
         'projects': {
@@ -457,21 +236,13 @@ html.light .proj-btn-demo { color: #006677; border-color: rgba(0,102,119,0.35); 
           
           "info.txt": "Use 'cat <filename>' to read."
         },
-        'cheatsheet': {
-          
-          "info.txt": "Quick references."
-        },
-        'reports': {
-          
-          "info.txt": "Vulnerability reports."
-        },
-        'focus.txt': 'Reverse Engineering · Binary Exploitation · Malware Analysis',
+        'focus.txt': 'Reverse Engineering · Malware Analysis · CTF',
         'README.txt': 'Welcome to my blog terminal. Type "kai --help" to see available commands.'
       }
     }
   };
 </script>
-<script src="/assets/js/cyber-bg.js?v=6"></script>
-<script src="/assets/js/web-term.js?v=4"></script>
+<script src="/assets/js/web-term.js?v=5" defer></script>
+<script src="/assets/js/keys.js?v=1" defer></script>
 </body>
 </html>

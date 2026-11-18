@@ -1,0 +1,19 @@
+{%- comment -%}
+  Thanh lọc + grep. Tham số: kinds (chuỗi "all:22,ctf:3,..."), placeholder
+{%- endcomment -%}
+<div class="filterbar" data-filterbar>
+  {%- if include.kinds -%}
+  <div class="chips" role="tablist" aria-label="Lọc theo mục">
+    {%- assign ks = include.kinds | split: ',' -%}
+    {%- for k in ks -%}
+      {%- assign kv = k | split: ':' -%}
+      <button type="button" class="chip" data-kind="{{ kv[0] }}" {% if forloop.first %}aria-pressed="true"{% else %}aria-pressed="false"{% endif %}><kbd>{{ forloop.index }}</kbd>{{ kv[0] }}<span class="chip-n">{{ kv[1] }}</span></button>
+    {%- endfor -%}
+  </div>
+  {%- endif -%}
+  <label class="grep">
+    <span class="grep-ps" aria-hidden="true">/</span>
+    <input type="search" id="grep" placeholder="{{ include.placeholder | default: 'grep tên bài, tag…' }}" autocomplete="off" spellcheck="false" aria-label="Tìm bài viết">
+    <span class="grep-n" id="grep-n" aria-live="polite"></span>
+  </label>
+</div>

@@ -1,763 +1,256 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0c0b">
 <!-- Begin Jekyll SEO tag v2.9.1 -->
-<title>Courses Library | Dinh Thien Bao (Kaiversus)</title>
+<title>Courses | kaiversus</title>
 <meta name="generator" content="Jekyll v3.9.5" />
-<meta property="og:title" content="Courses Library" />
+<meta property="og:title" content="Courses" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Portfolio of Dinh Thien Bao (Kaiversus) - Security Researcher and CTF Player." />
-<meta name="twitter:description" property="og:description" content="Portfolio of Dinh Thien Bao (Kaiversus) - Security Researcher and CTF Player." />
+<meta name="description" content="kaiversus — malware development: writeups, courses, reports." />
+<meta name="twitter:description" property="og:description" content="kaiversus — malware development: writeups, courses, reports." />
 <link rel="canonical" href="http://localhost:4000/courses/" />
 <meta property="og:url" content="http://localhost:4000/courses/" />
-<meta property="og:site_name" content="Dinh Thien Bao (Kaiversus)" />
+<meta property="og:site_name" content="kaiversus" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="Courses Library" />
+<meta name="twitter:title" content="Courses" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"Portfolio of Dinh Thien Bao (Kaiversus) - Security Researcher and CTF Player.","headline":"Courses Library","url":"http://localhost:4000/courses/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","description":"kaiversus — malware development: writeups, courses, reports.","headline":"Courses","url":"http://localhost:4000/courses/"}</script>
 <!-- End Jekyll SEO tag -->
 
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Newsreader:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/style.css?v=8">
-<link rel="stylesheet" href="/assets/css/web-term.css?v=2">
-<!-- Theme manager: loaded in <head> to apply saved theme before render (no flash) -->
-<script src="/assets/js/theme.js"></script>
+<link rel="icon" href="/assets/favicon.svg?v=2" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png?v=2" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css?v=20">
+<link rel="stylesheet" href="/assets/css/web-term.css?v=3">
 </head>
-<body>
+<body data-page="page">
 
-<nav class="site-nav">
-  <a href="/" class="nav-logo">
-    <span class="nav-logo-user">kaiversus</span><span class="nav-logo-at">@</span><span class="nav-logo-host">blog</span><span class="nav-logo-sym">:~$</span>
-  </a>
-  <div class="nav-sep"></div>
-  <ul class="nav-links">
-    <li><a href="/"><span class="slash">~/</span>home</a></li>
-    <li><a href="/writeups/"><span class="slash">~/</span>writeups</a></li>
-    <li><a href="/projects/"><span class="slash">~/</span>projects</a></li>
-  </ul>
-  <div class="nav-right">
-    <span class="status-dot"></span>
-    <span class="status-text">online</span>
-    <button class="theme-toggle" id="theme-toggle" title="Toggle light/dark">☀</button>
+<a class="skip" href="#main">Bỏ qua điều hướng</a>
+
+<header class="site-head">
+  <div class="wrap site-head-in">
+    <a href="/" class="brand" aria-label="Trang chủ"><span class="b-user">kaiversus</span><span class="b-at">@</span><span class="b-host">blog</span><span class="b-sym">:~$</span></a>
+    
+    
+    <nav class="site-nav" aria-label="Chính"><a href="/writeups/" ><span class="slash">~/</span>writeups</a><a href="/courses/" aria-current="page"><span class="slash">~/</span>courses</a><a href="/projects/" ><span class="slash">~/</span>projects</a><a href="/cheatsheet/" ><span class="slash">~/</span>cheatsheet</a><a href="/reports/" ><span class="slash">~/</span>reports</a><a href="/blogs/" ><span class="slash">~/</span>blogs</a><a href="/about/" ><span class="slash">~/</span>about</a><button class="key-hint" type="button" data-help aria-label="Phím tắt"><kbd>?</kbd></button>
+    </nav>
   </div>
-</nav>
+</header>
 
-<style>
-:root {
-  --ac:           #ffaa00;
-  --ac-dim:       rgba(255,170,0,0.08);
-  --ac-border:    rgba(255,170,0,0.3);
-  --row-bg:       rgba(10,10,10,0.5);
-  --row-border:   #1e2830;
-  --card-bg:      #111820;
-  --card-border:  #1e2830;
-  --text:         #c9d1d9;
-  --muted:        #556070;
-  --divider:      #1e2830;
-  --diff-basic:   #3fb950;
-  --diff-inter:   #ffaa00;
-  --diff-adv:     #ff4060;
-}
-html.light {
-  --ac:           #cc7700;
-  --ac-dim:       rgba(200,120,0,0.07);
-  --ac-border:    rgba(180,100,0,0.3);
-  --row-bg:       rgba(230,220,200,0.5);
-  --row-border:   #d0c8b4;
-  --card-bg:      #f0e9d8;
-  --card-border:  #d0c8b4;
-  --text:         #2a2520;
-  --muted:        #8a7a60;
-  --divider:      #d0c8b4;
-  --diff-basic:   #1e6e28;
-  --diff-inter:   #cc7700;
-  --diff-adv:     #9e001c;
-}
+<main id="main">
+<section class="wrap page-head">
+  <div class="page-path">~/home/kai/courses <span>[DIR]</span></div>
+  <h1>Courses<em>.</em></h1><p>Learning path · certifications &amp; notes · knowledge base. Đọc theo thứ tự trong từng series.</p></section>
 
-.ac-page {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 48px 24px 96px;
-  font-family: 'JetBrains Mono', 'Courier New', monospace;
-}
-
-/* ── Header ── */
-.ac-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--divider);
-  margin-bottom: 40px;
-}
-.ac-title {
-  font-family: 'Orbitron', sans-serif;
-  font-size: clamp(1.3rem, 3vw, 2rem);
-  font-weight: 900;
-  color: var(--ac);
-  margin: 0;
-  letter-spacing: 0.04em;
-}
-.ac-title .slash { color: var(--text); opacity: 0.4; }
-.ac-status {
-  font-size: 0.75rem;
-  color: var(--muted);
-  letter-spacing: 0.1em;
-}
-.ac-back {
-  display: block;
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 0.8rem;
-  margin-bottom: 36px;
-  transition: color 0.2s;
-}
-.ac-back:hover { color: var(--ac); }
-
-/* ── Category rows ── */
-.cat-list { display: flex; flex-direction: column; gap: 2px; }
-.cat-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 18px 24px;
-  background: var(--row-bg);
-  border: 1px solid var(--row-border);
-  cursor: pointer;
-  transition: background 0.25s, border-color 0.25s, transform 0.2s;
-  position: relative;
-  overflow: hidden;
-}
-.cat-row::before {
-  content: '';
-  position: absolute;
-  left: 0; top: 0; bottom: 0;
-  width: 3px;
-  background: var(--ac);
-  transform: scaleY(0);
-  transition: transform 0.2s;
-}
-.cat-row:hover {
-  border-color: var(--ac-border);
-  background: var(--ac-dim);
-  transform: translateX(4px);
-}
-.cat-row:hover::before { transform: scaleY(1); }
-
-.cat-hex {
-  font-size: 0.75rem;
-  color: var(--muted);
-  letter-spacing: 0.06em;
-  min-width: 60px;
-}
-.cat-name {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--text);
-  flex: 1;
-  letter-spacing: 0.06em;
-  transition: color 0.2s;
-}
-.cat-row:hover .cat-name { color: var(--ac); }
-.cat-count {
-  font-size: 0.7rem;
-  color: var(--muted);
-  padding: 2px 8px;
-  border: 1px solid var(--row-border);
-  border-radius: 12px;
-}
-.cat-arrow {
-  color: var(--ac);
-  font-size: 0.85rem;
-  opacity: 0.5;
-  transition: opacity 0.2s, transform 0.2s;
-}
-.cat-row:hover .cat-arrow { opacity: 1; transform: translateX(4px); }
-
-/* ── Detail view ── */
-.detail-view { display: none; }
-.detail-view.active {
-  display: block;
-  animation: fadeUp 0.3s ease;
-}
-@keyframes fadeUp {
-  from { opacity:0; transform: translateY(8px); }
-  to   { opacity:1; transform: translateY(0); }
-}
-
-.detail-header {
-  margin-bottom: 28px;
-}
-.back-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--muted);
-  cursor: pointer;
-  font-size: 0.8rem;
-  margin-bottom: 16px;
-  background: none;
-  border: none;
-  padding: 0;
-  font-family: inherit;
-  transition: color 0.2s;
-}
-.back-btn:hover { color: var(--ac); }
-
-.detail-title {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.4rem;
-  color: var(--ac);
-  margin: 0 0 4px;
-}
-.detail-sub {
-  font-size: 0.75rem;
-  color: var(--muted);
-}
-
-/* ── Module grid ── */
-.module-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
-}
-
-.module-card {
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-top: 2px solid var(--card-border);
-  padding: 20px;
-  cursor: pointer;
-  text-decoration: none;
-  display: block;
-  color: var(--text);
-  transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
-  border-radius: 4px;
-}
-.module-card:hover {
-  border-color: var(--ac-border);
-  border-top-color: var(--ac);
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-}
-html.light .module-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.1); }
-
-.module-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.68rem;
-  color: var(--muted);
-  margin-bottom: 12px;
-  letter-spacing: 0.05em;
-}
-
-.diff-badge {
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  padding: 1px 7px;
-  border: 1px solid;
-  border-radius: 2px;
-  font-size: 0.62rem;
-}
-.diff-badge.basic    { color: var(--diff-basic); border-color: var(--diff-basic); background: rgba(63,185,80,0.07); }
-.diff-badge.intermediate { color: var(--diff-inter); border-color: var(--diff-inter); background: rgba(255,170,0,0.07); }
-.diff-badge.advanced { color: var(--diff-adv); border-color: var(--diff-adv); background: rgba(255,64,96,0.07); }
-
-.module-title {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--text);
-  margin: 0 0 8px;
-  line-height: 1.4;
-  transition: color 0.2s;
-}
-.module-card:hover .module-title { color: var(--ac); }
-
-.module-desc {
-  font-size: 0.75rem;
-  color: var(--muted);
-  line-height: 1.6;
-  margin: 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-@media (max-width: 640px) {
-  .module-grid { grid-template-columns: 1fr; }
-  .cat-hex { display: none; }
-}
-</style>
-
-<div class="ac-page">
-
-  <!-- Header -->
-  <div class="ac-header">
-    <h1 class="ac-title"><span class="slash">// </span>ACADEMY_DATABASE</h1>
-    <span class="ac-status">SYS_STATUS: ONLINE</span>
-  </div>
-  <a href="/" class="ac-back">← BACK_TO_ROOT</a>
-
-  <!-- Category list -->
-  <div id="category-view" class="cat-list">
-
-    
-    
-    
-      
-      
-      
-      <div class="cat-row" onclick="openCourse('TryHackMe')">
-        <span class="cat-hex">[ 0x01 ]</span>
-        <span class="cat-name">TRYHACKME</span>
-        <span class="cat-count">1 modules</span>
-        <span class="cat-arrow">›</span>
-      </div>
-    
-      
-      
-      
-      <div class="cat-row" onclick="openCourse('Malware')">
-        <span class="cat-hex">[ 0x02 ]</span>
-        <span class="cat-name">MALWARE</span>
-        <span class="cat-count">5 modules</span>
-        <span class="cat-arrow">›</span>
-      </div>
-    
-      
-      
-      
-      <div class="cat-row" onclick="openCourse('HackTheBox')">
-        <span class="cat-hex">[ 0x03 ]</span>
-        <span class="cat-name">HACKTHEBOX</span>
-        <span class="cat-count">9 modules</span>
-        <span class="cat-arrow">›</span>
-      </div>
-    
-      
-      
-      
-      <div class="cat-row" onclick="openCourse('Practical Malware Analysis')">
-        <span class="cat-hex">[ 0x04 ]</span>
-        <span class="cat-name">PRACTICAL MALWARE ANALYSIS</span>
-        <span class="cat-count">1 modules</span>
-        <span class="cat-arrow">›</span>
-      </div>
-    
-      
-      
-      
-      <div class="cat-row" onclick="openCourse('Malware Development')">
-        <span class="cat-hex">[ 0x05 ]</span>
-        <span class="cat-name">MALWARE DEVELOPMENT</span>
-        <span class="cat-count">1 modules</span>
-        <span class="cat-arrow">›</span>
-      </div>
-    
-
-    <!-- Fallback: manual categories if no front-matter -->
-    
-
-  </div>
-
-  <!-- Subcategory list -->
-  <div id="subcategory-view" class="cat-list" style="display: none;">
-    <div class="detail-header" style="margin-bottom: 28px;">
-      <button class="back-btn" onclick="backToCategories()">
-        ← cd .. (RETURN)
-      </button>
-      <h2 class="detail-title" id="subcat-title-display">// LOADING...</h2>
-      <p class="detail-sub">&gt; List of available courses in this directory:</p>
-    </div>
-
-    
-    
-      
-      
-      
-      
-    
-      
-      
-      
-      
-    
-      
-      
-      
-      
-        
-        
-        
-        <div class="cat-row subcat-item" data-parent-cat="HackTheBox" onclick="openSubcategory('HackTheBox', 'Malware Anti-Analysis Techniques')">
-          <span class="cat-hex">[ 0x01 ]</span>
-          <span class="cat-name">MALWARE ANTI-ANALYSIS TECHNIQUES</span>
-          <span class="cat-count">9 modules</span>
-          <span class="cat-arrow">›</span>
-        </div>
-      
-    
-      
-      
-      
-      
-    
-      
-      
-      
-      
-    
-  </div>
-
-  <!-- Detail view -->
-  <div id="detail-view" class="detail-view">
-    <div class="detail-header">
-      <button class="back-btn" id="detail-back-btn" onclick="closeCourse()">
-        ← cd .. (RETURN)
-      </button>
-      <h2 class="detail-title" id="course-title-display">// LOADING...</h2>
-      <p class="detail-sub">&gt; List of available modules in this directory:</p>
-    </div>
-
-    <div class="module-grid">
-      
-      
-      <a class="module-card filter-item" href="/courses/HackTheBox/malware-anti-analysis-techniques_9/" data-cat="HackTheBox" data-subcat="Malware Anti-Analysis Techniques">
-
-        <div class="module-meta">
-          <span>2026-10-09</span>
-          
-          <span class="diff-badge intermediate">INTERMEDIATE</span>
-        </div>
-
-        <h4 class="module-title">Anti-Anti-Analysis Techniques (HTB)</h4>
-        <p class="module-desc">Trình bày và giải thích khái niệm Anti-Anti-Analysis Techniques</p>
-      </a>
-      
-      <a class="module-card filter-item" href="/courses/Practical%20Malware%20Analysis/Basic-static-techniques/" data-cat="Practical Malware Analysis" data-subcat="">
-
-        <div class="module-meta">
-          <span>2026-10-04</span>
-          
-          <span class="diff-badge intermediate">INTERMEDIATE</span>
-        </div>
-
-        <h4 class="module-title">Chapter 1 - Basic Static Techniques</h4>
-        <p class="module-desc"></p>
-      </a>
-      
-      <a class="module-card filter-item" href="/courses/malware/chapter_1/" data-cat="Malware" data-subcat="">
-
-        <div class="module-meta">
-          <span>2026-01-25</span>
-          
-          <span class="diff-badge basic">BASIC</span>
-        </div>
-
-        <h4 class="module-title">Chương 1: Nhập môn Malware Analysis</h4>
-        <p class="module-desc">Mục tiêu của phần nhập môn Malware Analysis, các kỹ thuật và loại malware</p>
-      </a>
-      
-      <a class="module-card filter-item" href="/courses/malware/chapter_2a/" data-cat="Malware" data-subcat="">
-
-        <div class="module-meta">
-          <span>2026-02-01</span>
-          
-          <span class="diff-badge intermediate">INTERMEDIATE</span>
-        </div>
-
-        <h4 class="module-title">Chương 2: PE file phần 1: PE Headers — Metadata của file</h4>
-        <p class="module-desc">Phân tích DOS Header, Rich Header và NT Headers để tìm dấu vết môi trường build, timestamp bất thường và các thủ thuật obfuscation trước cả khi file được thực thi.</p>
-      </a>
-      
-      <a class="module-card filter-item" href="/courses/malware/chapter_2b/" data-cat="Malware" data-subcat="">
-
-        <div class="module-meta">
-          <span>2026-02-01</span>
-          
-          <span class="diff-badge intermediate">INTERMEDIATE</span>
-        </div>
-
-        <h4 class="module-title">Chương 2: PE file phần 2: PE Sections — Nơi chứa mã độc</h4>
-        <p class="module-desc">Kiểm tra cấu trúc section, permission flag, tỷ lệ kích thước và entropy để phát hiện packer, nơi giấu shellcode và hành vi unpack tại runtime.</p>
-      </a>
-      
-      <a class="module-card filter-item" href="/courses/malware/chapter_2c/" data-cat="Malware" data-subcat="">
-
-        <div class="module-meta">
-          <span>2026-02-01</span>
-          
-          <span class="diff-badge intermediate">INTERMEDIATE</span>
-        </div>
-
-        <h4 class="module-title">Chương 2: PE file phần 3: IAT, EAT và quy trình phân tích</h4>
-        <p class="module-desc">Nhận diện hành vi malware thông qua import và export table, xác định kỹ thuật giấu API và áp dụng triage checklist có hệ thống để nhanh chóng đưa ra kết luận phân tích.</p>
-      </a>
-      
-      <a class="module-card filter-item" href="/courses/malware/chapter_2d/" data-cat="Malware" data-subcat="">
-
-        <div class="module-meta">
-          <span>2026-02-01</span>
-          
-          <span class="diff-badge intermediate">INTERMEDIATE</span>
-        </div>
-
-        <h4 class="module-title">Chương 2: PE file phần 4: Lab thực hành PE</h4>
-        <p class="module-desc">Bài tập tương tác để kiểm tra kỹ năng phân tích PE — trắc nghiệm, mô phỏng phân tích PE và thử thách kiểu CTF dựa trên các Chương 2a-2c.</p>
-      </a>
-      
-      <a class="module-card filter-item" href="/courses/HackTheBox/malware-anti-analysis-techniques_1/" data-cat="HackTheBox" data-subcat="Malware Anti-Analysis Techniques">
-
-        <div class="module-meta">
-          <span>2026-10-02</span>
-          
-          <span class="diff-badge intermediate">INTERMEDIATE</span>
-        </div>
-
-        <h4 class="module-title">Debugger Detection using Windows API Calls (HTB)</h4>
-        <p class="module-desc">Trình bày một số kỹ thuật Anti-Analysis bằng Windows API để phát hiện môi trường phân tích và cách bypass chúng.</p>
-      </a>
-      
-      <a class="module-card filter-item" href="/courses/HackTheBox/malware-anti-analysis-techniques_8/" data-cat="HackTheBox" data-subcat="Malware Anti-Analysis Techniques">
-
-        <div class="module-meta">
-          <span>2026-10-07</span>
-          
-          <span class="diff-badge intermediate">INTERMEDIATE</span>
-        </div>
-
-        <h4 class="module-title">Detecting Analysis Environments with User Behavior (HTB)</h4>
-        <p class="module-desc">Trình bày và giải thích cách mà hành vi người dùng được sử dụng bởi Malware để phát hiện môi trường phân tích và cách bypass chúng.</p>
-      </a>
-      
-      <a class="module-card filter-item" href="/courses/HackTheBox/malware-anti-analysis-techniques_5/" data-cat="HackTheBox" data-subcat="Malware Anti-Analysis Techniques">
-
-        <div class="module-meta">
-          <span>2026-10-06</span>
-          
-          <span class="diff-badge intermediate">INTERMEDIATE</span>
-        </div>
-
-        <h4 class="module-title">Detecting Breakpoints (HTB)</h4>
-        <p class="module-desc">Trình bày một số kỹ thuật Anti-Analysis bằng Breakpoint Detection để phát hiện môi trường phân tích và cách bypass chúng.</p>
-      </a>
-      
-      <a class="module-card filter-item" href="/courses/HackTheBox/malware-anti-analysis-techniques_4/" data-cat="HackTheBox" data-subcat="Malware Anti-Analysis Techniques">
-
-        <div class="module-meta">
-          <span>2026-10-06</span>
-          
-          <span class="diff-badge intermediate">INTERMEDIATE</span>
-        </div>
-
-        <h4 class="module-title">Detecting Debuggers Through Timing Discrepancies (HTB)</h4>
-        <p class="module-desc">Trình bày và giải thích khái niệm Timing Discrepancies được sử dụng bởi Malware để phát hiện môi trường phân tích và cách bypass chúng.</p>
-      </a>
-      
-      <a class="module-card filter-item" href="/courses/HackTheBox/malware-anti-analysis-techniques_3/" data-cat="HackTheBox" data-subcat="Malware Anti-Analysis Techniques">
-
-        <div class="module-meta">
-          <span>2026-10-05</span>
-          
-          <span class="diff-badge intermediate">INTERMEDIATE</span>
-        </div>
-
-        <h4 class="module-title">Detecting Debuggers with Process Analysis (HTB)</h4>
-        <p class="module-desc">Trình bày một số kỹ thuật Process Analysis được sử dụng bởi Malware để phát hiện môi trường phân tích và cách bypass chúng.</p>
-      </a>
-      
-      <a class="module-card filter-item" href="/courses/Malware%20Development%20for%20Ethical%20Hackers/chapter_1/" data-cat="Malware Development" data-subcat="">
-
-        <div class="module-meta">
-          <span>2026-10-10</span>
-          
-          <span class="diff-badge basic">BASIC</span>
-        </div>
-
-        <h4 class="module-title">Malware Development Introduction</h4>
-        <p class="module-desc"></p>
-      </a>
-      
-      <a class="module-card filter-item" href="/courses/HackTheBox/malware-anti-analysis-techniques_2/" data-cat="HackTheBox" data-subcat="Malware Anti-Analysis Techniques">
-
-        <div class="module-meta">
-          <span>2026-10-04</span>
-          
-          <span class="diff-badge intermediate">INTERMEDIATE</span>
-        </div>
-
-        <h4 class="module-title">Manual Debugger Detection (HTB)</h4>
-        <p class="module-desc">Trình bày một số kỹ thuật Manual Anti-Analysis Detection được sử dụng bởi Malware để phát hiện môi trường phân tích và cách bypass chúng.</p>
-      </a>
-      
-      <a class="module-card filter-item" href="/courses/HackTheBox/malware-anti-analysis-techniques_6/" data-cat="HackTheBox" data-subcat="Malware Anti-Analysis Techniques">
-
-        <div class="module-meta">
-          <span>2026-10-07</span>
-          
-          <span class="diff-badge intermediate">INTERMEDIATE</span>
-        </div>
-
-        <h4 class="module-title">System Fingerprinting (HTB)</h4>
-        <p class="module-desc">Trình bày một số kỹ thuật Anti-Analysis bằng System Fingerprinting để phát hiện môi trường phân tích và cách bypass chúng.</p>
-      </a>
-      
-      <a class="module-card filter-item" href="/courses/HackTheBox/malware-anti-analysis-techniques_7/" data-cat="HackTheBox" data-subcat="Malware Anti-Analysis Techniques">
-
-        <div class="module-meta">
-          <span>2026-10-07</span>
-          
-          <span class="diff-badge intermediate">INTERMEDIATE</span>
-        </div>
-
-        <h4 class="module-title">System-Level Indicators (HTB)</h4>
-        <p class="module-desc">Trình bày và giải thích khái niệm System-Level Indicators được sử dụng bởi Malware để phát hiện môi trường phân tích và cách bypass chúng.</p>
-      </a>
-      
-      <a class="module-card filter-item" href="/courses/TryHackMe/Wifi_Hacking_101/README/" data-cat="TryHackMe" data-subcat="">
-
-        <div class="module-meta">
-          <span>2026-01-01</span>
-          
-          <span class="diff-badge basic">BASIC</span>
-        </div>
-
-        <h4 class="module-title">Wifi Hacking 101</h4>
-        <p class="module-desc"></p>
-      </a>
-      
-    </div>
-  </div>
-
+<section class="wrap"><div class="filterbar" data-filterbar=""><label class="grep">
+    <span class="grep-ps" aria-hidden="true">/</span>
+    <input type="search" id="grep" placeholder="grep tên bài, tag…" autocomplete="off" spellcheck="false" aria-label="Tìm bài viết" />
+    <span class="grep-n" id="grep-n" aria-live="polite"></span>
+  </label>
 </div>
+<div class="group">
+          <div class="group-head">HackTheBox <span>9 bài</span></div>
+          <ol class="rows"><li class="row" data-kind="course" data-q="debugger detection using windows api calls (htb) hackthebox malware anti-analysis techniques course">
+  <a class="row-link" href="/courses/HackTheBox/malware-anti-analysis-techniques_1/">
+    <span class="row-date"><span class="row-idx">0x01</span>2026-10-02</span>
+    <span class="row-title">Debugger Detection using Windows API Calls (HTB)</span>
+    <span class="row-meta"><span class="row-tag">hackthebox</span><span class="row-tag">malware anti-analysis techniques</span><span class="row-diff d-intermediate">intermediate</span></span>
+  </a>
+</li>
+<li class="row" data-kind="course" data-q="manual debugger detection (htb) hackthebox malware anti-analysis techniques course">
+  <a class="row-link" href="/courses/HackTheBox/malware-anti-analysis-techniques_2/">
+    <span class="row-date"><span class="row-idx">0x02</span>2026-10-04</span>
+    <span class="row-title">Manual Debugger Detection (HTB)</span>
+    <span class="row-meta"><span class="row-tag">hackthebox</span><span class="row-tag">malware anti-analysis techniques</span><span class="row-diff d-intermediate">intermediate</span></span>
+  </a>
+</li>
+<li class="row" data-kind="course" data-q="detecting debuggers with process analysis (htb) hackthebox malware anti-analysis techniques course">
+  <a class="row-link" href="/courses/HackTheBox/malware-anti-analysis-techniques_3/">
+    <span class="row-date"><span class="row-idx">0x03</span>2026-10-05</span>
+    <span class="row-title">Detecting Debuggers with Process Analysis (HTB)</span>
+    <span class="row-meta"><span class="row-tag">hackthebox</span><span class="row-tag">malware anti-analysis techniques</span><span class="row-diff d-intermediate">intermediate</span></span>
+  </a>
+</li>
+<li class="row" data-kind="course" data-q="detecting breakpoints (htb) hackthebox malware anti-analysis techniques course">
+  <a class="row-link" href="/courses/HackTheBox/malware-anti-analysis-techniques_5/">
+    <span class="row-date"><span class="row-idx">0x04</span>2026-10-06</span>
+    <span class="row-title">Detecting Breakpoints (HTB)</span>
+    <span class="row-meta"><span class="row-tag">hackthebox</span><span class="row-tag">malware anti-analysis techniques</span><span class="row-diff d-intermediate">intermediate</span></span>
+  </a>
+</li>
+<li class="row" data-kind="course" data-q="detecting debuggers through timing discrepancies (htb) hackthebox malware anti-analysis techniques course">
+  <a class="row-link" href="/courses/HackTheBox/malware-anti-analysis-techniques_4/">
+    <span class="row-date"><span class="row-idx">0x05</span>2026-10-06</span>
+    <span class="row-title">Detecting Debuggers Through Timing Discrepancies (HTB)</span>
+    <span class="row-meta"><span class="row-tag">hackthebox</span><span class="row-tag">malware anti-analysis techniques</span><span class="row-diff d-intermediate">intermediate</span></span>
+  </a>
+</li>
+<li class="row" data-kind="course" data-q="system fingerprinting (htb) hackthebox malware anti-analysis techniques course">
+  <a class="row-link" href="/courses/HackTheBox/malware-anti-analysis-techniques_6/">
+    <span class="row-date"><span class="row-idx">0x06</span>2026-10-07</span>
+    <span class="row-title">System Fingerprinting (HTB)</span>
+    <span class="row-meta"><span class="row-tag">hackthebox</span><span class="row-tag">malware anti-analysis techniques</span><span class="row-diff d-intermediate">intermediate</span></span>
+  </a>
+</li>
+<li class="row" data-kind="course" data-q="system-level indicators (htb) hackthebox malware anti-analysis techniques course">
+  <a class="row-link" href="/courses/HackTheBox/malware-anti-analysis-techniques_7/">
+    <span class="row-date"><span class="row-idx">0x07</span>2026-10-07</span>
+    <span class="row-title">System-Level Indicators (HTB)</span>
+    <span class="row-meta"><span class="row-tag">hackthebox</span><span class="row-tag">malware anti-analysis techniques</span><span class="row-diff d-intermediate">intermediate</span></span>
+  </a>
+</li>
+<li class="row" data-kind="course" data-q="detecting analysis environments with user behavior (htb) hackthebox malware anti-analysis techniques course">
+  <a class="row-link" href="/courses/HackTheBox/malware-anti-analysis-techniques_8/">
+    <span class="row-date"><span class="row-idx">0x08</span>2026-10-07</span>
+    <span class="row-title">Detecting Analysis Environments with User Behavior (HTB)</span>
+    <span class="row-meta"><span class="row-tag">hackthebox</span><span class="row-tag">malware anti-analysis techniques</span><span class="row-diff d-intermediate">intermediate</span></span>
+  </a>
+</li>
+<li class="row" data-kind="course" data-q="anti-anti-analysis techniques (htb) hackthebox malware anti-analysis techniques course">
+  <a class="row-link" href="/courses/HackTheBox/malware-anti-analysis-techniques_9/">
+    <span class="row-date"><span class="row-idx">0x09</span>2026-10-09</span>
+    <span class="row-title">Anti-Anti-Analysis Techniques (HTB)</span>
+    <span class="row-meta"><span class="row-tag">hackthebox</span><span class="row-tag">malware anti-analysis techniques</span><span class="row-diff d-intermediate">intermediate</span></span>
+  </a>
+</li>
+</ol>
+        </div><div class="group">
+          <div class="group-head">Malware <span>5 bài</span></div>
+          <ol class="rows"><li class="row" data-kind="course" data-q="chương 1: nhập môn malware analysis malware  course">
+  <a class="row-link" href="/courses/malware/chapter_1/">
+    <span class="row-date"><span class="row-idx">0x01</span>2026-01-25</span>
+    <span class="row-title">Chương 1: Nhập môn Malware Analysis</span>
+    <span class="row-meta"><span class="row-tag">malware</span><span class="row-diff d-basic">basic</span></span>
+  </a>
+</li>
+<li class="row" data-kind="course" data-q="chương 2: pe file phần 1: pe headers — metadata của file malware  course">
+  <a class="row-link" href="/courses/malware/chapter_2a/">
+    <span class="row-date"><span class="row-idx">0x02</span>2026-02-01</span>
+    <span class="row-title">Chương 2: PE file phần 1: PE Headers — Metadata của file</span>
+    <span class="row-meta"><span class="row-tag">malware</span><span class="row-diff d-intermediate">intermediate</span></span>
+  </a>
+</li>
+<li class="row" data-kind="course" data-q="chương 2: pe file phần 2: pe sections — nơi chứa mã độc malware  course">
+  <a class="row-link" href="/courses/malware/chapter_2b/">
+    <span class="row-date"><span class="row-idx">0x03</span>2026-02-01</span>
+    <span class="row-title">Chương 2: PE file phần 2: PE Sections — Nơi chứa mã độc</span>
+    <span class="row-meta"><span class="row-tag">malware</span><span class="row-diff d-intermediate">intermediate</span></span>
+  </a>
+</li>
+<li class="row" data-kind="course" data-q="chương 2: pe file phần 3: iat, eat và quy trình phân tích malware  course">
+  <a class="row-link" href="/courses/malware/chapter_2c/">
+    <span class="row-date"><span class="row-idx">0x04</span>2026-02-01</span>
+    <span class="row-title">Chương 2: PE file phần 3: IAT, EAT và quy trình phân tích</span>
+    <span class="row-meta"><span class="row-tag">malware</span><span class="row-diff d-intermediate">intermediate</span></span>
+  </a>
+</li>
+<li class="row" data-kind="course" data-q="chương 2: pe file phần 4: lab thực hành pe malware  course">
+  <a class="row-link" href="/courses/malware/chapter_2d/">
+    <span class="row-date"><span class="row-idx">0x05</span>2026-02-01</span>
+    <span class="row-title">Chương 2: PE file phần 4: Lab thực hành PE</span>
+    <span class="row-meta"><span class="row-tag">malware</span><span class="row-diff d-intermediate">intermediate</span></span>
+  </a>
+</li>
+</ol>
+        </div><div class="group">
+          <div class="group-head">Malware Development <span>1 bài</span></div>
+          <ol class="rows"><li class="row" data-kind="course" data-q="malware development introduction malware development  course">
+  <a class="row-link" href="/courses/Malware%20Development%20for%20Ethical%20Hackers/chapter_1/">
+    <span class="row-date"><span class="row-idx">0x01</span>2026-10-10</span>
+    <span class="row-title">Malware Development Introduction</span>
+    <span class="row-meta"><span class="row-tag">malware development</span><span class="row-diff d-basic">basic</span></span>
+  </a>
+</li>
+</ol>
+        </div><div class="group">
+          <div class="group-head">Practical Malware Analysis <span>1 bài</span></div>
+          <ol class="rows"><li class="row" data-kind="course" data-q="chapter 1 - basic static techniques practical malware analysis  course">
+  <a class="row-link" href="/courses/Practical%20Malware%20Analysis/Basic-static-techniques/">
+    <span class="row-date"><span class="row-idx">0x01</span>2026-10-04</span>
+    <span class="row-title">Chapter 1 - Basic Static Techniques</span>
+    <span class="row-meta"><span class="row-tag">practical malware analysis</span><span class="row-diff d-intermediate">intermediate</span></span>
+  </a>
+</li>
+</ol>
+        </div><div class="group">
+          <div class="group-head">TryHackMe <span>1 bài</span></div>
+          <ol class="rows"><li class="row" data-kind="course" data-q="wifi hacking 101 tryhackme  course">
+  <a class="row-link" href="/courses/TryHackMe/Wifi_Hacking_101/README/">
+    <span class="row-date"><span class="row-idx">0x01</span>2026-01-01</span>
+    <span class="row-title">Wifi Hacking 101</span>
+    <span class="row-meta"><span class="row-tag">tryhackme</span><span class="row-diff d-basic">basic</span></span>
+  </a>
+</li>
+</ol>
+        </div><div style="height:80px"></div><p class="rows-empty" id="rows-empty" hidden="">grep: không có kết quả. <button type="button" class="linklike" data-clear="">[esc] xoá lọc</button></p></section>
 
-<script>
-function openCourse(category) {
-  // Check if this category has subcategories
-  const subcatItems = document.querySelectorAll(`.subcat-item[data-parent-cat="${category}"]`);
-  
-  if (subcatItems.length > 0) {
-    document.getElementById('category-view').style.display = 'none';
-    document.getElementById('detail-view').classList.remove('active');
-    document.getElementById('detail-view').style.display = 'none';
-    
-    const sv = document.getElementById('subcategory-view');
-    sv.style.display = 'block'; // Make sure to use block, cat-list behaves weirdly if we mess up its display. Actually cat-list is flex column in CSS. Let's use 'flex'.
-    sv.classList.add('active'); // Reusing detail-view fade animation if we want. Wait, cat-list doesn't have animation. That's fine.
-    
-    // Set flex for the container
-    sv.style.display = 'flex';
-    document.getElementById('subcat-title-display').textContent = `// DIRECTORY: ${category.toUpperCase()}`;
-    
-    document.querySelectorAll('.subcat-item').forEach(el => {
-      if (el.getAttribute('data-parent-cat') === category) {
-        el.style.display = 'flex';
-      } else {
-        el.style.display = 'none';
-      }
-    });
-  } else {
-    // Open modules directly if no subcategory
-    document.getElementById('category-view').style.display = 'none';
-    document.getElementById('subcategory-view').style.display = 'none';
-    
-    const dv = document.getElementById('detail-view');
-    dv.style.display = 'block';
-    dv.classList.add('active');
-    
-    document.getElementById('detail-back-btn').onclick = closeCourse;
-    document.getElementById('course-title-display').textContent = `// DIRECTORY: ${category.toUpperCase()}`;
 
-    document.querySelectorAll('.filter-item').forEach(el => {
-      // Only show items for this category that don't have a subcategory
-      el.style.display = (el.dataset.cat === category && el.dataset.subcat === '') ? 'block' : 'none';
-    });
-  }
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+</main>
 
-function openSubcategory(category, subcategory) {
-  document.getElementById('subcategory-view').style.display = 'none';
-  const dv = document.getElementById('detail-view');
-  dv.style.display = 'block';
-  dv.classList.add('active');
-  
-  document.getElementById('detail-back-btn').onclick = function() {
-    closeDetailToSubcategory(category);
-  };
-  
-  document.getElementById('course-title-display').textContent = `// DIRECTORY: ${category.toUpperCase()} / ${subcategory.toUpperCase()}`;
-
-  document.querySelectorAll('.filter-item').forEach(el => {
-    el.style.display = (el.dataset.cat === category && el.dataset.subcat === subcategory) ? 'block' : 'none';
-  });
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function closeCourse() {
-  document.getElementById('detail-view').classList.remove('active');
-  document.getElementById('detail-view').style.display = 'none';
-  document.getElementById('subcategory-view').style.display = 'none';
-  
-  const cv = document.getElementById('category-view');
-  cv.style.display = 'flex';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function closeDetailToSubcategory(category) {
-  document.getElementById('detail-view').classList.remove('active');
-  document.getElementById('detail-view').style.display = 'none';
-  
-  const sv = document.getElementById('subcategory-view');
-  sv.style.display = 'flex';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function backToCategories() {
-  document.getElementById('subcategory-view').style.display = 'none';
-  const cv = document.getElementById('category-view');
-  cv.style.display = 'flex';
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-</script>
-
-
-
-<footer>
-  <div class="footer-brand">
-    <strong>kaiversus</strong>
-    <span style="color:var(--text-faint)">—</span>
-    <span>Dinh Thien Bao · 52Hz</span>
-  </div>
-  <div class="footer-links">
-    <a href="#">GitHub</a>
-    <a href="#">CTFtime</a>
-    <a href="#">Twitter</a>
-    <a href="#">RSS</a>
+<footer class="site-foot">
+  <div class="wrap site-foot-in">
+    <span><b class="foot-brand">kaiversus</b> <span class="mute">—</span> malware development <span class="mute">· 52Hz</span></span>
+    <span class="foot-links">
+      <a href="https://github.com/kaiversus" rel="noopener">github</a>
+      <a href="/sitemap.xml">sitemap</a>
+      <button type="button" class="linklike" data-term>:terminal</button>
+    </span>
   </div>
 </footer>
 
-<!-- Web Terminal -->
-<button id="web-term-toggle" class="web-term-toggle" title="Open Terminal">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-</button>
+<!-- Statusline kiểu vim/less: chế độ, đường dẫn, mục hiện tại, offset -->
+<div class="statusline" id="statusline" aria-hidden="true">
+  <span class="sl-mode" id="sl-mode">NORMAL</span>
+  <span class="sl-path">~/courses/</span>
+  <span class="sl-sec" id="sl-sec"></span>
+  <span class="sl-msg" id="sl-msg"></span>
+  <span class="sl-right"><span id="sl-off">0x0000</span><span id="sl-pct">top</span></span>
+</div>
 
+<!-- Bảng phím tắt -->
+<div class="help" id="help" hidden>
+  <div class="help-box" role="dialog" aria-modal="true" aria-labelledby="help-title">
+    <div class="help-head"><span id="help-title">KEYS(1)</span><span class="mute">kaiversus manual</span><button type="button" class="linklike" data-help-close>[q] đóng</button></div>
+    <div class="help-cols">
+      <dl>
+        <dt>j / k</dt><dd>xuống / lên</dd>
+        <dt>enter</dt><dd>mở bài đang chọn</dd>
+        <dt>/</dt><dd>grep: lọc theo tên, tag</dd>
+        <dt>1 – 7</dt><dd>lọc theo mục</dd>
+        <dt>esc</dt><dd>xoá lọc / đóng</dd>
+      </dl>
+      <dl>
+        <dt>] / [</dt><dd>mục kế / mục trước</dd>
+        <dt>g g / G</dt><dd>đầu / cuối trang</dd>
+        <dt>d / u</dt><dd>nửa trang xuống / lên</dd>
+        <dt>t</dt><dd>bật/tắt mục lục</dd>
+        <dt>y</dt><dd>copy link đoạn đang đọc</dd>
+        <dt>h</dt><dd>quay về danh sách</dd>
+        <dt>:</dt><dd>mở terminal</dd>
+      </dl>
+    </div>
+  </div>
+</div>
+
+<!-- Web terminal (mở bằng phím ":" hoặc link ở footer) -->
+<button id="web-term-toggle" class="web-term-toggle" hidden aria-hidden="true" tabindex="-1"></button>
 <div id="web-term-window" class="web-term-window" style="display: none;">
   <div class="web-term-header">
     <div class="web-term-title">kaiversus@blog: ~</div>
-    <button id="web-term-close">✖</button>
+    <button id="web-term-close" aria-label="Đóng terminal">✕</button>
   </div>
   <div class="web-term-body" id="web-term-body">
     <div class="web-term-output" id="web-term-output"></div>
     <div class="web-term-input-line">
        <span class="web-term-prompt" id="web-term-prompt-txt">kaiversus@blog:~$</span>
-       <input type="text" id="web-term-input" autocomplete="off" spellcheck="false" />
+       <input type="text" id="web-term-input" autocomplete="off" spellcheck="false" aria-label="Lệnh terminal">
     </div>
   </div>
 </div>
@@ -824,6 +317,34 @@ function backToCategories() {
           
           "detecting-debuggers-with-process-analysis-htb.txt": "Title: Detecting Debuggers with Process Analysis (HTB)\nDate: 2026-10-05\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_3/\n\nTrình bày một số kỹ thuật Process Analysis được sử dụng bởi Malware để phát hiện môi trường phân tích và cách bypass chúng.",
           
+          
+          
+          "detecting-debuggers-through-timing-discrepancies-htb.txt": "Title: Detecting Debuggers Through Timing Discrepancies (HTB)\nDate: 2026-10-06\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_4/\n\nTrình bày và giải thích khái niệm Timing Discrepancies được sử dụng bởi Malware để phát hiện môi trường phân tích và cách bypass chúng.",
+          
+          
+          
+          "detecting-breakpoints-htb.txt": "Title: Detecting Breakpoints (HTB)\nDate: 2026-10-06\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_5/\n\nTrình bày một số kỹ thuật Anti-Analysis bằng Breakpoint Detection để phát hiện môi trường phân tích và cách bypass chúng.",
+          
+          
+          
+          "system-fingerprinting-htb.txt": "Title: System Fingerprinting (HTB)\nDate: 2026-10-07\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_6/\n\nTrình bày một số kỹ thuật Anti-Analysis bằng System Fingerprinting để phát hiện môi trường phân tích và cách bypass chúng.",
+          
+          
+          
+          "system-level-indicators-htb.txt": "Title: System-Level Indicators (HTB)\nDate: 2026-10-07\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_7/\n\nTrình bày và giải thích khái niệm System-Level Indicators được sử dụng bởi Malware để phát hiện môi trường phân tích và cách bypass chúng.",
+          
+          
+          
+          "detecting-analysis-environments-with-user-behavior-htb.txt": "Title: Detecting Analysis Environments with User Behavior (HTB)\nDate: 2026-10-07\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_8/\n\nTrình bày và giải thích cách mà hành vi người dùng được sử dụng bởi Malware để phát hiện môi trường phân tích và cách bypass chúng.",
+          
+          
+          
+          "anti-anti-analysis-techniques-htb.txt": "Title: Anti-Anti-Analysis Techniques (HTB)\nDate: 2026-10-09\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_9/\n\nTrình bày và giải thích khái niệm Anti-Anti-Analysis Techniques",
+          
+          
+          
+          "malware-development-introduction.txt": "Title: Malware Development Introduction\nDate: 2026-10-10\nURL: http://localhost:4000/courses/Malware%20Development%20for%20Ethical%20Hackers/chapter_1/\n\n",
+          
           "info.txt": "Use 'cat <filename>' to read."
         },
         'projects': {
@@ -842,21 +363,13 @@ function backToCategories() {
           
           "info.txt": "Use 'cat <filename>' to read."
         },
-        'cheatsheet': {
-          
-          "info.txt": "Quick references."
-        },
-        'reports': {
-          
-          "info.txt": "Vulnerability reports."
-        },
-        'focus.txt': 'Reverse Engineering · Binary Exploitation · Malware Analysis',
+        'focus.txt': 'Reverse Engineering · Malware Analysis · CTF',
         'README.txt': 'Welcome to my blog terminal. Type "kai --help" to see available commands.'
       }
     }
   };
 </script>
-<script src="/assets/js/cyber-bg.js?v=6"></script>
-<script src="/assets/js/web-term.js?v=4"></script>
+<script src="/assets/js/web-term.js?v=5" defer></script>
+<script src="/assets/js/keys.js?v=1" defer></script>
 </body>
 </html>

@@ -1,238 +1,116 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0c0b">
 <!-- Begin Jekyll SEO tag v2.9.1 -->
-<title>Cheatsheet Archive | Dinh Thien Bao (Kaiversus)</title>
+<title>Cheatsheet | kaiversus</title>
 <meta name="generator" content="Jekyll v3.9.5" />
-<meta property="og:title" content="Cheatsheet Archive" />
+<meta property="og:title" content="Cheatsheet" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Portfolio of Dinh Thien Bao (Kaiversus) - Security Researcher and CTF Player." />
-<meta name="twitter:description" property="og:description" content="Portfolio of Dinh Thien Bao (Kaiversus) - Security Researcher and CTF Player." />
+<meta name="description" content="kaiversus — malware development: writeups, courses, reports." />
+<meta name="twitter:description" property="og:description" content="kaiversus — malware development: writeups, courses, reports." />
 <link rel="canonical" href="http://localhost:4000/cheatsheet/" />
 <meta property="og:url" content="http://localhost:4000/cheatsheet/" />
-<meta property="og:site_name" content="Dinh Thien Bao (Kaiversus)" />
+<meta property="og:site_name" content="kaiversus" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="Cheatsheet Archive" />
+<meta name="twitter:title" content="Cheatsheet" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"Portfolio of Dinh Thien Bao (Kaiversus) - Security Researcher and CTF Player.","headline":"Cheatsheet Archive","url":"http://localhost:4000/cheatsheet/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","description":"kaiversus — malware development: writeups, courses, reports.","headline":"Cheatsheet","url":"http://localhost:4000/cheatsheet/"}</script>
 <!-- End Jekyll SEO tag -->
 
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Newsreader:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/style.css?v=8">
-<link rel="stylesheet" href="/assets/css/web-term.css?v=2">
-<!-- Theme manager: loaded in <head> to apply saved theme before render (no flash) -->
-<script src="/assets/js/theme.js"></script>
+<link rel="icon" href="/assets/favicon.svg?v=2" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png?v=2" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/style.css?v=20">
+<link rel="stylesheet" href="/assets/css/web-term.css?v=3">
 </head>
-<body>
+<body data-page="page">
 
-<nav class="site-nav">
-  <a href="/" class="nav-logo">
-    <span class="nav-logo-user">kaiversus</span><span class="nav-logo-at">@</span><span class="nav-logo-host">blog</span><span class="nav-logo-sym">:~$</span>
-  </a>
-  <div class="nav-sep"></div>
-  <ul class="nav-links">
-    <li><a href="/"><span class="slash">~/</span>home</a></li>
-    <li><a href="/writeups/"><span class="slash">~/</span>writeups</a></li>
-    <li><a href="/projects/"><span class="slash">~/</span>projects</a></li>
-  </ul>
-  <div class="nav-right">
-    <span class="status-dot"></span>
-    <span class="status-text">online</span>
-    <button class="theme-toggle" id="theme-toggle" title="Toggle light/dark">☀</button>
+<a class="skip" href="#main">Bỏ qua điều hướng</a>
+
+<header class="site-head">
+  <div class="wrap site-head-in">
+    <a href="/" class="brand" aria-label="Trang chủ"><span class="b-user">kaiversus</span><span class="b-at">@</span><span class="b-host">blog</span><span class="b-sym">:~$</span></a>
+    
+    
+    <nav class="site-nav" aria-label="Chính"><a href="/writeups/" ><span class="slash">~/</span>writeups</a><a href="/courses/" ><span class="slash">~/</span>courses</a><a href="/projects/" ><span class="slash">~/</span>projects</a><a href="/cheatsheet/" aria-current="page"><span class="slash">~/</span>cheatsheet</a><a href="/reports/" ><span class="slash">~/</span>reports</a><a href="/blogs/" ><span class="slash">~/</span>blogs</a><a href="/about/" ><span class="slash">~/</span>about</a><button class="key-hint" type="button" data-help aria-label="Phím tắt"><kbd>?</kbd></button>
+    </nav>
   </div>
-</nav>
+</header>
 
-<style>
-/* Light-mode aware card variables */
-:root {
-  --wu-card-bg:       transparent;
-  --wu-card-border:   rgba(255,255,255,0.1);
-  --wu-title-color:   #ffffff;
-  --wu-desc-color:    #888888;
-  --wu-meta-color:    #666666;
-  --wu-cta-color:     #555555;
-  --wu-path-color:    #666666;
-  --wu-cd-color:      #666666;
-}
+<main id="main">
+<section class="wrap page-head">
+  <div class="page-path">~/home/kai/cheatsheet <span>[DIR]</span></div>
+  <h1>Cheatsheet<em>.</em></h1><p>Quick references · commands &amp; tools · methodologies.</p></section>
 
-html.light {
-  --wu-card-bg:       rgba(240,233,220,0.7);
-  --wu-card-border:   #c8bfaa;
-  --wu-title-color:   #1c1a14;
-  --wu-desc-color:    #5a5040;
-  --wu-meta-color:    #7a6a50;
-  --wu-cta-color:     #8a7a60;
-  --wu-path-color:    #7a6a50;
-  --wu-cd-color:      #7a6a50;
-}
-
-.wu-page-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 20px;
-  color: var(--wu-meta-color);
-  font-size: 0.9rem;
-  font-family: 'Courier New', monospace;
-}
-
-.wu-page-header a {
-  color: var(--wu-cd-color);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-.wu-page-header a:hover { color: var(--green, #0088ff); }
-
-.wu-title {
-  color: var(--wu-title-color);
-  font-size: 1.8rem;
-  margin-bottom: 40px;
-  font-weight: bold;
-  font-family: 'Orbitron', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.wu-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
-}
-
-.wu-card {
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  background: var(--wu-card-bg);
-  border: 1px solid var(--wu-card-border);
-  border-radius: 6px;
-  padding: 20px;
-  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s, background 0.25s;
-}
-.wu-card:hover {
-  transform: translateY(-3px);
-}
-
-.wu-card-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 20px;
-}
-
-.wu-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-
-.wu-tag {
-  border: 1px solid;
-  padding: 3px 8px;
-  font-size: 0.75rem;
-  border-radius: 4px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-family: 'Courier New', monospace;
-  font-weight: 700;
-}
-
-/* Tag colours — same in both themes but slightly muted in light */
-.wu-tag-reverse  { color: #ff0055; border-color: #ff0055; background: rgba(255,0,85,0.08); }
-.wu-tag-crypto   { color: #ffaa00; border-color: #ffaa00; background: rgba(255,170,0,0.08); }
-.wu-tag-web      { color: #00aaff; border-color: #00aaff; background: rgba(0,170,255,0.08); }
-.wu-tag-forensic { color: #a855f7; border-color: #a855f7; background: rgba(168,85,247,0.08); }
-.wu-tag-default  { color: #00ff41; border-color: #00ff41; background: rgba(0,255,65,0.08); }
-
-html.light .wu-tag-reverse  { color: #c0003c; border-color: #c0003c; }
-html.light .wu-tag-crypto   { color: #cc7700; border-color: #cc7700; }
-html.light .wu-tag-web      { color: #0077cc; border-color: #0077cc; }
-html.light .wu-tag-forensic { color: #7c3abf; border-color: #7c3abf; }
-html.light .wu-tag-default  { color: #0050a0; border-color: #0050a0; }
-
-.wu-date {
-  color: var(--wu-meta-color);
-  font-size: 0.85rem;
-  font-family: 'Courier New', monospace;
-  white-space: nowrap;
-  padding-left: 10px;
-}
-
-.wu-card-title {
-  color: var(--wu-title-color);
-  margin: 0 0 15px 0;
-  font-size: 1.2rem;
-  font-family: 'Courier New', monospace;
-  font-weight: bold;
-  line-height: 1.4;
-  transition: color 0.2s;
-}
-
-.wu-card-desc {
-  color: var(--wu-desc-color);
-  font-size: 0.95rem;
-  margin: 0;
-  line-height: 1.6;
-  flex-grow: 1;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.wu-card-cta {
-  margin-top: 20px;
-  text-align: right;
-  color: var(--wu-cta-color);
-  font-size: 0.85rem;
-  font-family: 'Orbitron', sans-serif;
-  transition: color 0.2s;
-}
-</style>
-
-<section class="container" style="max-width: 1100px; margin: 0 auto; padding-top: 50px; font-family: 'Courier New', monospace;">
-
-    <div class="wu-page-header">
-        <span style="color: var(--wu-path-color);">~/home/kai/cheatsheet</span>
-        <a href="/">[ cd ~ ]</a>
-    </div>
-
-    <h1 class="wu-title">Cheatsheet Archive</h1>
-
-    <div class="wu-grid">
-        
-    </div>
-</section>
+<section class="wrap"><p class="empty">$ ls cheatsheet/<br />total 0 — chưa có bài nào.</p></section>
 
 
-<footer>
-  <div class="footer-brand">
-    <strong>kaiversus</strong>
-    <span style="color:var(--text-faint)">—</span>
-    <span>Dinh Thien Bao · 52Hz</span>
-  </div>
-  <div class="footer-links">
-    <a href="#">GitHub</a>
-    <a href="#">CTFtime</a>
-    <a href="#">Twitter</a>
-    <a href="#">RSS</a>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap site-foot-in">
+    <span><b class="foot-brand">kaiversus</b> <span class="mute">—</span> malware development <span class="mute">· 52Hz</span></span>
+    <span class="foot-links">
+      <a href="https://github.com/kaiversus" rel="noopener">github</a>
+      <a href="/sitemap.xml">sitemap</a>
+      <button type="button" class="linklike" data-term>:terminal</button>
+    </span>
   </div>
 </footer>
 
-<!-- Web Terminal -->
-<button id="web-term-toggle" class="web-term-toggle" title="Open Terminal">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-</button>
+<!-- Statusline kiểu vim/less: chế độ, đường dẫn, mục hiện tại, offset -->
+<div class="statusline" id="statusline" aria-hidden="true">
+  <span class="sl-mode" id="sl-mode">NORMAL</span>
+  <span class="sl-path">~/cheatsheet/</span>
+  <span class="sl-sec" id="sl-sec"></span>
+  <span class="sl-msg" id="sl-msg"></span>
+  <span class="sl-right"><span id="sl-off">0x0000</span><span id="sl-pct">top</span></span>
+</div>
 
+<!-- Bảng phím tắt -->
+<div class="help" id="help" hidden>
+  <div class="help-box" role="dialog" aria-modal="true" aria-labelledby="help-title">
+    <div class="help-head"><span id="help-title">KEYS(1)</span><span class="mute">kaiversus manual</span><button type="button" class="linklike" data-help-close>[q] đóng</button></div>
+    <div class="help-cols">
+      <dl>
+        <dt>j / k</dt><dd>xuống / lên</dd>
+        <dt>enter</dt><dd>mở bài đang chọn</dd>
+        <dt>/</dt><dd>grep: lọc theo tên, tag</dd>
+        <dt>1 – 7</dt><dd>lọc theo mục</dd>
+        <dt>esc</dt><dd>xoá lọc / đóng</dd>
+      </dl>
+      <dl>
+        <dt>] / [</dt><dd>mục kế / mục trước</dd>
+        <dt>g g / G</dt><dd>đầu / cuối trang</dd>
+        <dt>d / u</dt><dd>nửa trang xuống / lên</dd>
+        <dt>t</dt><dd>bật/tắt mục lục</dd>
+        <dt>y</dt><dd>copy link đoạn đang đọc</dd>
+        <dt>h</dt><dd>quay về danh sách</dd>
+        <dt>:</dt><dd>mở terminal</dd>
+      </dl>
+    </div>
+  </div>
+</div>
+
+<!-- Web terminal (mở bằng phím ":" hoặc link ở footer) -->
+<button id="web-term-toggle" class="web-term-toggle" hidden aria-hidden="true" tabindex="-1"></button>
 <div id="web-term-window" class="web-term-window" style="display: none;">
   <div class="web-term-header">
     <div class="web-term-title">kaiversus@blog: ~</div>
-    <button id="web-term-close">✖</button>
+    <button id="web-term-close" aria-label="Đóng terminal">✕</button>
   </div>
   <div class="web-term-body" id="web-term-body">
     <div class="web-term-output" id="web-term-output"></div>
     <div class="web-term-input-line">
        <span class="web-term-prompt" id="web-term-prompt-txt">kaiversus@blog:~$</span>
-       <input type="text" id="web-term-input" autocomplete="off" spellcheck="false" />
+       <input type="text" id="web-term-input" autocomplete="off" spellcheck="false" aria-label="Lệnh terminal">
     </div>
   </div>
 </div>
@@ -299,6 +177,34 @@ html.light .wu-tag-default  { color: #0050a0; border-color: #0050a0; }
           
           "detecting-debuggers-with-process-analysis-htb.txt": "Title: Detecting Debuggers with Process Analysis (HTB)\nDate: 2026-10-05\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_3/\n\nTrình bày một số kỹ thuật Process Analysis được sử dụng bởi Malware để phát hiện môi trường phân tích và cách bypass chúng.",
           
+          
+          
+          "detecting-debuggers-through-timing-discrepancies-htb.txt": "Title: Detecting Debuggers Through Timing Discrepancies (HTB)\nDate: 2026-10-06\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_4/\n\nTrình bày và giải thích khái niệm Timing Discrepancies được sử dụng bởi Malware để phát hiện môi trường phân tích và cách bypass chúng.",
+          
+          
+          
+          "detecting-breakpoints-htb.txt": "Title: Detecting Breakpoints (HTB)\nDate: 2026-10-06\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_5/\n\nTrình bày một số kỹ thuật Anti-Analysis bằng Breakpoint Detection để phát hiện môi trường phân tích và cách bypass chúng.",
+          
+          
+          
+          "system-fingerprinting-htb.txt": "Title: System Fingerprinting (HTB)\nDate: 2026-10-07\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_6/\n\nTrình bày một số kỹ thuật Anti-Analysis bằng System Fingerprinting để phát hiện môi trường phân tích và cách bypass chúng.",
+          
+          
+          
+          "system-level-indicators-htb.txt": "Title: System-Level Indicators (HTB)\nDate: 2026-10-07\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_7/\n\nTrình bày và giải thích khái niệm System-Level Indicators được sử dụng bởi Malware để phát hiện môi trường phân tích và cách bypass chúng.",
+          
+          
+          
+          "detecting-analysis-environments-with-user-behavior-htb.txt": "Title: Detecting Analysis Environments with User Behavior (HTB)\nDate: 2026-10-07\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_8/\n\nTrình bày và giải thích cách mà hành vi người dùng được sử dụng bởi Malware để phát hiện môi trường phân tích và cách bypass chúng.",
+          
+          
+          
+          "anti-anti-analysis-techniques-htb.txt": "Title: Anti-Anti-Analysis Techniques (HTB)\nDate: 2026-10-09\nURL: http://localhost:4000/courses/HackTheBox/malware-anti-analysis-techniques_9/\n\nTrình bày và giải thích khái niệm Anti-Anti-Analysis Techniques",
+          
+          
+          
+          "malware-development-introduction.txt": "Title: Malware Development Introduction\nDate: 2026-10-10\nURL: http://localhost:4000/courses/Malware%20Development%20for%20Ethical%20Hackers/chapter_1/\n\n",
+          
           "info.txt": "Use 'cat <filename>' to read."
         },
         'projects': {
@@ -317,21 +223,13 @@ html.light .wu-tag-default  { color: #0050a0; border-color: #0050a0; }
           
           "info.txt": "Use 'cat <filename>' to read."
         },
-        'cheatsheet': {
-          
-          "info.txt": "Quick references."
-        },
-        'reports': {
-          
-          "info.txt": "Vulnerability reports."
-        },
-        'focus.txt': 'Reverse Engineering · Binary Exploitation · Malware Analysis',
+        'focus.txt': 'Reverse Engineering · Malware Analysis · CTF',
         'README.txt': 'Welcome to my blog terminal. Type "kai --help" to see available commands.'
       }
     }
   };
 </script>
-<script src="/assets/js/cyber-bg.js?v=6"></script>
-<script src="/assets/js/web-term.js?v=4"></script>
+<script src="/assets/js/web-term.js?v=5" defer></script>
+<script src="/assets/js/keys.js?v=1" defer></script>
 </body>
 </html>

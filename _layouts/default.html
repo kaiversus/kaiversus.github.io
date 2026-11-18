@@ -1,65 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0c0b">
 {% seo %}
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Newsreader:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{{ "/assets/css/style.css?v=8" | relative_url }}">
-<link rel="stylesheet" href="{{ "/assets/css/web-term.css?v=2" | relative_url }}">
-<!-- Theme manager: loaded in <head> to apply saved theme before render (no flash) -->
-<script src="{{ "/assets/js/theme.js" | relative_url }}"></script>
+<link rel="icon" href="{{ '/assets/favicon.svg' | relative_url }}?v=2" type="image/svg+xml">
+<link rel="icon" href="{{ '/assets/favicon-32.png' | relative_url }}?v=2" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="{{ '/assets/apple-touch-icon.png' | relative_url }}?v=2">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ '/assets/css/style.css?v=20' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/css/web-term.css?v=3' | relative_url }}">
 </head>
-<body>
+<body data-page="{% if page.layout == 'post' or page.collection %}post{% elsif page.url == '/' %}home{% else %}page{% endif %}">
 
-<nav class="site-nav">
-  <a href="{{ "/" | relative_url }}" class="nav-logo">
-    <span class="nav-logo-user">kaiversus</span><span class="nav-logo-at">@</span><span class="nav-logo-host">blog</span><span class="nav-logo-sym">:~$</span>
-  </a>
-  <div class="nav-sep"></div>
-  <ul class="nav-links">
-    <li><a href="{{ "/" | relative_url }}"><span class="slash">~/</span>home</a></li>
-    <li><a href="{{ "/writeups/" | relative_url }}"><span class="slash">~/</span>writeups</a></li>
-    <li><a href="{{ "/projects/" | relative_url }}"><span class="slash">~/</span>projects</a></li>
-  </ul>
-  <div class="nav-right">
-    <span class="status-dot"></span>
-    <span class="status-text">online</span>
-    <button class="theme-toggle" id="theme-toggle" title="Toggle light/dark">☀</button>
+<a class="skip" href="#main">Bỏ qua điều hướng</a>
+
+<header class="site-head">
+  <div class="wrap site-head-in">
+    <a href="{{ '/' | relative_url }}" class="brand" aria-label="Trang chủ"><span class="b-user">kaiversus</span><span class="b-at">@</span><span class="b-host">blog</span><span class="b-sym">:~$</span></a>
+    {% assign path = page.url | split: '/' %}
+    {% assign sec = path[1] %}
+    <nav class="site-nav" aria-label="Chính">
+      {%- assign secs = 'writeups,courses,projects,cheatsheet,reports,blogs,about' | split: ',' -%}
+      {%- for s in secs -%}
+      <a href="{{ '/' | append: s | append: '/' | relative_url }}" {% if sec == s %}aria-current="page"{% endif %}><span class="slash">~/</span>{{ s }}</a>
+      {%- endfor -%}
+      <button class="key-hint" type="button" data-help aria-label="Phím tắt"><kbd>?</kbd></button>
+    </nav>
   </div>
-</nav>
+</header>
 
+<main id="main">
 {{ content }}
+</main>
 
-<footer>
-  <div class="footer-brand">
-    <strong>kaiversus</strong>
-    <span style="color:var(--text-faint)">—</span>
-    <span>Dinh Thien Bao · 52Hz</span>
-  </div>
-  <div class="footer-links">
-    <a href="#">GitHub</a>
-    <a href="#">CTFtime</a>
-    <a href="#">Twitter</a>
-    <a href="#">RSS</a>
+<footer class="site-foot">
+  <div class="wrap site-foot-in">
+    <span><b class="foot-brand">kaiversus</b> <span class="mute">—</span> malware development <span class="mute">· 52Hz</span></span>
+    <span class="foot-links">
+      <a href="https://github.com/kaiversus" rel="noopener">github</a>
+      <a href="{{ '/sitemap.xml' | relative_url }}">sitemap</a>
+      <button type="button" class="linklike" data-term>:terminal</button>
+    </span>
   </div>
 </footer>
 
-<!-- Web Terminal -->
-<button id="web-term-toggle" class="web-term-toggle" title="Open Terminal">
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
-</button>
+<!-- Statusline kiểu vim/less: chế độ, đường dẫn, mục hiện tại, offset -->
+<div class="statusline" id="statusline" aria-hidden="true">
+  <span class="sl-mode" id="sl-mode">NORMAL</span>
+  <span class="sl-path">~{{ page.url | default: '/' | replace: '.html', '' | url_decode | downcase | replace: ' ', '_' }}</span>
+  <span class="sl-sec" id="sl-sec"></span>
+  <span class="sl-msg" id="sl-msg"></span>
+  <span class="sl-right"><span id="sl-off">0x0000</span><span id="sl-pct">top</span></span>
+</div>
 
+<!-- Bảng phím tắt -->
+<div class="help" id="help" hidden>
+  <div class="help-box" role="dialog" aria-modal="true" aria-labelledby="help-title">
+    <div class="help-head"><span id="help-title">KEYS(1)</span><span class="mute">kaiversus manual</span><button type="button" class="linklike" data-help-close>[q] đóng</button></div>
+    <div class="help-cols">
+      <dl>
+        <dt>j / k</dt><dd>xuống / lên</dd>
+        <dt>enter</dt><dd>mở bài đang chọn</dd>
+        <dt>/</dt><dd>grep: lọc theo tên, tag</dd>
+        <dt>1 – 7</dt><dd>lọc theo mục</dd>
+        <dt>esc</dt><dd>xoá lọc / đóng</dd>
+      </dl>
+      <dl>
+        <dt>] / [</dt><dd>mục kế / mục trước</dd>
+        <dt>g g / G</dt><dd>đầu / cuối trang</dd>
+        <dt>d / u</dt><dd>nửa trang xuống / lên</dd>
+        <dt>t</dt><dd>bật/tắt mục lục</dd>
+        <dt>y</dt><dd>copy link đoạn đang đọc</dd>
+        <dt>h</dt><dd>quay về danh sách</dd>
+        <dt>:</dt><dd>mở terminal</dd>
+      </dl>
+    </div>
+  </div>
+</div>
+
+<!-- Web terminal (mở bằng phím ":" hoặc link ở footer) -->
+<button id="web-term-toggle" class="web-term-toggle" hidden aria-hidden="true" tabindex="-1"></button>
 <div id="web-term-window" class="web-term-window" style="display: none;">
   <div class="web-term-header">
     <div class="web-term-title">kaiversus@blog: ~</div>
-    <button id="web-term-close">✖</button>
+    <button id="web-term-close" aria-label="Đóng terminal">✕</button>
   </div>
   <div class="web-term-body" id="web-term-body">
     <div class="web-term-output" id="web-term-output"></div>
     <div class="web-term-input-line">
        <span class="web-term-prompt" id="web-term-prompt-txt">kaiversus@blog:~$</span>
-       <input type="text" id="web-term-input" autocomplete="off" spellcheck="false" />
+       <input type="text" id="web-term-input" autocomplete="off" spellcheck="false" aria-label="Lệnh terminal">
     </div>
   </div>
 </div>
@@ -69,7 +103,7 @@
     'home': {
       'kai': {
         'writeups': {
-          {% for post in site.writeups limit:10 %}
+          {% for post in site.writeups limit:20 %}
           {% assign fname = post.title | slugify | default: 'post' | append: '.txt' %}
           {% capture fcontent %}Title: {{ post.title }}
 Date: {{ post.date | date: '%Y-%m-%d' }}
@@ -81,7 +115,7 @@ URL: {{ site.url }}{{ post.url }}
           "info.txt": "Use 'cat <filename>' to read. Type 'ls' to list posts."
         },
         'courses': {
-          {% for post in site.courses limit:10 %}
+          {% for post in site.courses limit:30 %}
           {% assign fname = post.title | slugify | default: 'course' | append: '.txt' %}
           {% capture fcontent %}Title: {{ post.title }}
 Date: {{ post.date | date: '%Y-%m-%d' }}
@@ -104,7 +138,7 @@ URL: {{ site.url }}{{ project.url }}
           "repo.txt": "Check out github.com/kaiversus"
         },
         'blogs': {
-          {% for blog in site.blogs limit:10 %}
+          {% for blog in site.blogs limit:20 %}
           {% assign fname = blog.title | slugify | default: 'blog' | append: '.md' %}
           {% capture fcontent %}Title: {{ blog.title }}
 Date: {{ blog.date | date: '%Y-%m-%d' }}
@@ -115,31 +149,13 @@ URL: {{ site.url }}{{ blog.url }}
           {% endfor %}
           "info.txt": "Use 'cat <filename>' to read."
         },
-        'cheatsheet': {
-          {% for sheet in site.cheatsheet limit:10 %}
-          {% assign fname = sheet.title | slugify | default: 'cheatsheet' | append: '.md' %}
-          {% capture fcontent %}Title: {{ sheet.title }}
-URL: {{ site.url }}{{ sheet.url }}{% endcapture %}
-          {{ fname | jsonify }}: {{ fcontent | jsonify }},
-          {% endfor %}
-          "info.txt": "Quick references."
-        },
-        'reports': {
-          {% for report in site.reports limit:10 %}
-          {% assign fname = report.title | slugify | default: 'report' | append: '.md' %}
-          {% capture fcontent %}Title: {{ report.title }}
-URL: {{ site.url }}{{ report.url }}{% endcapture %}
-          {{ fname | jsonify }}: {{ fcontent | jsonify }},
-          {% endfor %}
-          "info.txt": "Vulnerability reports."
-        },
-        'focus.txt': 'Reverse Engineering · Binary Exploitation · Malware Analysis',
+        'focus.txt': 'Reverse Engineering · Malware Analysis · CTF',
         'README.txt': 'Welcome to my blog terminal. Type "kai --help" to see available commands.'
       }
     }
   };
 </script>
-<script src="{{ "/assets/js/cyber-bg.js?v=6" | relative_url }}"></script>
-<script src="{{ "/assets/js/web-term.js?v=4" | relative_url }}"></script>
+<script src="{{ '/assets/js/web-term.js?v=5' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/keys.js?v=1' | relative_url }}" defer></script>
 </body>
 </html>

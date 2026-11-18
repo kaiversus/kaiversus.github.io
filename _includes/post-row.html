@@ -1,0 +1,18 @@
+{%- comment -%}
+  Một dòng trong danh sách bài. Tham số: p (document), hide_kind (tuỳ chọn)
+{%- endcomment -%}
+{%- assign p = include.p -%}
+{%- capture kind -%}{% include kind.html c=p.collection %}{%- endcapture -%}
+{%- assign cats = p.category | split: ',' -%}
+<li class="row" data-kind="{{ kind }}" data-q="{{ p.title | downcase | escape }} {{ p.category | downcase | escape }} {{ p.subcategory | downcase | escape }} {{ kind }}">
+  <a class="row-link" href="{{ p.url | relative_url }}">
+    <span class="row-date">{%- if include.idx -%}{%- assign hx = '0123456789abcdef' | split: '' -%}{%- assign i = include.idx -%}{%- assign h1 = i | divided_by: 16 | modulo: 16 -%}{%- assign h0 = i | modulo: 16 -%}<span class="row-idx">0x{{ hx[h1] }}{{ hx[h0] }}</span>{%- endif -%}{% if p.date %}{{ p.date | date: '%Y-%m-%d' }}{% else %}----------{% endif %}</span>
+    <span class="row-title">{{ p.title }}</span>
+    <span class="row-meta">
+      {%- unless include.hide_kind %}<span class="row-kind k-{{ kind }}">{{ kind }}</span>{% endunless -%}
+      {%- for c in cats -%}{%- assign cc = c | strip -%}{%- if cc != '' -%}<span class="row-tag">{{ cc | downcase }}</span>{%- endif -%}{%- endfor -%}
+      {%- if p.subcategory and p.subcategory != '' -%}<span class="row-tag">{{ p.subcategory | downcase }}</span>{%- endif -%}
+      {%- if p.difficulty -%}<span class="row-diff d-{{ p.difficulty | downcase }}">{{ p.difficulty | downcase }}</span>{%- endif -%}
+    </span>
+  </a>
+</li>
